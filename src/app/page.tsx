@@ -179,7 +179,7 @@ export default function Home() {
       <main className="flex-grow">
         {/* ───── HERO ───────────────────────────────────────────────────── */}
         <section
-          className="relative overflow-hidden min-h-[680px] md:min-h-[min(82vh,48rem)] lg:min-h-[min(88vh,52rem)]"
+          className="relative isolate z-0 overflow-hidden min-h-[min(100svh,52rem)] md:min-h-[min(82vh,48rem)] lg:min-h-[min(88vh,52rem)]"
           aria-labelledby="hero-heading"
         >
           {/* Background */}
@@ -212,8 +212,8 @@ export default function Home() {
             <div className="absolute bottom-3 right-3 h-12 w-12 rounded-br-lg border-b border-r border-[#C5A059]/35 sm:bottom-6 sm:right-6 sm:h-16 sm:w-16 md:h-20 md:w-20" />
           </div>
 
-          {/* Content */}
-          <div className="section-container relative z-[2] flex min-h-[680px] flex-col justify-start pt-[14.5rem] pb-16 sm:pt-[15rem] sm:pb-20 md:min-h-[min(82vh,48rem)] md:justify-center md:pt-[13rem] md:pb-24 lg:min-h-[min(88vh,52rem)] lg:pt-[14rem] lg:pb-28">
+          {/* Content — large top padding below md: clears fixed ribbon + header + category pills (~260–300px) */}
+          <div className="section-container relative z-[2] flex min-h-[min(100svh,52rem)] flex-col justify-start pb-16 pt-[calc(17.5rem+env(safe-area-inset-top,0px))] sm:pb-20 sm:pt-[calc(18rem+env(safe-area-inset-top,0px))] md:min-h-[min(82vh,48rem)] md:justify-center md:pb-24 md:pt-[13rem] lg:min-h-[min(88vh,52rem)] lg:pb-28 lg:pt-[14rem]">
             <div className="w-full max-w-[28rem] sm:max-w-[32rem] lg:max-w-[34rem]">
               {/* Eyebrow with ornament */}
               <div className="mb-5 flex items-center gap-2.5">
