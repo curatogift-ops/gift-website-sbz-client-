@@ -276,42 +276,42 @@ export default function Home() {
           </svg>
         </a>
 
-        {/* ───── TRUST STRIP ────────────────────────────────────────────── */}
+        {/* ───── TRUST / USP STRIP ─────────────────────────────────────── */}
         <section className="relative bg-white" aria-label="Why choose Giftz Gallerei">
-          <div className="section-container -mt-6 pb-10 md:-mt-10 md:pb-14 lg:-mt-12 lg:pb-16">
-            {/* Mobile rounded card with 5 items */}
+          <div className="section-container -mt-4 pb-6 pt-2 md:-mt-10 md:pb-14 md:pt-0 lg:-mt-12 lg:pb-16">
+            {/* Mobile — premium grid of mini-cards (no shared outer border / no inner dividers) */}
             <div className="md:hidden">
-              <div className="overflow-hidden rounded-2xl border border-[#EDE6DE] bg-white shadow-[0_10px_36px_-14px_rgba(74,16,32,0.14),0_2px_10px_-4px_rgba(0,0,0,0.06)]">
-                <div className="no-scrollbar flex w-full overflow-x-auto overscroll-x-contain">
-                  {TRUST_FEATURES.slice(0, 5).map((item, idx) => {
+              <div className="rounded-2xl bg-gradient-to-b from-[#FAF7F4] to-[#F4EFEA] p-2.5 shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_8px_28px_-16px_rgba(74,16,32,0.12)] ring-1 ring-[#E6DDD4]/90">
+                <ul className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                  {TRUST_FEATURES.map((item) => {
                     const Icon = item.Icon;
                     return (
-                      <div
+                      <li
                         key={item.title}
-                        className={`flex min-w-[4.85rem] max-w-[6.25rem] flex-1 flex-col items-center gap-2 px-1.5 py-4 sm:min-w-0 sm:max-w-none sm:px-2 ${
-                          idx > 0 ? "border-l border-[#EDE6DE]" : ""
-                        }`}
+                        className="flex min-h-[6.25rem] min-[380px]:min-h-[6.5rem] flex-col items-center justify-center gap-2 rounded-xl bg-white/95 px-2 py-3.5 text-center shadow-sm ring-1 ring-[#1A1010]/[0.06] min-[380px]:gap-2.5 min-[380px]:px-3 min-[380px]:py-4"
                       >
-                        <Icon className="h-[18px] w-[18px] shrink-0 text-[#B8924F] sm:h-5 sm:w-5" strokeWidth={1.65} aria-hidden />
-                        <p className="text-center text-[8.5px] font-bold leading-[1.2] tracking-tight text-[#1A1010] min-[360px]:text-[9px] sm:text-[10px]">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F7F2EC] text-[#A67C37] ring-1 ring-[#C5A059]/20 min-[380px]:h-10 min-[380px]:w-10">
+                          <Icon className="h-[18px] w-[18px] min-[380px]:h-5 min-[380px]:w-5" strokeWidth={1.65} aria-hidden />
+                        </div>
+                        <p className="max-w-[9.5rem] text-[10px] font-semibold leading-snug tracking-tight text-[#1A1010] min-[360px]:text-[11px] min-[380px]:leading-tight">
                           <span className="block">{item.mobileLines[0]}</span>
-                          <span className="block">{item.mobileLines[1]}</span>
+                          <span className="block text-[#5c5652]">{item.mobileLines[1]}</span>
                         </p>
-                      </div>
+                      </li>
                     );
                   })}
-                </div>
+                </ul>
               </div>
             </div>
 
             {/* Tablet+ — six column grid with gold rings */}
-            <div className="relative hidden rounded-2xl border border-[#EDE6DE] bg-white p-6 shadow-[0_10px_36px_-18px_rgba(74,16,32,0.12)] md:block md:p-8 lg:p-10">
+            <div className="relative hidden rounded-2xl border border-[#EDE6DE]/90 bg-white p-6 shadow-[0_10px_36px_-18px_rgba(74,16,32,0.1)] md:block md:p-8 lg:p-10">
               <div className="grid grid-cols-3 gap-y-8 lg:grid-cols-6 lg:gap-x-6">
                 {TRUST_FEATURES.map((item) => {
                   const Icon = item.Icon;
                   return (
                     <div key={item.title} className="flex flex-col items-center px-2 text-center">
-                      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-[#C5A059]/45 text-[#B8924F]">
+                      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-[#C5A059]/35 text-[#B8924F] bg-[#FAF8F5]/80">
                         <Icon className="h-5 w-5" strokeWidth={1.65} aria-hidden />
                       </div>
                       <h3 className="font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-[#1A1010]">{item.title}</h3>
@@ -325,7 +325,7 @@ export default function Home() {
         </section>
 
         {/* ───── SHOP BY CATEGORY ───────────────────────────────────────── */}
-        <section className="section-pad bg-[#FFFBF8]" aria-labelledby="shop-by-category-heading">
+        <section className="bg-[#FFFBF8] pb-12 pt-8 sm:pb-14 sm:pt-10 md:pb-20 md:pt-20 lg:pb-24 lg:pt-24" aria-labelledby="shop-by-category-heading">
           <div className="section-container">
             <div className="mx-auto max-w-2xl text-center">
               <p className="eyebrow">— Shop by category —</p>
