@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, ShoppingBag, Star } from 'lucide-react';
-import { cn } from '@/utils/cn';
 
 interface ProductCardProps {
   product: {
@@ -31,11 +30,19 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           {/* Quick Actions */}
           <div className="absolute bottom-4 left-4 right-4 translate-y-12 group-hover:translate-y-0 transition-transform duration-300 flex gap-2">
-            <button className="flex-grow primary-gradient text-white py-3 rounded-xl text-xs font-bold shadow-lg flex items-center justify-center gap-2">
-              <ShoppingBag size={14} /> ADD TO CART
+            <button
+              type="button"
+              className="flex-grow primary-gradient text-white py-3 rounded-xl text-xs font-bold shadow-lg flex items-center justify-center gap-2.5 ring-1 ring-white/15"
+            >
+              <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={2.35} strokeLinecap="round" strokeLinejoin="round" aria-hidden />
+              ADD TO CART
             </button>
-            <button className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-xl flex items-center justify-center text-foreground hover:text-primary transition-colors">
-              <Heart size={18} />
+            <button
+              type="button"
+              className="w-12 h-12 bg-white/95 backdrop-blur-md rounded-xl flex items-center justify-center text-foreground border border-black/[0.06] shadow-md hover:text-[#6B1E30] hover:border-[#C9A96E]/45 transition-colors"
+              aria-label="Add to wishlist"
+            >
+              <Heart className="h-[19px] w-[19px]" strokeWidth={2.35} strokeLinecap="round" strokeLinejoin="round" />
             </button>
           </div>
 
@@ -58,13 +65,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
         
         <Link href={`/shop/${product.slug}`} className="block">
-          <h3 className="font-bold text-base text-foreground leading-tight group-hover:text-primary transition-colors line-clamp-1">
+          <h3 className="font-serif font-semibold text-base text-foreground leading-tight group-hover:text-primary transition-colors line-clamp-1">
             {product.name}
           </h3>
         </Link>
         
         <div className="flex items-baseline gap-2">
-          <span className="font-black text-xl text-foreground">₹{parseFloat(product.price).toLocaleString()}</span>
+          <span className="font-sans font-semibold text-xl text-foreground">₹{parseFloat(product.price).toLocaleString()}</span>
           {product.compare_price && (
             <span className="text-muted text-sm line-through">₹{parseFloat(product.compare_price).toLocaleString()}</span>
           )}

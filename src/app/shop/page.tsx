@@ -22,7 +22,7 @@ export default function ShopPage() {
     <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
       
-      <main className="flex-grow pt-32 pb-24 px-6">
+      <main className="flex-grow pb-24 px-6 pt-[12rem] md:pt-[10.5rem]">
         <div className="container mx-auto">
           {/* Header */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16 py-12 border-b border-border/50">

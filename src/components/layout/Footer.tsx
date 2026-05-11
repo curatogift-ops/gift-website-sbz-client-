@@ -1,131 +1,213 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 
-// Mock Social Icons (Lucide removed brand icons)
-const Instagram = ({ size = 20 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+const LOGO_SRC = '/images/gift-gallerei (transparent-background).png';
+
+const Instagram = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
 );
 
-const Facebook = ({ size = 20 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+const Facebook = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
 );
 
-const Twitter = ({ size = 20 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+const Twitter = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+  </svg>
 );
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-slate-950 border-t border-border pt-24 pb-12 px-6">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
-          {/* Brand Column */}
-          <div className="space-y-8">
-            <div className="relative block w-48 h-16">
-              <Image 
-                src="/images/gift-gallerei (transparent-background).png" 
-                alt="Giftz Gallerei Logo" 
+    <footer className="relative z-0 overflow-visible border-t border-white/10 bg-[#4A1020] pb-10 pt-14 text-[#F2EDE8] md:pb-12 md:pt-16">
+      <div className="section-container">
+        {/* Top — brand, links, newsletter */}
+        <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 md:grid-cols-2 md:gap-x-12 md:gap-y-10 lg:grid-cols-12 lg:pb-14">
+          <div className="space-y-5 lg:col-span-4">
+            <div className="relative h-12 w-52 sm:h-14 sm:w-60">
+              <Image
+                src={LOGO_SRC}
+                alt="Giftz Gallerei"
                 fill
-                className="object-contain"
+                className="object-contain object-left"
+                sizes="(max-width:768px) 208px, 240px"
               />
             </div>
-            <p className="text-[#4A4A4A] dark:text-slate-400 font-medium leading-relaxed">
-              We specialize in creating bespoke luxury hampers that leave a lasting impression. From corporate events to personal celebrations, we deliver joy.
+            <p className="max-w-sm text-sm leading-relaxed text-[#F2EDE8]/75">
+              Curating luxury hampers with a personal touch. Elevating the art of gifting across India with handcrafted
+              excellence.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all">
-                <Instagram size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all">
-                <Facebook size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all">
-                <Twitter size={18} />
-              </a>
+            <div className="flex flex-wrap gap-3 pt-1">
+              {[
+                { Icon: Instagram, label: 'Instagram' },
+                { Icon: Facebook, label: 'Facebook' },
+                { Icon: Twitter, label: 'Twitter' },
+              ].map(({ Icon, label }, idx) => (
+                <Link
+                  key={idx}
+                  href="#"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-[#F2EDE8]/90 transition hover:border-[#C9A96E]/80 hover:bg-white/5 hover:text-[#E8CF9A]"
+                  aria-label={label}
+                >
+                  <Icon size={18} />
+                </Link>
+              ))}
             </div>
           </div>
 
-          {/* Shop Column */}
-          <div>
-            <h4 className="text-xl font-black uppercase tracking-tight mb-8">Shop Hampers</h4>
-            <ul className="space-y-4 text-sm font-bold text-[#4A4A4A] dark:text-slate-400">
-              <li><Link href="/shop" className="hover:text-primary transition-all flex items-center gap-2">All Products <ArrowUpRight size={14} /></Link></li>
-              <li><Link href="/shop?category=wedding" className="hover:text-primary transition-all flex items-center gap-2">Wedding Collection <ArrowUpRight size={14} /></Link></li>
-              <li><Link href="/shop?category=corporate" className="hover:text-primary transition-all flex items-center gap-2">Corporate Gifting <ArrowUpRight size={14} /></Link></li>
-              <li><Link href="/shop?category=birthday" className="hover:text-primary transition-all flex items-center gap-2">Birthday Hampers <ArrowUpRight size={14} /></Link></li>
-              <li><Link href="/hamper-builder" className="hover:text-primary transition-all flex items-center gap-2 text-accent">Build Your Own <ArrowUpRight size={14} /></Link></li>
-            </ul>
+          <div className="grid grid-cols-2 gap-8 sm:gap-10 md:col-span-2 lg:col-span-5">
+            <div>
+              <h4 className="mb-4 text-[11px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Shop hampers</h4>
+              <ul className="space-y-3 text-[14px] font-medium text-[#F2EDE8]/80">
+                <li>
+                  <Link href="/shop" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                    All products <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shop?category=wedding" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                    Wedding collection <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shop?category=corporate" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                    Corporate gifting <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shop?category=birthday" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                    Birthday hampers <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/hamper-builder" className="inline-flex items-center gap-1.5 text-[#E8CF9A]/95 transition hover:text-[#f5e6bc]">
+                    Build your own <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="mb-4 text-[11px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Support</h4>
+              <ul className="space-y-3 text-[14px] font-medium text-[#F2EDE8]/80">
+                <li>
+                  <Link href="/track-order" className="transition hover:text-[#E8CF9A]">
+                    Track your order
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shipping" className="transition hover:text-[#E8CF9A]">
+                    Shipping &amp; delivery
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/returns" className="transition hover:text-[#E8CF9A]">
+                    Returns policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/faq" className="transition hover:text-[#E8CF9A]">
+                    FAQs
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="transition hover:text-[#E8CF9A]">
+                    Contact support
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          {/* Support Column */}
-          <div>
-            <h4 className="text-xl font-black uppercase tracking-tight mb-8">Support</h4>
-            <ul className="space-y-4 text-sm font-bold text-[#4A4A4A] dark:text-slate-400">
-              <li><Link href="/track-order" className="hover:text-primary transition-all">Track Your Order</Link></li>
-              <li><Link href="/shipping" className="hover:text-primary transition-all">Shipping & Delivery</Link></li>
-              <li><Link href="/returns" className="hover:text-primary transition-all">Returns Policy</Link></li>
-              <li><Link href="/faq" className="hover:text-primary transition-all">FAQs</Link></li>
-              <li><Link href="/contact" className="hover:text-primary transition-all">Contact Support</Link></li>
-            </ul>
-          </div>
-
-          {/* Newsletter Column */}
-          <div className="space-y-8">
-            <h4 className="text-xl font-black uppercase tracking-tight">Stay Inspired</h4>
-            <p className="text-sm font-medium text-[#4A4A4A] dark:text-slate-400">
-              Join 5,000+ subscribers and get early access to new collections and gifting tips.
+          <div className="space-y-4 md:col-span-2 lg:col-span-3">
+            <h4 className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Stay inspired</h4>
+            <p className="text-[14px] leading-relaxed text-[#F2EDE8]/70">
+              Join our list for gifting ideas and new collections — no spam, unsubscribe anytime.
             </p>
-            <div className="flex flex-col gap-3">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="bg-muted border-none rounded-xl px-6 py-4 text-sm focus:ring-2 focus:ring-primary outline-none transition-all"
+            <form className="flex flex-col gap-2.5 sm:flex-row sm:items-stretch" onSubmit={(e) => e.preventDefault()}>
+              <label htmlFor="footer-email" className="sr-only">
+                Email address
+              </label>
+              <input
+                id="footer-email"
+                name="email"
+                type="email"
+                placeholder="Your email address"
+                autoComplete="email"
+                className="min-h-[2.75rem] w-full flex-1 rounded-xl border border-white/15 bg-white/[0.07] px-4 py-2.5 text-sm text-[#F2EDE8] outline-none ring-0 placeholder:text-[#F2EDE8]/45 transition focus:border-[#C9A96E]/60 focus:bg-white/[0.1] focus:ring-2 focus:ring-[#C9A96E]/35"
               />
-              <button className="btn-primary w-full py-4 text-xs font-bold uppercase tracking-widest shadow-lg">SUBSCRIBE</button>
+              <button
+                type="submit"
+                className="min-h-[2.75rem] shrink-0 rounded-xl bg-[#C9A96E] px-6 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-[#3a0d14] shadow-md transition hover:bg-[#dfc48a] active:scale-[0.98] sm:px-7"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Contact row */}
+        <div className="grid grid-cols-1 gap-8 border-b border-white/10 py-10 sm:grid-cols-3 sm:gap-6 md:py-9">
+          <div className="flex gap-4 sm:items-start">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#C9A96E]/45 bg-[#C9A96E]/12 text-[#E8CF9A]">
+              <MapPin className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+            </div>
+            <div className="min-w-0 pt-0.5">
+              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Visit us</p>
+              <p className="mt-1 text-sm font-medium leading-snug text-[#F2EDE8]">Bangalore, Karnataka, India</p>
+            </div>
+          </div>
+          <div className="flex gap-4 sm:items-start">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#C9A96E]/45 bg-[#C9A96E]/12 text-[#E8CF9A]">
+              <Phone className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+            </div>
+            <div className="min-w-0 pt-0.5">
+              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Call us</p>
+              <a href="tel:+919876543210" className="mt-1 block text-sm font-medium text-[#F2EDE8] transition hover:text-[#E8CF9A]">
+                +91 98765 43210
+              </a>
+            </div>
+          </div>
+          <div className="flex gap-4 sm:items-start">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#C9A96E]/45 bg-[#C9A96E]/12 text-[#E8CF9A]">
+              <Mail className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+            </div>
+            <div className="min-w-0 pt-0.5">
+              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Email us</p>
+              <a
+                href="mailto:hello@giftzgallerei.com"
+                className="mt-1 block break-all text-sm font-medium text-[#F2EDE8] transition hover:text-[#E8CF9A]"
+              >
+                hello@giftzgallerei.com
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Contact Info Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-10 border-y border-border mb-10">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-primary">
-              <MapPin size={24} />
-            </div>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Visit Us</p>
-              <p className="font-bold">Indiranagar, Bangalore, India</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-primary">
-              <Phone size={24} />
-            </div>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Call Us</p>
-              <p className="font-bold">+91 9886491500</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-primary">
-              <Mail size={24} />
-            </div>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Email Us</p>
-              <p className="font-bold">hello@giftzgallerei.com</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground">
-          <p>© 2026 Giftz Gallerei. Crafting Memories, One Box at a Time.</p>
-          <div className="flex gap-8">
-            <Link href="/privacy" className="hover:text-primary transition-all">Privacy</Link>
-            <Link href="/terms" className="hover:text-primary transition-all">Terms</Link>
-            <Link href="/sitemap" className="hover:text-primary transition-all">Sitemap</Link>
-          </div>
+        {/* Legal */}
+        <div className="flex flex-col items-center justify-between gap-6 pt-8 text-center md:flex-row md:gap-4 md:text-left">
+          <p className="max-w-xl font-sans text-[10px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-[#F2EDE8]/45 sm:text-[11px] sm:tracking-[0.16em]">
+            © {new Date().getFullYear()} Giftz Gallerei. Crafting memories, one box at a time.
+          </p>
+          <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-[#F2EDE8]/55">
+            <Link href="/privacy" className="transition hover:text-[#E8CF9A]">
+              Privacy
+            </Link>
+            <Link href="/terms" className="transition hover:text-[#E8CF9A]">
+              Terms
+            </Link>
+            <Link href="/sitemap" className="transition hover:text-[#E8CF9A]">
+              Sitemap
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

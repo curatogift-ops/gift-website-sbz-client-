@@ -1,473 +1,506 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
+import HowItWorksSection from "@/components/home/HowItWorksSection";
+import ClientsAndTestimonialsSection from "@/components/home/ClientsAndTestimonialsSection";
+import FestiveCollectionSection from "@/components/home/FestiveCollectionSection";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Gift, Sparkles, Truck, Heart, Star, ChevronRight, CheckCircle } from "lucide-react";
-import { cn } from "@/utils/cn";
+import type { LucideIcon } from "lucide-react";
+import {
+  Gift,
+  Truck,
+  Diamond,
+  Tag,
+  Users,
+  ShieldCheck,
+  Leaf,
+  ArrowRight,
+  Building2,
+  Calendar,
+  Plus,
+} from "lucide-react";
+
+const WA = "919876543210";
+
+/* Inline Instagram icon (lucide-react in this project doesn't export Instagram) */
+const InstagramIcon = ({
+  className = "",
+  strokeWidth = 1.75,
+}: {
+  className?: string;
+  strokeWidth?: number;
+}) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden
+  >
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
+
+/* ─── Trust strip data ─── */
+const TRUST_FEATURES = [
+  { title: "Premium quality", desc: "Finest & handpicked gifts.", Icon: Diamond, mobileLines: ["Premium", "Quality"] as const },
+  { title: "Custom branding", desc: "Add your logo & personal touch.", Icon: Tag, mobileLines: ["Custom", "Branding"] as const },
+  { title: "Pan India delivery", desc: "On-time, every time.", Icon: Truck, mobileLines: ["Pan India", "Delivery"] as const },
+  { title: "Bulk order support", desc: "Dedicated corporate assistance.", Icon: Users, mobileLines: ["Bulk order", "Support"] as const },
+  { title: "Secure packaging", desc: "Safe & elegant packaging.", Icon: ShieldCheck, mobileLines: ["Secure", "Packaging"] as const },
+  { title: "Sustainable choices", desc: "Eco-friendly gifting options.", Icon: Leaf, mobileLines: ["Sustainable", "Choices"] as const },
+] as const;
+
+/* ─── Shop by category data ─── */
+type ShopCategory = {
+  title: string;
+  description: string;
+  href: string;
+  bgClass: string;
+  iconWrapClass: string;
+  ctaButtonClass: string;
+  Icon: LucideIcon;
+  image: string;
+  imageAlt: string;
+};
+
+const SHOP_BY_CATEGORY: ShopCategory[] = [
+  {
+    title: "Corporate Gifts",
+    description: "Boardroom-ready hampers and branded keepsakes for teams and clients.",
+    href: "/corporate",
+    bgClass: "bg-[#FFF4EC]",
+    iconWrapClass: "bg-[#5D1016] text-white",
+    ctaButtonClass: "bg-[#5D1016] text-white hover:bg-[#4A0E1C]",
+    Icon: Building2,
+    image: "https://images.unsplash.com/photo-1549463574-04d2c2b46ac?auto=format&fit=crop&q=80&w=600",
+    imageAlt: "Corporate gift box with notebook and bottle",
+  },
+  {
+    title: "Festive Hampers",
+    description: "Seasonal sweets, décor, and celebratory touches for every festival.",
+    href: "/shop?cat=festive",
+    bgClass: "bg-[#FFEDD5]",
+    iconWrapClass: "bg-[#C2410C] text-white",
+    ctaButtonClass: "bg-[#C2410C] text-white hover:bg-[#9a3412]",
+    Icon: Gift,
+    image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=600",
+    imageAlt: "Festive hamper with treats and gifts",
+  },
+  {
+    title: "Employee Kits",
+    description: "Welcome kits and milestone packs your people will actually use.",
+    href: "/shop?cat=employee",
+    bgClass: "bg-[#ECFDF3]",
+    iconWrapClass: "bg-[#14532d] text-white",
+    ctaButtonClass: "bg-[#166534] text-white hover:bg-[#14532d]",
+    Icon: Users,
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600",
+    imageAlt: "Team onboarding kit and supplies",
+  },
+  {
+    title: "Luxury Boxes",
+    description: "Elevated finishes, premium products, and unforgettable unboxing.",
+    href: "/shop?cat=luxury",
+    bgClass: "bg-[#F3E8FF]",
+    iconWrapClass: "bg-[#6b21a8] text-white",
+    ctaButtonClass: "bg-[#5b21b6] text-white hover:bg-[#4c1d95]",
+    Icon: Diamond,
+    image: "https://images.unsplash.com/photo-1512496015851-a90fb38f7968?auto=format&fit=crop&q=80&w=600",
+    imageAlt: "Luxury gift box with perfumes and candles",
+  },
+  {
+    title: "Eco-Friendly Gifts",
+    description: "Thoughtful gifting with sustainable materials and mindful packaging.",
+    href: "/shop?cat=eco",
+    bgClass: "bg-[#F0F5EC]",
+    iconWrapClass: "bg-[#3f6212] text-white",
+    ctaButtonClass: "bg-[#4d7c0f] text-white hover:bg-[#3f6212]",
+    Icon: Leaf,
+    image: "https://images.unsplash.com/photo-1610552050899-df6c5848284a?auto=format&fit=crop&q=80&w=600",
+    imageAlt: "Eco-friendly reusable gifts and plants",
+  },
+  {
+    title: "Event Gifting",
+    description: "Conferences, launches, and milestones — tailored kits at every scale.",
+    href: "/shop?cat=event",
+    bgClass: "bg-[#EFF6FF]",
+    iconWrapClass: "bg-[#1e3a8a] text-white",
+    ctaButtonClass: "bg-[#1e3a8a] text-white hover:bg-[#172554]",
+    Icon: Calendar,
+    image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=600",
+    imageAlt: "Event and conference gift materials",
+  },
+];
+
+/* ─── Instagram tiles ─── */
+const INSTAGRAM_TILES = [
+  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=600",
+  "https://images.unsplash.com/photo-1544787210-2211d64b5d2b?auto=format&fit=crop&q=80&w=600",
+  "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=600",
+  "https://images.unsplash.com/photo-1548598141-efd3979912a1?auto=format&fit=crop&q=80&w=600",
+  "https://images.unsplash.com/photo-1544717305-996b815c338c?auto=format&fit=crop&q=80&w=600",
+  "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80&w=600",
+  "https://images.unsplash.com/photo-1518131348421-4f11467406a0?auto=format&fit=crop&q=80&w=600",
+  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=600",
+];
+
+/* ─── FAQ data ─── */
+const FAQS = [
+  {
+    q: "How long does delivery take?",
+    a: "Most orders ship within 24–48 hours of confirmation and arrive across India within 3–5 business days. Bulk corporate orders are scheduled with your team for a chosen delivery window.",
+  },
+  {
+    q: "Can I customize the hamper contents?",
+    a: "Yes. Use our hamper builder for self-serve customisation, or talk to our concierge for fully bespoke curation, branded packaging, and personal notes.",
+  },
+  {
+    q: "Do you offer bulk discounts for corporate orders?",
+    a: "Absolutely — pricing tiers begin at 25+ units, with dedicated account support, branded sleeves, and consolidated invoicing for finance teams.",
+  },
+  {
+    q: "What are the payment options?",
+    a: "We accept all major credit and debit cards, UPI, net banking, and bank transfer for corporate purchase orders.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-white selection:bg-primary/20">
+    <div className="flex min-h-screen flex-col bg-white selection:bg-[#6B1E30]/20">
       <Navbar />
-      
-      <main className="flex-grow pt-[140px] md:pt-[160px]">
-        {/* Boxup-Style Hero Section */}
-        <section className="relative min-h-[70vh] md:h-[85vh] flex items-center overflow-hidden bg-[#F9F9F9] py-12 md:py-0">
-          <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 items-center gap-12 h-full">
-            {/* Left Image Area */}
-            <div className="relative h-[300px] md:h-[500px] w-full order-2 md:order-1">
-              <Image 
-                src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80"
-                alt="Premium Gift Hamper"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
 
-            {/* Right Content Area */}
-            <div className="text-center md:text-left space-y-8 order-1 md:order-2">
-              <div className="space-y-4">
-                <p className="text-[#1B3022] font-black uppercase tracking-[0.3em] text-xs">Give a Gift That Counts...</p>
-                <h1 className="text-4xl md:text-7xl font-serif italic text-[#1B3022] leading-[1.1]">
-                  A hamper for every <br />
-                  <span className="font-sans not-italic font-black uppercase tracking-tighter block mt-2">Occasion & Mood!</span>
-                </h1>
+      <main className="flex-grow">
+        {/* ───── HERO ───────────────────────────────────────────────────── */}
+        <section
+          className="relative overflow-hidden min-h-[680px] md:min-h-[min(82vh,48rem)] lg:min-h-[min(88vh,52rem)]"
+          aria-labelledby="hero-heading"
+        >
+          {/* Background */}
+          <div className="absolute inset-0 bg-[#1b3022]" aria-hidden />
+          <Image
+            src="/hero-new.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[55%_55%] md:object-[58%_56%] lg:object-[60%_55%]"
+          />
+          {/* Left-fade gradient */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            aria-hidden
+            style={{
+              background:
+                "linear-gradient(to right, rgba(27,48,34,0.96) 0%, rgba(27,48,34,0.86) 30%, rgba(27,48,34,0.55) 55%, rgba(27,48,34,0.1) 78%, transparent 100%)",
+            }}
+          />
+          {/* Top fade so nav reads */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#1b3022]/55 to-transparent" aria-hidden />
+
+          {/* Gold corner brackets — subtle */}
+          <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
+            <div className="absolute left-3 top-3 h-12 w-12 rounded-tl-lg border-l border-t border-[#C5A059]/45 sm:left-6 sm:top-6 sm:h-16 sm:w-16 md:h-20 md:w-20" />
+            <div className="absolute right-3 top-3 h-12 w-12 rounded-tr-lg border-r border-t border-[#C5A059]/45 sm:right-6 sm:top-6 sm:h-16 sm:w-16 md:h-20 md:w-20" />
+            <div className="absolute bottom-3 left-3 h-12 w-12 rounded-bl-lg border-b border-l border-[#C5A059]/35 sm:bottom-6 sm:left-6 sm:h-16 sm:w-16 md:h-20 md:w-20" />
+            <div className="absolute bottom-3 right-3 h-12 w-12 rounded-br-lg border-b border-r border-[#C5A059]/35 sm:bottom-6 sm:right-6 sm:h-16 sm:w-16 md:h-20 md:w-20" />
+          </div>
+
+          {/* Content */}
+          <div className="section-container relative z-[2] flex min-h-[680px] flex-col justify-start pt-[14.5rem] pb-16 sm:pt-[15rem] sm:pb-20 md:min-h-[min(82vh,48rem)] md:justify-center md:pt-[13rem] md:pb-24 lg:min-h-[min(88vh,52rem)] lg:pt-[14rem] lg:pb-28">
+            <div className="w-full max-w-[28rem] sm:max-w-[32rem] lg:max-w-[34rem]">
+              {/* Eyebrow with ornament */}
+              <div className="mb-5 flex items-center gap-2.5">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="#C5A059" aria-hidden>
+                  <polygon points="7,0 8.5,5.5 14,7 8.5,8.5 7,14 5.5,8.5 0,7 5.5,5.5" />
+                </svg>
+                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.28em] text-[#C5A059] sm:text-[11px] sm:tracking-[0.32em]">
+                  Thoughtful · Premium · Memorable
+                </p>
               </div>
-              
-              <div className="pt-4">
-                <Link href="/shop" className="inline-flex items-center gap-3 bg-[#1B3022] text-white px-10 py-5 rounded-lg text-lg font-bold hover:bg-black transition-all group shadow-xl">
-                  Discover Now <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+
+              <h1
+                id="hero-heading"
+                className="font-serif text-[clamp(2.25rem,7vw,4rem)] font-bold leading-[1.05] tracking-[-0.02em] text-white"
+              >
+                Premium Gifting
+                <br />
+                <span className="text-[#C5A059]">Experiences</span>
+              </h1>
+
+              <p className="font-accent mt-4 text-[clamp(1.05rem,3vw,1.5rem)] italic font-medium leading-snug text-white/95">
+                for Clients, Teams &amp; Celebrations
+              </p>
+
+              <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/80 sm:text-base">
+                Curated corporate hampers and festive gifts crafted to leave lasting impressions.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
+                <Link href="/shop" className="btn-pill btn-pill-maroon">
+                  Explore collection
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} aria-hidden />
                 </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Background Decorative Element */}
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-white/50 to-transparent pointer-events-none" />
-        </section>
-
-        {/* Info Bar Section */}
-        <section className="bg-[#B08968] text-white py-5 overflow-hidden relative z-20">
-          <div className="container mx-auto px-6">
-            <div className="flex flex-wrap justify-between items-center gap-8 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
-              <div className="flex items-center gap-3">
-                <Truck size={16} /> 24 - 48 hours delivery available
-              </div>
-              <div className="flex items-center gap-3">
-                <Star size={16} /> Flat 10% Off sitewide
-              </div>
-              <div className="flex items-center gap-3">
-                <Gift size={16} /> Customize your Gifts
-              </div>
-              <div className="hidden lg:flex items-center gap-3">
-                <CheckCircle size={16} /> Premium Quality Guaranteed
+                <a
+                  href={`https://wa.me/${WA}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-pill btn-pill-ghost-light"
+                >
+                  <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                  </svg>
+                  Bulk enquiry
+                </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Perfect Picks Section */}
-        <section className="py-24 bg-[#FCF9F6] relative overflow-hidden">
-          {/* Botanical Background SVGs */}
-          <div className="absolute top-10 left-10 opacity-10 pointer-events-none">
-            <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M40 160C40 160 60 100 100 80C140 60 160 40 160 40M40 160C40 160 100 140 120 100C140 60 160 40 160 40" stroke="#B08968" strokeWidth="1" />
-              <circle cx="160" cy="40" r="5" fill="#B08968" />
-            </svg>
-          </div>
-          <div className="absolute bottom-10 right-10 opacity-10 pointer-events-none rotate-180">
-            <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M40 160C40 160 60 100 100 80C140 60 160 40 160 40M40 160C40 160 100 140 120 100C140 60 160 40 160 40" stroke="#B08968" strokeWidth="1" />
-              <circle cx="160" cy="40" r="5" fill="#B08968" />
-            </svg>
-          </div>
+        {/* WhatsApp floating button — mobile hidden so it doesn't clash with hero CTA */}
+        <a
+          href={`https://wa.me/${WA}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-4 z-[70] hidden h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl ring-4 ring-white/25 transition-transform hover:scale-110 md:flex md:bottom-8 md:right-8"
+          aria-label="Contact us on WhatsApp"
+        >
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+          </svg>
+        </a>
 
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-serif italic text-[#B08968] tracking-tight">Perfect Picks for Every Relationship</h2>
+        {/* ───── TRUST STRIP ────────────────────────────────────────────── */}
+        <section className="relative bg-white" aria-label="Why choose Giftz Gallerei">
+          <div className="section-container -mt-6 pb-10 md:-mt-10 md:pb-14 lg:-mt-12 lg:pb-16">
+            {/* Mobile rounded card with 5 items */}
+            <div className="md:hidden">
+              <div className="overflow-hidden rounded-2xl border border-[#EDE6DE] bg-white shadow-[0_10px_36px_-14px_rgba(74,16,32,0.14),0_2px_10px_-4px_rgba(0,0,0,0.06)]">
+                <div className="no-scrollbar flex w-full overflow-x-auto overscroll-x-contain">
+                  {TRUST_FEATURES.slice(0, 5).map((item, idx) => {
+                    const Icon = item.Icon;
+                    return (
+                      <div
+                        key={item.title}
+                        className={`flex min-w-[4.85rem] max-w-[6.25rem] flex-1 flex-col items-center gap-2 px-1.5 py-4 sm:min-w-0 sm:max-w-none sm:px-2 ${
+                          idx > 0 ? "border-l border-[#EDE6DE]" : ""
+                        }`}
+                      >
+                        <Icon className="h-[18px] w-[18px] shrink-0 text-[#B8924F] sm:h-5 sm:w-5" strokeWidth={1.65} aria-hidden />
+                        <p className="text-center text-[8.5px] font-bold leading-[1.2] tracking-tight text-[#1A1010] min-[360px]:text-[9px] sm:text-[10px]">
+                          <span className="block">{item.mobileLines[0]}</span>
+                          <span className="block">{item.mobileLines[1]}</span>
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
-            <div className="flex overflow-x-auto no-scrollbar pb-8 snap-x items-end justify-start md:justify-center gap-4 md:gap-8 lg:gap-12 flex-nowrap">
-              {[
-                { label: "For Her", img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80" },
-                { label: "For Him", img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6?auto=format&fit=crop&q=80" },
-                { label: "For Couple", img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80" },
-                { label: "For Parents", img: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80" },
-                { label: "For Kids", img: "https://images.unsplash.com/photo-1544717305-996b815c338c?auto=format&fit=crop&q=80" }
-              ].map((item, idx, arr) => (
-                <div key={idx} className="flex items-center gap-4 md:gap-8 lg:gap-12 flex-shrink-0 snap-center">
-                  <Link href={`/shop?relationship=${item.label.toLowerCase().replace(' ', '-')}`} className="group block text-center">
-                    <div className="w-24 h-40 md:w-40 md:h-64 lg:w-48 lg:h-80 relative overflow-hidden rounded-t-full shadow-lg transition-transform duration-500 group-hover:-translate-y-2">
-                      <Image 
-                        src={item.img} 
-                        alt={item.label} 
-                        fill 
-                        className="object-cover"
-                      />
+            {/* Tablet+ — six column grid with gold rings */}
+            <div className="relative hidden rounded-2xl border border-[#EDE6DE] bg-white p-6 shadow-[0_10px_36px_-18px_rgba(74,16,32,0.12)] md:block md:p-8 lg:p-10">
+              <div className="grid grid-cols-3 gap-y-8 lg:grid-cols-6 lg:gap-x-6">
+                {TRUST_FEATURES.map((item) => {
+                  const Icon = item.Icon;
+                  return (
+                    <div key={item.title} className="flex flex-col items-center px-2 text-center">
+                      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-[#C5A059]/45 text-[#B8924F]">
+                        <Icon className="h-5 w-5" strokeWidth={1.65} aria-hidden />
+                      </div>
+                      <h3 className="font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-[#1A1010]">{item.title}</h3>
+                      <p className="mt-1.5 text-[12px] leading-snug text-[#6b6560]">{item.desc}</p>
                     </div>
-                    <div className="mt-4 bg-[#F5E6D3] py-2 md:py-4 px-2 rounded-lg text-[#1B3022] font-serif italic text-sm md:text-xl shadow-sm group-hover:bg-[#B08968] group-hover:text-white transition-colors">
-                      {item.label}
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ───── SHOP BY CATEGORY ───────────────────────────────────────── */}
+        <section className="section-pad bg-[#FFFBF8]" aria-labelledby="shop-by-category-heading">
+          <div className="section-container">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="eyebrow">— Shop by category —</p>
+              <h2 id="shop-by-category-heading" className="section-heading mt-3">
+                Thoughtful Gifts for <span className="text-[#6B1E30]">Every Occasion</span>
+              </h2>
+              <div className="mx-auto mt-5 flex max-w-xs items-center justify-center gap-3">
+                <span className="rule-line min-w-[2rem] flex-1" aria-hidden />
+                <Gift className="h-5 w-5 shrink-0 text-[#C5A059]" strokeWidth={1.75} aria-hidden />
+                <span className="rule-line min-w-[2rem] flex-1" aria-hidden />
+              </div>
+            </div>
+
+            <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-3 lg:gap-6">
+              {SHOP_BY_CATEGORY.map((cat) => {
+                const Icon = cat.Icon;
+                return (
+                  <Link
+                    key={cat.title}
+                    href={cat.href}
+                    className={`group relative flex flex-row items-stretch overflow-hidden rounded-2xl border border-black/[0.06] shadow-[0_8px_28px_-12px_rgba(74,16,32,0.12)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_18px_44px_-12px_rgba(74,16,32,0.2)] ${cat.bgClass}`}
+                  >
+                    <div className="relative z-[1] flex min-w-0 flex-1 flex-col justify-center px-5 py-5 sm:py-6 sm:pl-6">
+                      <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-full shadow-sm ${cat.iconWrapClass}`}>
+                        <Icon className="h-[18px] w-[18px] sm:h-5 sm:w-5" strokeWidth={2} aria-hidden />
+                      </div>
+                      <h3 className="card-title">{cat.title}</h3>
+                      <p className="mt-2 max-w-[16rem] text-[12.5px] leading-relaxed text-[#5c5652] sm:text-[13px]">
+                        {cat.description}
+                      </p>
+                      <div className="mt-4 flex items-center gap-2">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#1A1010] sm:text-[11px]">
+                          Explore now
+                        </span>
+                        <span
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full shadow-md transition-transform duration-200 group-hover:translate-x-0.5 sm:h-9 sm:w-9 ${cat.ctaButtonClass}`}
+                          aria-hidden
+                        >
+                          <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.5} />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="relative z-0 -mr-px w-[40%] min-w-[7rem] shrink-0 self-stretch sm:w-[42%] sm:min-w-[8rem]">
+                      <div className="absolute inset-y-3 right-3 left-0 overflow-hidden rounded-xl border border-white/60 shadow-md ring-1 ring-black/[0.04]">
+                        <Image
+                          src={cat.image}
+                          alt={cat.imageAlt}
+                          fill
+                          sizes="(max-width:640px) 45vw, (max-width:1024px) 30vw, 280px"
+                          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
                     </div>
                   </Link>
-                  {idx < arr.length - 1 && (
-                    <div className="hidden lg:block text-[#B08968] opacity-50">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M2 12h20"/></svg>
-                    </div>
-                  )}
-                </div>
-              ))}
+                );
+              })}
+            </div>
+
+            <div className="mt-12 flex justify-center md:mt-14">
+              <a
+                href={`https://wa.me/${WA}?text=${encodeURIComponent("Hi, I'd like to request your catalogue.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-pill btn-pill-maroon"
+              >
+                Request Catalogue
+              </a>
             </div>
           </div>
         </section>
 
-        {/* Most Loved Gift Hampers Section */}
-        <section className="py-24 bg-white overflow-hidden">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-serif italic text-[#B08968] tracking-tight">Most Loved Gift Hampers</h2>
-            </div>
+        {/* ───── FEATURED PRODUCTS ─────────────────────────────────────── */}
+        <FeaturedProductsSection />
 
-            {/* Category Tabs */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
-              <div className="flex flex-wrap gap-3">
-                {[
-                  { name: "Mother's Day Gifts", active: true },
-                  { name: "Romantic Love Gifts", active: false },
-                  { name: "Birthday Gifts", active: false },
-                  { name: "Eco-Friendly Gifts", active: false },
-                  { name: "Chocolate Gift Box", active: false }
-                ].map((tab, idx) => (
-                  <button 
-                    key={idx}
-                    className={cn(
-                      "px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all border border-border",
-                      tab.active ? "bg-[#F5E6D3] text-[#1B3022] border-[#F5E6D3]" : "bg-white text-muted-foreground hover:bg-muted"
-                    )}
-                  >
-                    {tab.name}
-                  </button>
-                ))}
-              </div>
-              <Link href="/shop" className="text-sm font-bold flex items-center gap-2 text-[#1B3022] hover:text-[#B08968] transition-colors group">
-                View All <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
+        {/* ───── HOW IT WORKS ──────────────────────────────────────────── */}
+        <HowItWorksSection />
 
-            {/* Product Carousel / Grid */}
-            <div className="relative group">
-              <div className="flex overflow-x-auto gap-8 pb-8 no-scrollbar snap-x">
-                {[
-                  { id: 1, name: "Purple Lily Bouquet", price: "785", img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80", cat: "Mother's Day Gifts" },
-                  { id: 2, name: "The Kalamkari Collection", price: "1,190", img: "https://images.unsplash.com/photo-1544787210-2211d64b5d2b?auto=format&fit=crop&q=80", cat: "Mother's Day Gifts" },
-                  { id: 3, name: "The Mama To Be Hamper", price: "680", img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80", cat: "Mother's Day Gifts" },
-                  { id: 4, name: "The Golden Indulgence for Mom", price: "1,680", img: "https://images.unsplash.com/photo-1548598141-efd3979912a1?auto=format&fit=crop&q=80", cat: "Mother's Day Gifts" },
-                  { id: 5, name: "The Lilac Serenity Hamper", price: "2,345", img: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80", cat: "Mother's Day Gifts" },
-                  { id: 6, name: "A Little Lavender Joy", price: "1,280", img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80", cat: "Mother's Day Gifts" }
-                ].map((p) => (
-                  <div key={p.id} className="min-w-[280px] md:min-w-[320px] snap-start group/card">
-                    <div className="relative aspect-square bg-[#F9F9F9] overflow-hidden mb-4 rounded-xl">
-                      <Image src={p.img} fill className="object-cover group-hover/card:scale-105 transition-transform duration-700" alt={p.name} />
-                      <button className="absolute top-4 right-4 text-white hover:text-primary transition-colors drop-shadow-md">
-                        <Heart size={20} className={cn(p.id === 1 ? "fill-white" : "")} />
-                      </button>
-                    </div>
-                    <h3 className="text-sm md:text-base font-bold text-[#1B3022] mb-1 line-clamp-1">{p.name}</h3>
-                    <p className="text-[10px] text-muted-foreground mb-2 uppercase tracking-wider">{p.cat}</p>
-                    <p className="text-sm md:text-base font-black text-[#1B3022]">₹ {p.price}</p>
-                  </div>
-                ))}
-              </div>
+        {/* ───── FESTIVE COLLECTION ────────────────────────────────────── */}
+        <FestiveCollectionSection />
 
-              {/* Navigation Arrows */}
-              <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-black/50 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-[#1B3022]">
-                <ChevronRight className="rotate-180" size={24} />
-              </button>
-              <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-10 h-10 bg-black/50 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-[#1B3022]">
-                <ChevronRight size={24} />
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* Price Based Collection Section */}
-        <section className="py-24 bg-[#F9F9F9]">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-2xl md:text-4xl font-serif italic text-[#B08968] tracking-tight">Luxury Gift Hampers in India for Every Occasion</h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                { title: "Elegant Finds", price: "Under ₹500", img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80" },
-                { title: "Premium Selections", price: "₹500- ₹1500", img: "https://images.unsplash.com/photo-1544787210-2211d64b5d2b?auto=format&fit=crop&q=80" },
-                { title: "Exquisite Indulgence", price: "₹1500- ₹3000", img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80" },
-                { title: "Bespoke Luxury", price: "Above ₹3000", img: "https://images.unsplash.com/photo-1548598141-efd3979912a1?auto=format&fit=crop&q=80" }
-              ].map((item, idx) => (
-                <Link key={idx} href="/shop" className="group block relative aspect-[3/4] bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all rounded-lg border border-border/50">
-                  {/* Top Label */}
-                  <div className="absolute top-6 left-1/2 -translate-x-1/2 bg-[#F5E6D3] px-6 py-2 rounded shadow-sm z-10 transition-transform group-hover:scale-105">
-                    <span className="text-[#1B3022] text-[10px] md:text-xs font-bold uppercase tracking-widest">{item.title}</span>
-                  </div>
-
-                  {/* Image */}
-                  <Image 
-                    src={item.img} 
-                    alt={item.title} 
-                    fill 
-                    className="object-cover transition-transform duration-1000 group-hover:scale-110" 
-                  />
-
-                  {/* Bottom Price Label */}
-                  <div className="absolute bottom-6 left-6 right-6 bg-black text-white py-3 text-center z-10 font-black uppercase tracking-widest text-xs md:text-sm group-hover:bg-[#1B3022] transition-colors">
-                    {item.price}
-                  </div>
-
-                  {/* Overlay for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Personalized & Custom Gift Hampers Section */}
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16 space-y-4">
-              <h2 className="text-2xl md:text-4xl font-serif italic text-[#B08968] tracking-tight">Personalized & Custom Gift Hampers</h2>
-              <p className="text-muted-foreground text-sm max-w-2xl mx-auto">Add a personal touch with customized messages, unique packaging, and handpicked products for a meaningful gift.</p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {[
-                { name: "The Custom Newspaper", price: "315", img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80", soldOut: true },
-                { name: "Love in Frames Bouquet", price: "860", img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80", soldOut: false },
-                { name: "The Custom Crest", price: "400", img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80", soldOut: false },
-                { name: "Magnetic Memories", price: "525", img: "https://images.unsplash.com/photo-1544717305-996b815c338c?auto=format&fit=crop&q=80", soldOut: false }
-              ].map((p, idx) => (
-                <div key={idx} className="group cursor-pointer">
-                  <div className="relative aspect-square bg-[#F9F9F9] overflow-hidden mb-4 rounded-sm">
-                    <Image src={p.img} fill className="object-cover group-hover:scale-105 transition-transform duration-700" alt={p.name} />
-                    {p.soldOut && (
-                      <div className="absolute bottom-4 left-4 bg-[#FFB100] text-white text-[10px] font-bold px-2 py-1 rounded-sm">
-                        Sold out
-                      </div>
-                    )}
-                  </div>
-                  <h3 className="text-base font-serif italic text-[#1B3022] mb-1">{p.name}</h3>
-                  <p className="text-sm font-bold text-[#1B3022]">₹ {p.price}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Link href="/shop" className="inline-block bg-[#B08968] text-white px-10 py-3 rounded text-sm font-bold uppercase tracking-widest hover:bg-[#1B3022] transition-colors shadow-md">
-                View all
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Make Your Own Hamper Section */}
-        <section className="py-24 bg-white overflow-hidden">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16 space-y-4">
-              <h2 className="text-2xl md:text-4xl font-serif italic text-[#B08968] tracking-tight">Make your Own Hamper</h2>
-              <p className="text-muted-foreground text-[10px] md:text-xs max-w-3xl mx-auto leading-relaxed uppercase tracking-widest">Curate a bespoke hamper with gourmet treats, artisanal delights, and premium lifestyle essentials. Elegantly packaged and thoughtfully designed, each hamper is a unique expression of care and refined taste.</p>
-            </div>
-
-            <div className="relative group cursor-pointer">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="relative aspect-[4/3] md:aspect-auto md:h-[500px] overflow-hidden rounded-sm shadow-md">
-                  <Image src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" alt="Personalizing your gift" />
-                </div>
-                <div className="relative aspect-[4/3] md:aspect-auto md:h-[500px] overflow-hidden rounded-sm shadow-md">
-                  <Image src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" alt="Luxury gift boxes" />
-                </div>
-              </div>
-
-              {/* Central Floating Badge */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                <Link href="/hamper-builder" className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full flex flex-col items-center justify-center text-center p-4 shadow-2xl border border-border group-hover:scale-110 transition-transform duration-500">
-                  <span className="text-[10px] md:text-xs font-serif italic text-[#1B3022] leading-tight">Make your Own Hamper</span>
-                  <ArrowRight size={16} className="text-[#B08968] mt-2 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Elegant Gifts for Every Celebration Section */}
-        <section className="py-24 bg-[#FCF9F6]">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16 space-y-4">
-              <h2 className="text-2xl md:text-4xl font-serif italic text-[#B08968] tracking-tight">Elegant Gifts for Every Celebration</h2>
-              <p className="text-muted-foreground text-[10px] md:text-xs max-w-3xl mx-auto leading-relaxed uppercase tracking-widest">Explore premium gift hampers thoughtfully curated to suit every occasion - with gourmet delights, elegant packaging, and a personal touch that makes every gift memorable.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[800px]">
-              {/* Left Column: Two Stacked */}
-              <div className="grid grid-rows-2 gap-6 h-full">
-                <Link href="/shop?occasion=birthday" className="group relative overflow-hidden rounded-sm shadow-md h-full">
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur px-8 py-2 z-10">
-                    <span className="text-[#1B3022] text-[10px] font-bold uppercase tracking-widest">Birthday Gifts</span>
-                  </div>
-                  <Image src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80" fill className="object-cover group-hover:scale-105 transition-transform duration-700" alt="Birthday Gifts" />
-                </Link>
-                <div className="relative overflow-hidden rounded-sm shadow-md h-full bg-[#1B3022] flex items-center justify-center p-8">
-                  <div className="text-center space-y-4">
-                    <div className="w-16 h-16 border border-white/20 rounded-full flex items-center justify-center mx-auto">
-                      <Image src="/images/gift-gallerei (transparent-background).png" width={40} height={40} className="invert opacity-50" alt="Logo Icon" />
-                    </div>
-                    <p className="text-white/50 text-[10px] uppercase tracking-[0.3em] font-bold">Luxury Gifting</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Center Column: One Large Vertical */}
-              <Link href="/shop?occasion=housewarming" className="group relative overflow-hidden rounded-sm shadow-md h-full">
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur px-8 py-2 z-10">
-                  <span className="text-[#1B3022] text-[10px] font-bold uppercase tracking-widest">Housewarming Gifts</span>
-                </div>
-                <Image src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80" fill className="object-cover group-hover:scale-105 transition-transform duration-700" alt="Housewarming Gifts" />
-              </Link>
-
-              {/* Right Column: One Large Vertical */}
-              <Link href="/shop?occasion=baby-shower" className="group relative overflow-hidden rounded-sm shadow-md h-full">
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur px-8 py-2 z-10">
-                  <span className="text-[#1B3022] text-[10px] font-bold uppercase tracking-widest">Baby Shower Hampers</span>
-                </div>
-                <Image src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80" fill className="object-cover group-hover:scale-105 transition-transform duration-700" alt="Baby Shower Hampers" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Corporate Banner */}
-        <section className="py-24 bg-[#1B3022] text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 grayscale">
-            <Image src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&q=80" fill className="object-cover" alt="Corporate" />
-          </div>
-          <div className="container mx-auto px-6 relative z-10 space-y-12">
-            <div className="max-w-2xl space-y-6">
-              <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9]">
-                Bulk Corporate <br />
-                <span className="text-[#B08968]">Gifting Solutions</span>
+        {/* ───── INSTAGRAM GALLERY ─────────────────────────────────────── */}
+        <section className="section-pad bg-[#FFFBF8]" aria-labelledby="instagram-heading">
+          <div className="section-container">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="eyebrow">Follow us @giftzgallerei</p>
+              <h2 id="instagram-heading" className="section-heading mt-3">
+                Stories from the <span className="text-[#6B1E30]">gram</span>
               </h2>
-              <p className="text-xl text-white/70 font-medium leading-relaxed">
-                Impress your clients and team with custom-branded luxury hampers. Hand-packed and delivered with precision.
+              <p className="section-lede mx-auto mt-4">
+                Behind-the-scenes packaging, gifting moments, and the little details our clients love.
               </p>
-              <div className="flex flex-wrap gap-6 pt-6">
-                <div className="flex items-center gap-3 font-bold uppercase tracking-widest text-[10px]">
-                  <CheckCircle size={14} className="text-[#B08968]" /> Custom Branding
-                </div>
-                <div className="flex items-center gap-3 font-bold uppercase tracking-widest text-[10px]">
-                  <CheckCircle size={14} className="text-[#B08968]" /> Bulk Discounts
-                </div>
-                <div className="flex items-center gap-3 font-bold uppercase tracking-widest text-[10px]">
-                  <CheckCircle size={14} className="text-[#B08968]" /> Fast Logistics
-                </div>
-              </div>
-            </div>
-            <button className="bg-white text-[#1B3022] px-12 py-5 rounded-lg text-xl font-bold uppercase tracking-tighter hover:bg-[#B08968] hover:text-white transition-all">
-              Get a Quote Now
-            </button>
-          </div>
-        </section>
-
-        {/* Social / Most Loved Gifts Reel Section */}
-        <section className="py-24 bg-white overflow-hidden">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-2xl md:text-4xl font-serif italic text-[#B08968] tracking-tight">Most Loved Gifts</h2>
             </div>
 
-            <div className="flex overflow-x-auto gap-4 no-scrollbar pb-8 snap-x">
-              {[
-                { title: "Curating Happiness", label: "The New Year Box", img: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80" },
-                { title: "The Velvet Season", label: "The Velvet Box", img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80" },
-                { title: "Diwali Traditions", label: "Traditional Hamper", img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80" },
-                { title: "SCRUMPTIOUS", label: "Gourmet Selection", img: "https://images.unsplash.com/photo-1544787210-2211d64b5d2b?auto=format&fit=crop&q=80" },
-                { title: "The Diwali Glow", label: "Glow Box", img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80" },
-                { title: "Diwali-e-Sanganer", label: "Sanganer Hamper", img: "https://images.unsplash.com/photo-1548598141-efd3979912a1?auto=format&fit=crop&q=80" },
-                { title: "Refreshing Vibes", label: "Gift Box", img: "https://images.unsplash.com/photo-1544717305-996b815c338c?auto=format&fit=crop&q=80" },
-                { title: "Magnetic Memories", label: "Custom Frame", img: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80" }
-              ].map((reel, idx) => (
-                <div key={idx} className="min-w-[180px] md:min-w-[240px] aspect-[9/16] relative rounded-lg overflow-hidden group cursor-pointer snap-start shadow-xl">
-                  <Image src={reel.img} fill className="object-cover group-hover:scale-110 transition-transform duration-[2000ms]" alt={reel.title} />
-                  
-                  {/* Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
-
-                  {/* Top Text */}
-                  <div className="absolute top-8 left-4 right-4 text-center">
-                    <p className="text-white font-serif italic text-lg md:text-2xl leading-tight drop-shadow-lg">{reel.title}</p>
+            <div className="mx-auto mt-10 grid max-w-6xl grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4 md:gap-4">
+              {INSTAGRAM_TILES.map((src, idx) => (
+                <a
+                  key={src + idx}
+                  href="https://www.instagram.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative aspect-square overflow-hidden rounded-xl border border-black/[0.06]"
+                  aria-label={`Instagram post ${idx + 1}`}
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    sizes="(max-width:768px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-[#1A1010]/0 transition-colors duration-300 group-hover:bg-[#1A1010]/45" />
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <InstagramIcon className="h-7 w-7 text-white drop-shadow" strokeWidth={1.75} />
                   </div>
-
-                  {/* Bottom Info */}
-                  <div className="absolute bottom-6 left-4 right-4 flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-sm overflow-hidden border border-white/30 flex-shrink-0 bg-white/20 backdrop-blur">
-                      <Image src={reel.img} width={24} height={24} className="object-cover" alt="icon" />
-                    </div>
-                    <span className="text-white text-[10px] font-bold uppercase tracking-widest truncate">{reel.label}</span>
-                  </div>
-
-                  {/* Play/Hover Icon */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
-                      <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-white border-b-[8px] border-b-transparent ml-1" />
-                    </div>
-                  </div>
-                </div>
+                </a>
               ))}
             </div>
+
+            <div className="mt-10 flex justify-center md:mt-12">
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-pill btn-pill-ghost-gold"
+              >
+                <InstagramIcon className="h-4 w-4 shrink-0" strokeWidth={2} />
+                Follow on Instagram
+              </a>
+            </div>
           </div>
         </section>
 
-        {/* Testimonials / Reviews Section */}
-        <section className="py-24 bg-[#FCF9F6]">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-2xl md:text-4xl font-serif italic text-[#B08968] tracking-tight">Gifts that made an impression!</h2>
+        {/* ───── CLIENTS & TESTIMONIALS ────────────────────────────────── */}
+        <ClientsAndTestimonialsSection />
+
+        {/* ───── FAQ ───────────────────────────────────────────────────── */}
+        <section className="section-pad bg-[#FFFBF8]" aria-labelledby="faq-heading">
+          <div className="section-container">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="eyebrow">Frequently asked</p>
+              <h2 id="faq-heading" className="section-heading mt-3">
+                Got questions? <span className="text-[#6B1E30]">We&apos;ve got answers.</span>
+              </h2>
+              <p className="section-lede mx-auto mt-4">
+                If you don&apos;t find what you need below, our concierge is one message away.
+              </p>
             </div>
 
-            <div className="relative group">
-              <div className="flex overflow-x-auto gap-6 no-scrollbar pb-12 snap-x">
-                {[
-                  { name: "nethra c.", text: "Amazing service and delivery time. Loved the gift I ordered for my friend. I would recommend Boxup for even corporate gifts.", rating: 5 },
-                  { name: "Aanchal Agarwal", text: "Loved the gift from my husband. Thank you for a seamless experience", rating: 5 },
-                  { name: "Milcah Shekinah", text: "Excellent experience with Giftz Gallerei! Beautiful presentation and timely delivery. Highly recommended.", rating: 5 },
-                  { name: "Vanshika Rathi", text: "Great experience with Giftz Gallerei! Excellent hamper curation, beautiful presentation, timely delivery, and very smooth coordination.", rating: 5 }
-                ].map((review, idx) => (
-                  <div key={idx} className="min-w-[300px] md:min-w-[400px] bg-white p-8 rounded-2xl shadow-sm border border-border/50 snap-start flex flex-col justify-between hover:shadow-md transition-shadow">
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center font-bold text-[#1B3022]">
-                          {review.name[0]}
-                        </div>
-                        <span className="font-bold text-[#1B3022] text-sm">{review.name}</span>
-                      </div>
-                      <div className="flex gap-1 text-[#FF9800]">
-                        {[...Array(review.rating)].map((_, i) => (
-                          <Star key={i} size={16} fill="currentColor" />
-                        ))}
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed italic">&quot;{review.text}&quot;</p>
-                    </div>
-                    <div className="mt-6 flex justify-end">
-                      <Image src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" width={20} height={20} alt="Google" />
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="mx-auto mt-10 max-w-3xl space-y-3 md:mt-12">
+              {FAQS.map((item, idx) => (
+                <details
+                  key={item.q}
+                  className="group rounded-2xl border border-[#ebe5dd] bg-white px-5 py-4 shadow-[0_2px_10px_-6px_rgba(0,0,0,0.06)] transition open:shadow-[0_10px_32px_-12px_rgba(74,16,32,0.15)] sm:px-6 sm:py-5"
+                  open={idx === 0}
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+                    <h3 className="font-sans text-[14px] font-semibold text-[#1A1010] sm:text-[15px]">{item.q}</h3>
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#e8e0d5] text-[#6B1E30] transition-transform duration-300 group-open:rotate-45">
+                      <Plus className="h-4 w-4" strokeWidth={2} aria-hidden />
+                    </span>
+                  </summary>
+                  <p className="mt-3 max-w-[58ch] text-[13.5px] leading-relaxed text-[#5c5652] sm:text-[14px]">{item.a}</p>
+                </details>
+              ))}
+            </div>
 
-              {/* Navigation Indicators */}
-              <div className="flex justify-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-[#B08968]" />
-                <div className="w-2 h-2 rounded-full bg-[#B08968]/20" />
-                <div className="w-2 h-2 rounded-full bg-[#B08968]/20" />
-              </div>
+            <div className="mt-10 flex justify-center md:mt-12">
+              <a
+                href={`https://wa.me/${WA}?text=${encodeURIComponent("Hi, I have a question about gifting.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-pill btn-pill-forest"
+              >
+                Talk to our concierge
+              </a>
             </div>
           </div>
         </section>
