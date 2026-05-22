@@ -14,7 +14,6 @@ export default function AppImage({
   fill,
   className,
   priority,
-  sizes: _sizes,
   ...props
 }: AppImageProps) {
   if (fill) {

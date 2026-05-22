@@ -64,7 +64,7 @@ export default function Footer() {
 
           <div className="grid grid-cols-2 gap-8 sm:gap-10 md:col-span-2 lg:col-span-5">
             <div>
-              <h4 className="mb-4 text-[11px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Shop hampers</h4>
+              <h4 className="mb-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Shop hampers</h4>
               <ul className="space-y-3 text-[14px] font-medium text-[#F2EDE8]/80">
                 <li>
                   <Link to="/shop" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
@@ -94,7 +94,7 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h4 className="mb-4 text-[11px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Support</h4>
+              <h4 className="mb-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Support</h4>
               <ul className="space-y-3 text-[14px] font-medium text-[#F2EDE8]/80">
                 <li>
                   <Link to="/track-order" className="transition hover:text-[#E8CF9A]">
@@ -126,7 +126,7 @@ export default function Footer() {
           </div>
 
           <div className="space-y-4 md:col-span-2 lg:col-span-3">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Stay inspired</h4>
+            <h4 className="text-[13px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Stay inspired</h4>
             <p className="text-[14px] leading-relaxed text-[#F2EDE8]/70">
               Join our list for gifting ideas and new collections — no spam, unsubscribe anytime.
             </p>
@@ -144,7 +144,7 @@ export default function Footer() {
               />
               <button
                 type="submit"
-                className="min-h-[2.75rem] shrink-0 rounded-xl bg-[#C9A96E] px-6 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-[#3a0d14] shadow-md transition hover:bg-[#dfc48a] active:scale-[0.98] sm:px-7"
+                className="min-h-[2.75rem] shrink-0 rounded-xl bg-[#C9A96E] px-6 font-sans text-[12.5px] font-bold uppercase tracking-[0.18em] text-[#3a0d14] shadow-md transition hover:bg-[#dfc48a] active:scale-[0.98] sm:px-7"
               >
                 Subscribe
               </button>
@@ -159,7 +159,7 @@ export default function Footer() {
               <MapPin className="h-5 w-5" strokeWidth={1.75} aria-hidden />
             </div>
             <div className="min-w-0 pt-0.5">
-              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Visit us</p>
+              <p className="font-sans text-[12px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Visit us</p>
               <p className="mt-1 text-sm font-medium leading-snug text-[#F2EDE8]">Bangalore, Karnataka, India</p>
             </div>
           </div>
@@ -168,7 +168,7 @@ export default function Footer() {
               <Phone className="h-5 w-5" strokeWidth={1.75} aria-hidden />
             </div>
             <div className="min-w-0 pt-0.5">
-              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Call us</p>
+              <p className="font-sans text-[12px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Call us</p>
               <a href="tel:+919876543210" className="mt-1 block text-sm font-medium text-[#F2EDE8] transition hover:text-[#E8CF9A]">
                 +91 98765 43210
               </a>
@@ -179,7 +179,7 @@ export default function Footer() {
               <Mail className="h-5 w-5" strokeWidth={1.75} aria-hidden />
             </div>
             <div className="min-w-0 pt-0.5">
-              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Email us</p>
+              <p className="font-sans text-[12px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Email us</p>
               <a
                 href="mailto:hello@giftzgallerei.com"
                 className="mt-1 block break-all text-sm font-medium text-[#F2EDE8] transition hover:text-[#E8CF9A]"
@@ -192,10 +192,10 @@ export default function Footer() {
 
         {/* Legal */}
         <div className="flex flex-col items-center justify-between gap-6 pt-8 text-center md:flex-row md:gap-4 md:text-left">
-          <p className="max-w-xl font-sans text-[10px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-[#F2EDE8]/45 sm:text-[11px] sm:tracking-[0.16em]">
+          <p className="max-w-xl font-sans text-[12px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-[#F2EDE8]/45 sm:text-[13px] sm:tracking-[0.16em]">
             © {new Date().getFullYear()} Giftz Gallerei. Crafting memories, one box at a time.
           </p>
-          <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-[#F2EDE8]/55">
+          <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 font-sans text-[12px] font-bold uppercase tracking-[0.18em] text-[#F2EDE8]/55">
             <Link to="/privacy" className="transition hover:text-[#E8CF9A]">
               Privacy
             </Link>

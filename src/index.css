@@ -18,21 +18,48 @@
   --deep-burgundy: #6B1E30;
   --near-black: #1A1010;
 
-  /* Typography Scale - luxury gifting (clamp tuned for mobile/desktop) */
-  --font-size-h1: clamp(2.125rem, 5vw + 1rem, 4.5rem);
-  --font-size-h2: clamp(1.75rem, 4vw + 0.75rem, 3.25rem);
-  --font-size-h3: clamp(1.5rem, 3vw + 0.5rem, 2.75rem);
-  --font-size-h4: clamp(1.25rem, 2vw + 0.5rem, 2.25rem);
-  --font-size-body-lg: clamp(1rem, 0.6vw + 0.95rem, 1.375rem);
-  --font-size-body: clamp(0.9375rem, 0.4vw + 0.9rem, 1.125rem);
-  --font-size-small: 0.9375rem;
-  --font-size-tiny: 0.8125rem;
+  /* ── Typography families (Giftz Gallerei luxury system) ── */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
+  --font-accent: "DM Serif Display", ui-serif, Georgia, serif;
+  --font-brand: "Playfair Display", ui-serif, Georgia, serif;
 
-  /* Spacing Tokens */
-  --line-height-heading: 1.2;
-  --line-height-body: 1.7;
-  --letter-spacing-heading: -0.02em;
+  /* Type scale — mobile-first clamp, desktop caps in comments */
+  --font-size-display: clamp(2rem, 3.5vw + 1rem, 3.25rem);      /* Hero H1: Balanced from 32px to 52px */
+  --font-size-h1: clamp(1.75rem, 3vw + 0.75rem, 2.5rem);        /* Standard Page Title: 28px to 40px */
+  --font-size-h2: clamp(1.5rem, 2vw + 0.65rem, 2.125rem);       /* Section Heading: 24px to 34px */
+  --font-size-h3: clamp(1.25rem, 1.5vw + 0.5rem, 1.625rem);     /* Cards & Subheadings: 20px to 26px */
+  --font-size-h4: clamp(1.1rem, 1vw + 0.5rem, 1.35rem);         /* Small Headings: 17.6px to 21.6px */
+  --font-size-body-lg: clamp(1rem, 0.4vw + 0.9rem, 1.125rem);   /* Large Body / Lede: 16px to 18px */
+  --font-size-body: clamp(0.9375rem, 0.2vw + 0.88rem, 1rem);    /* Standard Body Text: 15px to 16px */
+  --font-size-small: 0.875rem;                                  /* Navigation & UI Buttons: 14px */
+  --font-size-tiny: 0.8125rem;                                  /* Micro descriptions & details: 13px */
+  --font-size-caption: 0.75rem;                                 /* Eyebrows, labels, badges: 12px */
+  --font-size-micro: 0.6875rem;                                 /* Minimum legibility limit: 11px */
+
+  /* Line heights */
+  --line-height-display: 1.15;
+  --line-height-heading: 1.25;
+  --line-height-heading-relaxed: 1.35;
+  --line-height-body: 1.65;
+  --line-height-body-relaxed: 1.75;
+  --line-height-ui: 1.25;
+
+  /* Letter spacing */
+  --letter-spacing-display: -0.015em;
+  --letter-spacing-heading: -0.01em;
   --letter-spacing-body: 0.01em;
+  --letter-spacing-brand: 0.12em;
+  --letter-spacing-nav: 0.08em;
+  --letter-spacing-eyebrow: 0.2em;
+  --letter-spacing-btn: 0.12em;
+  --letter-spacing-caption: 0.08em;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 }
 
 @theme inline {
@@ -46,9 +73,10 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   
-  --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Lexend", ui-sans-serif, system-ui, sans-serif;
-  --font-accent: "Lexend", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
+  --font-accent: "DM Serif Display", ui-serif, Georgia, serif;
+  --font-brand: "Playfair Display", ui-serif, Georgia, serif;
   
   --font-size-tiny: var(--font-size-tiny);
   --font-size-small: var(--font-size-small);
@@ -95,41 +123,70 @@ body {
   letter-spacing: var(--letter-spacing-body);
 }
 
-/* Typography Utility Classes — Lexend across headings & body */
-.h1 {
+/* Typography utility classes */
+.h1, .hero-heading {
   font-family: var(--font-serif);
-  font-size: var(--font-size-h1);
-  line-height: var(--line-height-heading);
-  letter-spacing: var(--letter-spacing-heading);
-  font-weight: 700;
+  font-size: var(--font-size-display);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-display);
+  font-weight: var(--font-weight-semibold);
 }
 
 .h2 {
   font-family: var(--font-serif);
-  font-size: var(--font-size-h2);
+  font-size: var(--font-size-h1);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-heading);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .h3 {
   font-family: var(--font-serif);
-  font-size: var(--font-size-h3);
+  font-size: var(--font-size-h2);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-heading);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .h4 {
   font-family: var(--font-serif);
-  font-size: var(--font-size-h4);
-  line-height: var(--line-height-heading);
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-heading-relaxed);
   letter-spacing: var(--letter-spacing-heading);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
+}
+
+.text-brand {
+  font-family: var(--font-brand);
+  letter-spacing: var(--letter-spacing-brand);
+}
+
+.text-luxury-accent {
+  font-family: var(--font-accent);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0.01em;
+}
+
+.text-corporate {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-caption);
+  text-transform: uppercase;
+}
+
+.nav-label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-nav);
+  text-transform: uppercase;
+  line-height: var(--line-height-ui);
 }
 
 .btn-primary {
-  @apply primary-gradient text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all active:scale-95 text-sm uppercase tracking-widest;
+  font-family: var(--font-sans);
+  letter-spacing: var(--letter-spacing-btn);
+  @apply primary-gradient text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all active:scale-95 text-sm uppercase;
 }
 
 .btn-hero-gold {
@@ -311,26 +368,75 @@ body {
 @utility eyebrow {
   display: inline-block;
   font-family: var(--font-sans);
-  font-size: 0.625rem;
+  font-size: var(--font-size-micro);
   font-weight: 700;
-  letter-spacing: 0.28em;
+  letter-spacing: var(--letter-spacing-eyebrow);
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.1;
   color: #A67C37;
 }
 @media (min-width: 640px) {
   .eyebrow {
-    font-size: 0.6875rem;
-    letter-spacing: 0.32em;
+    font-size: var(--font-size-caption);
+    letter-spacing: 0.24em;
+  }
+}
+
+@utility hero-heading {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-display);
+  color: #1A1010;
+}
+
+/* Corporate banner hero — shorter image, smaller type than homepage */
+@utility hero-heading-corporate {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 6.5vw, 2.875rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #1A1010;
+}
+@media (min-width: 768px) {
+  .hero-heading-corporate {
+    font-size: clamp(2.375rem, 4vw, 3.25rem);
+    line-height: 1.1;
+  }
+}
+@media (min-width: 1280px) {
+  .hero-heading-corporate {
+    font-size: clamp(2.75rem, 3.2vw + 0.5rem, 3.75rem);
   }
 }
 
 @utility section-heading {
   font-family: var(--font-serif);
-  font-size: clamp(1.625rem, 3vw + 0.5rem, 2.5rem);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  color: #1A1010;
+}
+
+@utility section-heading-corporate {
+  font-family: var(--font-sans);
+  font-size: clamp(0.625rem, 1.5vw, 0.75rem);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-ui);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+  color: #1A1010;
+}
+
+@utility section-heading-gifting {
+  font-family: var(--font-accent);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-heading-relaxed);
+  letter-spacing: 0.01em;
   color: #1A1010;
 }
 

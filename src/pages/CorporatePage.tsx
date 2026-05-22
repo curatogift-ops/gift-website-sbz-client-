@@ -6,25 +6,13 @@ import TrustedLeadingBrandsSection from '@/components/corporate/TrustedLeadingBr
 import AppImage from '@/components/ui/AppImage';
 import { cn } from '@/utils/cn';
 import {
-  Briefcase,
-  Building2,
   Gift,
   Headphones,
   PackageOpen,
-  Star,
   Tag,
   Truck,
   Users,
 } from 'lucide-react';
-
-const WA = '919876543210';
-
-const STATS = [
-  { value: '500+', label: 'CORPORATE CLIENTS', Icon: Building2 },
-  { value: '1,00,000+', label: 'GIFTS DELIVERED', Icon: Gift },
-  { value: '10+ YEARS', label: 'OF TRUST & RELIABILITY', Icon: Users },
-  { value: '4.9/5', label: 'CLIENT SATISFACTION', Icon: Star },
-] as const;
 
 const VALUE_PROPS = [
   {
@@ -127,93 +115,55 @@ const GIFTING_SOLUTIONS = [
 ] as const;
 
 export default function CorporatePage() {
-  const bulkQuoteHref = `https://wa.me/${WA}?text=${encodeURIComponent(
-    "Hi, I'd like to get a bulk quote for corporate gifting."
-  )}`;
-
   return (
     <div className="flex min-h-screen flex-col bg-[#F9F6F1]">
       <Navbar />
 
       <main className="flex-grow pb-16 pt-[calc(12.5rem+env(safe-area-inset-top,0px))] md:pb-20 md:pt-[9.5rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
-        <section className="section-container" aria-labelledby="corporate-hero-heading">
-          {/* Centered hero image with copy + stats overlay */}
-          <div className="relative mx-auto w-full max-w-[72rem]">
-            <div className="mb-8 max-w-xl lg:pointer-events-none lg:absolute lg:inset-y-0 lg:left-0 lg:z-[2] lg:mb-0 lg:flex lg:max-w-[min(42%,28rem)] lg:flex-col lg:justify-center lg:py-6 lg:pl-2 lg:pr-4 xl:max-w-[min(40%,30rem)] xl:pl-4">
-              <div className="lg:pointer-events-auto">
-                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.32em] text-[#A67C37] sm:text-[11px]">
+        <section
+          className="w-full overflow-hidden bg-[#F9F6F1]"
+          aria-labelledby="corporate-hero-heading"
+        >
+          <div className="relative mx-auto w-full max-w-[2500px]">
+            {/* Copy — stacked on mobile, overlaid on banner from md up */}
+            <div className="relative z-[2] px-4 pb-6 pt-2 sm:px-6 sm:pb-8 md:pointer-events-none md:absolute md:inset-y-0 md:left-0 md:flex md:max-w-[50%] md:flex-col md:justify-center md:bg-transparent md:px-8 md:py-8 lg:max-w-[46%] lg:px-10 xl:max-w-[42%] 2xl:max-w-[38%]">
+              <div className="md:pointer-events-auto">
+                <p className="eyebrow text-[#A67C37] sm:tracking-[0.32em]">
                   Premium corporate gifting solutions
                 </p>
 
                 <h1
                   id="corporate-hero-heading"
-                  className="mt-4 font-serif text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-[#1A1010] lg:text-[clamp(1.75rem,2.8vw,3.25rem)]"
+                  className="hero-heading-corporate mt-3 max-w-[21rem] sm:mt-4 sm:max-w-[25rem] md:max-w-[28rem] lg:max-w-[32rem] xl:max-w-[36rem]"
                 >
-                  Thoughtfully Curated Gifts{' '}
-                  <span className="text-[#A67C37]">That Build Stronger Business Relationships.</span>
+                  <span className="text-[#1A1010] block">
+                    Thoughtfully Curated
+                    <br /> Gifts{' '}
+                  </span>
+                  <span className="text-[#A67C37] italic font-medium block mt-1.5 md:mt-2">
+                    That Build Stronger
+                    <br /> Business Relationships.
+                  </span>
                 </h1>
-
-                <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-[#4a4846] sm:text-base lg:max-w-md">
-                  From luxury hampers to branded merchandise, we help you create memorable gifting experiences
-                  that strengthen relationships and elevate your brand.
-                </p>
-
-                <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
-                  <a
-                    href={bulkQuoteHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex min-h-[2.75rem] items-center justify-center gap-2 rounded-md bg-[#4A0E1C] px-5 py-3 font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-white shadow-[0_8px_24px_-10px_rgba(74,14,28,0.45)] transition hover:bg-[#3a0b12] sm:px-6 sm:text-[11px] sm:tracking-[0.18em]"
-                  >
-                    <Gift className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
-                    Get bulk quote
-                  </a>
-                  <Link
-                    to="/shop"
-                    className="inline-flex min-h-[2.75rem] items-center justify-center gap-2 rounded-md border border-[#C5A059] bg-white px-5 py-3 font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-[#A67C37] transition hover:bg-[#FAF7F4] sm:px-6 sm:text-[11px] sm:tracking-[0.18em]"
-                  >
-                    <Briefcase className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
-                    Explore collections
-                  </Link>
-                </div>
               </div>
             </div>
 
-            <div className="flex justify-center lg:pt-2">
+            {/* Banner — intrinsic 2500×662 (1250∶331); scales proportionally */}
+            <div className="relative w-full">
+              <div
+                className="pointer-events-none absolute inset-y-0 left-0 z-[1] hidden w-[55%] bg-gradient-to-r from-[#F9F6F1]/95 via-[#F9F6F1]/80 to-transparent md:block lg:w-[48%]"
+                aria-hidden
+              />
               <img
-                src="/images/corporate-hero.png"
-                alt="Premium corporate gift box with branded merchandise from Giftz Gallerei"
-                width={1200}
-                height={900}
+                src="/images/corporate-hero-banner.png"
+                alt=""
+                width={2500}
+                height={662}
                 decoding="async"
                 fetchPriority="high"
-                className="mx-auto h-auto w-full max-w-full object-contain object-center"
+                sizes="(max-width: 2500px) 100vw, 2500px"
+                className="block h-auto w-full"
               />
-            </div>
-
-            {/* Stats stack — aligned to image right */}
-            <div className="absolute right-[2%] top-[6%] z-[3] flex flex-col gap-2 sm:right-[4%] sm:top-[8%] sm:gap-2.5 lg:right-[6%] lg:top-[10%] lg:gap-3 xl:right-[8%]">
-              {STATS.map((stat) => {
-                const Icon = stat.Icon;
-                return (
-                  <div
-                    key={stat.label}
-                    className="flex min-w-[10.5rem] items-center gap-3 rounded-sm border border-[#C5A059]/55 bg-[#1A1010]/82 px-3 py-2.5 shadow-[0_8px_28px_-8px_rgba(0,0,0,0.35)] backdrop-blur-[2px] sm:min-w-[11.5rem] sm:px-3.5 sm:py-3"
-                  >
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-[#C5A059]/40 text-[#E8CF9A]">
-                      <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-serif text-lg font-semibold leading-none text-[#E8CF9A] sm:text-xl">
-                        {stat.value}
-                      </p>
-                      <p className="mt-1 font-sans text-[8px] font-bold uppercase leading-tight tracking-[0.14em] text-white/90 sm:text-[9px]">
-                        {stat.label}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
             </div>
           </div>
         </section>
@@ -227,7 +177,7 @@ export default function CorporatePage() {
             <figure className="mx-auto max-w-4xl px-2 text-center">
               <blockquote
                 id="corporate-trust-heading"
-                className="flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1 font-sans text-[15px] font-normal italic leading-relaxed text-[#1A1010] sm:text-[16px] sm:leading-[1.65] lg:text-[17px]"
+                className="flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1 font-accent text-[16.5px] font-normal italic leading-relaxed text-[#1A1010] sm:text-[18px] sm:leading-[1.65] lg:text-[20px]"
               >
                 <span
                   className="shrink-0 font-sans text-[2.75rem] font-normal leading-none text-[#C9A96E] not-italic sm:text-[3.25rem]"
@@ -267,12 +217,9 @@ export default function CorporatePage() {
                         strokeWidth={1.15}
                         aria-hidden
                       />
-                      <h3 className="font-sans text-[10px] font-bold uppercase leading-snug tracking-[0.06em] text-[#1A1010] sm:text-[11px] lg:tracking-[0.04em]">
+                      <h3 className="font-sans text-[13.5px] font-bold uppercase leading-snug tracking-[0.08em] text-[#1A1010] sm:text-[14px] lg:tracking-[0.06em]">
                         {item.title}
                       </h3>
-                      <p className="mt-2.5 max-w-[12.5rem] font-sans text-[11px] font-normal leading-relaxed text-[#5c5854] sm:text-[12px] lg:max-w-[10.5rem]">
-                        {item.desc}
-                      </p>
                     </li>
                   );
                 })}
@@ -291,7 +238,7 @@ export default function CorporatePage() {
               <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
               <h2
                 id="gifting-solutions-heading"
-                className="shrink-0 text-center font-sans text-[10px] font-bold uppercase leading-snug tracking-[0.14em] text-[#1A1010] sm:text-[11px] sm:tracking-[0.2em] lg:text-xs lg:tracking-[0.22em]"
+                className="section-heading-corporate shrink-0 text-center leading-snug text-[#1A1010] sm:tracking-[0.2em] lg:tracking-[0.22em]"
               >
                 Explore our gifting solutions
               </h2>
@@ -314,7 +261,7 @@ export default function CorporatePage() {
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
-                    <p className="mt-3 text-center font-sans text-[8px] font-bold uppercase leading-snug tracking-[0.06em] text-[#1A1010] min-[380px]:text-[9px] sm:text-[10px] sm:tracking-[0.08em] lg:text-[10px] xl:text-[9px] xl:tracking-[0.05em]">
+                    <p className="mt-3 text-center font-sans text-[12px] font-bold uppercase leading-snug tracking-[0.06em] text-[#1A1010] min-[380px]:text-[13px] sm:text-[14px] sm:tracking-[0.08em] lg:text-[14px] xl:text-[13px] xl:tracking-[0.06em]">
                       {item.label}
                     </p>
                   </Link>

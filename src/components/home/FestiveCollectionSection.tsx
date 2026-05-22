@@ -127,12 +127,12 @@ export default function FestiveCollectionSection() {
                 <h3 className="relative z-[1] mt-5 font-serif text-2xl font-semibold tracking-tight text-white md:text-[1.625rem]">
                   {f.name}
                 </h3>
-                <p className="relative z-[1] mt-3 max-w-[18rem] text-[13.5px] leading-relaxed text-white/85 sm:text-sm">
+                <p className="relative z-[1] mt-3 max-w-[18rem] text-[14.5px] leading-relaxed text-white/85 sm:text-[15.5px]">
                   {f.description}
                 </p>
                 <Link
                   to={f.href}
-                  className="relative z-[1] mt-6 inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/5 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white backdrop-blur-[2px] transition hover:border-white/70 hover:bg-white/15 sm:text-[11px] sm:tracking-[0.18em]"
+                  className="relative z-[1] mt-6 inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/5 px-4 py-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-white backdrop-blur-[2px] transition hover:border-white/70 hover:bg-white/15 sm:text-[13px] sm:tracking-[0.18em]"
                 >
                   Explore gifts
                   <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden />
@@ -152,8 +152,8 @@ export default function FestiveCollectionSection() {
                     <Icon className="h-5 w-5" strokeWidth={1.65} aria-hidden />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[14px] font-bold text-[#3d2e22] sm:text-[15px]">{item.title}</p>
-                    <p className="mt-1 text-[12px] leading-snug text-[#6b5d52] sm:text-[13px]">{item.subtitle}</p>
+                    <p className="text-[15.5px] font-bold text-[#3d2e22] sm:text-[16.5px]">{item.title}</p>
+                    <p className="mt-1 text-[13.5px] leading-snug text-[#6b5d52] sm:text-[14.5px]">{item.subtitle}</p>
                   </div>
                 </div>
               );

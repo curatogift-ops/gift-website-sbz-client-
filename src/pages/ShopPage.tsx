@@ -198,10 +198,10 @@ export default function ShopPage() {
                   <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[#FAF7F4] text-[#A67C37] ring-1 ring-[#C5A059]/25">
                     <Icon className="h-5 w-5" strokeWidth={1.65} aria-hidden />
                   </div>
-                  <p className="font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-[#1A1010]">
+                  <p className="font-sans text-[13px] font-bold uppercase tracking-[0.12em] text-[#1A1010]">
                     {item.title}
                   </p>
-                  <p className="mt-2 text-[12px] leading-relaxed text-[#6b6560]">{item.desc}</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-[#6b6560]">{item.desc}</p>
                 </div>
               );
             })}
@@ -249,13 +249,13 @@ export default function ShopPage() {
                         <Icon className="h-[18px] w-[18px] sm:h-5 sm:w-5" strokeWidth={2} aria-hidden />
                       </div>
                       <h3 className="card-title">{type.title}</h3>
-                      <p className="mt-2 max-w-[16rem] text-[12.5px] leading-relaxed text-[#5c5652] sm:text-[13px]">
+                      <p className="mt-2 max-w-[16rem] text-[14px] leading-relaxed text-[#5c5652] sm:text-[14.5px]">
                         {type.description}
                       </p>
                       <div className="mt-4 flex flex-wrap items-center gap-2">
                         <Link
                           to={type.href}
-                          className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#1A1010] hover:text-[#6B1E30] sm:text-[11px]"
+                          className="text-[12px] font-bold uppercase tracking-[0.16em] text-[#1A1010] hover:text-[#6B1E30] sm:text-[13px]"
                         >
                           Explore type
                         </Link>
@@ -270,7 +270,7 @@ export default function ShopPage() {
                         href={waHref}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-flex text-[10px] font-semibold uppercase tracking-[0.14em] text-[#A67C37] hover:text-[#6B1E30] sm:text-[11px]"
+                        className="mt-3 inline-flex text-[12px] font-semibold uppercase tracking-[0.14em] text-[#A67C37] hover:text-[#6B1E30] sm:text-[13px]"
                       >
                         Enquire on WhatsApp
                       </a>

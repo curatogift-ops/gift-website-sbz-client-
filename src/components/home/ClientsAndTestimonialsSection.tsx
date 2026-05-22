@@ -221,7 +221,7 @@ export default function ClientsAndTestimonialsSection() {
                 >
                   <div className="flex h-full flex-col rounded-2xl border border-[#ebe8e4] bg-[#FFFBF8] p-5 shadow-[0_10px_36px_-18px_rgba(74,16,32,0.1)] sm:p-6">
                     <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#ebe8e4] text-[12px] font-bold text-[#4a4846] sm:h-12 sm:w-12 sm:text-[13px]">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#ebe8e4] text-[14px] font-bold text-[#4a4846] sm:h-12 sm:w-12 sm:text-[15px]">
                         {t.initials}
                       </div>
                       <div className="flex justify-center gap-0.5">
@@ -238,12 +238,12 @@ export default function ClientsAndTestimonialsSection() {
                         &rdquo;
                       </span>
                     </div>
-                    <p className="mt-5 flex-1 text-[13.5px] leading-relaxed text-[#3d4540] sm:text-[14px]">
+                    <p className="mt-5 flex-1 text-[14.5px] leading-relaxed text-[#3d4540] sm:text-[15.5px]">
                       {t.text}
                     </p>
                     <div className="mt-5 border-t border-[#f0ebe4] pt-4 text-left">
-                      <p className="text-[14px] font-bold text-[#6B1E30] sm:text-[15px]">{t.name}</p>
-                      <p className="mt-0.5 text-[12px] text-[#6b6560] sm:text-[12.5px]">{t.role}</p>
+                      <p className="text-[15.5px] font-bold text-[#6B1E30] sm:text-[16.5px]">{t.name}</p>
+                      <p className="mt-0.5 text-[13.5px] text-[#6b6560] sm:text-[14.5px]">{t.role}</p>
                     </div>
                   </div>
                 </article>

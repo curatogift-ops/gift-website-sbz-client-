@@ -87,7 +87,7 @@ function StepCard({ step, className }: { step: Step; className?: string }) {
           <Top className="h-9 w-9 text-[#B8924F] sm:h-10 sm:w-10" strokeWidth={1.5} aria-hidden />
         </div>
         <div
-          className="absolute -bottom-3 left-1/2 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full font-sans text-[11px] font-bold text-white shadow-sm sm:h-9 sm:w-9 sm:text-xs"
+          className="absolute -bottom-3 left-1/2 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full font-sans text-[12.5px] font-bold text-white shadow-sm sm:h-9 sm:w-9 sm:text-[13.5px]"
           style={{ backgroundColor: FOREST }}
           aria-hidden
         >
@@ -99,7 +99,7 @@ function StepCard({ step, className }: { step: Step; className?: string }) {
         {step.title}
       </h3>
       <div className="mx-auto mt-4 h-px w-10 bg-[#d4cfc8]" aria-hidden />
-      <p className="mt-4 text-center font-sans text-[13px] leading-relaxed text-[#3d4a42] sm:text-sm">
+      <p className="mt-4 text-center font-sans text-[14.5px] leading-relaxed text-[#3d4a42] sm:text-[15.5px]">
         {step.description}
       </p>
 

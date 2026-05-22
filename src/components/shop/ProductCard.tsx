@@ -32,7 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="absolute bottom-4 left-4 right-4 translate-y-12 group-hover:translate-y-0 transition-transform duration-300 flex gap-2">
             <button
               type="button"
-              className="flex-grow primary-gradient text-white py-3 rounded-xl text-xs font-bold shadow-lg flex items-center justify-center gap-2.5 ring-1 ring-white/15"
+              className="flex-grow primary-gradient text-white py-3 rounded-xl text-[13.5px] font-bold shadow-lg flex items-center justify-center gap-2.5 ring-1 ring-white/15"
             >
               <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={2.35} strokeLinecap="round" strokeLinejoin="round" aria-hidden />
               ADD TO CART
@@ -47,7 +47,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {product.compare_price && (
-            <div className="absolute top-4 left-4 bg-accent text-white text-[9px] font-black px-3 py-1.5 rounded-lg uppercase tracking-widest">
+            <div className="absolute top-4 left-4 bg-accent text-white text-[11px] font-black px-3 py-1.5 rounded-lg uppercase tracking-widest leading-none">
               OFFER
             </div>
           )}
@@ -55,13 +55,13 @@ export default function ProductCard({ product }: ProductCardProps) {
       </Link>
 
       <div className="pt-4 pb-2 space-y-2 px-1">
-        <div className="flex items-center gap-1 text-[10px] text-yellow-500">
-          <Star size={10} fill="currentColor" />
-          <Star size={10} fill="currentColor" />
-          <Star size={10} fill="currentColor" />
-          <Star size={10} fill="currentColor" />
-          <Star size={10} fill="currentColor" />
-          <span className="text-muted ml-1">(4.9)</span>
+        <div className="flex items-center gap-1 text-[12.5px] text-yellow-500 font-medium">
+          <Star size={13} fill="currentColor" />
+          <Star size={13} fill="currentColor" />
+          <Star size={13} fill="currentColor" />
+          <Star size={13} fill="currentColor" />
+          <Star size={13} fill="currentColor" />
+          <span className="text-[#8c827a] font-normal ml-1">(4.9)</span>
         </div>
         
         <Link to={`/shop/${product.slug}`} className="block">
