@@ -56,7 +56,7 @@ export default function Navbar() {
   const iconThin = 1.65;
 
   const isNavActive = (href: string) => {
-    if (href === '/') return pathname === '/';
+    if (href === '/home') return pathname === '/' || pathname === '/home';
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
@@ -67,7 +67,7 @@ export default function Navbar() {
     );
 
   const drawerLinks = [
-    { label: 'Home', href: '/' },
+    { label: 'Home', href: '/home' },
     { label: 'Shop', href: '/shop' },
     { label: 'Corporate gifting', href: '/corporate' },
     { label: 'Festive hampers', href: '/shop' },
@@ -78,7 +78,7 @@ export default function Navbar() {
   ];
 
   const desktopNavLinks = [
-    { label: 'Home', href: '/' },
+    { label: 'Home', href: '/home' },
     { label: 'Shop', href: '/shop', chevron: true },
     { label: 'Custom boxes', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
@@ -134,7 +134,7 @@ export default function Navbar() {
             </div>
 
             <Link
-              to="/"
+              to="/home"
               className="mx-auto flex min-w-0 max-w-[min(100vw-8rem,22rem)] flex-col items-center gap-1 sm:max-w-none"
             >
               <div className="relative h-[2.5rem] w-[12.8rem] shrink-0 sm:h-[2.75rem] sm:w-[14.5rem]">
@@ -220,7 +220,7 @@ export default function Navbar() {
         <div className="mx-auto max-w-[90rem] px-8 2xl:px-10">
           <div className="grid grid-cols-[11.5rem_auto_minmax(0,1fr)_auto] items-center gap-x-4 py-[18px] 2xl:grid-cols-[12.5rem_auto_minmax(0,1fr)_auto] 2xl:gap-x-5 2xl:py-[22px]">
             {/* Logo */}
-            <Link to="/" className="block min-w-0">
+            <Link to="/home" className="block min-w-0">
               <div className="relative h-[2.75rem] w-full 2xl:h-[3rem]">
                 <AppImage
                   src={LOGO_SRC}
@@ -283,7 +283,7 @@ export default function Navbar() {
                         <ChevronDown className="h-3 w-3 shrink-0 opacity-60" strokeWidth={2} aria-hidden />
                       )}
                     </span>
-                    {active && link.href === '/' && (
+                    {active && link.href === '/home' && (
                       <span
                         className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#4A0E1C]"
                         aria-hidden
@@ -334,7 +334,7 @@ export default function Navbar() {
       <header className="hidden border-b border-black/[0.06] bg-[#FFF9F5] md:block xl:hidden">
         <div className="mx-auto max-w-7xl px-5">
           <div className="flex items-center justify-between gap-4 py-[18px]">
-            <Link to="/" className="shrink-0">
+            <Link to="/home" className="shrink-0">
               <div className="relative h-[2.7rem] w-[13rem]">
                 <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" priority sizes="192px" />
               </div>

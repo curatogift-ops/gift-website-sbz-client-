@@ -4,47 +4,25 @@ import Footer from '@/components/layout/Footer';
 import CorporateExpertsCtaSection from '@/components/corporate/CorporateExpertsCtaSection';
 import TrustedLeadingBrandsSection from '@/components/corporate/TrustedLeadingBrandsSection';
 import AppImage from '@/components/ui/AppImage';
-import { cn } from '@/utils/cn';
 import {
+  Building2,
+  Gem,
   Gift,
-  Headphones,
-  PackageOpen,
+  Leaf,
+  Shield,
+  Star,
   Tag,
   Truck,
   Users,
 } from 'lucide-react';
 
 const VALUE_PROPS = [
-  {
-    title: 'WIDE RANGE OF PRODUCTS',
-    desc: '1000+ premium options for every occasion',
-    Icon: Gift,
-  },
-  {
-    title: 'CUSTOMISATION & BRANDING',
-    desc: 'Add your logo, personalise & create lasting impressions',
-    Icon: Tag,
-  },
-  {
-    title: 'PREMIUM PACKAGING',
-    desc: 'Elegant, sturdy & custom packaging that stands out',
-    Icon: PackageOpen,
-  },
-  {
-    title: 'BULK ORDER EXPERTISE',
-    desc: 'Scalable solutions for businesses of all sizes',
-    Icon: Users,
-  },
-  {
-    title: 'PAN INDIA DELIVERY',
-    desc: 'Reliable & on-time delivery across India',
-    Icon: Truck,
-  },
-  {
-    title: 'END TO END SUPPORT',
-    desc: 'From idea to delivery, we manage everything for you',
-    Icon: Headphones,
-  },
+  { title: 'PREMIUM QUALITY',     Icon: Gem },
+  { title: 'CUSTOM BRANDING',     Icon: Tag },
+  { title: 'PAN INDIA DELIVERY',  Icon: Truck },
+  { title: 'BULK ORDER SUPPORT',  Icon: Users },
+  { title: 'SECURE PACKAGING',    Icon: Shield },
+  { title: 'SUSTAINABLE CHOICES', Icon: Leaf },
 ] as const;
 
 const GIFTING_SOLUTIONS = [
@@ -52,66 +30,65 @@ const GIFTING_SOLUTIONS = [
     id: 'corporate-hampers',
     label: 'CORPORATE HAMPERS',
     href: '/shop?cat=corporate-hampers',
-    image:
-      'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Premium corporate hamper gift box',
   },
   {
     id: 'employee-joining',
     label: 'EMPLOYEE JOINING KITS',
     href: '/shop?type=employee',
-    image:
-      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Employee welcome kit with backpack and branded items',
   },
   {
     id: 'festive',
     label: 'FESTIVE GIFTS',
     href: '/shop?cat=festive',
-    image:
-      'https://images.unsplash.com/photo-1513885536991-8b943e177042?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1513885536991-8b943e177042?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Festive gift boxes with gold ribbon',
   },
   {
     id: 'custom-merchandise',
     label: 'CUSTOM MERCHANDISE',
     href: '/shop?type=merch',
-    image:
-      'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Custom branded polo shirt and cap',
   },
   {
     id: 'tech',
     label: 'TECH GIFTS',
     href: '/shop?type=tech',
-    image:
-      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Premium tech gifts including headphones',
   },
   {
     id: 'drinkware',
     label: 'DRINKWARE',
     href: '/shop?type=drinkware',
-    image:
-      'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Branded drinkware bottles and mugs',
   },
   {
     id: 'event-conference',
     label: 'EVENT & CONFERENCE GIFTING',
     href: '/shop?type=event',
-    image:
-      'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Event and conference gifting tote and badge',
   },
   {
     id: 'luxury-packaging',
     label: 'LUXURY PACKAGING SOLUTIONS',
     href: '/shop?type=packaging',
-    image:
-      'https://images.unsplash.com/photo-1512496015851-a90fb38f7968?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1512496015851-a90fb38f7968?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Luxury gift packaging with ribbon',
   },
+] as const;
+
+const STATS = [
+  { Icon: Building2, value: '500+',      label: 'Corporate Clients' },
+  { Icon: Gift,      value: '1,00,000+', label: 'Gifts Delivered' },
+  { Icon: Users,     value: '10+ Years', label: 'Trust & Reliability' },
+  { Icon: Star,      value: '4.9/5',     label: 'Client Satisfaction' },
 ] as const;
 
 export default function CorporatePage() {
@@ -119,36 +96,32 @@ export default function CorporatePage() {
     <div className="flex min-h-screen flex-col bg-[#F9F6F1]">
       <Navbar />
 
-      <main className="flex-grow pb-16 pt-[calc(12.5rem+env(safe-area-inset-top,0px))] md:pb-20 md:pt-[9.5rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
-        <section
-          className="w-full overflow-hidden bg-[#F9F6F1]"
-          aria-labelledby="corporate-hero-heading"
-        >
+      <main className="flex-grow pt-[calc(10rem+env(safe-area-inset-top,0px))] md:pt-[9rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
+
+        {/* ── Hero ─────────────────────────────────────────────────────── */}
+        <section className="w-full overflow-hidden bg-[#F9F6F1]" aria-labelledby="corporate-hero-heading">
           <div className="relative mx-auto w-full max-w-[2500px]">
             {/* Copy — stacked on mobile, overlaid on banner from md up */}
-            <div className="relative z-[2] px-4 pb-6 pt-2 sm:px-6 sm:pb-8 md:pointer-events-none md:absolute md:inset-y-0 md:left-0 md:flex md:max-w-[50%] md:flex-col md:justify-center md:bg-transparent md:px-8 md:py-8 lg:max-w-[46%] lg:px-10 xl:max-w-[42%] 2xl:max-w-[38%]">
+            <div className="relative z-[2] px-4 pb-2 pt-1 sm:px-6 sm:pb-3 md:pointer-events-none md:absolute md:inset-y-0 md:left-0 md:flex md:max-w-[50%] md:flex-col md:justify-center md:bg-transparent md:px-8 md:py-8 lg:max-w-[46%] lg:px-10 xl:max-w-[42%] 2xl:max-w-[38%]">
               <div className="md:pointer-events-auto">
                 <p className="eyebrow text-[#A67C37] sm:tracking-[0.32em]">
                   Premium corporate gifting solutions
                 </p>
-
                 <h1
                   id="corporate-hero-heading"
-                  className="hero-heading-corporate mt-3 max-w-[21rem] sm:mt-4 sm:max-w-[25rem] md:max-w-[28rem] lg:max-w-[32rem] xl:max-w-[36rem]"
+                  className="hero-heading-corporate mt-2 max-w-[21rem] sm:mt-3 sm:max-w-[25rem] md:max-w-[28rem] lg:max-w-[32rem] xl:max-w-[36rem]"
                 >
-                  <span className="text-[#1A1010] block">
-                    Thoughtfully Curated
-                    <br /> Gifts{' '}
+                  <span className="block text-[#1A1010]">
+                    Thoughtfully Curated<br /> Gifts{' '}
                   </span>
-                  <span className="text-[#A67C37] italic font-medium block mt-1.5 md:mt-2">
-                    That Build Stronger
-                    <br /> Business Relationships.
+                  <span className="mt-1 block font-medium italic text-[#A67C37] md:mt-2">
+                    That Build Stronger<br /> Business Relationships.
                   </span>
                 </h1>
               </div>
             </div>
 
-            {/* Banner — intrinsic 2500×662 (1250∶331); scales proportionally */}
+            {/* Banner image */}
             <div className="relative w-full">
               <div
                 className="pointer-events-none absolute inset-y-0 left-0 z-[1] hidden w-[55%] bg-gradient-to-r from-[#F9F6F1]/95 via-[#F9F6F1]/80 to-transparent md:block lg:w-[48%]"
@@ -162,64 +135,60 @@ export default function CorporatePage() {
                 decoding="async"
                 fetchPriority="high"
                 sizes="(max-width: 2500px) 100vw, 2500px"
-                className="block h-auto w-full"
+                className="block h-auto w-full -translate-x-[5%]"
               />
             </div>
           </div>
         </section>
 
-        {/* Trust quote + six-column value props (reference design) */}
-        <section
-          className="border-t border-[#ebe6e0] bg-[#FDFBF7] py-12 sm:py-14 lg:py-16"
-          aria-labelledby="corporate-trust-heading"
-        >
-          <div className="section-container">
-            <figure className="mx-auto max-w-4xl px-2 text-center">
-              <blockquote
-                id="corporate-trust-heading"
-                className="flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1 font-accent text-[16.5px] font-normal italic leading-relaxed text-[#1A1010] sm:text-[18px] sm:leading-[1.65] lg:text-[20px]"
-              >
-                <span
-                  className="shrink-0 font-sans text-[2.75rem] font-normal leading-none text-[#C9A96E] not-italic sm:text-[3.25rem]"
-                  aria-hidden
+        {/* ── Stats badge ──────────────────────────────────────────────── */}
+        <div className="bg-[#F9F6F1] px-4 pb-2 pt-2 sm:px-6 sm:pt-3 md:px-8">
+          <div className="mx-auto max-w-[72rem]">
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-[#C9A96E]/25 shadow-[0_6px_24px_-8px_rgba(26,16,16,0.2)] sm:grid-cols-4 sm:rounded-full">
+              {STATS.map(({ Icon, value, label }, i) => (
+                <div
+                  key={label}
+                  className={[
+                    'flex items-center gap-2.5 bg-[#152033] px-3.5 py-3 sm:justify-center sm:px-5 sm:py-3.5 lg:px-7 lg:py-4',
+                    i === 0 && 'rounded-tl-2xl sm:rounded-l-full',
+                    i === 1 && 'rounded-tr-2xl sm:rounded-none',
+                    i === 2 && 'rounded-bl-2xl sm:rounded-none',
+                    i === 3 && 'rounded-br-2xl sm:rounded-r-full',
+                  ].filter(Boolean).join(' ')}
                 >
-                  “
-                </span>
-                <span className="max-w-[36rem]">
-                  Trusted by leading brands across healthcare, technology, education &amp; enterprise sectors.
-                </span>
-                <span
-                  className="shrink-0 font-sans text-[2.75rem] font-normal leading-none text-[#C9A96E] not-italic sm:text-[3.25rem]"
-                  aria-hidden
-                >
-                  ”
-                </span>
-              </blockquote>
-            </figure>
+                  <Icon className="h-5 w-5 shrink-0 text-[#C9A96E] sm:h-6 sm:w-6" strokeWidth={1.4} aria-hidden />
+                  <div className="min-w-0">
+                    <p className="font-sans text-[14px] font-bold leading-tight text-[#C9A96E] sm:text-[16px] lg:text-[18px]">
+                      {value}
+                    </p>
+                    <p className="mt-0.5 font-sans text-[8.5px] font-semibold uppercase leading-snug tracking-[0.1em] text-white/55 sm:text-[9.5px]">
+                      {label}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
-            <div className="mx-auto mt-10 max-w-[80rem] rounded-sm border border-[#ebe6e0] bg-white px-4 py-8 shadow-[0_1px_0_rgba(26,16,16,0.04)] sm:mt-12 sm:px-6 sm:py-10 lg:mt-14 lg:px-8 lg:py-12">
-              <ul className="grid list-none grid-cols-1 sm:grid-cols-2 lg:flex lg:divide-x lg:divide-[#e8e2dc]">
-                {VALUE_PROPS.map((item, index) => {
+        {/* ── Value props (icon rings) ──────────────────────────────────── */}
+        <section className="bg-[#F9F6F1] py-4 sm:py-6 lg:py-8" aria-label="Why choose us">
+          <div className="section-container">
+            <div className="no-scrollbar -mx-4 flex overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0">
+              <ul className="flex shrink-0 list-none items-start gap-4 pb-1 sm:flex-wrap sm:justify-center sm:gap-x-8 sm:gap-y-6 sm:pb-0 lg:gap-x-12 xl:gap-x-14">
+                {VALUE_PROPS.map((item) => {
                   const Icon = item.Icon;
                   return (
-                    <li
-                      key={item.title}
-                      className={cn(
-                        'flex flex-col items-center px-3 py-6 text-center sm:px-4 sm:py-5 lg:flex-1 lg:px-5 lg:py-4',
-                        index > 0 && 'border-t border-[#e8e2dc] lg:border-t-0',
-                        index % 2 === 1 && 'sm:border-l sm:border-[#e8e2dc]',
-                        index % 2 === 1 && index < 2 && 'sm:border-t-0',
-                        index >= 2 && 'sm:border-t sm:border-[#e8e2dc]'
-                      )}
-                    >
-                      <Icon
-                        className="mb-5 h-10 w-10 shrink-0 text-[#1A1010] sm:h-11 sm:w-11"
-                        strokeWidth={1.15}
+                    <li key={item.title} className="flex shrink-0 flex-col items-center gap-3 text-center">
+                      <div
+                        className="flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[#C9A96E]/50 bg-[#F9F6F1] sm:h-[72px] sm:w-[72px]"
                         aria-hidden
-                      />
-                      <h3 className="font-sans text-[13.5px] font-bold uppercase leading-snug tracking-[0.08em] text-[#1A1010] sm:text-[14px] lg:tracking-[0.06em]">
+                      >
+                        <Icon className="h-5 w-5 text-[#C9A96E] sm:h-7 sm:w-7" strokeWidth={1.25} />
+                      </div>
+                      <p className="w-[5.5rem] font-sans text-[10.5px] font-bold uppercase leading-snug tracking-[0.08em] text-[#1A1010] sm:w-[7.5rem] sm:text-[12px] sm:tracking-[0.1em]">
                         {item.title}
-                      </h3>
+                      </p>
                     </li>
                   );
                 })}
@@ -228,11 +197,8 @@ export default function CorporatePage() {
           </div>
         </section>
 
-        {/* Explore gifting solutions — 8 category grid */}
-        <section
-          className="bg-[#F9F6F1] py-12 sm:py-14 lg:py-16"
-          aria-labelledby="gifting-solutions-heading"
-        >
+        {/* ── Explore gifting solutions ─────────────────────────────────── */}
+        <section className="border-t border-[#ebe6e0] bg-[#F9F6F1] py-5 sm:py-8 lg:py-10" aria-labelledby="gifting-solutions-heading">
           <div className="section-container">
             <div className="flex items-center justify-center gap-4 sm:gap-6 lg:gap-8">
               <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
@@ -245,23 +211,45 @@ export default function CorporatePage() {
               <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
             </div>
 
-            <ul className="mt-10 grid list-none grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-10 lg:mt-12 xl:grid-cols-8 xl:gap-x-3">
+            {/* Mobile: horizontal scroll */}
+            <div className="no-scrollbar -mx-4 mt-4 flex gap-3 overflow-x-auto px-4 pb-1 sm:hidden">
+              {GIFTING_SOLUTIONS.map((item) => (
+                <Link
+                  key={item.id}
+                  to={item.href}
+                  className="group flex w-[120px] shrink-0 flex-col transition-opacity hover:opacity-90"
+                >
+                  <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-[#ebe6e0]/80 bg-[#f5f2ee] shadow-[0_2px_12px_-4px_rgba(26,16,16,0.08)]">
+                    <AppImage
+                      src={item.image}
+                      alt={item.imageAlt}
+                      fill
+                      sizes="120px"
+                      className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <p className="mt-2 text-center font-sans text-[10.5px] font-bold uppercase leading-snug tracking-[0.06em] text-[#1A1010]">
+                    {item.label}
+                  </p>
+                </Link>
+              ))}
+            </div>
+
+            {/* sm+: grid */}
+            <ul className="mt-6 hidden list-none grid-cols-4 gap-x-4 gap-y-6 sm:grid lg:mt-8 xl:grid-cols-8 xl:gap-x-3">
               {GIFTING_SOLUTIONS.map((item) => (
                 <li key={item.id}>
-                  <Link
-                    to={item.href}
-                    className="group flex flex-col transition-opacity hover:opacity-90"
-                  >
+                  <Link to={item.href} className="group flex flex-col transition-opacity hover:opacity-90">
                     <div className="relative aspect-square overflow-hidden rounded-lg border border-[#ebe6e0]/80 bg-[#f5f2ee] shadow-[0_2px_12px_-4px_rgba(26,16,16,0.08)]">
                       <AppImage
                         src={item.image}
                         alt={item.imageAlt}
                         fill
-                        sizes="(max-width:640px) 45vw, (max-width:1280px) 22vw, 140px"
+                        sizes="(max-width:1280px) 22vw, 140px"
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
-                    <p className="mt-3 text-center font-sans text-[12px] font-bold uppercase leading-snug tracking-[0.06em] text-[#1A1010] min-[380px]:text-[13px] sm:text-[14px] sm:tracking-[0.08em] lg:text-[14px] xl:text-[13px] xl:tracking-[0.06em]">
+                    <p className="mt-2.5 text-center font-sans text-[12.5px] font-bold uppercase leading-snug tracking-[0.06em] text-[#1A1010] sm:tracking-[0.08em] lg:text-[13px] xl:text-[12px]">
                       {item.label}
                     </p>
                   </Link>

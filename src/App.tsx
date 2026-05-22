@@ -9,7 +9,8 @@ import CorporatePage from '@/pages/CorporatePage';
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<CorporatePage />} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/shop" element={<ShopPage />} />
       <Route path="/shop/:slug" element={<PlaceholderPage title="Product details" />} />
       <Route path="/wishlist" element={<WishlistPage />} />
