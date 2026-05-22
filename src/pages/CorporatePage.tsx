@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -6,6 +7,8 @@ import TrustedLeadingBrandsSection from '@/components/corporate/TrustedLeadingBr
 import AppImage from '@/components/ui/AppImage';
 import {
   Building2,
+  ChevronLeft,
+  ChevronRight,
   Gem,
   Gift,
   Leaf,
@@ -91,53 +94,176 @@ const STATS = [
   { Icon: Star,      value: '4.9/5',     label: 'Client Satisfaction' },
 ] as const;
 
+const HERO_SLIDES = [
+  {
+    id: 'curated-gifts',
+    eyebrow: 'Premium corporate gifting solutions',
+    headingLight: 'Thoughtfully Curated ',
+    headingItalic: 'Gifts That Build Stronger Business Relationships.',
+    image: '/images/corporate-hero-banner.png',
+    mobileImage: '/images/corporate-hero-banner-mobile.png',
+    imageAlt: 'Curated premium corporate gifts',
+    textPosition: 'left',
+    theme: 'light',
+    bgClass: 'bg-[#F9F6F1]',
+    textColorLight: 'text-[#1A1010]',
+    textColorItalic: 'text-[#A67C37]',
+    eyebrowColor: 'text-[#A67C37]',
+    gradientClass: 'from-[#F9F6F1]/95 via-[#F9F6F1]/80 to-transparent left-0 w-[55%] lg:w-[48%]',
+    imgTranslate: 'md:-translate-x-[5%]',
+    hasEmbeddedText: false,
+    hasMobileEmbeddedText: true
+  },
+  {
+    id: 'brand-your-way',
+    eyebrow: 'Custom corporate merchandising',
+    headingLight: 'Designed to Brand ',
+    headingItalic: 'Your Way.',
+    image: '/images/corporate-hero-slide-2.png',
+    mobileImage: undefined,
+    imageAlt: 'Customized brand-your-way corporate gifts',
+    textPosition: 'right',
+    theme: 'dark',
+    bgClass: 'bg-[#C5A57A]',
+    textColorLight: 'text-white',
+    textColorItalic: 'text-[#F5E6D3]',
+    eyebrowColor: 'text-[#F5E6D3]/90',
+    gradientClass: 'from-transparent via-[#C5A57A]/80 to-[#C5A57A]/95 right-0 w-[55%] lg:w-[48%]',
+    imgTranslate: 'md:translate-x-[0%]',
+    hasEmbeddedText: true,
+    hasMobileEmbeddedText: true
+  }
+] as const;
+
 export default function CorporatePage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto-play interval with reset on interaction
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, [currentSlide]);
+
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-[#F9F6F1]">
       <Navbar />
 
       <main className="flex-grow pt-[calc(10rem+env(safe-area-inset-top,0px))] md:pt-[9rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
 
-        {/* ── Hero ─────────────────────────────────────────────────────── */}
-        <section className="w-full overflow-hidden bg-[#F9F6F1]" aria-labelledby="corporate-hero-heading">
+        {/* ── Hero Slider ────────────────────────────────────────────────── */}
+        <section className="relative w-full overflow-hidden bg-[#F9F6F1]" aria-labelledby="corporate-hero-heading">
           <div className="relative mx-auto w-full max-w-[2500px]">
-            {/* Copy — stacked on mobile, overlaid on banner from md up */}
-            <div className="relative z-[2] px-4 pb-2 pt-1 sm:px-6 sm:pb-3 md:pointer-events-none md:absolute md:inset-y-0 md:left-0 md:flex md:max-w-[50%] md:flex-col md:justify-center md:bg-transparent md:px-8 md:py-8 lg:max-w-[46%] lg:px-10 xl:max-w-[42%] 2xl:max-w-[38%]">
-              <div className="md:pointer-events-auto">
-                <p className="eyebrow text-[#A67C37] sm:tracking-[0.32em]">
-                  Premium corporate gifting solutions
-                </p>
-                <h1
-                  id="corporate-hero-heading"
-                  className="hero-heading-corporate mt-2 max-w-[21rem] sm:mt-3 sm:max-w-[25rem] md:max-w-[28rem] lg:max-w-[32rem] xl:max-w-[36rem]"
-                >
-                  <span className="block text-[#1A1010]">
-                    Thoughtfully Curated<br /> Gifts{' '}
-                  </span>
-                  <span className="mt-1 block font-medium italic text-[#A67C37] md:mt-2">
-                    That Build Stronger<br /> Business Relationships.
-                  </span>
-                </h1>
-              </div>
+            
+            {/* Slides Container */}
+            <div className="relative h-[400px] sm:h-[440px] md:h-auto md:aspect-[2380/769] w-full overflow-hidden">
+              {HERO_SLIDES.map((slide, index) => {
+                const isActive = index === currentSlide;
+                return (
+                  <div
+                    key={slide.id}
+                    className={`absolute inset-0 w-full h-full flex flex-col justify-between md:justify-center transition-all duration-1000 ease-in-out ${slide.bgClass} ${
+                      isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+                    }`}
+                  >
+                    {/* Copy — stacked on mobile, overlaid on banner from md up */}
+                    {!slide.hasEmbeddedText && (
+                      <div
+                        className={[
+                          slide.hasMobileEmbeddedText ? 'hidden md:flex' : 'flex',
+                          'relative z-[2] px-4 pb-2 pt-3 sm:px-6 md:pointer-events-none md:absolute md:inset-y-0 md:max-w-[50%] md:flex-col md:justify-center md:bg-transparent md:px-8 md:py-8 lg:max-w-[46%] lg:px-10 xl:max-w-[42%] 2xl:max-w-[38%]',
+                          slide.textPosition === 'left' ? 'md:left-0 md:right-auto md:text-left' : 'md:right-0 md:left-auto md:text-left'
+                        ].join(' ')}
+                      >
+                        <div className="md:pointer-events-auto">
+                          <p className={`eyebrow sm:tracking-[0.32em] ${slide.eyebrowColor}`}>
+                            {slide.eyebrow}
+                          </p>
+                          <h1
+                            id="corporate-hero-heading"
+                            className="hero-heading-corporate mt-2 max-w-[21rem] sm:mt-3 sm:max-w-[25rem] md:max-w-[28rem] lg:max-w-[32rem] xl:max-w-[36rem]"
+                          >
+                            <span className={`block ${slide.textColorLight}`}>
+                              {slide.headingLight}
+                            </span>
+                            <span className={`mt-1 block font-medium italic md:mt-2 ${slide.textColorItalic}`}>
+                              {slide.headingItalic}
+                            </span>
+                          </h1>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Banner image */}
+                    <div className={`relative w-full ${slide.hasMobileEmbeddedText ? 'h-full absolute inset-0' : 'h-[58%] sm:h-[62%]'} md:absolute md:inset-0 md:h-full`}>
+                      {!slide.hasEmbeddedText && (
+                        <div
+                          className={`pointer-events-none absolute inset-y-0 z-[1] hidden md:block ${slide.gradientClass}`}
+                          aria-hidden
+                        />
+                      )}
+                      <picture className="block h-full w-full">
+                        {slide.mobileImage && (
+                          <source media="(max-width: 767px)" srcSet={slide.mobileImage} />
+                        )}
+                        <img
+                          src={slide.image}
+                          alt={slide.imageAlt}
+                          width={2046}
+                          height={769}
+                          decoding="async"
+                          fetchPriority={index === 0 ? "high" : "low"}
+                          sizes="(max-width: 2500px) 100vw, 2500px"
+                          className={`block h-full w-full object-cover object-center ${slide.imgTranslate}`}
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Banner image */}
-            <div className="relative w-full">
-              <div
-                className="pointer-events-none absolute inset-y-0 left-0 z-[1] hidden w-[55%] bg-gradient-to-r from-[#F9F6F1]/95 via-[#F9F6F1]/80 to-transparent md:block lg:w-[48%]"
-                aria-hidden
-              />
-              <img
-                src="/images/corporate-hero-banner.png"
-                alt=""
-                width={2500}
-                height={662}
-                decoding="async"
-                fetchPriority="high"
-                sizes="(max-width: 2500px) 100vw, 2500px"
-                className="block h-auto w-full -translate-x-[5%]"
-              />
+            {/* Navigation Arrows - hidden on mobile, visible on desktop hover */}
+            <div className="absolute inset-y-0 left-0 right-0 z-20 pointer-events-none flex items-center justify-between px-4 sm:px-6">
+              <button
+                onClick={handlePrev}
+                className="pointer-events-auto flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-black/10 bg-white/70 text-black shadow-sm transition hover:bg-white hover:scale-105 active:scale-95"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="pointer-events-auto flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-black/10 bg-white/70 text-black shadow-sm transition hover:bg-white hover:scale-105 active:scale-95"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
             </div>
+
+            {/* Dot Indicators */}
+            <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
+              {HERO_SLIDES.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    index === currentSlide ? 'w-6 bg-[#A67C37]' : 'w-2.5 bg-black/20 hover:bg-black/40'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+
           </div>
         </section>
 
