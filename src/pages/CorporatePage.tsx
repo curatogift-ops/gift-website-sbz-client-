@@ -16,13 +16,14 @@ import {
   Tag,
   Truck,
   Users,
+  Headset,
 } from 'lucide-react';
 
 const VALUE_PROPS = [
   { title: 'PREMIUM QUALITY',     Icon: Gem },
   { title: 'CUSTOM BRANDING',     Icon: Tag },
   { title: 'PAN INDIA DELIVERY',  Icon: Truck },
-  { title: 'BULK ORDER SUPPORT',  Icon: Users },
+  { title: 'BULK ORDER SUPPORT',  Icon: Headset },
   { title: 'SECURE PACKAGING',    Icon: Shield },
   { title: 'SUSTAINABLE CHOICES', Icon: Leaf },
 ] as const;
@@ -286,29 +287,37 @@ export default function CorporatePage() {
           </div>
         </section>
 
-        {/* ── Stats badge ──────────────────────────────────────────────── */}
-        <div className="bg-[#F9F6F1] px-4 pb-2 pt-2 sm:px-6 sm:pt-3 md:px-8">
+        {/* ── Stats Section ──────────────────────────────────────────────── */}
+        <div className="bg-[#F9F6F1] px-4 pb-2 pt-4 sm:px-6 sm:pt-6 md:px-8">
           <div className="mx-auto max-w-[72rem]">
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-[#C9A96E]/25 shadow-[0_6px_24px_-8px_rgba(26,16,16,0.2)] sm:grid-cols-4 sm:rounded-full">
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[#C9A96E]/20 bg-[#152033] shadow-[0_12px_36px_-12px_rgba(26,16,16,0.35)] sm:grid-cols-4">
               {STATS.map(({ Icon, value, label }, i) => (
                 <div
                   key={label}
                   className={[
-                    'flex items-center gap-2.5 bg-[#152033] px-3.5 py-3 sm:justify-center sm:px-5 sm:py-3.5 lg:px-7 lg:py-4',
-                    i === 0 && 'rounded-tl-2xl sm:rounded-l-full',
+                    'flex items-center gap-3 bg-gradient-to-b from-[#18263D] to-[#111A28] px-4 py-4 sm:justify-center sm:px-5 sm:py-5 lg:px-7 lg:py-6',
+                    i < 3 ? 'md:border-r border-[#C9A96E]/15' : '', // Gold border separator on desktop
+                    i === 0 && 'rounded-tl-2xl sm:rounded-l-2xl sm:rounded-tr-none',
                     i === 1 && 'rounded-tr-2xl sm:rounded-none',
                     i === 2 && 'rounded-bl-2xl sm:rounded-none',
-                    i === 3 && 'rounded-br-2xl sm:rounded-r-full',
+                    i === 3 && 'rounded-br-2xl sm:rounded-r-2xl sm:rounded-bl-none',
                   ].filter(Boolean).join(' ')}
                 >
-                  <Icon className="h-5 w-5 shrink-0 text-[#C9A96E] sm:h-6 sm:w-6" strokeWidth={1.4} aria-hidden />
-                  <div className="min-w-0">
-                    <p className="font-sans text-[14px] font-bold leading-tight text-[#C9A96E] sm:text-[16px] lg:text-[18px]">
+                  {/* Gold-rimmed circular icon wrapper */}
+                  <div className="flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full border border-[#C9A96E]/35 bg-[#152033]/80 text-[#C9A96E] shadow-[0_3px_10px_rgba(201,169,110,0.12)]">
+                    <Icon className="h-5.5 w-5.5 sm:h-6 sm:w-6" strokeWidth={1.3} aria-hidden />
+                  </div>
+                  
+                  {/* Number & label vertical stack */}
+                  <div className="min-w-0 flex flex-col items-start">
+                    <p className="font-serif text-[16px] font-bold leading-none text-[#C9A96E] sm:text-[19px] lg:text-[21px] tracking-wide">
                       {value}
                     </p>
-                    <p className="mt-0.5 font-sans text-[8.5px] font-semibold uppercase leading-snug tracking-[0.1em] text-white/55 sm:text-[9.5px]">
+                    <p className="mt-1 font-sans text-[8.5px] font-bold uppercase leading-snug tracking-[0.08em] text-white/80 sm:text-[9.5px]">
                       {label}
                     </p>
+                    {/* Mockup custom horizontal divider line */}
+                    <div className="mt-1.5 h-[1.5px] w-7 bg-[#C9A96E]/30 rounded-full" />
                   </div>
                 </div>
               ))}
@@ -316,28 +325,40 @@ export default function CorporatePage() {
           </div>
         </div>
 
-        {/* ── Value props (icon rings) ──────────────────────────────────── */}
-        <section className="bg-[#F9F6F1] py-4 sm:py-6 lg:py-8" aria-label="Why choose us">
+        {/* ── Value Props Section ──────────────────────────────────── */}
+        <section className="bg-[#F9F6F1] py-6 sm:py-8 lg:py-12" aria-label="Why choose us">
           <div className="section-container">
-            <div className="no-scrollbar -mx-4 flex overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0">
-              <ul className="flex shrink-0 list-none items-start gap-4 pb-1 sm:flex-wrap sm:justify-center sm:gap-x-8 sm:gap-y-6 sm:pb-0 lg:gap-x-12 xl:gap-x-14">
-                {VALUE_PROPS.map((item) => {
-                  const Icon = item.Icon;
-                  return (
-                    <li key={item.title} className="flex shrink-0 flex-col items-center gap-3 text-center">
-                      <div
-                        className="flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[#C9A96E]/50 bg-[#F9F6F1] sm:h-[72px] sm:w-[72px]"
-                        aria-hidden
-                      >
-                        <Icon className="h-5 w-5 text-[#C9A96E] sm:h-7 sm:w-7" strokeWidth={1.25} />
-                      </div>
-                      <p className="w-[5.5rem] font-sans text-[10.5px] font-bold uppercase leading-snug tracking-[0.08em] text-[#1A1010] sm:w-[7.5rem] sm:text-[12px] sm:tracking-[0.1em]">
-                        {item.title}
-                      </p>
-                    </li>
-                  );
-                })}
-              </ul>
+            {/* Scrollable on mobile, beautiful cards grid on desktop */}
+            <div className="no-scrollbar -mx-4 flex overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:px-0 lg:grid-cols-6 lg:gap-4 xl:gap-5">
+              {VALUE_PROPS.map((item) => {
+                const Icon = item.Icon;
+                return (
+                  <div
+                    key={item.title}
+                    className="flex w-[140px] shrink-0 flex-col items-center text-center bg-[#FAF8F5] border border-[#C9A96E]/12 rounded-2xl px-3 py-6 shadow-[0_4px_16px_rgba(26,16,16,0.03)] sm:w-full transition-all duration-300 hover:bg-white hover:border-[#C9A96E]/30 hover:shadow-[0_8px_24px_-4px_rgba(166,124,55,0.08)] hover:-translate-y-0.5 group"
+                  >
+                    {/* Gold-ringed circular icon button container */}
+                    <div
+                      className="flex h-[64px] w-[64px] sm:h-[72px] sm:w-[72px] items-center justify-center rounded-full border border-[#C9A96E]/25 bg-gradient-to-b from-[#FFFDFB] to-[#F5F2ED] shadow-[inset_0_2px_4px_rgba(255,255,255,0.9),0_4px_12px_rgba(166,124,55,0.04)] transition-all duration-300 group-hover:scale-[1.03] group-hover:border-[#C9A96E]/45 group-hover:shadow-[0_4px_16px_rgba(166,124,55,0.08)]"
+                      aria-hidden
+                    >
+                      <Icon className="h-6.5 w-6.5 sm:h-7 sm:w-7 text-[#A67C37] transition-colors duration-300 group-hover:text-[#B8924F]" strokeWidth={1.25} />
+                    </div>
+                    
+                    {/* Label */}
+                    <p className="mt-4 font-sans text-[11px] sm:text-[12.5px] font-bold uppercase leading-snug tracking-[0.08em] text-[#1A1010] sm:tracking-[0.1em] px-1">
+                      {item.title}
+                    </p>
+                    
+                    {/* Mockup premium gold center-dot divider ornament */}
+                    <div className="mt-3 flex items-center justify-center gap-1.5 w-full">
+                      <div className="h-[1px] w-5 bg-[#C9A96E]/35 transition-colors duration-300 group-hover:bg-[#C9A96E]/50" />
+                      <div className="h-1.5 w-1.5 rounded-full bg-[#A67C37] transition-all duration-300 group-hover:bg-[#B8924F] group-hover:scale-[1.1] shadow-[0_0_4px_rgba(166,124,55,0.2)]" />
+                      <div className="h-[1px] w-5 bg-[#C9A96E]/35 transition-colors duration-300 group-hover:bg-[#C9A96E]/50" />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
