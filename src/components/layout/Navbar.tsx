@@ -80,7 +80,7 @@ export default function Navbar() {
   const desktopNavLinks = [
     { label: 'Home', href: '/home' },
     { label: 'Shop', href: '/shop', chevron: true },
-    { label: 'Make your own hamper', href: '/custom-boxes' },
+    { label: 'Make your own hamper', shortLabel: 'Make Hamper', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
     { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
@@ -271,7 +271,7 @@ export default function Navbar() {
  
             {/* Main nav links — aligned center so it fits perfectly on all desktops */}
             <nav
-              className="flex min-w-0 items-center justify-center gap-3 overflow-x-auto overflow-y-visible py-1 pl-2 pr-1 [-ms-overflow-style:none] [scrollbar-width:none] 2xl:gap-5 [&::-webkit-scrollbar]:hidden"
+              className="flex min-w-0 items-center justify-start xl:justify-center gap-3 overflow-x-auto overflow-y-visible py-1 pl-2 pr-1 [-ms-overflow-style:none] [scrollbar-width:none] 2xl:gap-5 [&::-webkit-scrollbar]:hidden"
               aria-label="Primary"
             >
               {desktopNavLinks.map((link) => {
@@ -286,7 +286,14 @@ export default function Navbar() {
                     )}
                   >
                     <span className="inline-flex items-center gap-0.5">
-                      {link.label}
+                      {'shortLabel' in link && link.shortLabel ? (
+                        <>
+                          <span className="hidden 2xl:inline">{link.label}</span>
+                          <span className="inline 2xl:hidden">{link.shortLabel}</span>
+                        </>
+                      ) : (
+                        link.label
+                      )}
                       {'chevron' in link && link.chevron && (
                         <ChevronDown className="h-3 w-3 shrink-0 opacity-60" strokeWidth={2} aria-hidden />
                       )}
