@@ -70,7 +70,7 @@ export default function Navbar() {
     { label: 'Home', href: '/home' },
     { label: 'Shop', href: '/shop' },
     { label: 'Corporate gifting', href: '/corporate' },
-    { label: 'Festive hampers', href: '/shop' },
+    { label: 'Personalized gifts', href: '/shop' },
     { label: 'Custom boxes', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
     { label: 'Blog', href: '/blog' },
@@ -137,7 +137,7 @@ export default function Navbar() {
               to="/home"
               className="mx-auto flex min-w-0 max-w-[min(100vw-8rem,22rem)] flex-col items-center gap-1 sm:max-w-none"
             >
-              <div className="relative h-[2.5rem] w-[12.8rem] shrink-0 sm:h-[2.75rem] sm:w-[14.5rem]">
+              <div className="relative h-[2.1rem] w-[10.5rem] shrink-0 sm:h-[2.3rem] sm:w-[11.5rem]">
                 <AppImage
                   src={LOGO_SRC}
                   alt="Giftz Gallerei"
@@ -147,6 +147,9 @@ export default function Navbar() {
                   sizes="(max-width: 640px) 184px, 232px"
                 />
               </div>
+              <span className="text-[8px] sm:text-[9px] font-bold tracking-[0.16em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-0.5">
+                Gifts That Make An Impression
+              </span>
             </Link>
 
             <div className="flex min-w-0 items-center justify-end gap-2 sm:gap-4">
@@ -209,7 +212,7 @@ export default function Navbar() {
               className="flex min-h-[3.25rem] flex-1 items-center justify-center gap-2 rounded-full border border-[#e8e0d8] bg-[#FAF7F4] px-2 py-2.5 text-center font-sans text-[11.5px] font-bold uppercase leading-tight tracking-[0.08em] text-[#A67C32] shadow-sm active:scale-[0.98] sm:text-xs"
             >
               <Gift className="h-4 w-4 shrink-0 text-[#B8924F]" strokeWidth={2} aria-hidden />
-              <span className="leading-tight">Festive hampers</span>
+              <span className="leading-tight">Personalized Gifts</span>
             </Link>
           </div>
         </div>
@@ -218,10 +221,10 @@ export default function Navbar() {
       {/* ─── DESKTOP (xl+) — single-row reference layout ───────────────────── */}
       <header className="hidden border-b border-black/[0.05] bg-[#FFF9F5] xl:block">
         <div className="mx-auto max-w-[90rem] px-8 2xl:px-10">
-          <div className="grid grid-cols-[11.5rem_auto_minmax(0,1fr)_auto] items-center gap-x-4 py-[18px] 2xl:grid-cols-[12.5rem_auto_minmax(0,1fr)_auto] 2xl:gap-x-5 2xl:py-[22px]">
+          <div className="grid grid-cols-[15.5rem_auto_minmax(0,1fr)_auto] items-center gap-x-4 py-[18px] 2xl:grid-cols-[16.5rem_auto_minmax(0,1fr)_auto] 2xl:gap-x-5 2xl:py-[22px]">
             {/* Logo */}
-            <Link to="/home" className="block min-w-0">
-              <div className="relative h-[2.75rem] w-full 2xl:h-[3rem]">
+            <Link to="/home" className="flex flex-col items-start gap-1 min-w-0">
+              <div className="relative h-[2.3rem] w-full 2xl:h-[2.5rem] shrink-0">
                 <AppImage
                   src={LOGO_SRC}
                   alt="Giftz Gallerei"
@@ -231,6 +234,9 @@ export default function Navbar() {
                   sizes="200px"
                 />
               </div>
+              <span className="text-[9px] 2xl:text-[10px] font-bold tracking-[0.14em] text-[#4A1020] uppercase whitespace-nowrap leading-none pl-1 mt-0.5">
+                Gifts That Make An Impression
+              </span>
             </Link>
 
             {/* CTA buttons */}
@@ -256,7 +262,7 @@ export default function Navbar() {
                   )}
                 >
                   <ShoppingBasket className="h-3.5 w-3.5 shrink-0" strokeWidth={2} aria-hidden />
-                  <span className="whitespace-nowrap">Festive hampers</span>
+                  <span className="whitespace-nowrap">Personalized Gifts</span>
                 </span>
               </Link>
             </div>
@@ -334,10 +340,13 @@ export default function Navbar() {
       <header className="hidden border-b border-black/[0.06] bg-[#FFF9F5] md:block xl:hidden">
         <div className="mx-auto max-w-7xl px-5">
           <div className="flex items-center justify-between gap-4 py-[18px]">
-            <Link to="/home" className="shrink-0">
-              <div className="relative h-[2.7rem] w-[13rem]">
+            <Link to="/home" className="flex flex-col items-start gap-1 shrink-0">
+              <div className="relative h-[2.2rem] w-[11.5rem] shrink-0">
                 <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" priority sizes="192px" />
               </div>
+              <span className="text-[9px] font-bold tracking-[0.16em] text-[#4A1020] uppercase whitespace-nowrap leading-none pl-0.5 mt-0.5">
+                Gifts That Make An Impression
+              </span>
             </Link>
             <div className="flex items-center gap-5">
               <Link to="/wishlist" className="flex flex-col items-center gap-0.5 text-[#1a1a1a] transition-opacity hover:opacity-75" aria-label="Wishlist">
@@ -379,7 +388,7 @@ export default function Navbar() {
                 )}
               >
                 <ShoppingBasket className="h-3 w-3" strokeWidth={2} aria-hidden />
-                Festive
+                Personalized
               </span>
             </Link>
             {desktopNavLinks.map((link) => (
@@ -415,8 +424,13 @@ export default function Navbar() {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex flex-shrink-0 items-center justify-between border-b border-[#ebe6e2] px-5 py-4">
-            <div className="relative h-9 w-44 min-w-0 sm:h-10 sm:w-52">
-              <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" sizes="208px" />
+            <div className="flex flex-col gap-1 min-w-0">
+              <div className="relative h-[1.8rem] w-[8.5rem] sm:h-[2.1rem] sm:w-[9.5rem] shrink-0">
+                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" sizes="208px" />
+              </div>
+              <span className="text-[8.5px] sm:text-[9.5px] font-bold tracking-[0.16em] text-[#4A1020] uppercase whitespace-nowrap leading-none pl-0.5 mt-0.5">
+                Gifts That Make An Impression
+              </span>
             </div>
             <button
               type="button"

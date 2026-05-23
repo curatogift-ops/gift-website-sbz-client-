@@ -7,8 +7,6 @@ import TrustedLeadingBrandsSection from '@/components/corporate/TrustedLeadingBr
 import AppImage from '@/components/ui/AppImage';
 import {
   Building2,
-  ChevronLeft,
-  ChevronRight,
   Gem,
   Gift,
   Leaf,
@@ -98,8 +96,8 @@ const HERO_SLIDES = [
   {
     id: 'curated-gifts',
     eyebrow: 'Premium corporate gifting solutions',
-    headingLight: 'Thoughtfully Curated ',
-    headingItalic: 'Gifts That Build Stronger Business Relationships.',
+    headingLight: "Thoughtfully\nCurated Gifts",
+    headingItalic: "That Build Stronger\nBusiness Relationships.",
     image: '/images/corporate-hero-banner.png',
     mobileImage: '/images/corporate-hero-banner-mobile.png',
     imageAlt: 'Curated premium corporate gifts',
@@ -110,9 +108,9 @@ const HERO_SLIDES = [
     textColorItalic: 'text-[#A67C37]',
     eyebrowColor: 'text-[#A67C37]',
     gradientClass: 'from-[#F9F6F1]/95 via-[#F9F6F1]/80 to-transparent left-0 w-[55%] lg:w-[48%]',
-    imgTranslate: 'md:-translate-x-[5%]',
+    imgTranslate: 'md:-translate-x-[12%] md:scale-[1.15] origin-center',
     hasEmbeddedText: false,
-    hasMobileEmbeddedText: true
+    hasMobileEmbeddedText: false
   },
   {
     id: 'brand-your-way',
@@ -131,7 +129,7 @@ const HERO_SLIDES = [
     gradientClass: 'from-transparent via-[#C5A57A]/80 to-[#C5A57A]/95 right-0 w-[55%] lg:w-[48%]',
     imgTranslate: 'md:translate-x-[0%]',
     hasEmbeddedText: true,
-    hasMobileEmbeddedText: true
+    hasMobileEmbeddedText: false
   }
 ] as const;
 
@@ -146,26 +144,20 @@ export default function CorporatePage() {
     return () => clearInterval(timer);
   }, [currentSlide]);
 
-  const handleNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-  };
 
-  const handlePrev = () => {
-    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
-  };
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F9F6F1]">
       <Navbar />
 
-      <main className="flex-grow pt-[calc(10rem+env(safe-area-inset-top,0px))] md:pt-[9rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
+      <main className="flex-grow pt-[calc(11.5rem+env(safe-area-inset-top,0px))] md:pt-[9rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
 
         {/* ── Hero Slider ────────────────────────────────────────────────── */}
         <section className="relative w-full overflow-hidden bg-[#F9F6F1]" aria-labelledby="corporate-hero-heading">
           <div className="relative mx-auto w-full max-w-[2500px]">
             
             {/* Slides Container */}
-            <div className="relative h-[400px] sm:h-[440px] md:h-auto md:aspect-[2380/769] w-full overflow-hidden">
+            <div className="relative h-[530px] sm:h-[570px] md:h-auto md:aspect-[2380/769] w-full overflow-hidden">
               {HERO_SLIDES.map((slide, index) => {
                 const isActive = index === currentSlide;
                 return (
@@ -180,7 +172,7 @@ export default function CorporatePage() {
                       <div
                         className={[
                           slide.hasMobileEmbeddedText ? 'hidden md:flex' : 'flex',
-                          'relative z-[2] px-4 pb-2 pt-3 sm:px-6 md:pointer-events-none md:absolute md:inset-y-0 md:max-w-[50%] md:flex-col md:justify-center md:bg-transparent md:px-8 md:py-8 lg:max-w-[46%] lg:px-10 xl:max-w-[42%] 2xl:max-w-[38%]',
+                          'relative z-[2] w-full md:w-auto px-4 pb-4 pt-5 sm:px-6 text-center md:text-left flex flex-col items-center md:items-start md:pointer-events-none md:absolute md:inset-y-0 md:max-w-[50%] md:justify-center md:bg-transparent md:px-8 md:py-8 lg:max-w-[46%] lg:px-10 xl:max-w-[42%] 2xl:max-w-[38%]',
                           slide.textPosition === 'left' ? 'md:left-0 md:right-auto md:text-left' : 'md:right-0 md:left-auto md:text-left'
                         ].join(' ')}
                       >
@@ -193,21 +185,27 @@ export default function CorporatePage() {
                             className="hero-heading-corporate mt-2 max-w-[21rem] sm:mt-3 sm:max-w-[25rem] md:max-w-[28rem] lg:max-w-[32rem] xl:max-w-[36rem]"
                           >
                             <span className={`block ${slide.textColorLight}`}>
-                              {slide.headingLight}
+                              {slide.headingLight.split('\n').map((line, i) => (
+                                <span key={i} className="block">{line}</span>
+                              ))}
                             </span>
                             <span className={`mt-1 block font-medium italic md:mt-2 ${slide.textColorItalic}`}>
-                              {slide.headingItalic}
+                              {slide.headingItalic.split('\n').map((line, i) => (
+                                <span key={i} className="block">{line}</span>
+                              ))}
                             </span>
                           </h1>
+
+
                         </div>
                       </div>
                     )}
-
+ 
                     {/* Banner image */}
                     <div className={`relative w-full ${slide.hasMobileEmbeddedText ? 'h-full absolute inset-0' : 'h-[58%] sm:h-[62%]'} md:absolute md:inset-0 md:h-full`}>
                       {!slide.hasEmbeddedText && (
                         <div
-                          className={`pointer-events-none absolute inset-y-0 z-[1] hidden md:block ${slide.gradientClass}`}
+                          className={`pointer-events-none absolute inset-y-0 z-[1] hidden md:block bg-gradient-to-r ${slide.gradientClass}`}
                           aria-hidden
                         />
                       )}
@@ -230,24 +228,6 @@ export default function CorporatePage() {
                   </div>
                 );
               })}
-            </div>
-
-            {/* Navigation Arrows - hidden on mobile, visible on desktop hover */}
-            <div className="absolute inset-y-0 left-0 right-0 z-20 pointer-events-none flex items-center justify-between px-4 sm:px-6">
-              <button
-                onClick={handlePrev}
-                className="pointer-events-auto flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-black/10 bg-white/70 text-black shadow-sm transition hover:bg-white hover:scale-105 active:scale-95"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                onClick={handleNext}
-                className="pointer-events-auto flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-black/10 bg-white/70 text-black shadow-sm transition hover:bg-white hover:scale-105 active:scale-95"
-                aria-label="Next slide"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
             </div>
 
             {/* Dot Indicators */}
