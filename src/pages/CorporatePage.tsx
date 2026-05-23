@@ -108,7 +108,7 @@ const HERO_SLIDES = [
     textColorItalic: 'text-[#A67C37]',
     eyebrowColor: 'text-[#A67C37]',
     gradientClass: 'from-[#F9F6F1]/95 via-[#F9F6F1]/80 to-transparent left-0 w-[55%] lg:w-[48%]',
-    imgTranslate: 'md:-translate-x-[12%] md:scale-[1.15] origin-center',
+    imgTranslate: 'md:object-[72%_center]',
     hasEmbeddedText: false,
     hasMobileEmbeddedText: false
   },
