@@ -157,7 +157,7 @@ export default function CorporatePage() {
           <div className="relative mx-auto w-full max-w-[2500px]">
             
             {/* Slides Container */}
-            <div className="relative h-[530px] sm:h-[570px] md:h-auto md:aspect-[2380/769] w-full overflow-hidden">
+            <div className="relative h-[530px] sm:h-[570px] md:h-auto md:aspect-[1024/385] w-full overflow-hidden">
               {HERO_SLIDES.map((slide, index) => {
                 const isActive = index === currentSlide;
                 return (
@@ -173,7 +173,7 @@ export default function CorporatePage() {
                         className={[
                           slide.hasMobileEmbeddedText ? 'hidden md:flex' : 'flex',
                           'relative z-[2] w-full md:w-auto px-4 pb-4 pt-5 sm:px-6 text-center md:text-left flex flex-col items-center md:items-start md:pointer-events-none md:absolute md:inset-y-0 md:max-w-[50%] md:justify-center md:bg-transparent md:px-8 md:py-8 lg:max-w-[46%] lg:px-10 xl:max-w-[42%] 2xl:max-w-[38%]',
-                          slide.textPosition === 'left' ? 'md:left-0 md:right-auto md:text-left' : 'md:right-0 md:left-auto md:text-left'
+                          slide.textPosition === 'left' ? 'md:left-[4%] lg:left-[6%] xl:left-[8%] 2xl:left-[10%] md:right-auto md:text-left' : 'md:right-[4%] lg:right-[6%] xl:right-[8%] 2xl:right-[10%] md:left-auto md:text-left'
                         ].join(' ')}
                       >
                         <div className="md:pointer-events-auto">
@@ -216,8 +216,8 @@ export default function CorporatePage() {
                         <img
                           src={slide.image}
                           alt={slide.imageAlt}
-                          width={2046}
-                          height={769}
+                          width={2500}
+                          height={662}
                           decoding="async"
                           fetchPriority={index === 0 ? "high" : "low"}
                           sizes="(max-width: 2500px) 100vw, 2500px"
