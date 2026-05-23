@@ -218,14 +218,13 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ─── DESKTOP (xl+) — single-row reference layout ───────────────────── */}
       <header className="hidden border-b border-black/[0.05] bg-[#FFF9F5] xl:block">
         <div className="mx-auto max-w-[90rem] px-8 2xl:px-10">
-          <div className="grid grid-cols-[15.5rem_auto_minmax(0,1fr)_auto] items-center gap-x-4 py-[18px] 2xl:grid-cols-[16.5rem_auto_minmax(0,1fr)_auto] 2xl:gap-x-5 2xl:py-[22px]">
+          <div className="grid grid-cols-[12.5rem_auto_minmax(0,1fr)_auto] items-center gap-x-3.5 py-[18px] 2xl:grid-cols-[14rem_auto_minmax(0,1fr)_auto] 2xl:gap-x-5 2xl:py-[22px]">
             {/* Logo */}
             <Link
               to="/home"
-              className="mx-auto flex flex-col items-center gap-1 shrink-0 w-[12.5rem] 2xl:w-[13.5rem]"
+              className="mx-auto flex flex-col items-center gap-1 shrink-0 w-[12rem] 2xl:w-[13.5rem]"
             >
               <div className="relative h-[2.2rem] w-full 2xl:h-[2.4rem] shrink-0">
                 <AppImage
@@ -241,14 +240,14 @@ export default function Navbar() {
                 Gifts That Make An Impression
               </span>
             </Link>
-
+ 
             {/* CTA buttons */}
-            <div className="flex shrink-0 items-center gap-2.5">
+            <div className="flex shrink-0 items-center gap-2">
               <Link to="/corporate" className="relative shrink-0">
                 <NewBadge />
                 <span
                   className={cn(
-                    'inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_4px_12px_rgba(74,16,32,0.12)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_6px_16px_rgba(74,16,32,0.18)] active:scale-[0.97] 2xl:px-6 2xl:py-3 2xl:text-[12.5px]',
+                    'inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 font-sans text-[10.5px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_4px_12px_rgba(74,16,32,0.12)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_6px_16px_rgba(74,16,32,0.18)] active:scale-[0.97] 2xl:px-5.5 2xl:py-2.5 2xl:text-[12px]',
                     isNavActive('/corporate') ? 'bg-[#3D0A14]' : 'bg-[#4A1020] hover:bg-[#3D0A14]'
                   )}
                 >
@@ -260,7 +259,7 @@ export default function Navbar() {
                 <NewBadge />
                 <span
                   className={cn(
-                    'inline-flex items-center gap-1.5 rounded-full border border-[#C9A96E]/55 bg-white px-5 py-2.5 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#4A1020] shadow-[0_4px_12px_rgba(201,169,110,0.08)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_6px_16px_rgba(201,169,110,0.15)] active:scale-[0.97] 2xl:px-6 2xl:py-3 2xl:text-[12.5px]',
+                    'inline-flex items-center gap-1.5 rounded-full border border-[#C9A96E]/55 bg-white px-3.5 py-2 font-sans text-[10.5px] font-bold uppercase tracking-[0.08em] text-[#4A1020] shadow-[0_4px_12px_rgba(201,169,110,0.08)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_6px_16px_rgba(201,169,110,0.15)] active:scale-[0.97] 2xl:px-5.5 2xl:py-2.5 2xl:text-[12px]',
                     isNavActive('/shop') ? 'bg-[#FAF7F4]' : 'hover:bg-[#FAF7F4]/80'
                   )}
                 >
@@ -269,10 +268,10 @@ export default function Navbar() {
                 </span>
               </Link>
             </div>
-
-            {/* Main nav links — align toward utilities so Contact is never clipped */}
+ 
+            {/* Main nav links — aligned center so it fits perfectly on all desktops */}
             <nav
-              className="flex min-w-0 items-center justify-end gap-4 overflow-x-auto overflow-y-visible py-1 pl-2 pr-1 [-ms-overflow-style:none] [scrollbar-width:none] 2xl:gap-6 [&::-webkit-scrollbar]:hidden"
+              className="flex min-w-0 items-center justify-center gap-3 overflow-x-auto overflow-y-visible py-1 pl-2 pr-1 [-ms-overflow-style:none] [scrollbar-width:none] 2xl:gap-5 [&::-webkit-scrollbar]:hidden"
               aria-label="Primary"
             >
               {desktopNavLinks.map((link) => {
@@ -282,7 +281,7 @@ export default function Navbar() {
                     key={link.href}
                     to={link.href}
                     className={cn(
-                      'relative shrink-0 whitespace-nowrap px-0.5 font-sans text-[12px] font-bold uppercase tracking-[0.08em] transition-colors 2xl:text-[13.5px] 2xl:tracking-[0.1em]',
+                      'relative shrink-0 whitespace-nowrap px-0.5 font-sans text-[11px] font-bold uppercase tracking-[0.08em] transition-colors 2xl:text-[13px] 2xl:tracking-[0.1em]',
                       active ? 'text-[#4A0E1C]' : 'text-[#1A1010] hover:text-[#4A0E1C]'
                     )}
                   >
@@ -302,24 +301,24 @@ export default function Navbar() {
                 );
               })}
             </nav>
-
+ 
             {/* Utility icons */}
-            <div className="flex shrink-0 items-center gap-3 border-l border-[#dcd8d4] pl-3 2xl:gap-6 2xl:pl-6">
+            <div className="flex shrink-0 items-center gap-2.5 border-l border-[#dcd8d4] pl-2.5 2xl:gap-5 2xl:pl-5">
               <Link
                 to="/wishlist"
                 className="flex flex-col items-center gap-1 text-[#1a1a1a] transition-opacity hover:opacity-75"
                 aria-label="Wishlist"
               >
-                <Heart className="h-[21px] w-[21px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" />
-                <span className="font-sans text-[12.5px] font-semibold leading-none">Wishlist</span>
+                <Heart className="h-[20px] w-[20px] 2xl:h-[21px] 2xl:w-[21px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" />
+                <span className="font-sans text-[11.5px] font-semibold leading-none 2xl:text-[12.5px]">Wishlist</span>
               </Link>
               <Link
                 to="/account"
                 className="flex flex-col items-center gap-1 text-[#1a1a1a] transition-opacity hover:opacity-75"
                 aria-label="Account"
               >
-                <CircleUser className="h-[21px] w-[21px]" strokeWidth={iconThin} strokeLinecap="round" />
-                <span className="font-sans text-[12.5px] font-semibold leading-none">Account</span>
+                <CircleUser className="h-[20px] w-[20px] 2xl:h-[21px] 2xl:w-[21px]" strokeWidth={iconThin} strokeLinecap="round" />
+                <span className="font-sans text-[11.5px] font-semibold leading-none 2xl:text-[12.5px]">Account</span>
               </Link>
               <Link
                 to="/cart"
@@ -327,12 +326,12 @@ export default function Navbar() {
                 aria-label="Shopping cart, 0 items"
               >
                 <span className="relative inline-flex">
-                  <ShoppingBag className="h-[21px] w-[21px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" />
+                  <ShoppingBag className="h-[20px] w-[20px] 2xl:h-[21px] 2xl:w-[21px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" />
                   <span className="absolute -right-1.5 -top-1.5 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#e11d48] px-0.5 text-[10.5px] font-semibold leading-none text-white">
                     0
                   </span>
                 </span>
-                <span className="font-sans text-[12.5px] font-semibold leading-none">Cart</span>
+                <span className="font-sans text-[11.5px] font-semibold leading-none 2xl:text-[12.5px]">Cart</span>
               </Link>
             </div>
           </div>

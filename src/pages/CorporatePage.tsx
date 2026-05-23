@@ -198,7 +198,7 @@ export default function CorporatePage() {
                           </h1>
 
                           {/* Hero CTA buttons — aligned center on mobile, left on desktop */}
-                          <div className="mt-6 flex flex-wrap items-center justify-center md:justify-start gap-3 w-full">
+                          <div className="mt-6 hidden md:flex flex-wrap items-center justify-center md:justify-start gap-3 w-full">
                             <Link
                               to="/contact"
                               className="inline-flex items-center gap-2 rounded-lg bg-[#0F172A] hover:bg-[#1E293B] px-5 py-3 font-sans text-[11px] md:text-[12px] font-bold uppercase tracking-[0.08em] text-white shadow-md transition-all active:scale-[0.98]"
@@ -242,6 +242,28 @@ export default function CorporatePage() {
                         />
                       </picture>
                     </div>
+
+                    {/* Mobile CTA buttons — rendered below the banner image on mobile view */}
+                    {!slide.hasEmbeddedText && (
+                      <div className="flex md:hidden flex-col items-center justify-center gap-2.5 w-full px-4 py-4 bg-[#F9F6F1] border-t border-[#ebe6e0]/40 shrink-0">
+                        <div className="flex gap-3 w-full max-w-[28rem]">
+                          <Link
+                            to="/contact"
+                            className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F172A] hover:bg-[#1E293B] py-3.5 px-3 font-sans text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.06em] text-white shadow-md active:scale-[0.98]"
+                          >
+                            <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                            <span className="whitespace-nowrap">Get Bulk Quote</span>
+                          </Link>
+                          <Link
+                            to="/shop"
+                            className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg border border-[#C9A96E] bg-[#FAF7F4] hover:bg-[#FFF9F5] py-3.5 px-3 font-sans text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.06em] text-[#1A1010] shadow-sm active:scale-[0.98]"
+                          >
+                            <ShoppingBag className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                            <span className="whitespace-nowrap">Explore Collections</span>
+                          </Link>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}
