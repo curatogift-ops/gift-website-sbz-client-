@@ -11,6 +11,7 @@ import {
   Gift,
   Leaf,
   Shield,
+  ShoppingBag,
   Star,
   Tag,
   Truck,
@@ -196,7 +197,23 @@ export default function CorporatePage() {
                             </span>
                           </h1>
 
-
+                          {/* Hero CTA buttons — aligned center on mobile, left on desktop */}
+                          <div className="mt-6 flex flex-wrap items-center justify-center md:justify-start gap-3 w-full">
+                            <Link
+                              to="/contact"
+                              className="inline-flex items-center gap-2 rounded-lg bg-[#0F172A] hover:bg-[#1E293B] px-5 py-3 font-sans text-[11px] md:text-[12px] font-bold uppercase tracking-[0.08em] text-white shadow-md transition-all active:scale-[0.98]"
+                            >
+                              <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                              <span>Get Bulk Quote</span>
+                            </Link>
+                            <Link
+                              to="/shop"
+                              className="inline-flex items-center gap-2 rounded-lg border border-[#C9A96E] bg-[#FAF7F4] hover:bg-[#FFF9F5] px-5 py-3 font-sans text-[11px] md:text-[12px] font-bold uppercase tracking-[0.08em] text-[#1A1010] shadow-sm transition-all active:scale-[0.98]"
+                            >
+                              <ShoppingBag className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                              <span>Explore Collections</span>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     )}
