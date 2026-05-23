@@ -135,9 +135,9 @@ export default function Navbar() {
 
             <Link
               to="/home"
-              className="mx-auto flex min-w-0 max-w-[min(100vw-8rem,22rem)] flex-col items-center gap-1 sm:max-w-none"
+              className="mx-auto flex flex-col items-center gap-1 shrink-0 w-[11rem] sm:w-[12rem]"
             >
-              <div className="relative h-[2.1rem] w-[10.5rem] shrink-0 sm:h-[2.3rem] sm:w-[11.5rem]">
+              <div className="relative h-[2.0rem] w-full shrink-0 sm:h-[2.2rem]">
                 <AppImage
                   src={LOGO_SRC}
                   alt="Giftz Gallerei"
@@ -147,7 +147,7 @@ export default function Navbar() {
                   sizes="(max-width: 640px) 184px, 232px"
                 />
               </div>
-              <span className="text-[8px] sm:text-[9px] font-bold tracking-[0.16em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-0.5">
+              <span className="text-[7.5px] sm:text-[8.2px] font-bold tracking-[0.08em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-1.5">
                 Gifts That Make An Impression
               </span>
             </Link>
@@ -223,18 +223,21 @@ export default function Navbar() {
         <div className="mx-auto max-w-[90rem] px-8 2xl:px-10">
           <div className="grid grid-cols-[15.5rem_auto_minmax(0,1fr)_auto] items-center gap-x-4 py-[18px] 2xl:grid-cols-[16.5rem_auto_minmax(0,1fr)_auto] 2xl:gap-x-5 2xl:py-[22px]">
             {/* Logo */}
-            <Link to="/home" className="flex flex-col items-start gap-1 min-w-0">
-              <div className="relative h-[2.3rem] w-full 2xl:h-[2.5rem] shrink-0">
+            <Link
+              to="/home"
+              className="mx-auto flex flex-col items-center gap-1 shrink-0 w-[12.5rem] 2xl:w-[13.5rem]"
+            >
+              <div className="relative h-[2.2rem] w-full 2xl:h-[2.4rem] shrink-0">
                 <AppImage
                   src={LOGO_SRC}
                   alt="Giftz Gallerei"
                   fill
-                  className="object-contain object-left"
+                  className="object-contain object-center"
                   priority
                   sizes="200px"
                 />
               </div>
-              <span className="text-[9px] 2xl:text-[10px] font-bold tracking-[0.14em] text-[#4A1020] uppercase whitespace-nowrap leading-none pl-1 mt-0.5">
+              <span className="text-[8.5px] 2xl:text-[9.5px] font-bold tracking-[0.1em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-2">
                 Gifts That Make An Impression
               </span>
             </Link>
@@ -340,11 +343,11 @@ export default function Navbar() {
       <header className="hidden border-b border-black/[0.06] bg-[#FFF9F5] md:block xl:hidden">
         <div className="mx-auto max-w-7xl px-5">
           <div className="flex items-center justify-between gap-4 py-[18px]">
-            <Link to="/home" className="flex flex-col items-start gap-1 shrink-0">
-              <div className="relative h-[2.2rem] w-[11.5rem] shrink-0">
-                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" priority sizes="192px" />
+            <Link to="/home" className="flex flex-col items-center gap-1 shrink-0 w-[12.5rem]">
+              <div className="relative h-[2.1rem] w-full shrink-0">
+                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-center" priority sizes="192px" />
               </div>
-              <span className="text-[9px] font-bold tracking-[0.16em] text-[#4A1020] uppercase whitespace-nowrap leading-none pl-0.5 mt-0.5">
+              <span className="text-[8.5px] font-bold tracking-[0.08em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-2">
                 Gifts That Make An Impression
               </span>
             </Link>
@@ -424,11 +427,11 @@ export default function Navbar() {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex flex-shrink-0 items-center justify-between border-b border-[#ebe6e2] px-5 py-4">
-            <div className="flex flex-col gap-1 min-w-0">
-              <div className="relative h-[1.8rem] w-[8.5rem] sm:h-[2.1rem] sm:w-[9.5rem] shrink-0">
-                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" sizes="208px" />
+            <div className="flex flex-col items-center gap-1 shrink-0 w-[9.5rem] sm:w-[10.5rem]">
+              <div className="relative h-[1.8rem] w-full sm:h-[2.1rem] shrink-0">
+                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-center" sizes="208px" />
               </div>
-              <span className="text-[8.5px] sm:text-[9.5px] font-bold tracking-[0.16em] text-[#4A1020] uppercase whitespace-nowrap leading-none pl-0.5 mt-0.5">
+              <span className="text-[7px] sm:text-[8px] font-bold tracking-[0.08em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-1.5">
                 Gifts That Make An Impression
               </span>
             </div>

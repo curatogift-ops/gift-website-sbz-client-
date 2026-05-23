@@ -98,7 +98,7 @@ const HERO_SLIDES = [
     id: 'curated-gifts',
     eyebrow: 'Premium corporate gifting solutions',
     headingLight: "Thoughtfully\nCurated Gifts",
-    headingItalic: "That Build Stronger\nBusiness Relationships.",
+    headingItalic: "For Stronger\nBusiness Relationships.",
     image: '/images/corporate-hero-banner.png',
     mobileImage: '/images/corporate-hero-banner-mobile.png',
     imageAlt: 'Curated premium corporate gifts',
@@ -106,8 +106,8 @@ const HERO_SLIDES = [
     theme: 'light',
     bgClass: 'bg-[#F9F6F1]',
     textColorLight: 'text-[#1A1010]',
-    textColorItalic: 'text-[#A67C37]',
-    eyebrowColor: 'text-[#A67C37]',
+    textColorItalic: 'text-[#966E31]',
+    eyebrowColor: 'text-[#966E31]',
     gradientClass: 'from-[#F9F6F1]/95 via-[#F9F6F1]/80 to-transparent left-0 w-[55%] lg:w-[48%]',
     imgTranslate: 'md:object-[72%_center]',
     hasEmbeddedText: false,
@@ -190,9 +190,9 @@ export default function CorporatePage() {
                                 <span key={i} className="block">{line}</span>
                               ))}
                             </span>
-                            <span className={`mt-1 block font-medium italic md:mt-2 ${slide.textColorItalic}`}>
+                            <span className={`mt-1.5 block font-serif font-medium italic text-[0.88em] leading-[1.3] md:mt-2.5 ${slide.textColorItalic}`}>
                               {slide.headingItalic.split('\n').map((line, i) => (
-                                <span key={i} className="block">{line}</span>
+                                <span key={i} className="block leading-[1.3]">{line}</span>
                               ))}
                             </span>
                           </h1>
