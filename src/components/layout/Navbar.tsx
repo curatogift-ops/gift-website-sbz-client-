@@ -71,7 +71,7 @@ export default function Navbar() {
     { label: 'Shop', href: '/shop' },
     { label: 'Corporate gifting', href: '/corporate' },
     { label: 'Personalized gifts', href: '/shop' },
-    { label: 'Custom boxes', href: '/custom-boxes' },
+    { label: 'Make your own hamper', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
     { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
@@ -80,7 +80,7 @@ export default function Navbar() {
   const desktopNavLinks = [
     { label: 'Home', href: '/home' },
     { label: 'Shop', href: '/shop', chevron: true },
-    { label: 'Custom boxes', href: '/custom-boxes' },
+    { label: 'Make your own hamper', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
     { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
