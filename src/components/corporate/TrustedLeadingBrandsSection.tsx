@@ -179,21 +179,38 @@ const TRUSTED_BRANDS_ROW_2: TrustedBrand[] = [
 
 function BrandLogo({ brand }: { brand: TrustedBrand }) {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex shrink-0 items-center justify-center w-[120px] sm:w-[150px] px-3.5 opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300">
       {brand.logoSvg}
     </div>
   );
 }
 
 export default function TrustedLeadingBrandsSection() {
+  const ALL_BRANDS = [...TRUSTED_BRANDS_ROW_1, ...TRUSTED_BRANDS_ROW_2];
+
   return (
     <section
-      className="border-t border-[#ebe6e0] bg-[#F9F7F2] py-8 sm:py-10 lg:py-12"
+      className="border-t border-[#ebe6e0] bg-[#F9F7F2] py-8 sm:py-10 lg:py-12 overflow-hidden"
       aria-labelledby="trusted-brands-heading"
     >
-      <div className="section-container">
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee-scroll {
+          display: flex;
+          width: max-content;
+          animation: marquee 35s linear infinite;
+        }
+        .animate-marquee-scroll:hover {
+          animation-play-state: paused;
+        }
+      `}} />
+
+      <div className="w-full">
         {/* Title with horizontal rules */}
-        <div className="flex items-center justify-center gap-4 sm:gap-6 lg:gap-8">
+        <div className="section-container flex items-center justify-center gap-4 sm:gap-6 lg:gap-8">
           <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
           <h2
             id="trusted-brands-heading"
@@ -204,23 +221,19 @@ export default function TrustedLeadingBrandsSection() {
           <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
         </div>
 
-        {/* Row 1 — 7 logos */}
-        <ul className="mx-auto mt-10 grid max-w-[72rem] list-none grid-cols-3 items-center justify-items-center gap-x-6 gap-y-10 sm:grid-cols-4 sm:gap-x-8 lg:grid-cols-7 lg:gap-x-6 lg:gap-y-0 sm:mt-12 lg:mt-14">
-          {TRUSTED_BRANDS_ROW_1.map((brand) => (
-            <li key={brand.id} className="flex w-full items-center justify-center px-2">
-              <BrandLogo brand={brand} />
-            </li>
-          ))}
-        </ul>
-
-        {/* Row 2 — 7 logos */}
-        <ul className="mx-auto mt-10 grid max-w-[72rem] list-none grid-cols-3 items-center justify-items-center gap-x-6 gap-y-10 sm:grid-cols-4 sm:gap-x-8 lg:grid-cols-7 lg:gap-x-6 lg:gap-y-0 sm:mt-8 lg:mt-10">
-          {TRUSTED_BRANDS_ROW_2.map((brand) => (
-            <li key={brand.id} className="flex w-full items-center justify-center px-2">
-              <BrandLogo brand={brand} />
-            </li>
-          ))}
-        </ul>
+        {/* Infinite sliding marquee */}
+        <div className="relative mt-8 sm:mt-10 lg:mt-12 w-full overflow-hidden py-2 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 sm:before:w-24 before:bg-gradient-to-r before:from-[#F9F7F2] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 sm:after:w-24 after:bg-gradient-to-l after:from-[#F9F7F2] after:to-transparent">
+          <div className="animate-marquee-scroll gap-6 sm:gap-10">
+            {/* Render 1st set of logos */}
+            {ALL_BRANDS.map((brand, idx) => (
+              <BrandLogo key={`${brand.id}-1-${idx}`} brand={brand} />
+            ))}
+            {/* Render 2nd duplicate set of logos for seamless infinite looping */}
+            {ALL_BRANDS.map((brand, idx) => (
+              <BrandLogo key={`${brand.id}-2-${idx}`} brand={brand} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

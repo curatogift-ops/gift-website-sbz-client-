@@ -9,9 +9,8 @@ import {
   X,
   Gift,
   ChevronDown,
-  ShoppingBasket,
+  BriefcaseBusiness,
   ChevronRight,
-  Building2,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { cn } from '@/utils/cn';
@@ -20,15 +19,6 @@ const LOGO_SRC = '/images/gift-gallerei-logo.png';
 
 const CREAM = '#FFF9F5';
 const MAROON_RIBBON = '#3D181C';
-
-const NewBadge = () => (
-  <span
-    className="absolute -top-1.5 -right-1 z-10 rounded-full bg-[#C9A96E] px-1.5 py-0.5 text-[9px] font-bold uppercase leading-none tracking-[0.05em] text-[#1A1010] shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-transform duration-300 pointer-events-none"
-    aria-hidden
-  >
-    New
-  </span>
-);
 
 export default function Navbar() {
   const { pathname } = useLocation();
@@ -67,22 +57,20 @@ export default function Navbar() {
     );
 
   const drawerLinks = [
-    { label: 'Home', href: '/home' },
     { label: 'Shop', href: '/shop' },
-    { label: 'Corporate gifting', href: '/corporate' },
+    { label: 'Brands', href: '/brands' },
     { label: 'Personalized gifts', href: '/shop' },
-    { label: 'Make your own hamper', href: '/custom-boxes' },
+    { label: 'Corporate gifting', href: '/corporate' },
+    { label: 'Make Your Own Hamper', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
-    { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
   ];
 
   const desktopNavLinks = [
-    { label: 'Home', href: '/home' },
     { label: 'Shop', href: '/shop', chevron: true },
-    { label: 'Make your own hamper', shortLabel: 'Make Hamper', href: '/custom-boxes' },
+    { label: 'Brands', href: '/brands' },
+    { label: 'Make Your Own Hamper', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
-    { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
   ] as const;
 
@@ -135,7 +123,7 @@ export default function Navbar() {
 
             <Link
               to="/home"
-              className="mx-auto flex flex-col items-center gap-1 shrink-0 w-[11rem] sm:w-[12rem]"
+              className="mx-auto flex flex-col items-center gap-1 shrink-0 w-[11.5rem] sm:w-[12.5rem]"
             >
               <div className="relative h-[2.0rem] w-full shrink-0 sm:h-[2.2rem]">
                 <AppImage
@@ -147,9 +135,6 @@ export default function Navbar() {
                   sizes="(max-width: 640px) 184px, 232px"
                 />
               </div>
-              <span className="text-[7.5px] sm:text-[8.2px] font-bold tracking-[0.08em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-1.5">
-                Gifts That Make An Impression
-              </span>
             </Link>
 
             <div className="flex min-w-0 items-center justify-end gap-2 sm:gap-4">
@@ -198,80 +183,104 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="flex gap-2.5 border-t border-black/[0.06] bg-white px-3 pb-3 pt-2.5">
-            <Link
-              to="/corporate"
-              className="flex min-h-[3.25rem] flex-1 items-center justify-center gap-2 rounded-full px-2 py-2.5 text-center font-sans text-[11.5px] font-bold uppercase leading-tight tracking-[0.08em] text-white shadow-sm active:scale-[0.98] sm:text-xs"
-              style={{ backgroundColor: MAROON_RIBBON }}
-            >
-              <Building2 className="h-4 w-4 shrink-0 text-white" strokeWidth={2} aria-hidden />
-              <span className="leading-tight">Corporate gifting</span>
-            </Link>
+          <div className="border-t border-black/[0.06] bg-white px-3 pb-3 pt-2.5">
+            <div className="flex w-full overflow-hidden rounded-[0.95rem] border border-[#d8cec1] bg-[#F6F3EE] p-1 shadow-sm">
             <Link
               to="/shop"
-              className="flex min-h-[3.25rem] flex-1 items-center justify-center gap-2 rounded-full border border-[#e8e0d8] bg-[#FAF7F4] px-2 py-2.5 text-center font-sans text-[11.5px] font-bold uppercase leading-tight tracking-[0.08em] text-[#A67C32] shadow-sm active:scale-[0.98] sm:text-xs"
+              className={cn(
+                "relative flex min-h-[3.05rem] flex-1 items-center justify-center gap-2 rounded-[0.72rem] px-2 py-2.5 text-center font-serif text-[13px] font-semibold leading-tight active:scale-[0.98] sm:text-[14px] transition-colors",
+                isNavActive('/shop')
+                  ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_5px_12px_rgba(74,16,32,0.28)]'
+                  : 'text-[#4A1020]'
+              )}
             >
-              <Gift className="h-4 w-4 shrink-0 text-[#B8924F]" strokeWidth={2} aria-hidden />
+              <Heart
+                className={cn(
+                  "h-4 w-4 shrink-0",
+                  isNavActive('/shop') ? 'text-[#F2EDE8]' : 'text-[#6B1E30]'
+                )}
+                strokeWidth={2}
+                aria-hidden
+              />
               <span className="leading-tight">Personalized Gifts</span>
             </Link>
+            <Link
+              to="/corporate"
+              className={cn(
+                "flex min-h-[3.05rem] flex-1 items-center justify-center gap-2 rounded-[0.72rem] px-2 py-2.5 text-center font-serif text-[13px] font-semibold leading-tight active:scale-[0.98] sm:text-[14px] transition-colors",
+                isNavActive('/corporate')
+                  ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_5px_12px_rgba(74,16,32,0.28)]'
+                  : 'text-[#4A1020]'
+              )}
+            >
+              <BriefcaseBusiness
+                className={cn(
+                  "h-4 w-4 shrink-0",
+                  isNavActive('/corporate') ? 'text-[#F2EDE8]' : 'text-[#6B1E30]'
+                )}
+                strokeWidth={1.9}
+                aria-hidden
+              />
+              <span className="leading-tight">Corporate Gifts</span>
+            </Link>
+            </div>
           </div>
         </div>
       </header>
 
       <header className="hidden border-b border-black/[0.05] bg-[#FFF9F5] xl:block">
-        <div className="mx-auto max-w-[90rem] px-8 2xl:px-10">
-          <div className="grid grid-cols-[12.5rem_auto_minmax(0,1fr)_auto] items-center gap-x-3.5 py-[18px] 2xl:grid-cols-[14rem_auto_minmax(0,1fr)_auto] 2xl:gap-x-5 2xl:py-[22px]">
+        <div className="w-full px-4 2xl:px-6">
+          <div className="grid grid-cols-[12.5rem_auto_minmax(0,1fr)_auto] items-center gap-x-3 py-[16px] 2xl:grid-cols-[14rem_auto_minmax(0,1fr)_auto] 2xl:gap-x-4.5 2xl:py-[20px]">
             {/* Logo */}
             <Link
               to="/home"
-              className="mx-auto flex flex-col items-center gap-1 shrink-0 w-[12rem] 2xl:w-[13.5rem]"
+              className="flex flex-col items-start gap-1 shrink-0 w-[11.5rem] 2xl:w-[12.5rem]"
             >
               <div className="relative h-[2.2rem] w-full 2xl:h-[2.4rem] shrink-0">
                 <AppImage
                   src={LOGO_SRC}
                   alt="Giftz Gallerei"
                   fill
-                  className="object-contain object-center"
+                  className="object-contain object-left"
                   priority
                   sizes="200px"
                 />
               </div>
-              <span className="text-[8.5px] 2xl:text-[9.5px] font-bold tracking-[0.1em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-2">
-                Gifts That Make An Impression
-              </span>
             </Link>
  
             {/* CTA buttons */}
-            <div className="flex shrink-0 items-center gap-2">
-              <Link to="/corporate" className="relative shrink-0">
-                <NewBadge />
-                <span
+            <div className="flex shrink-0 items-center">
+              <div className="flex overflow-hidden rounded-[1rem] border border-[#d8cec1] bg-[#F6F3EE] p-1 shadow-[0_3px_10px_rgba(74,16,32,0.08)]">
+                <Link
+                  to="/shop"
                   className={cn(
-                    'inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 font-sans text-[10.5px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_4px_12px_rgba(74,16,32,0.12)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_6px_16px_rgba(74,16,32,0.18)] active:scale-[0.97] 2xl:px-5.5 2xl:py-2.5 2xl:text-[12px]',
-                    isNavActive('/corporate') ? 'bg-[#3D0A14]' : 'bg-[#4A1020] hover:bg-[#3D0A14]'
+                    'inline-flex items-center gap-2 rounded-[0.75rem] px-5 py-2.5 font-serif text-[15px] font-semibold tracking-[0.01em] transition-all duration-300 active:scale-[0.98]',
+                    isNavActive('/shop')
+                      ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_6px_14px_rgba(74,16,32,0.3)]'
+                      : 'text-[#4A1020] hover:bg-[#EEE7DC]'
                   )}
                 >
-                  <Gift className="h-3.5 w-3.5 shrink-0" strokeWidth={2} aria-hidden />
-                  <span className="whitespace-nowrap">Corporate gifting</span>
-                </span>
-              </Link>
-              <Link to="/shop" className="relative shrink-0">
-                <NewBadge />
-                <span
-                  className={cn(
-                    'inline-flex items-center gap-1.5 rounded-full border border-[#C9A96E]/55 bg-white px-3.5 py-2 font-sans text-[10.5px] font-bold uppercase tracking-[0.08em] text-[#4A1020] shadow-[0_4px_12px_rgba(201,169,110,0.08)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_6px_16px_rgba(201,169,110,0.15)] active:scale-[0.97] 2xl:px-5.5 2xl:py-2.5 2xl:text-[12px]',
-                    isNavActive('/shop') ? 'bg-[#FAF7F4]' : 'hover:bg-[#FAF7F4]/80'
-                  )}
-                >
-                  <ShoppingBasket className="h-3.5 w-3.5 shrink-0" strokeWidth={2} aria-hidden />
+                  <Heart className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
                   <span className="whitespace-nowrap">Personalized Gifts</span>
-                </span>
-              </Link>
+                </Link>
+                <Link
+                  to="/corporate"
+                  className={cn(
+                    'inline-flex items-center gap-2 rounded-[0.75rem] px-5 py-2.5 font-serif text-[15px] font-semibold tracking-[0.01em] transition-all duration-300 active:scale-[0.98]',
+                    isNavActive('/corporate')
+                      ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_6px_14px_rgba(74,16,32,0.3)]'
+                      : 'text-[#4A1020] hover:bg-[#EEE7DC]'
+                  )}
+                >
+                  <BriefcaseBusiness className="h-4 w-4 shrink-0" strokeWidth={1.9} aria-hidden />
+                  <span className="whitespace-nowrap">Corporate Gifts</span>
+                </Link>
+              </div>
             </div>
  
             {/* Main nav links — aligned center so it fits perfectly on all desktops */}
             <nav
-              className="flex min-w-0 items-center justify-start xl:justify-center gap-3 overflow-x-auto overflow-y-visible py-1 pl-2 pr-1 [-ms-overflow-style:none] [scrollbar-width:none] 2xl:gap-5 [&::-webkit-scrollbar]:hidden"
+              className="flex min-w-0 items-center justify-start xl:justify-center gap-2.5 overflow-x-auto overflow-y-visible py-1 pl-2 pr-1 [-ms-overflow-style:none] [scrollbar-width:none] 2xl:gap-4 [&::-webkit-scrollbar]:hidden"
               aria-label="Primary"
             >
               {desktopNavLinks.map((link) => {
@@ -281,29 +290,22 @@ export default function Navbar() {
                     key={link.href}
                     to={link.href}
                     className={cn(
-                      'relative shrink-0 whitespace-nowrap px-0.5 font-sans text-[11px] font-bold uppercase tracking-[0.08em] transition-colors 2xl:text-[13px] 2xl:tracking-[0.1em]',
+                      'group relative shrink-0 whitespace-nowrap px-0.5 font-sans text-[10.5px] font-bold uppercase tracking-[0.07em] transition-colors 2xl:text-[12px] 2xl:tracking-[0.09em]',
                       active ? 'text-[#4A0E1C]' : 'text-[#1A1010] hover:text-[#4A0E1C]'
                     )}
                   >
-                    <span className="inline-flex items-center gap-0.5">
-                      {'shortLabel' in link && link.shortLabel ? (
-                        <>
-                          <span className="hidden 2xl:inline">{link.label}</span>
-                          <span className="inline 2xl:hidden">{link.shortLabel}</span>
-                        </>
-                      ) : (
-                        link.label
-                      )}
+                    <span className="relative inline-flex items-center gap-0.5 py-1">
+                      {link.label}
                       {'chevron' in link && link.chevron && (
-                        <ChevronDown className="h-3 w-3 shrink-0 opacity-60" strokeWidth={2} aria-hidden />
+                        <ChevronDown className="h-3 w-3 shrink-0 opacity-60 transition-transform group-hover:translate-y-0.5" strokeWidth={2} aria-hidden />
                       )}
-                    </span>
-                    {active && link.href === '/home' && (
                       <span
-                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#4A0E1C]"
-                        aria-hidden
+                        className={cn(
+                          "absolute bottom-0 left-0 h-[2px] bg-[#4A0E1C] transition-all duration-300",
+                          active ? "w-full" : "w-0 group-hover:w-full"
+                        )}
                       />
-                    )}
+                    </span>
                   </Link>
                 );
               })}
@@ -347,15 +349,12 @@ export default function Navbar() {
 
       {/* ─── TABLET / SMALL DESKTOP (md–xl) — two rows, full nav visible ── */}
       <header className="hidden border-b border-black/[0.06] bg-[#FFF9F5] md:block xl:hidden">
-        <div className="mx-auto max-w-7xl px-5">
+        <div className="w-full px-4 sm:px-5">
           <div className="flex items-center justify-between gap-4 py-[18px]">
-            <Link to="/home" className="flex flex-col items-center gap-1 shrink-0 w-[12.5rem]">
+            <Link to="/home" className="flex flex-col items-start gap-1 shrink-0 w-[11.5rem]">
               <div className="relative h-[2.1rem] w-full shrink-0">
-                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-center" priority sizes="192px" />
+                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" priority sizes="192px" />
               </div>
-              <span className="text-[8.5px] font-bold tracking-[0.08em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-2">
-                Gifts That Make An Impression
-              </span>
             </Link>
             <div className="flex items-center gap-5">
               <Link to="/wishlist" className="flex flex-col items-center gap-0.5 text-[#1a1a1a] transition-opacity hover:opacity-75" aria-label="Wishlist">
@@ -376,42 +375,55 @@ export default function Navbar() {
             </div>
           </div>
           <div className="flex items-center justify-center gap-3 overflow-x-auto pb-[18px] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <Link to="/corporate" className="relative shrink-0">
-              <NewBadge />
-              <span
-                className={cn(
-                  'inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 font-sans text-[11px] font-bold uppercase tracking-[0.06em] text-white shadow-[0_2px_8px_rgba(74,16,32,0.1)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.97]',
-                  isNavActive('/corporate') ? 'bg-[#3D0A14]' : 'bg-[#4A1020] hover:bg-[#3D0A14]'
-                )}
-              >
-                <Gift className="h-3 w-3" strokeWidth={2} aria-hidden />
-                Corporate
-              </span>
-            </Link>
-            <Link to="/shop" className="relative shrink-0">
-              <NewBadge />
-              <span
-                className={cn(
-                  'inline-flex items-center gap-1 rounded-full border border-[#C9A96E]/55 bg-white px-3.5 py-1.5 font-sans text-[11px] font-bold uppercase tracking-[0.06em] text-[#4A1020] shadow-[0_2px_8px_rgba(201,169,110,0.06)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.97]',
-                  isNavActive('/shop') ? 'bg-[#FAF7F4]' : 'hover:bg-[#FAF7F4]/80'
-                )}
-              >
-                <ShoppingBasket className="h-3 w-3" strokeWidth={2} aria-hidden />
-                Personalized
-              </span>
-            </Link>
-            {desktopNavLinks.map((link) => (
+            <div className="flex overflow-hidden rounded-[0.95rem] border border-[#d8cec1] bg-[#F6F3EE] p-1 shadow-[0_3px_10px_rgba(74,16,32,0.08)]">
               <Link
-                key={link.href}
-                to={link.href}
+                to="/shop"
                 className={cn(
-                  'shrink-0 whitespace-nowrap px-2.5 py-1 font-sans text-[12px] font-bold uppercase tracking-[0.08em] transition-colors',
-                  isNavActive(link.href) ? 'text-[#4A0E1C]' : 'text-[#1A1010] hover:text-[#4A0E1C]'
+                  'inline-flex items-center gap-2 rounded-[0.72rem] px-4 py-2.5 font-serif text-[13.5px] font-semibold tracking-[0.01em] transition-all duration-300 active:scale-[0.98]',
+                  isNavActive('/shop')
+                    ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_5px_12px_rgba(74,16,32,0.3)]'
+                    : 'text-[#4A1020] hover:bg-[#EEE7DC]'
                 )}
               >
-                {link.label}
+                <Heart className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
+                Personalized Gifts
               </Link>
-            ))}
+              <Link
+                to="/corporate"
+                className={cn(
+                  'inline-flex items-center gap-2 rounded-[0.72rem] px-4 py-2.5 font-serif text-[13.5px] font-semibold tracking-[0.01em] transition-all duration-300 active:scale-[0.98]',
+                  isNavActive('/corporate')
+                    ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_5px_12px_rgba(74,16,32,0.3)]'
+                    : 'text-[#4A1020] hover:bg-[#EEE7DC]'
+                )}
+              >
+                <BriefcaseBusiness className="h-3.5 w-3.5" strokeWidth={1.9} aria-hidden />
+                Corporate Gifts
+              </Link>
+            </div>
+            {desktopNavLinks.map((link) => {
+              const active = isNavActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className={cn(
+                    'group relative shrink-0 whitespace-nowrap px-2.5 py-1 font-sans text-[12px] font-bold uppercase tracking-[0.08em] transition-colors',
+                    active ? 'text-[#4A0E1C]' : 'text-[#1A1010] hover:text-[#4A0E1C]'
+                  )}
+                >
+                  <span className="relative inline-flex items-center py-0.5">
+                    {link.label}
+                    <span
+                      className={cn(
+                        "absolute bottom-0 left-0 h-[2px] bg-[#4A0E1C] transition-all duration-300",
+                        active ? "w-full" : "w-0 group-hover:w-full"
+                      )}
+                    />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </header>
@@ -437,9 +449,6 @@ export default function Navbar() {
               <div className="relative h-[1.8rem] w-full sm:h-[2.1rem] shrink-0">
                 <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-center" sizes="208px" />
               </div>
-              <span className="text-[7px] sm:text-[8px] font-bold tracking-[0.08em] text-[#4A1020] uppercase whitespace-nowrap leading-none mt-1.5">
-                Gifts That Make An Impression
-              </span>
             </div>
             <button
               type="button"

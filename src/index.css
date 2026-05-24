@@ -354,15 +354,18 @@ body {
 
 @utility section-container {
   width: 100%;
-  max-width: 80rem;
+  max-width: 100%;
   margin-inline: auto;
   padding-inline: 1rem;
 }
 @media (min-width: 640px) {
-  .section-container { padding-inline: 1.5rem; }
+  .section-container { padding-inline: 2rem; }
 }
 @media (min-width: 1024px) {
-  .section-container { padding-inline: 2rem; }
+  .section-container { padding-inline: 3.5rem; }
+}
+@media (min-width: 1440px) {
+  .section-container { padding-inline: 5rem; }
 }
 
 @utility eyebrow {
@@ -406,21 +409,21 @@ body {
 /* Corporate banner hero — shorter image, smaller type than homepage */
 @utility hero-heading-corporate {
   font-family: var(--font-serif);
-  font-size: clamp(2.25rem, 7vw, 3.25rem);
+  font-size: clamp(2.625rem, 6.2vw, 4.25rem);
   font-weight: var(--font-weight-bold);
-  line-height: 1.12;
+  line-height: 0.98;
   letter-spacing: -0.02em;
   color: #1A1010;
 }
 @media (min-width: 768px) {
   .hero-heading-corporate {
-    font-size: clamp(2.75rem, 4.5vw, 3.75rem);
-    line-height: 1.1;
+    font-size: clamp(3.25rem, 4.6vw, 4.9rem);
+    line-height: 0.95;
   }
 }
 @media (min-width: 1280px) {
   .hero-heading-corporate {
-    font-size: clamp(3.25rem, 3.8vw + 0.5rem, 4.5rem);
+    font-size: clamp(4.25rem, 3.5vw + 1.15rem, 5.15rem);
   }
 }
 

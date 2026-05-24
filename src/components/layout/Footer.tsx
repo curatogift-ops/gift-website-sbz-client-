@@ -30,7 +30,7 @@ export default function Footer() {
       <div className="section-container">
         {/* Top — brand, links, newsletter */}
         <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 md:grid-cols-2 md:gap-x-12 md:gap-y-10 lg:grid-cols-12 lg:pb-14">
-          <div className="space-y-5 lg:col-span-4">
+          <div className="space-y-5 lg:col-span-5">
             <div className="relative h-12 w-52 sm:h-14 sm:w-60">
               <AppImage
                 src={LOGO_SRC}
@@ -62,7 +62,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:gap-10 md:col-span-2 lg:col-span-5">
+          <div className="grid grid-cols-2 gap-8 sm:gap-10 md:col-span-2 lg:col-span-7">
             <div>
               <h4 className="mb-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Shop hampers</h4>
               <ul className="space-y-3 text-[14px] font-medium text-[#F2EDE8]/80">
@@ -79,6 +79,11 @@ export default function Footer() {
                 <li>
                   <Link to="/shop?category=corporate" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
                     Corporate gifting <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/brands" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                    Brands index <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
                   </Link>
                 </li>
                 <li>
@@ -121,34 +126,13 @@ export default function Footer() {
                     Contact support
                   </Link>
                 </li>
+                <li>
+                  <Link to="/brands" className="transition hover:text-[#E8CF9A]">
+                    Browse all brands
+                  </Link>
+                </li>
               </ul>
             </div>
-          </div>
-
-          <div className="space-y-4 md:col-span-2 lg:col-span-3">
-            <h4 className="text-[13px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Stay inspired</h4>
-            <p className="text-[14px] leading-relaxed text-[#F2EDE8]/70">
-              Join our list for gifting ideas and new collections — no spam, unsubscribe anytime.
-            </p>
-            <form className="flex flex-col gap-2.5 sm:flex-row sm:items-stretch" onSubmit={(e) => e.preventDefault()}>
-              <label htmlFor="footer-email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="footer-email"
-                name="email"
-                type="email"
-                placeholder="Your email address"
-                autoComplete="email"
-                className="min-h-[2.75rem] w-full flex-1 rounded-xl border border-white/15 bg-white/[0.07] px-4 py-2.5 text-sm text-[#F2EDE8] outline-none ring-0 placeholder:text-[#F2EDE8]/45 transition focus:border-[#C9A96E]/60 focus:bg-white/[0.1] focus:ring-2 focus:ring-[#C9A96E]/35"
-              />
-              <button
-                type="submit"
-                className="min-h-[2.75rem] shrink-0 rounded-xl bg-[#C9A96E] px-6 font-sans text-[12.5px] font-bold uppercase tracking-[0.18em] text-[#3a0d14] shadow-md transition hover:bg-[#dfc48a] active:scale-[0.98] sm:px-7"
-              >
-                Subscribe
-              </button>
-            </form>
           </div>
         </div>
 
