@@ -113,25 +113,6 @@ const HERO_SLIDES = [
     imgTranslate: 'md:object-[72%_center]',
     hasEmbeddedText: false,
     hasMobileEmbeddedText: false
-  },
-  {
-    id: 'brand-your-way',
-    eyebrow: 'Custom corporate merchandising',
-    headingLight: 'Designed to Brand ',
-    headingItalic: 'Your Way.',
-    image: '/images/corporate-hero-slide-2.png',
-    mobileImage: undefined,
-    imageAlt: 'Customized brand-your-way corporate gifts',
-    textPosition: 'right',
-    theme: 'dark',
-    bgClass: 'bg-[#C5A57A]',
-    textColorLight: 'text-white',
-    textColorItalic: 'text-[#F5E6D3]',
-    eyebrowColor: 'text-[#F5E6D3]/90',
-    gradientClass: 'from-transparent via-[#C5A57A]/80 to-[#C5A57A]/95 right-0 w-[55%] lg:w-[48%]',
-    imgTranslate: 'md:translate-x-[0%]',
-    hasEmbeddedText: true,
-    hasMobileEmbeddedText: false
   }
 ] as const;
 
@@ -140,6 +121,7 @@ export default function CorporatePage() {
 
   // Auto-play interval with reset on interaction
   useEffect(() => {
+    if (HERO_SLIDES.length <= 1) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
     }, 5500);
@@ -271,18 +253,20 @@ export default function CorporatePage() {
             </div>
 
             {/* Dot Indicators */}
-            <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
-              {HERO_SLIDES.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    index === currentSlide ? 'w-6 bg-[#A67C37]' : 'w-2.5 bg-black/20 hover:bg-black/40'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
+            {HERO_SLIDES.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
+                {HERO_SLIDES.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                      index === currentSlide ? 'w-6 bg-[#A67C37]' : 'w-2.5 bg-black/20 hover:bg-black/40'
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
 
           </div>
         </section>
