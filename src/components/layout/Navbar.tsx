@@ -58,7 +58,6 @@ export default function Navbar() {
 
   const drawerLinks = [
     { label: 'Shop', href: '/shop' },
-    { label: 'Brands', href: '/brands' },
     { label: 'Personalized gifts', href: '/shop' },
     { label: 'Corporate gifting', href: '/corporate' },
     { label: 'Make Your Own Hamper', href: '/custom-boxes' },
@@ -68,7 +67,6 @@ export default function Navbar() {
 
   const desktopNavLinks = [
     { label: 'Shop', href: '/shop', chevron: true },
-    { label: 'Brands', href: '/brands' },
     { label: 'Make Your Own Hamper', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
     { label: 'Contact', href: '/contact' },

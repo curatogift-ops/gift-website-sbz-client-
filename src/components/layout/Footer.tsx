@@ -82,11 +82,6 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/brands" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
-                    Brands index <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
-                  </Link>
-                </li>
-                <li>
                   <Link to="/shop?category=birthday" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
                     Birthday hampers <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
                   </Link>
@@ -124,11 +119,6 @@ export default function Footer() {
                 <li>
                   <Link to="/contact" className="transition hover:text-[#E8CF9A]">
                     Contact support
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/brands" className="transition hover:text-[#E8CF9A]">
-                    Browse all brands
                   </Link>
                 </li>
               </ul>
