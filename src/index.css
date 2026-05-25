@@ -301,6 +301,40 @@ body {
     0 4px 14px -6px rgba(0, 0, 0, 0.08);
 }
 
+/* Corporate hero — subtle background texture */
+.corporate-hero-pattern {
+  background-image: repeating-linear-gradient(
+    118deg,
+    transparent,
+    transparent 56px,
+    rgba(150, 110, 49, 0.018) 56px,
+    rgba(150, 110, 49, 0.018) 57px
+  );
+}
+
+@keyframes corporate-hero-sparkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translateY(0) scale(0.8);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translateY(-8px) scale(1);
+  }
+}
+
+.corporate-hero-sparkle {
+  animation: corporate-hero-sparkle 6s ease-in-out infinite;
+  box-shadow: 0 0 4px rgba(201, 169, 110, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corporate-hero-sparkle {
+    animation: none;
+  }
+}
+
 /* Homepage hero — forest green + subtle grain */
 .hero-forest-bg {
   background-color: #1b3022;
@@ -409,7 +443,7 @@ body {
 /* Corporate banner hero — shorter image, smaller type than homepage */
 @utility hero-heading-corporate {
   font-family: var(--font-serif);
-  font-size: clamp(2.625rem, 6.2vw, 4.25rem);
+  font-size: clamp(2rem, 5.5vw, 2.75rem);
   font-weight: var(--font-weight-bold);
   line-height: 0.98;
   letter-spacing: -0.02em;
@@ -417,13 +451,13 @@ body {
 }
 @media (min-width: 768px) {
   .hero-heading-corporate {
-    font-size: clamp(3.25rem, 4.6vw, 4.9rem);
+    font-size: clamp(2.5rem, 3.8vw, 3.5rem);
     line-height: 0.95;
   }
 }
 @media (min-width: 1280px) {
   .hero-heading-corporate {
-    font-size: clamp(4.25rem, 3.5vw + 1.15rem, 5.15rem);
+    font-size: clamp(3.5rem, 3vw + 1rem, 4.25rem);
   }
 }
 

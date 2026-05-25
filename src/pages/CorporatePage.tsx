@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -6,6 +7,7 @@ import CorporateExpertsCtaSection from '@/components/corporate/CorporateExpertsC
 import TrustedLeadingBrandsSection from '@/components/corporate/TrustedLeadingBrandsSection';
 import CorporateTestimonialsSection from '@/components/corporate/CorporateTestimonialsSection';
 import WoodenGiftingSection from '@/components/corporate/WoodenGiftingSection';
+import CorporateHeroDecor from '@/components/corporate/CorporateHeroDecor';
 import AppImage from '@/components/ui/AppImage';
 import {
   Building2,
@@ -113,7 +115,7 @@ const HERO_SLIDES = [
     textColorLight: 'text-[#1A1010]',
     textColorItalic: 'text-[#966E31]',
     eyebrowColor: 'text-[#966E31]',
-    gradientClass: 'from-[#F9F6F1]/95 via-[#F9F6F1]/80 to-transparent left-0 w-[55%] lg:w-[48%]',
+    gradientClass: '',
     imgTranslate: 'md:object-[72%_center]',
     imgPosition: 'object-center',
     hasEmbeddedText: false,
@@ -151,7 +153,7 @@ export default function CorporatePage() {
     if (HERO_SLIDES.length <= 1) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 3500);
+    }, 5000);
     return () => clearInterval(timer);
   }, [currentSlide]);
 
@@ -212,7 +214,7 @@ export default function CorporatePage() {
           <div className="relative mx-auto w-full max-w-[2500px]">
             
             {/* Slides Container */}
-            <div className="relative h-[500px] sm:h-[540px] md:h-auto md:aspect-[1024/385] w-full overflow-hidden">
+            <div className="relative h-[500px] sm:h-[540px] md:h-auto md:aspect-[1024/435] lg:aspect-[1024/410] xl:aspect-[1024/395] w-full overflow-hidden">
               {HERO_SLIDES.map((slide, index) => {
                 const isActive = index === currentSlide;
                 return (
@@ -222,61 +224,65 @@ export default function CorporatePage() {
                       isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
                     }`}
                   >
-                    {/* Copy — stacked on mobile, overlaid on banner from md up */}
+                    {!slide.hasEmbeddedText && <CorporateHeroDecor />}
+
                     {!slide.hasEmbeddedText && (
                       <div
                         className={[
                           slide.hasMobileEmbeddedText ? 'hidden md:flex' : 'flex',
-                          'relative z-[2] w-full md:w-auto px-4 pb-3 pt-4 sm:px-6 text-center md:text-left flex flex-col items-center md:items-start md:pointer-events-none md:absolute md:inset-y-0 md:max-w-[48%] md:justify-center md:bg-transparent md:px-8 md:py-8 lg:max-w-[45%] lg:px-10 xl:max-w-[41%] 2xl:max-w-[38%]',
-                          slide.textPosition === 'left' ? 'md:left-[2.5%] lg:left-[3.5%] xl:left-[4.5%] 2xl:left-[5%] md:right-auto md:text-left' : 'md:right-[2.5%] lg:right-[3.5%] xl:right-[4.5%] 2xl:right-[5%] md:left-auto md:text-left'
+                          'relative z-[2] w-full md:w-auto px-4 pb-3 pt-4 sm:px-6 text-center md:text-left flex flex-col items-center md:items-start md:pointer-events-none md:absolute md:inset-y-0 md:max-w-[48%] md:justify-center md:bg-transparent md:px-10 md:py-12 lg:max-w-[45%] lg:px-12 lg:py-16 xl:max-w-[42%] xl:px-16 xl:py-20 2xl:max-w-[38%]',
+                          slide.textPosition === 'left' ? 'md:left-[5%] lg:left-[6.5%] xl:left-[7.5%] 2xl:left-[8.5%] md:right-auto md:text-left' : 'md:right-[5%] lg:right-[6.5%] xl:right-[7.5%] 2xl:right-[8.5%] md:left-auto md:text-left'
                         ].join(' ')}
                       >
-                        <div className="md:pointer-events-auto">
+                        <motion.div
+                          className="md:pointer-events-auto"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                        >
                           <p className={`eyebrow sm:tracking-[0.32em] ${slide.eyebrowColor}`}>
                             {slide.eyebrow}
                           </p>
                           <h1
                             id="corporate-hero-heading"
-                            className="hero-heading-corporate mt-1.5 max-w-[20rem] sm:mt-2 sm:max-w-[24rem] md:max-w-[27rem] lg:max-w-[30rem] xl:max-w-[33rem]"
+                            className="hero-heading-corporate mt-1.5 max-w-[20rem] drop-shadow-[0_2px_16px_rgba(249,246,241,0.85)] sm:mt-2 sm:max-w-[24rem] md:max-w-[27rem] lg:max-w-[30rem] xl:max-w-[33rem]"
                           >
                             <span className={`block ${slide.textColorLight}`}>
                               {slide.headingLight.split('\n').map((line, i) => (
                                 <span key={i} className="block">{line}</span>
                               ))}
                             </span>
-                            <span className={`mt-2 block font-serif italic font-semibold text-[clamp(1.75rem,3.9vw,3.05rem)] leading-[1.14] md:mt-2.5 ${slide.textColorItalic}`}>
+                            <span className={`mt-2 block font-serif italic font-semibold text-[clamp(1.35rem,3vw,2.25rem)] leading-[1.14] md:mt-2.5 ${slide.textColorItalic}`}>
                               {slide.headingItalic.split('\n').map((line, i) => (
                                 <span key={i} className="block">{line}</span>
                               ))}
                             </span>
                           </h1>
 
-                          {/* Hero CTA buttons — aligned center on mobile, left on desktop */}
                           <div className="mt-8 hidden md:flex flex-wrap items-center justify-center md:justify-start gap-[18px] w-full">
                             <Link
                               to="/contact"
-                              className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] px-5 py-3.5 font-sans text-[11px] md:text-[12px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_10px_24px_-10px_rgba(15,23,42,0.45)] transition-all active:scale-[0.98]"
+                              className="inline-flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-[#4A1020] via-[#5C1629] to-[#4A1020] hover:from-[#5C1629] hover:to-[#731E34] px-6 py-3.5 font-sans text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.12em] text-white border border-[#C9A96E]/30 shadow-[0_8px_24px_-6px_rgba(74,16,32,0.5),0_0_12px_rgba(201,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-6px_rgba(74,16,32,0.6),0_0_16px_rgba(201,169,110,0.25)] active:translate-y-0 active:scale-[0.98]"
                             >
                               <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
                               <span>Get Bulk Quote</span>
                             </Link>
                             <Link
                               to="/shop"
-                              className="inline-flex items-center gap-2 rounded-xl border border-[#9D7D47] bg-[#FAF7F4] hover:bg-[#FFF9F5] px-5 py-3.5 font-sans text-[11px] md:text-[12px] font-bold uppercase tracking-[0.08em] text-[#1A1010] shadow-sm transition-all active:scale-[0.98]"
+                              className="inline-flex items-center gap-2.5 rounded-xl border-2 border-[#9D7D47] bg-white hover:bg-[#4A1020] hover:border-[#4A1020] px-6 py-3.5 font-sans text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.12em] text-[#4A1020] hover:text-white shadow-[0_6px_16px_rgba(157,125,71,0.1)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(74,16,32,0.15)] active:translate-y-0 active:scale-[0.98] group"
                             >
-                              <ShoppingBag className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                              <ShoppingBag className="h-4 w-4 text-[#C9A96E] transition-colors duration-300 group-hover:text-[#C9A96E]" strokeWidth={1.5} />
                               <span>Explore Collections</span>
                             </Link>
                           </div>
-                        </div>
+                        </motion.div>
                       </div>
                     )}
- 
-                    {/* Banner image */}
-                    <div className={`relative w-full ${slide.hasMobileEmbeddedText ? 'h-full absolute inset-0' : 'h-[67%] sm:h-[70%]'} md:absolute md:inset-0 md:h-full`}>
+
+                    <div className={`relative w-full ${slide.hasMobileEmbeddedText ? 'h-full absolute inset-0' : 'h-[50%] sm:h-[55%]'} md:absolute md:inset-0 md:h-full md:z-0`}>
                       {!slide.hasEmbeddedText && (
                         <div
-                          className={`pointer-events-none absolute inset-y-0 z-[1] hidden md:block bg-gradient-to-r ${slide.gradientClass}`}
+                          className="pointer-events-none absolute inset-0 z-[1] hidden md:block bg-[radial-gradient(ellipse_85%_95%_at_20%_50%,rgba(249,246,241,0.42)_0%,transparent_58%)]"
                           aria-hidden
                         />
                       )}
@@ -290,7 +296,7 @@ export default function CorporatePage() {
                           width={2500}
                           height={662}
                           decoding="async"
-                          fetchPriority={index === 0 ? "high" : "low"}
+                          fetchPriority={index === 0 ? 'high' : 'low'}
                           sizes="(max-width: 2500px) 100vw, 2500px"
                           className={`block h-full w-full object-cover ${slide.imgPosition || 'object-center'} ${slide.imgTranslate || ''} ${slide.id === 'curated-gifts' ? 'object-[50%_43%] sm:object-[52%_44%] md:object-[72%_center]' : ''}`}
                         />
@@ -299,18 +305,18 @@ export default function CorporatePage() {
 
                     {/* Mobile CTA buttons — rendered below the banner image on mobile view */}
                     {!slide.hasEmbeddedText && (
-                      <div className="flex md:hidden flex-col items-center justify-center gap-2.5 w-full px-4 py-3.5 bg-[#F9F6F1] border-t border-[#ebe6e0]/40 shrink-0">
+                      <div className="flex md:hidden flex-col items-center justify-center gap-2.5 w-full px-4 py-3.5 bg-[#FFF9F5] border-t border-[#ebe6e0]/40 shrink-0">
                         <div className="flex flex-col gap-2.5 w-full max-w-[21rem]">
                           <Link
                             to="/contact"
-                            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] py-3.5 px-3 font-sans text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.06em] text-white shadow-md active:scale-[0.98]"
+                            className="w-full inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#4A1020] to-[#5C1629] py-3.5 px-4 font-sans text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.1em] text-white border border-[#C9A96E]/20 shadow-[0_6px_20px_rgba(74,16,32,0.3)] active:scale-[0.98] transition-all duration-300"
                           >
                             <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
                             <span className="whitespace-nowrap">Get Bulk Quote</span>
                           </Link>
                           <Link
                             to="/shop"
-                            className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-[#9D7D47] bg-[#FAF7F4] hover:bg-[#FFF9F5] py-3.5 px-3 font-sans text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.06em] text-[#1A1010] shadow-sm active:scale-[0.98]"
+                            className="w-full inline-flex items-center justify-center gap-2.5 rounded-xl border-2 border-[#9D7D47] bg-white py-3.5 px-4 font-sans text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.1em] text-[#4A1020] shadow-[0_4px_12px_rgba(157,125,71,0.08)] active:scale-[0.98] transition-all duration-300"
                           >
                             <ShoppingBag className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
                             <span className="whitespace-nowrap">Explore Collections</span>
