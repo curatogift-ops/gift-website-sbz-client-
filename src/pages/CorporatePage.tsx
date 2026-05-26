@@ -207,7 +207,7 @@ export default function CorporatePage() {
     <div className="flex min-h-screen flex-col bg-[#F9F6F1]">
       <Navbar />
 
-      <main className="flex-grow pt-[calc(11.5rem+env(safe-area-inset-top,0px))] md:pt-[9rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
+      <main className="page-main-offset flex-grow">
 
         {/* ── Hero Slider ────────────────────────────────────────────────── */}
         <section className="relative w-full overflow-hidden bg-[#F9F6F1]" aria-labelledby="corporate-hero-heading">
@@ -230,7 +230,7 @@ export default function CorporatePage() {
                       <div
                         className={[
                           slide.hasMobileEmbeddedText ? 'hidden md:flex' : 'flex',
-                          'relative z-[2] w-full md:w-auto px-4 pb-3 pt-4 sm:px-6 text-center md:text-left flex flex-col items-center md:items-start md:pointer-events-none md:absolute md:inset-y-0 md:max-w-[48%] md:justify-center md:bg-transparent md:px-10 md:py-12 lg:max-w-[45%] lg:px-12 lg:py-16 xl:max-w-[42%] xl:px-16 xl:py-20 2xl:max-w-[38%]',
+                          'relative z-[2] flex w-full min-w-0 flex-col items-center px-4 pb-3 pt-4 text-center sm:px-6 md:pointer-events-none md:absolute md:inset-y-0 md:w-auto md:max-w-[48%] md:items-start md:justify-center md:bg-transparent md:px-10 md:py-12 md:text-left lg:max-w-[45%] lg:px-12 lg:py-16 xl:max-w-[42%] xl:px-16 xl:py-20 2xl:max-w-[38%]',
                           slide.textPosition === 'left' ? 'md:left-[5%] lg:left-[6.5%] xl:left-[7.5%] 2xl:left-[8.5%] md:right-auto md:text-left' : 'md:right-[5%] lg:right-[6.5%] xl:right-[7.5%] 2xl:right-[8.5%] md:left-auto md:text-left'
                         ].join(' ')}
                       >

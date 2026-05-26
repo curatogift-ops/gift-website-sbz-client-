@@ -76,7 +76,7 @@ export default function BrandsPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[#f5f1ea]">
       <Navbar />
-      <main className="flex-grow pt-[calc(11.5rem+env(safe-area-inset-top,0px))] md:pt-[9rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
+      <main className="page-main-offset flex-grow">
         <section className="border-b border-[#d8cfc0] bg-[#f8f4ec]">
           <div className="section-container py-3 md:py-4">
             <div className="flex flex-wrap items-center gap-2 text-[#4A1020]">

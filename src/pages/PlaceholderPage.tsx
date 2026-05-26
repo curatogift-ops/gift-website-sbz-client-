@@ -282,8 +282,8 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
     <div className="flex min-h-screen flex-col bg-[#FFF9F5]">
       <Navbar />
 
-      <main className="flex-grow pb-24 px-4 sm:px-6 lg:px-8 pt-[12rem] md:pt-[10.5rem] xl:pt-[6.5rem] 2xl:pt-[7rem]">
-        <div className="mx-auto max-w-7xl">
+      <main className="page-main-offset flex-grow pb-24">
+        <div className="section-container mx-auto max-w-7xl">
           {/* Centered Page Title Section */}
           <div className="flex flex-col items-center justify-center pt-8 pb-10 text-center">
             {/* Gold Flourish lines and cross */}
@@ -292,7 +292,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
               <X className="h-3 w-3 text-[#9D7D47] opacity-80 rotate-45" strokeWidth={2.5} />
               <span className="w-8 h-[1px] bg-[#d8cec1]" />
             </div>
-            <h1 className="font-serif text-3xl md:text-4xl font-normal tracking-wide text-[#4A1020] uppercase">
+            <h1 className="font-serif text-[clamp(1.35rem,5vw,2.25rem)] font-normal tracking-wide text-[#4A1020] uppercase px-2">
               {title.endsWith('Gifts') || title.endsWith('Gifting') ? title : `${title} Gifts`}
             </h1>
           </div>
@@ -300,7 +300,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
           {/* Controls Bar: Sort, View, Result counter */}
           <div className="flex flex-col gap-4 border-b border-[#d8cec1]/40 pb-4 mb-8 sm:flex-row sm:items-center sm:justify-between text-[13px] font-sans">
             {/* Left side: Sort options */}
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-gray-500">
+            <div className="no-scrollbar -mx-1 flex max-w-full flex-wrap items-center gap-x-2 gap-y-1.5 overflow-x-auto px-1 text-gray-500 sm:mx-0 sm:overflow-visible">
               <span className="font-semibold text-gray-800">Sort By:</span>
               <button
                 onClick={() => setSortBy('best')}

@@ -16,6 +16,7 @@ import {
 import { useState, useEffect } from 'react';
 import { cn } from '@/utils/cn';
 import { SHOP_MEGA_MENU } from '@/config/shopMenu';
+import { PROMOTIONAL_GIFTS_MEGA_MENU } from '@/config/promotionalGiftsMenu';
 
 const LOGO_SRC = '/images/gift-gallerei-logo.png';
 
@@ -26,13 +27,13 @@ type GiftModeSwitcherSize = 'mobile' | 'compact' | 'desktop';
 
 function giftModeTabClass(active: boolean, size: GiftModeSwitcherSize) {
   return cn(
-    'inline-flex w-full items-center justify-center font-sans font-extrabold uppercase leading-none transition-all duration-300 active:scale-[0.98]',
+    'inline-flex w-full min-w-0 items-center justify-center font-sans font-extrabold uppercase transition-all duration-300 active:scale-[0.98]',
     size === 'mobile' &&
-      'min-h-[3rem] gap-2 rounded-[0.72rem] px-3 py-2.5 text-[11px] tracking-[0.06em] sm:min-h-[3.05rem] sm:px-4 sm:text-[12px]',
+      'min-h-[2.85rem] flex-col gap-1 rounded-[0.72rem] px-1.5 py-2 text-[9px] leading-tight tracking-[0.04em] sm:min-h-[3rem] sm:flex-row sm:gap-2 sm:px-3 sm:py-2.5 sm:text-[11px] sm:tracking-[0.06em]',
     size === 'compact' &&
-      'min-h-[2.65rem] gap-2 rounded-[0.72rem] px-3.5 py-2 text-[11px] tracking-[0.06em]',
+      'min-h-[2.65rem] gap-1.5 rounded-[0.72rem] px-2 py-2 text-[10px] leading-tight tracking-[0.05em] sm:gap-2 sm:px-3.5 sm:text-[11px]',
     size === 'desktop' &&
-      'min-h-[2.75rem] gap-2 rounded-[0.65rem] px-4 py-2.5 text-[11px] tracking-[0.06em]',
+      'min-h-[2.75rem] gap-2 rounded-[0.65rem] px-3 py-2.5 text-[10px] leading-none tracking-[0.06em] lg:px-4 lg:text-[11px]',
     active
       ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_4px_14px_rgba(74,16,32,0.28)]'
       : 'bg-transparent text-[#4A1020] hover:bg-[#4A1020]/[0.06]'
@@ -46,13 +47,17 @@ function GiftModeSwitcher({
   isCorporateActive: boolean;
   size?: GiftModeSwitcherSize;
 }) {
-  const iconClass = size === 'mobile' ? 'h-4 w-4' : 'h-3.5 w-3.5';
+  const iconClass =
+    size === 'mobile' ? 'h-3.5 w-3.5 sm:h-4 sm:w-4' : size === 'compact' ? 'h-3.5 w-3.5' : 'h-3.5 w-3.5';
+
+  const labelClass = 'min-w-0 max-w-full text-center leading-tight [text-wrap:balance]';
 
   return (
     <div
       className={cn(
-        'grid w-full grid-cols-2 gap-1 rounded-[0.95rem] border border-[#d8cec1] bg-[#F6F3EE] p-1 shadow-sm',
-        size === 'desktop' && 'w-auto rounded-[0.8rem] p-0.5 shadow-[0_3px_8px_rgba(74,16,32,0.08)]'
+        'grid w-full min-w-0 max-w-full grid-cols-2 gap-1 rounded-[0.95rem] border border-[#d8cec1] bg-[#F6F3EE] p-1 shadow-sm',
+        size === 'desktop' && 'w-auto max-w-none rounded-[0.8rem] p-0.5 shadow-[0_3px_8px_rgba(74,16,32,0.08)]',
+        size === 'compact' && 'max-w-full'
       )}
       role="tablist"
       aria-label="Gift shopping mode"
@@ -64,7 +69,10 @@ function GiftModeSwitcher({
         className={giftModeTabClass(!isCorporateActive, size)}
       >
         <Heart className={cn(iconClass, 'shrink-0')} strokeWidth={2} aria-hidden />
-        <span className="whitespace-nowrap text-center">Personalized Gifts</span>
+        <span className={labelClass}>
+          <span className="hidden sm:inline">Personalized Gifts</span>
+          <span className="sm:hidden">Personalized</span>
+        </span>
       </Link>
       <Link
         to="/corporate"
@@ -73,7 +81,10 @@ function GiftModeSwitcher({
         className={giftModeTabClass(isCorporateActive, size)}
       >
         <BriefcaseBusiness className={cn(iconClass, 'shrink-0')} strokeWidth={1.9} aria-hidden />
-        <span className="whitespace-nowrap text-center">Corporate Gifts</span>
+        <span className={labelClass}>
+          <span className="hidden sm:inline">Corporate Gifts</span>
+          <span className="sm:hidden">Corporate</span>
+        </span>
       </Link>
     </div>
   );
@@ -85,11 +96,65 @@ export default function Navbar() {
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [mobileShopOpen, setMobileShopOpen] = useState(false);
+  const [mobilePromotionalOpen, setMobilePromotionalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      setMobileShopOpen(false);
+      setMobilePromotionalOpen(false);
+    }
+  }, [isMobileMenuOpen]);
+
+  /* Lock page scroll while mobile drawer is open (prevents background scroll glitch) */
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const scrollY = window.scrollY;
+    const { body, documentElement: html } = document;
+
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.width = '100%';
+    body.style.overflow = 'hidden';
+    html.style.overflow = 'hidden';
+
+    return () => {
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      body.style.overflow = '';
+      html.style.overflow = '';
+      window.scrollTo(0, scrollY);
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setMobileSearchOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) setIsVisible(true);
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
-    
+
     const handleScroll = () => {
+      if (isMobileMenuOpen) return;
       const currentScrollY = window.scrollY;
       if (currentScrollY > lastScrollY && currentScrollY > 80) {
         setIsVisible(false);
@@ -101,7 +166,7 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobileMenuOpen]);
 
   const iconThin = 1.65;
 
@@ -177,54 +242,7 @@ export default function Navbar() {
       label: 'Promotional Gifts',
       href: '/promotional-gifts',
       chevron: true,
-      dropdown: [
-        {
-          title: 'WORK & DESK ESSENTIALS',
-          items: [
-            { label: 'Desk Essentials', href: '/promotional-gifts/desk-essentials' },
-            { label: 'Journal', href: '/promotional-gifts/journal' },
-            { label: 'Pens', href: '/promotional-gifts/pens' },
-            { label: 'Stationery & Accessories', href: '/promotional-gifts/stationery-and-accessories' },
-          ],
-        },
-        {
-          title: 'HOME & LIVING',
-          items: [
-            { label: 'Planters & Pots', href: '/promotional-gifts/planters-and-pots' },
-            { label: 'Photo Frames', href: '/promotional-gifts/photo-frames' },
-            { label: 'Lights & Lamps', href: '/promotional-gifts/lights-and-lamps' },
-            { label: 'Home & Decor', href: '/promotional-gifts/home-and-decor' },
-            { label: 'Fragrance', href: '/promotional-gifts/fragrance' },
-          ],
-        },
-        {
-          title: 'LIFESTYLE & ACCESSORIES',
-          items: [
-            { label: 'Apparels', href: '/promotional-gifts/apparels' },
-            { label: 'Bags & Luggage', href: '/promotional-gifts/bags-and-luggage' },
-            { label: 'Travel', href: '/promotional-gifts/travel' },
-            { label: 'Lifestyle', href: '/promotional-gifts/lifestyle' },
-            { label: 'Keychains', href: '/promotional-gifts/keychains' },
-          ],
-        },
-        {
-          title: 'GOURMET & EDIBLE TREATS',
-          items: [
-            { label: 'Chocolates', href: '/promotional-gifts/chocolates' },
-            { label: 'Coffee & Tea Delights', href: '/promotional-gifts/coffee-and-tea-delights' },
-            { label: 'Gourmet Snacks', href: '/promotional-gifts/gourmet-snacks' },
-            { label: 'Healthy Munchies', href: '/promotional-gifts/healthy-munchies' },
-            { label: 'Nuts & Seeds', href: '/promotional-gifts/nuts-and-seeds' },
-          ],
-        },
-        {
-          items: [
-            { label: 'Drinkware', href: '/promotional-gifts/drinkware' },
-            { label: 'Electronic Gadgets', href: '/promotional-gifts/electronic-gadgets' },
-            { label: 'Eco-Friendly Gifts', href: '/promotional-gifts/eco-friendly-gifts' },
-          ],
-        },
-      ],
+      dropdown: PROMOTIONAL_GIFTS_MEGA_MENU,
     },
     {
       label: 'Corporate Gifting',
@@ -267,25 +285,31 @@ export default function Navbar() {
   const desktopNavLinks = isCorporateActive ? corporateNavLinks : personalizedNavLinks;
 
   return (
-    <div className={cn("fixed top-0 z-50 w-full bg-white md:bg-[#FFF9F5] transition-transform duration-300", !isVisible && "-translate-y-full")}>
+    <div
+      className={cn(
+        'fixed top-0 z-50 w-full max-w-[100vw] overflow-x-clip bg-white transition-transform duration-300 md:bg-[#FFF9F5]',
+        !isVisible && '-translate-y-full'
+      )}
+    >
       {/* ─── MOBILE ONLY (unchanged) ─────────────────────────────────────── */}
       <div
-        className="flex items-center gap-2 border-b border-white/10 px-3 py-2.5 text-[11.5px] font-medium leading-snug text-white sm:text-xs md:hidden"
+        className="flex items-center gap-1.5 border-b border-white/10 px-2 py-2 text-[10px] font-medium leading-snug text-white sm:gap-2 sm:px-3 sm:py-2.5 sm:text-[11.5px] md:hidden"
         style={{ backgroundColor: MAROON_RIBBON }}
       >
-        <Gift className="h-3.5 w-3.5 shrink-0 text-white" strokeWidth={2} aria-hidden />
+        <Gift className="h-3 w-3 shrink-0 text-white sm:h-3.5 sm:w-3.5" strokeWidth={2} aria-hidden />
         <div className="flex min-w-0 flex-1 flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-center">
-          <span className="whitespace-nowrap text-white/95">Flat 10%</span>
+          <span className="text-white/95">Flat 10%</span>
           <span className="font-semibold" style={{ color: '#E8C87A' }}>
             OFF
           </span>
-          <span className="whitespace-nowrap text-white/95">on All Orders | Code:</span>
+          <span className="hidden text-white/95 min-[360px]:inline">on All Orders</span>
+          <span className="hidden text-white/95 min-[420px]:inline">| Code:</span>
         </div>
-        <div className="flex shrink-0 items-center gap-1.5">
-          <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-bold tracking-wide text-[#1a1010] sm:text-xs">
+        <div className="flex shrink-0 items-center gap-1">
+          <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-bold tracking-wide text-[#1a1010] sm:px-2.5 sm:py-1 sm:text-[11px]">
             GIFTZ10
           </span>
-          <ChevronRight className="h-4 w-4 text-white/90" strokeWidth={2} aria-hidden />
+          <ChevronRight className="h-3.5 w-3.5 text-white/90 sm:h-4 sm:w-4" strokeWidth={2} aria-hidden />
         </div>
       </div>
 
@@ -315,7 +339,7 @@ export default function Navbar() {
 
             <Link
               to="/"
-              className="mx-auto flex flex-col items-center gap-1 shrink-0 w-[11.5rem] sm:w-[12.5rem]"
+              className="mx-auto flex min-w-0 max-w-[44vw] flex-col items-center gap-1 shrink sm:max-w-none sm:w-[12.5rem]"
             >
               <div className="relative h-[2.0rem] w-full shrink-0 sm:h-[2.2rem]">
                 <AppImage
@@ -375,7 +399,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="border-t border-black/[0.06] bg-white px-3 pb-3 pt-2.5">
+          <div className="min-w-0 border-t border-black/[0.06] bg-white px-2 pb-3 pt-2.5 sm:px-3">
             <GiftModeSwitcher isCorporateActive={isCorporateActive} size="mobile" />
           </div>
         </div>
@@ -582,8 +606,14 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-          <div className="relative flex items-center justify-center gap-3 overflow-visible py-1.5 flex-wrap">
-            <GiftModeSwitcher isCorporateActive={isCorporateActive} size="compact" />
+          <div className="flex min-w-0 flex-col gap-2 border-t border-[#e8e4e1]/50 py-2.5">
+            <div className="w-full min-w-0 px-1">
+              <GiftModeSwitcher isCorporateActive={isCorporateActive} size="compact" />
+            </div>
+            <nav
+              className="no-scrollbar flex min-w-0 items-center gap-1 overflow-x-auto px-1 pb-0.5"
+              aria-label="Primary"
+            >
             {desktopNavLinks.map((link) => {
               const active = isNavActive(link.href);
               return (
@@ -665,6 +695,7 @@ export default function Navbar() {
                 </div>
               );
             })}
+            </nav>
           </div>
         </div>
       </header>
@@ -672,14 +703,20 @@ export default function Navbar() {
       {/* Mobile drawer */}
       <div
         className={cn(
-          'fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm transition-opacity md:hidden',
-          isMobileMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+          'fixed inset-0 z-[110] overscroll-none touch-none bg-black/60 backdrop-blur-[2px] transition-opacity duration-300 md:hidden',
+          isMobileMenuOpen
+            ? 'pointer-events-auto visible opacity-100'
+            : 'pointer-events-none invisible opacity-0'
         )}
+        aria-hidden={!isMobileMenuOpen}
         onClick={() => setIsMobileMenuOpen(false)}
       >
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
           className={cn(
-            'absolute left-0 top-0 flex h-full w-[88%] max-w-sm flex-col shadow-2xl transition-transform duration-300 ease-out',
+            'absolute left-0 top-0 flex h-[100dvh] max-h-[100dvh] w-[min(88vw,24rem)] max-w-sm flex-col overscroll-contain shadow-2xl transition-transform duration-300 ease-out touch-auto',
             isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
           )}
           style={{ backgroundColor: CREAM }}
@@ -701,7 +738,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          <div className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 py-4">
+          <div className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain px-4 py-4 [-webkit-overflow-scrolling:touch]">
             <p className="px-2 pb-2 text-[11.5px] font-bold uppercase tracking-[0.16em] text-[#9a9490]">Menu</p>
             {!isCorporateActive && (
               <div className="mb-2">
@@ -757,8 +794,66 @@ export default function Navbar() {
                 )}
               </div>
             )}
+            {isCorporateActive && (
+              <div className="mb-2">
+                <button
+                  type="button"
+                  onClick={() => setMobilePromotionalOpen((o) => !o)}
+                  className={cn(
+                    'flex w-full items-center justify-between rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em]',
+                    pathname === '/promotional-gifts' || pathname.startsWith('/promotional-gifts/')
+                      ? 'bg-white text-[#4A0E1C] shadow-sm'
+                      : 'text-[#1f1f1f] hover:bg-white/70'
+                  )}
+                  aria-expanded={mobilePromotionalOpen}
+                >
+                  <span>Promotional Gifts</span>
+                  <ChevronDown
+                    className={cn('h-4 w-4 transition-transform', mobilePromotionalOpen && 'rotate-180')}
+                    strokeWidth={2}
+                    aria-hidden
+                  />
+                </button>
+                {mobilePromotionalOpen && (
+                  <div className="mt-1 max-h-[50vh] overflow-y-auto rounded-xl border border-[#ebe6e2] bg-white/80 px-3 py-3">
+                    <Link
+                      to="/promotional-gifts"
+                      className="block rounded-lg px-3 py-2 font-sans text-[12px] font-bold uppercase tracking-[0.06em] text-[#4A1020] hover:bg-[#FAF7F4]"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      All promotional gifts
+                    </Link>
+                    {PROMOTIONAL_GIFTS_MEGA_MENU.map((col) => (
+                      <div
+                        key={col.title ?? 'more'}
+                        className="mt-3 border-t border-[#ebe6e2] pt-3 first:mt-2 first:border-t-0 first:pt-0"
+                      >
+                        {col.title && (
+                          <p className="px-3 pb-1.5 font-sans text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#9D7D47]">
+                            {col.title}
+                          </p>
+                        )}
+                        <ul className="flex flex-col gap-0.5">
+                          {col.items.map((item) => (
+                            <li key={item.href + item.label}>
+                              <Link
+                                to={item.href}
+                                className="block rounded-lg px-3 py-2 font-sans text-[13px] font-medium normal-case tracking-normal text-[#4A1020] hover:bg-[#FAF7F4] hover:text-[#9D7D47]"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             {(isCorporateActive
-              ? drawerLinks
+              ? drawerLinks.filter((item) => item.label !== 'Promotional Gifts')
               : drawerLinks.filter(
                   (item) => item.label !== 'Shop' && item.label !== 'Personalized gifts'
                 )

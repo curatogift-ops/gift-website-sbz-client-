@@ -159,7 +159,7 @@ export default function ShopPage() {
     <div className="flex min-h-screen flex-col bg-[#F9F6F1]">
       <Navbar />
 
-      <main className="flex-grow pb-20 pt-[calc(12.5rem+env(safe-area-inset-top,0px))] md:pt-[9.5rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
+      <main className="page-main-offset flex-grow pb-20">
         {/* Hero */}
         <section className="section-container border-b border-[#e8e0d8] pb-12 md:pb-16" aria-labelledby="personalized-heading">
           <div className="mx-auto max-w-3xl text-center">
