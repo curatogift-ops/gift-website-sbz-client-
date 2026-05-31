@@ -5,6 +5,7 @@ import WishlistPage from '@/pages/WishlistPage';
 import CustomBoxesPage from '@/pages/CustomBoxesPage';
 import PlaceholderPage from '@/pages/PlaceholderPage';
 import CorporatePage from '@/pages/CorporatePage';
+import BrandsPage from '@/pages/BrandsPage';
 import WhatsAppWidget from '@/components/layout/WhatsAppWidget';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/custom-boxes" element={<CustomBoxesPage />} />
         <Route path="/corporate" element={<CorporatePage />} />
+        <Route path="/brands" element={<BrandsPage />} />
         <Route path="/promotional-gifts" element={<PlaceholderPage title="Promotional Gifts" />} />
         {/* Promotional Gifts sub-pages */}
         <Route path="/promotional-gifts/desk-essentials" element={<PlaceholderPage title="Desk Essentials" />} />

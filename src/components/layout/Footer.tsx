@@ -72,6 +72,11 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/brands" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                    Our Brands <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  </Link>
+                </li>
+                <li>
                   <Link to="/shop?category=wedding" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
                     Wedding collection <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
                   </Link>

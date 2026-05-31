@@ -215,6 +215,7 @@ export default function Navbar() {
     { label: 'Shop', href: '/' },
     { label: 'Personalized gifts', href: '/' },
     { label: 'Corporate gifting', href: '/corporate' },
+    { label: 'Our Brands', href: '/brands' },
     { label: 'Make Your Own Hamper', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
     { label: 'Contact', href: '/contact' },
@@ -232,6 +233,7 @@ export default function Navbar() {
 
   const personalizedNavLinks: NavLinkItem[] = [
     { label: 'Shop', href: '/', chevron: true, dropdown: SHOP_MEGA_MENU },
+    { label: 'Our Brands', href: '/brands' },
     { label: 'Make Your Own Hamper', href: '/hamper-builder' },
     { label: 'About us', href: '/about' },
     { label: 'Contact', href: '/contact' },
