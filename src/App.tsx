@@ -12,8 +12,8 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<ShopPage />} />
-        <Route path="/home" element={<Navigate to="/" replace />} />
+        <Route path="/" element={<Navigate to="/corporate" replace />} />
+        <Route path="/home" element={<Navigate to="/corporate" replace />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/browse" element={<ShopBrowsePage />} />
         <Route path="/shop/:slug" element={<PlaceholderPage title="Product details" />} />
