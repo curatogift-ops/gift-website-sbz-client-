@@ -308,8 +308,8 @@ export default function Navbar() {
       </div>
 
       <header className="border-b border-black/[0.06] bg-white md:hidden">
-        <div className="relative mx-auto max-w-7xl px-3 sm:px-5 lg:px-8">
-          <div className="flex items-center justify-between py-[14px] md:gap-4 md:py-4">
+        <div className="mx-auto max-w-7xl px-3 sm:px-5 lg:px-8">
+          <div className="relative flex items-center justify-between py-[14px] md:gap-4 md:py-4">
             <div className="flex min-w-0 items-center justify-start gap-0.5 md:gap-2 z-10">
               <button
                 type="button"
