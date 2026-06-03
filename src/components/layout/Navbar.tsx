@@ -63,7 +63,7 @@ function GiftModeSwitcher({
       aria-label="Gift shopping mode"
     >
       <Link
-        to="/"
+        to="/shop"
         role="tab"
         aria-selected={!isCorporateActive}
         className={giftModeTabClass(!isCorporateActive, size)}
@@ -212,8 +212,8 @@ export default function Navbar() {
   }
 
   const personalizedDrawerLinks: NavLinkItem[] = [
-    { label: 'Shop', href: '/' },
-    { label: 'Personalized gifts', href: '/' },
+    { label: 'Shop', href: '/shop' },
+    { label: 'Personalized gifts', href: '/shop' },
     { label: 'Corporate gifting', href: '/corporate' },
     { label: 'Our Brands', href: '/brands' },
     { label: 'Make Your Own Hamper', href: '/custom-boxes' },
@@ -232,7 +232,7 @@ export default function Navbar() {
   const drawerLinks = isCorporateActive ? corporateDrawerLinks : personalizedDrawerLinks;
 
   const personalizedNavLinks: NavLinkItem[] = [
-    { label: 'Shop', href: '/', chevron: true, dropdown: SHOP_MEGA_MENU },
+    { label: 'Shop', href: '/shop', chevron: true, dropdown: SHOP_MEGA_MENU },
     { label: 'Our Brands', href: '/brands' },
     { label: 'Make Your Own Hamper', href: '/hamper-builder' },
     { label: 'About us', href: '/about' },
