@@ -45,14 +45,23 @@ function giftModeTabClass(active: boolean, size: GiftModeSwitcherSize) {
 function GiftModeSwitcher({
   isCorporateActive,
   size = 'desktop',
+  onToggle,
 }: {
   isCorporateActive: boolean;
   size?: GiftModeSwitcherSize;
+  onToggle?: (isCorporate: boolean) => void;
 }) {
   const iconClass =
     size === 'mobile' ? 'h-3.5 w-3.5 sm:h-4 sm:w-4' : size === 'compact' ? 'h-3.5 w-3.5' : 'h-3.5 w-3.5';
 
   const labelClass = 'min-w-0 max-w-full text-center leading-tight [text-wrap:balance]';
+
+  const handleTabClick = (e: React.MouseEvent, isCorporate: boolean) => {
+    if (onToggle) {
+      e.preventDefault();
+      onToggle(isCorporate);
+    }
+  };
 
   return (
     <div
@@ -69,6 +78,7 @@ function GiftModeSwitcher({
         role="tab"
         aria-selected={!isCorporateActive}
         className={giftModeTabClass(!isCorporateActive, size)}
+        onClick={(e) => handleTabClick(e, false)}
       >
         <Heart className={cn(iconClass, 'shrink-0')} strokeWidth={2} aria-hidden />
         <span className={labelClass}>
@@ -81,6 +91,7 @@ function GiftModeSwitcher({
         role="tab"
         aria-selected={isCorporateActive}
         className={giftModeTabClass(isCorporateActive, size)}
+        onClick={(e) => handleTabClick(e, true)}
       >
         <BriefcaseBusiness className={cn(iconClass, 'shrink-0')} strokeWidth={1.9} aria-hidden />
         <span className={labelClass}>
@@ -202,6 +213,12 @@ export default function Navbar() {
     pathname.startsWith('/corporate-gifting') ||
     pathname.startsWith('/promotional-gifts') ||
     pathname.startsWith('/brands/');
+
+  const [drawerCorporateActive, setDrawerCorporateActive] = useState(isCorporateActive);
+
+  useEffect(() => {
+    setDrawerCorporateActive(isCorporateActive);
+  }, [isMobileMenuOpen, isCorporateActive]);
 
   interface DropdownItem {
     label: string;
@@ -766,7 +783,16 @@ export default function Navbar() {
 
           {/* MODE SWITCHER */}
           <div className="flex-shrink-0 border-b border-[#ebe6e2]/40 bg-white/30 px-4 py-2.5">
-            <GiftModeSwitcher isCorporateActive={isCorporateActive} size="mobile" />
+            <GiftModeSwitcher
+              isCorporateActive={drawerCorporateActive}
+              size="mobile"
+              onToggle={(isCorporate) => {
+                setDrawerCorporateActive(isCorporate);
+                setMenuLevel(0);
+                setActiveParent0(null);
+                setActiveParent1(null);
+              }}
+            />
           </div>
 
           {/* SLIDING PANELS */}
@@ -777,7 +803,7 @@ export default function Navbar() {
             >
               {/* PANEL 0 */}
               <div className="w-1/3 shrink-0 h-full overflow-y-auto no-scrollbar px-4 py-4 flex flex-col gap-1.5">
-                {isCorporateActive && (
+                {drawerCorporateActive && (
                   <div className="mb-2 flex items-center gap-3 rounded-xl border border-[#C9A96E]/20 bg-[#C9A96E]/5 px-4 py-3 text-left">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#C9A96E]/30 bg-[#C9A96E]/10 text-[#9D7D47]">
                       <Phone className="h-4 w-4" strokeWidth={2} />
@@ -791,7 +817,7 @@ export default function Navbar() {
                   </div>
                 )}
 
-                {!isCorporateActive ? (
+                {!drawerCorporateActive ? (
                   <>
                     <button
                       type="button"
@@ -1229,7 +1255,7 @@ export default function Navbar() {
 
           {/* DRAWER FOOTER */}
           <div className="flex-shrink-0 border-t border-[#ebe6e2] bg-white p-4 flex flex-col gap-2">
-            {isCorporateActive && (
+            {drawerCorporateActive && (
               <Link
                 to="/contact"
                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#9D7D47] text-white hover:bg-[#8A6C3C] transition-colors py-3.5 font-sans text-[11px] font-bold uppercase tracking-widest shadow-sm"
