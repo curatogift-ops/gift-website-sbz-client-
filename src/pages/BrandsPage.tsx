@@ -10,80 +10,59 @@ type Brand = {
   tags: string[];
 };
 
-// 52 premium brand database configured with offsets for high-res logo visual excellence
-// Page 1 is ordered to match the desktop mock grid exactly, and sorted alphabetically for letter navigation
+// 50 premium brand database sorted alphabetically A-Z for visual excellence
+// Sorted alphabetically for correct letter navigation and clean presentation
 const BRANDS: Brand[] = [
-  // ─── DESKTOP PAGE 1 LOGOS (Exact Mockup Row/Col Alignment) ───
-  { name: 'amazon', image: '/images/brands/imageye___-_imgi_100_f25939_7f99461f862e447a866cdc45d9194707~mv2.png', letter: 'A', tags: ['top', 'popular'] },
-  { name: 'boAt', image: '/images/brands/imageye___-_imgi_60_1200px-Boat_Logo_webp.png', letter: 'B', tags: ['popular'] },
-  { name: 'CASIO', image: '/images/brands/imageye___-_imgi_64_f25939_dded8338f9be4e0c81e03e6f8e141de1~mv2.png', letter: 'C', tags: ['popular'] },
-  { name: 'dyson', image: '/images/brands/imageye___-_imgi_67_f25939_d5ea3fc7c4c64914b810e362407b6b6a~mv2.png', letter: 'D', tags: ['top'] },
-  { name: 'Google', image: '/images/brands/imageye___-_imgi_68_f25939_24116c3d2b9e43bb9a766fc7e459b9e5~mv2.png', letter: 'G', tags: ['top'] },
-  { name: 'JBL', image: '/images/brands/imageye___-_imgi_74_f25939_bea46c63b2634397bd084dd36f9e2c6a~mv2.jpg', letter: 'J', tags: ['popular', 'top'] },
-  { name: 'Levi\'s', image: '/images/brands/imageye___-_imgi_78_f25939_93e96b87aaf549a8b85ab328c3da6021~mv2.webp', letter: 'L', tags: ['top', 'popular'] },
-  { name: 'NIKE', image: '/images/brands/imageye___-_imgi_81_f25939_669985f3a21849aa9b3582eb8bb02506~mv2.jpg', letter: 'N', tags: ['top'] },
-  { name: 'PHILIPS', image: '/images/brands/imageye___-_imgi_86_f25939_222a0f3334c14200bc894872d56df5e5~mv2.png', letter: 'P', tags: ['top'] },
-  { name: 'PUMA', image: '/images/brands/imageye___-_imgi_85_f25939_df0169a718604fc5be5e846587486b63~mv2.png', letter: 'P', tags: ['top', 'popular'] },
-  { name: 'SAMSUNG', image: '/images/brands/imageye___-_imgi_90_f25939_6370213bb3fb402fb8d2de0de2da791d~mv2.png', letter: 'S', tags: ['top'] },
-  { name: 'SONY', image: '/images/brands/imageye___-_imgi_87_f25939_754b6d43207240d7a150a8bb3c3918c8~mv2.jpg', letter: 'S', tags: ['top'] },
-  { name: 'TITAN', image: '/images/brands/imageye___-_imgi_95_f25939_7a7c368ff262471fbb9a1cefa12e30b2~mv2.png', letter: 'T', tags: ['top', 'popular'] },
-  { name: 'Canon', image: '/images/brands/imageye___-_imgi_89_f25939_976e794e93a2475a953cd8e8ab5a1dd4~mv2.webp', letter: 'C', tags: ['top'] },
-  { name: 'WD', image: '/images/brands/imageye___-_imgi_91_f25939_10bd114af209459281a5b9375c9289f4~mv2.png', letter: 'W', tags: ['top'] },
-  { name: 'ZARA', image: '/images/brands/imageye___-_imgi_92_f25939_1d0ee1be9d0b4cbea62b8d7f42845d37~mv2.webp', letter: 'Z', tags: ['top'] },
-  { name: 'adidas', image: '/images/brands/imageye___-_imgi_93_f25939_ccba8b93bb264f559943bc9a569a56ac~mv2.jpg', letter: 'A', tags: ['popular', 'top'] },
-  { name: 'ALDO', image: '/images/brands/imageye___-_imgi_94_f25939_0efc1d7beee545bbbd9753619ce6c2b7~mv2.jpg', letter: 'A', tags: ['popular'] },
-  { name: 'BOSCH', image: '/images/brands/imageye___-_imgi_96_f25939_1d28301c8cb74a928c2f174887b77cb0~mv2.png', letter: 'B', tags: ['top'] },
-  { name: 'fastrack', image: '/images/brands/imageye___-_imgi_97_f25939_9e056ee340d74b4ab8d1393696156cb6~mv2.png', letter: 'F', tags: ['popular'] },
-
-  // ─── REMAINING BRANDS IN ALPHABETICAL GROUPING ───
-  // A
+  { name: 'Adidas', image: '/images/brands/imageye___-_imgi_93_f25939_ccba8b93bb264f559943bc9a569a56ac~mv2.jpg', letter: 'A', tags: ['popular', 'top'] },
   { name: 'Ajio', image: '/images/brands/imageye___-_imgi_1_white_letter_logo.png', letter: 'A', tags: ['popular'] },
-  { name: 'Art of Puja', image: '/images/brands/imageye___-_imgi_54_images.png', letter: 'A', tags: ['new'] },
-  { name: 'Aquaminder', image: '/images/brands/imageye___-_imgi_55_f25939_cfc1e05faf5b456787722bc06761a849~mv2.png', letter: 'A', tags: ['new'] },
+  { name: 'Aldo', image: '/images/brands/imageye___-_imgi_94_f25939_0efc1d7beee545bbbd9753619ce6c2b7~mv2.jpg', letter: 'A', tags: ['popular'] },
+  { name: 'Amazon', image: '/images/brands/imageye___-_imgi_100_f25939_7f99461f862e447a866cdc45d9194707~mv2.png', letter: 'A', tags: ['top', 'popular'] },
   { name: 'Amos', image: '/images/brands/imageye___-_imgi_56_f25939_c835095db04e4a8cbd3f7305b54fbf39~mv2.webp', letter: 'A', tags: ['new'] },
   { name: 'Apple', image: '/images/brands/imageye___-_imgi_101_f25939_0ca66acadc894ec48e3f3101f9de8e82~mv2.png', letter: 'A', tags: ['top'] },
+  { name: 'Aquaminder', image: '/images/brands/imageye___-_imgi_55_f25939_cfc1e05faf5b456787722bc06761a849~mv2.png', letter: 'A', tags: ['new'] },
+  { name: 'Art of Puja', image: '/images/brands/imageye___-_imgi_54_images.png', letter: 'A', tags: ['new'] },
   { name: 'Asics', image: '/images/brands/imageye___-_imgi_102_f25939_5f5fe90d6aa64485bfe21606c4da0f03~mv2.png', letter: 'A', tags: ['popular'] },
-  // B
-  { name: 'BOSS', image: '/images/brands/imageye___-_imgi_61_f25939_758f5155520d4631b0bfdb148278e926~mv2.png', letter: 'B', tags: ['top'] },
-  { name: 'Bata', image: '/images/brands/imageye___-_imgi_62_f25939_3d3e7896e243463d888c86ddcdf8516d~mv2.jpg', letter: 'B', tags: ['popular'] },
   { name: 'Baskin Robbins', image: '/images/brands/imageye___-_imgi_63_bfbb3caf432d0c1370b99e805bb1eec3.jpg', letter: 'B', tags: ['popular'] },
+  { name: 'Bata', image: '/images/brands/imageye___-_imgi_62_f25939_3d3e7896e243463d888c86ddcdf8516d~mv2.jpg', letter: 'B', tags: ['popular'] },
+  { name: 'boAt', image: '/images/brands/imageye___-_imgi_60_1200px-Boat_Logo_webp.png', letter: 'B', tags: ['popular'] },
+  { name: 'Bosch', image: '/images/brands/imageye___-_imgi_96_f25939_1d28301c8cb74a928c2f174887b77cb0~mv2.png', letter: 'B', tags: ['top'] },
+  { name: 'BOSS', image: '/images/brands/imageye___-_imgi_61_f25939_758f5155520d4631b0bfdb148278e926~mv2.png', letter: 'B', tags: ['top'] },
   { name: 'Brooks', image: '/images/brands/imageye___-_imgi_57_f25939_c6dae1ef691c4d63996feabcd7a7ac7f~mv2.png', letter: 'B', tags: ['new'] },
   { name: 'Bvlgari', image: '/images/brands/imageye___-_imgi_58_f25939_6c16ac99c41b4158a0b5884edd7a1b59~mv2.png', letter: 'B', tags: ['top'] },
-  // C
+  { name: 'Canon', image: '/images/brands/imageye___-_imgi_89_f25939_976e794e93a2475a953cd8e8ab5a1dd4~mv2.webp', letter: 'C', tags: ['top'] },
+  { name: 'Casio', image: '/images/brands/imageye___-_imgi_64_f25939_dded8338f9be4e0c81e03e6f8e141de1~mv2.png', letter: 'C', tags: ['popular'] },
   { name: 'Chokhi Dhani', image: '/images/brands/imageye___-_imgi_65_f25939_28aa483a85fe4f5885b6847966be2cc4~mv2.png', letter: 'C', tags: ['new'] },
-  // D
-  { name: 'Deep Roots', image: '/images/brands/imageye___-_imgi_66_Deep-Roots-Farms-Logo.png', letter: 'D', tags: ['new'] },
-  // E
-  { name: 'Eclair', image: '/images/brands/imageye___-_imgi_67_f25939_d5ea3fc7c4c64914b810e362407b6b6a~mv2.png', letter: 'E', tags: ['new'] },
-  // F
+  { name: 'Deep Roots Farms', image: '/images/brands/imageye___-_imgi_66_Deep-Roots-Farms-Logo.png', letter: 'D', tags: ['new'] },
+  { name: 'Dyson', image: '/images/brands/imageye___-_imgi_67_f25939_d5ea3fc7c4c64914b810e362407b6b6a~mv2.png', letter: 'D', tags: ['top'] },
+  { name: 'Fastrack', image: '/images/brands/imageye___-_imgi_97_f25939_9e056ee340d74b4ab8d1393696156cb6~mv2.png', letter: 'F', tags: ['popular'] },
   { name: 'Fuzo', image: '/images/brands/imageye___-_imgi_69_fuzo-logo-png_seeklogo-379183.png', letter: 'F', tags: ['new'] },
-  // G
   { name: 'Garmin', image: '/images/brands/imageye___-_imgi_70_f25939_e73e17bc2cf24a9da4f98458a2720cc5~mv2.jpg', letter: 'G', tags: ['top'] },
-  { name: 'Greenbrrew', image: '/images/brands/imageye___-_imgi_71_f25939_1ee5f8c905c848ac95b50adc1fcd5d8f~mv2.jpg', letter: 'G', tags: ['new'] },
   { name: 'Goodwyn Tea', image: '/images/brands/imageye___-_imgi_72_images (1).png', letter: 'G', tags: ['new'] },
-  // H
+  { name: 'Google', image: '/images/brands/imageye___-_imgi_68_f25939_24116c3d2b9e43bb9a766fc7e459b9e5~mv2.png', letter: 'G', tags: ['top'] },
+  { name: 'Greenbrrew', image: '/images/brands/imageye___-_imgi_71_f25939_1ee5f8c905c848ac95b50adc1fcd5d8f~mv2.jpg', letter: 'G', tags: ['new'] },
   { name: 'Haldirams', image: '/images/brands/imageye___-_imgi_73_f25939_20b5069932c949f498ff3ed38f3f4dd6~mv2.jpg', letter: 'H', tags: ['popular'] },
-  // J
+  { name: 'JBL', image: '/images/brands/imageye___-_imgi_74_f25939_bea46c63b2634397bd084dd36f9e2c6a~mv2.jpg', letter: 'J', tags: ['popular', 'top'] },
   { name: 'JW Marriott', image: '/images/brands/imageye___-_imgi_75_images (1).jpg', letter: 'J', tags: ['top'] },
-  { name: 'Jockey', image: '/images/brands/imageye___-_imgi_74_f25939_bea46c63b2634397bd084dd36f9e2c6a~mv2.jpg', letter: 'J', tags: ['popular'] },
-  // M
-  { name: 'Mont Blanc', image: '/images/brands/imageye___-_imgi_76_montblanc-logo-01.jpg', letter: 'M', tags: ['top'] },
-  { name: 'Mokobara', image: '/images/brands/imageye___-_imgi_77_f25939_4b6db1de71e844a9bb1f01afe4f447b5~mv2.jpg', letter: 'M', tags: ['new'] },
+  { name: 'Levi\'s', image: '/images/brands/imageye___-_imgi_78_f25939_93e96b87aaf549a8b85ab328c3da6021~mv2.webp', letter: 'L', tags: ['top', 'popular'] },
   { name: 'MAX', image: '/images/brands/imageye___-_imgi_79_f25939_e785f3af7eac487190e320ce200cf213~mv2.jpg', letter: 'M', tags: ['popular'] },
-  // N
+  { name: 'Mokobara', image: '/images/brands/imageye___-_imgi_77_f25939_4b6db1de71e844a9bb1f01afe4f447b5~mv2.jpg', letter: 'M', tags: ['new'] },
+  { name: 'Mont Blanc', image: '/images/brands/imageye___-_imgi_76_montblanc-logo-01.jpg', letter: 'M', tags: ['top'] },
   { name: 'Nedis', image: '/images/brands/imageye___-_imgi_82_f25939_78801ef87c674aed8c45f703911479fb~mv2.png', letter: 'N', tags: ['new'] },
+  { name: 'Nike', image: '/images/brands/imageye___-_imgi_81_f25939_669985f3a21849aa9b3582eb8bb02506~mv2.jpg', letter: 'N', tags: ['top'] },
   { name: 'Nykaa', image: '/images/brands/imageye___-_imgi_83_f25939_b267a1aed9c34c5f9537121aafc6469d~mv2.jpg', letter: 'N', tags: ['popular'] },
-  // O
   { name: 'OnePlus', image: '/images/brands/imageye___-_imgi_84_f25939_ee8429bd385146b4b81683716af2c425~mv2.png', letter: 'O', tags: ['top'] },
-  // P
-  { name: 'Portronics', image: '/images/brands/imageye___-_imgi_87_f25939_754b6d43207240d7a150a8bb3c3918c8~mv2.jpg', letter: 'P', tags: ['popular'] },
-  // R
+  { name: 'Philips', image: '/images/brands/imageye___-_imgi_86_f25939_222a0f3334c14200bc894872d56df5e5~mv2.png', letter: 'P', tags: ['top'] },
+  { name: 'Puma', image: '/images/brands/imageye___-_imgi_85_f25939_df0169a718604fc5be5e846587486b63~mv2.png', letter: 'P', tags: ['top', 'popular'] },
   { name: 'Rage Coffee', image: '/images/brands/imageye___-_imgi_88_f25939_1959c258edbe46f5869947660dde28be~mv2.png', letter: 'R', tags: ['new'] },
-  // S
+  { name: 'Samsung', image: '/images/brands/imageye___-_imgi_90_f25939_6370213bb3fb402fb8d2de0de2da791d~mv2.png', letter: 'S', tags: ['top'] },
+  { name: 'Sony', image: '/images/brands/imageye___-_imgi_87_f25939_754b6d43207240d7a150a8bb3c3918c8~mv2.jpg', letter: 'S', tags: ['top'] },
   { name: 'Swiss Military', image: '/images/brands/imageye___-_imgi_59_f25939_05b0deacf0c54c72982685b4ce2c1fba~mv2.webp', letter: 'S', tags: ['top', 'new'] },
-  // W
+  { name: 'Titan', image: '/images/brands/imageye___-_imgi_95_f25939_7a7c368ff262471fbb9a1cefa12e30b2~mv2.png', letter: 'T', tags: ['top', 'popular'] },
+  { name: 'WD', image: '/images/brands/imageye___-_imgi_91_f25939_10bd114af209459281a5b9375c9289f4~mv2.png', letter: 'W', tags: ['top'] },
   { name: 'Wildcraft', image: '/images/brands/imageye___-_imgi_98_f25939_5de41c999f414bd8b9bbe76552ada5b6~mv2.png', letter: 'W', tags: ['popular'] },
   { name: 'WOW Skin', image: '/images/brands/imageye___-_imgi_99_f25939_4cbccbb08e854d39b71a60ce912947d7~mv2.png', letter: 'W', tags: ['new'] },
+  { name: 'Zara', image: '/images/brands/imageye___-_imgi_92_f25939_1d0ee1be9d0b4cbea62b8d7f42845d37~mv2.webp', letter: 'Z', tags: ['top'] },
+  { name: 'Zippo', image: '/images/brands/imageye___-_imgi_80_f25939_f3df2163653e492288009c6acaabad1c~mv2.png', letter: 'Z', tags: ['new'] },
 ];
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
