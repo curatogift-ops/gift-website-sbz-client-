@@ -35,7 +35,7 @@ function giftModeTabClass(active: boolean, size: GiftModeSwitcherSize) {
     size === 'desktop' &&
       'min-h-[2.75rem] gap-2 rounded-[0.65rem] px-3 py-2.5 text-[10px] leading-none tracking-[0.06em] lg:px-4 lg:text-[11px]',
     active
-      ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_4px_14px_rgba(74,16,32,0.28)]'
+      ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_3px_8px_rgba(74,16,32,0.08)]'
       : 'bg-transparent text-[#4A1020] hover:bg-[#4A1020]/[0.06]'
   );
 }
