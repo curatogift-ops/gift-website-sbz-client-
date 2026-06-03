@@ -12,6 +12,8 @@ import {
   BriefcaseBusiness,
   ChevronRight,
   Download,
+  ChevronLeft,
+  Phone,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { cn } from '@/utils/cn';
@@ -95,13 +97,16 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [mobileShopOpen, setMobileShopOpen] = useState(false);
-  const [mobilePromotionalOpen, setMobilePromotionalOpen] = useState(false);
+
+  const [menuLevel, setMenuLevel] = useState<0 | 1 | 2>(0);
+  const [activeParent0, setActiveParent0] = useState<string | null>(null);
+  const [activeParent1, setActiveParent1] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isMobileMenuOpen) {
-      setMobileShopOpen(false);
-      setMobilePromotionalOpen(false);
+      setMenuLevel(0);
+      setActiveParent0(null);
+      setActiveParent1(null);
     }
   }, [isMobileMenuOpen]);
 
@@ -135,6 +140,9 @@ export default function Navbar() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setMobileSearchOpen(false);
+    setMenuLevel(0);
+    setActiveParent0(null);
+    setActiveParent1(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -213,25 +221,7 @@ export default function Navbar() {
     dropdown?: DropdownColumn[];
   }
 
-  const personalizedDrawerLinks: NavLinkItem[] = [
-    { label: 'Shop', href: '/shop' },
-    { label: 'Personalized gifts', href: '/shop' },
-    { label: 'Corporate gifting', href: '/corporate' },
-    { label: 'Make Your Own Hamper', href: '/custom-boxes' },
-    { label: 'About us', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-  ];
 
-  const corporateDrawerLinks: NavLinkItem[] = [
-    { label: 'Promotional Gifts', href: '/promotional-gifts' },
-    { label: 'Corporate Gifting', href: '/corporate-gifting' },
-    { label: 'Our Brands', href: '/brands' },
-    { label: 'Bulk Enquiry', href: '/contact' },
-    { label: 'Bulk Gifting', href: '/corporate', badge: 'New' },
-    { label: 'About us', href: '/about' },
-  ];
-
-  const drawerLinks = isCorporateActive ? corporateDrawerLinks : personalizedDrawerLinks;
 
   const personalizedNavLinks: NavLinkItem[] = [
     { label: 'Shop', href: '/shop', chevron: true, dropdown: SHOP_MEGA_MENU },
@@ -318,9 +308,9 @@ export default function Navbar() {
       </div>
 
       <header className="border-b border-black/[0.06] bg-white md:hidden">
-        <div className="mx-auto max-w-7xl px-3 sm:px-5 lg:px-8">
-          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 py-[14px] md:gap-4 md:py-4">
-            <div className="flex min-w-0 items-center justify-start gap-0.5 md:gap-2">
+        <div className="relative mx-auto max-w-7xl px-3 sm:px-5 lg:px-8">
+          <div className="flex items-center justify-between py-[14px] md:gap-4 md:py-4">
+            <div className="flex min-w-0 items-center justify-start gap-0.5 md:gap-2 z-10">
               <button
                 type="button"
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-[#1a1a1a] transition-colors hover:bg-black/[0.04] active:bg-black/[0.06]"
@@ -341,23 +331,25 @@ export default function Navbar() {
               </button>
             </div>
 
-            <Link
-              to="/"
-              className="mx-auto flex min-w-0 max-w-[44vw] flex-col items-center gap-1 shrink sm:max-w-none sm:w-[12.5rem]"
-            >
-              <div className="relative h-[2.0rem] w-full shrink-0 sm:h-[2.2rem]">
-                <AppImage
-                  src={LOGO_SRC}
-                  alt="Giftz Gallerei"
-                  fill
-                  className="object-contain object-center"
-                  priority
-                  sizes="(max-width: 640px) 184px, 232px"
-                />
-              </div>
-            </Link>
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
+              <Link
+                to="/"
+                className="flex w-[8.5rem] max-w-[40vw] flex-col items-center sm:w-[12.5rem] sm:max-w-none"
+              >
+                <div className="relative h-[1.8rem] w-full shrink-0 sm:h-[2.2rem]">
+                  <AppImage
+                    src={LOGO_SRC}
+                    alt="Giftz Gallerei"
+                    fill
+                    className="object-contain object-center"
+                    priority
+                    sizes="(max-width: 640px) 136px, 200px"
+                  />
+                </div>
+              </Link>
+            </div>
 
-            <div className="flex min-w-0 items-center justify-end gap-2 sm:gap-4">
+            <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-4 z-10">
               <Link
                 to="/wishlist"
                 className="flex h-10 w-10 flex-col items-center justify-center gap-0.5 text-[#1a1a1a] transition-opacity hover:opacity-80"
@@ -726,189 +718,539 @@ export default function Navbar() {
           style={{ backgroundColor: CREAM }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex flex-shrink-0 items-center justify-between border-b border-[#ebe6e2] px-5 py-4">
-            <div className="flex flex-col items-center gap-1 shrink-0 w-[9.5rem] sm:w-[10.5rem]">
-              <div className="relative h-[1.8rem] w-full sm:h-[2.1rem] shrink-0">
-                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-center" sizes="208px" />
+          {/* DRAWER HEADER */}
+          <div className="flex flex-shrink-0 items-center justify-between border-b border-[#ebe6e2] px-4 py-3 bg-white">
+            <div className="flex flex-col items-center gap-1 shrink-0 w-[8.5rem] sm:w-[9.5rem]">
+              <div className="relative h-[1.6rem] w-full sm:h-[1.8rem] shrink-0">
+                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" sizes="152px" />
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e8e4e1] bg-white text-[#1a1a1a]"
-              aria-label="Close menu"
-            >
-              <X className="h-5 w-5" strokeWidth={2} />
-            </button>
+            <div className="flex items-center gap-1">
+              <Link
+                to="/wishlist"
+                className="flex h-10 w-10 items-center justify-center text-[#1a1a1a]"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Wishlist"
+              >
+                <Heart className="h-[18px] w-[18px]" strokeWidth={iconThin} />
+              </Link>
+              <Link
+                to="/account"
+                className="flex h-10 w-10 items-center justify-center text-[#1a1a1a]"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Account"
+              >
+                <CircleUser className="h-[18px] w-[18px]" strokeWidth={iconThin} />
+              </Link>
+              <Link
+                to="/cart"
+                className="relative flex h-10 w-10 items-center justify-center text-[#1a1a1a]"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Shopping cart"
+              >
+                <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={iconThin} />
+                <span className="absolute right-0.5 top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#e11d48] px-0.5 text-[9.5px] font-semibold leading-none text-white ring-2 ring-white">
+                  0
+                </span>
+              </Link>
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="ml-1 flex h-9 w-9 items-center justify-center rounded-full border border-[#e8e4e1] bg-white text-[#1a1a1a]"
+                aria-label="Close menu"
+              >
+                <X className="h-4 w-4" strokeWidth={2} />
+              </button>
+            </div>
           </div>
 
-          <div className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain px-4 py-4 [-webkit-overflow-scrolling:touch]">
-            <p className="px-2 pb-2 text-[11.5px] font-bold uppercase tracking-[0.16em] text-[#9a9490]">Menu</p>
-            {!isCorporateActive && (
-              <div className="mb-2">
-                <button
-                  type="button"
-                  onClick={() => setMobileShopOpen((o) => !o)}
-                  className={cn(
-                    'flex w-full items-center justify-between rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em]',
-                    pathname === '/' || pathname.startsWith('/shop/browse')
-                      ? 'bg-white text-[#4A0E1C] shadow-sm'
-                      : 'text-[#1f1f1f] hover:bg-white/70'
-                  )}
-                >
-                  <span>Shop</span>
-                  <ChevronDown
-                    className={cn('h-4 w-4 transition-transform', mobileShopOpen && 'rotate-180')}
-                    strokeWidth={2}
-                    aria-hidden
-                  />
-                </button>
-                {mobileShopOpen && (
-                  <div className="mt-1 max-h-[50vh] overflow-y-auto rounded-xl border border-[#ebe6e2] bg-white/80 px-3 py-3">
-                    <Link
-                      to="/"
-                      className="block rounded-lg px-3 py-2 font-sans text-[12px] font-bold uppercase tracking-[0.06em] text-[#4A1020] hover:bg-[#FAF7F4]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      All gift types
-                    </Link>
-                    {SHOP_MEGA_MENU.map((col) => (
-                      <div key={col.title ?? 'featured'} className="mt-3 border-t border-[#ebe6e2] pt-3 first:mt-2 first:border-t-0 first:pt-0">
-                        {col.title && (
-                          <p className="px-3 pb-1.5 font-sans text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#9D7D47]">
-                            {col.title}
-                          </p>
-                        )}
-                        <ul className="flex flex-col gap-0.5">
-                          {col.items.map((item) => (
-                            <li key={item.href + item.label}>
-                              <Link
-                                to={item.href}
-                                className="block rounded-lg px-3 py-2 font-sans text-[13px] font-medium normal-case tracking-normal text-[#4A1020] hover:bg-[#FAF7F4] hover:text-[#9D7D47]"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                              >
-                                {item.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+          {/* MODE SWITCHER */}
+          <div className="flex-shrink-0 border-b border-[#ebe6e2]/40 bg-white/30 px-4 py-2.5">
+            <GiftModeSwitcher isCorporateActive={isCorporateActive} size="mobile" />
+          </div>
+
+          {/* SLIDING PANELS */}
+          <div className="relative flex-1 overflow-hidden min-h-0 flex flex-col">
+            <div
+              className="flex w-[300%] h-full transition-transform duration-300 ease-out"
+              style={{ transform: `translateX(-${(menuLevel * 100) / 3}%)` }}
+            >
+              {/* PANEL 0 */}
+              <div className="w-1/3 shrink-0 h-full overflow-y-auto no-scrollbar px-4 py-4 flex flex-col gap-1.5">
+                {isCorporateActive && (
+                  <div className="mb-2 flex items-center gap-3 rounded-xl border border-[#C9A96E]/20 bg-[#C9A96E]/5 px-4 py-3 text-left">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#C9A96E]/30 bg-[#C9A96E]/10 text-[#9D7D47]">
+                      <Phone className="h-4 w-4" strokeWidth={2} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-[#9D7D47]">Bulk Orders</p>
+                      <a href="tel:+919876543210" className="block text-[12.5px] font-bold text-[#4A1020] hover:underline">
+                        +91 98765 43210
+                      </a>
+                    </div>
                   </div>
                 )}
+
+                {!isCorporateActive ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent0("Shop Gifts");
+                        setMenuLevel(1);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                    >
+                      <span>Shop Gifts</span>
+                      <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
+                    </button>
+                    <Link
+                      to="/hamper-builder"
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Make Your Own Hamper
+                    </Link>
+                    <Link
+                      to="/about"
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      About Us
+                    </Link>
+                    <Link
+                      to="/contact"
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Contact
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent0("Promotional Gifts");
+                        setMenuLevel(1);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                    >
+                      <span>Promotional Gifts</span>
+                      <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent0("Corporate Gifting");
+                        setMenuLevel(1);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                    >
+                      <span>Corporate Gifting</span>
+                      <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
+                    </button>
+                    <Link
+                      to="/brands"
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Our Brands
+                    </Link>
+                    <Link
+                      to="/contact"
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Bulk Enquiry
+                    </Link>
+                    <Link
+                      to="/corporate"
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <span>Bulk Gifting</span>
+                      <span className="rounded bg-[#C9A96E] px-2 py-0.5 text-[9px] font-sans font-extrabold uppercase tracking-wide text-white">
+                        New
+                      </span>
+                    </Link>
+                    <Link
+                      to="/about"
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      About Us
+                    </Link>
+                  </>
+                )}
               </div>
-            )}
+
+              {/* PANEL 1 */}
+              <div className="w-1/3 shrink-0 h-full overflow-y-auto no-scrollbar px-4 py-4 flex flex-col gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMenuLevel(0);
+                    setActiveParent0(null);
+                  }}
+                  className="flex items-center gap-1.5 py-2 px-1 text-[#4A1020] hover:text-[#9D7D47] font-sans text-[11px] font-bold uppercase tracking-widest transition-colors mb-2"
+                >
+                  <ChevronLeft className="h-4 w-4" strokeWidth={2.5} />
+                  <span>Back</span>
+                </button>
+
+                {activeParent0 && (
+                  <p className="px-1.5 pb-2 text-[14px] font-sans font-extrabold uppercase tracking-wider text-[#4A1020] border-b border-[#ebe6e2]/40 mb-2">
+                    {activeParent0}
+                  </p>
+                )}
+
+                {activeParent0 === "Shop Gifts" && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("SHOP BY RECIPIENT");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>Shop By Recipient</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("SHOP BY OCCASION");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>Shop By Occasion</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("SHOP BY INTEREST");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>Shop By Interest</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("BY PRICE");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>By Price</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    
+                    <div className="mt-2 border-t border-[#ebe6e2]/40 pt-3">
+                      <p className="px-4 pb-1.5 font-sans text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#9D7D47]">
+                        Featured Collections
+                      </p>
+                      {SHOP_MEGA_MENU[4].items.map((item) => (
+                        <Link
+                          key={item.label}
+                          to={item.href}
+                          className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                {activeParent0 === "Promotional Gifts" && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("WORK & DESK ESSENTIALS");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>Work & Desk Essentials</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("HOME & LIVING");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>Home & Living</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("LIFESTYLE & ACCESSORIES");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>Lifestyle & Accessories</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("GOURMET & EDIBLE TREATS");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>Gourmet & Edible Treats</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    
+                    <div className="mt-2 border-t border-[#ebe6e2]/40 pt-3">
+                      <p className="px-4 pb-1.5 font-sans text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#9D7D47]">
+                        Other Categories
+                      </p>
+                      {PROMOTIONAL_GIFTS_MEGA_MENU[4].items.map((item) => (
+                        <Link
+                          key={item.label}
+                          to={item.href}
+                          className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                {activeParent0 === "Corporate Gifting" && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("CORPORATE GIFTING BY CELEBRATION");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>Gifting By Celebration</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent1("CORPORATE GIFTING BY PRICE");
+                        setMenuLevel(2);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
+                    >
+                      <span>Gifting By Price</span>
+                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                    </button>
+                    
+                    <div className="mt-2 border-t border-[#ebe6e2]/40 pt-3">
+                      <p className="px-4 pb-1.5 font-sans text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#9D7D47]">
+                        Featured Executive Gifts
+                      </p>
+                      {[
+                        { label: 'Branded Gifts', href: '/corporate-gifting/branded-gifts' },
+                        { label: 'Tech Gifts', href: '/corporate-gifting/tech-gifts' },
+                        { label: 'Architecture Gifts', href: '/corporate-gifting/architecture-gifts' },
+                        { label: 'Real Estate Gifts', href: '/corporate-gifting/real-estate-gifts' },
+                        { label: 'Executive Gifts', href: '/corporate-gifting/executive-gifts' }
+                      ].map((item) => (
+                        <Link
+                          key={item.label}
+                          to={item.href}
+                          className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* PANEL 2 */}
+              <div className="w-1/3 shrink-0 h-full overflow-y-auto no-scrollbar px-4 py-4 flex flex-col gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMenuLevel(1);
+                    setActiveParent1(null);
+                  }}
+                  className="flex items-center gap-1.5 py-2 px-1 text-[#4A1020] hover:text-[#9D7D47] font-sans text-[11px] font-bold uppercase tracking-widest transition-colors mb-2"
+                >
+                  <ChevronLeft className="h-4 w-4" strokeWidth={2.5} />
+                  <span>Back</span>
+                </button>
+
+                {activeParent1 && (
+                  <p className="px-1.5 pb-2 text-[14px] font-sans font-extrabold uppercase tracking-wider text-[#4A1020] border-b border-[#ebe6e2]/40 mb-2">
+                    {activeParent1}
+                  </p>
+                )}
+
+                {activeParent1 === "SHOP BY RECIPIENT" && SHOP_MEGA_MENU[0].items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                {activeParent1 === "SHOP BY OCCASION" && SHOP_MEGA_MENU[1].items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                {activeParent1 === "SHOP BY INTEREST" && SHOP_MEGA_MENU[2].items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                {activeParent1 === "BY PRICE" && SHOP_MEGA_MENU[3].items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                {activeParent1 === "WORK & DESK ESSENTIALS" && PROMOTIONAL_GIFTS_MEGA_MENU[0].items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                {activeParent1 === "HOME & LIVING" && PROMOTIONAL_GIFTS_MEGA_MENU[1].items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                {activeParent1 === "LIFESTYLE & ACCESSORIES" && PROMOTIONAL_GIFTS_MEGA_MENU[2].items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                {activeParent1 === "GOURMET & EDIBLE TREATS" && PROMOTIONAL_GIFTS_MEGA_MENU[3].items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                {activeParent1 === "CORPORATE GIFTING BY CELEBRATION" && [
+                  { label: 'Work Anniversary Gifts', href: '/corporate-gifting/work-anniversary-gifts' },
+                  { label: 'Rewards and Recognition', href: '/corporate-gifting/rewards-and-recognition' },
+                  { label: 'Employee Welcome Kits', href: '/corporate-gifting/employee-welcome-kits' }
+                ].map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                {activeParent1 === "CORPORATE GIFTING BY PRICE" && [
+                  { label: 'Under Rs 1000', href: '/corporate-gifting/under-rs-1000' },
+                  { label: 'Rs 1000 to Rs 2000', href: '/corporate-gifting/rs-1000-to-rs-2000' },
+                  { label: 'Rs 2000 to Rs 3000', href: '/corporate-gifting/rs-2000-to-rs-3000' },
+                  { label: 'Above Rs 3000', href: '/corporate-gifting/above-rs-3000' }
+                ].map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* DRAWER FOOTER */}
+          <div className="flex-shrink-0 border-t border-[#ebe6e2] bg-white p-4 flex flex-col gap-2">
             {isCorporateActive && (
-              <div className="mb-2">
-                <button
-                  type="button"
-                  onClick={() => setMobilePromotionalOpen((o) => !o)}
-                  className={cn(
-                    'flex w-full items-center justify-between rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em]',
-                    pathname === '/promotional-gifts' || pathname.startsWith('/promotional-gifts/')
-                      ? 'bg-white text-[#4A0E1C] shadow-sm'
-                      : 'text-[#1f1f1f] hover:bg-white/70'
-                  )}
-                  aria-expanded={mobilePromotionalOpen}
-                >
-                  <span>Promotional Gifts</span>
-                  <ChevronDown
-                    className={cn('h-4 w-4 transition-transform', mobilePromotionalOpen && 'rotate-180')}
-                    strokeWidth={2}
-                    aria-hidden
-                  />
-                </button>
-                {mobilePromotionalOpen && (
-                  <div className="mt-1 max-h-[50vh] overflow-y-auto rounded-xl border border-[#ebe6e2] bg-white/80 px-3 py-3">
-                    <Link
-                      to="/promotional-gifts"
-                      className="block rounded-lg px-3 py-2 font-sans text-[12px] font-bold uppercase tracking-[0.06em] text-[#4A1020] hover:bg-[#FAF7F4]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      All promotional gifts
-                    </Link>
-                    {PROMOTIONAL_GIFTS_MEGA_MENU.map((col) => (
-                      <div
-                        key={col.title ?? 'more'}
-                        className="mt-3 border-t border-[#ebe6e2] pt-3 first:mt-2 first:border-t-0 first:pt-0"
-                      >
-                        {col.title && (
-                          <p className="px-3 pb-1.5 font-sans text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#9D7D47]">
-                            {col.title}
-                          </p>
-                        )}
-                        <ul className="flex flex-col gap-0.5">
-                          {col.items.map((item) => (
-                            <li key={item.href + item.label}>
-                              <Link
-                                to={item.href}
-                                className="block rounded-lg px-3 py-2 font-sans text-[13px] font-medium normal-case tracking-normal text-[#4A1020] hover:bg-[#FAF7F4] hover:text-[#9D7D47]"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                              >
-                                {item.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-            {(isCorporateActive
-              ? drawerLinks.filter((item) => item.label !== 'Promotional Gifts')
-              : drawerLinks.filter(
-                  (item) => item.label !== 'Shop' && item.label !== 'Personalized gifts'
-                )
-            ).map((item) => (
               <Link
-                key={item.label}
-                to={item.href}
-                className={cn(
-                  'rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between',
-                  isNavActive(item.href) ? 'bg-white text-[#4A0E1C] shadow-sm' : 'text-[#1f1f1f] hover:bg-white/70'
-                )}
+                to="/contact"
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#9D7D47] text-white hover:bg-[#8A6C3C] transition-colors py-3.5 font-sans text-[11px] font-bold uppercase tracking-widest shadow-sm"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                <span>{item.label}</span>
-                {item.badge && (
-                  <span className="rounded bg-[#C9A96E] px-2 py-0.5 text-[9px] font-sans font-extrabold uppercase tracking-wide text-white">
-                    {item.badge}
-                  </span>
-                )}
+                <Download className="h-4 w-4 text-[#FFE9C9]" strokeWidth={2} />
+                <span>Download Catalogue</span>
               </Link>
-            ))}
-          </div>
-
-          <div className="grid flex-shrink-0 grid-cols-3 gap-2 border-t border-[#ebe6e2] p-4">
-            <Link
-              to="/wishlist"
-              className="flex flex-col items-center gap-1 rounded-xl border border-[#e8e4e1] bg-white py-3 font-sans text-[12px] font-semibold uppercase tracking-wide text-[#1a1a1a]"
-              onClick={() => setIsMobileMenuOpen(false)}
+            )}
+            
+            <a
+              href="https://wa.me/919876543210"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#C9A96E]/40 bg-[#FAF7F4] hover:bg-[#F6F3EE] transition-colors py-3 font-sans text-[12px] font-semibold text-[#4A1020]"
             >
-              <Heart className="h-4 w-4" strokeWidth={1.75} />
-              Wishlist
-            </Link>
-            <Link
-              to="/account"
-              className="flex flex-col items-center gap-1 rounded-xl border border-[#e8e4e1] bg-white py-3 font-sans text-[12px] font-semibold uppercase tracking-wide text-[#1a1a1a]"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <CircleUser className="h-4 w-4" strokeWidth={1.75} />
-              Account
-            </Link>
-            <Link
-              to="/cart"
-              className="relative flex flex-col items-center gap-1 rounded-xl border border-[#c9a574] bg-white py-3 font-sans text-[12px] font-semibold uppercase tracking-wide text-[#1a1a1a]"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <ShoppingBag className="h-4 w-4" strokeWidth={1.75} />
-              Cart
-              <span className="absolute right-3 top-2 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#e11d48] px-0.5 text-[10.5px] font-semibold text-white">
-                0
-              </span>
-            </Link>
+              <svg className="h-4.5 w-4.5 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.706 1.458h.008c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              <span>Hey, Let's Chat</span>
+            </a>
           </div>
         </div>
       </div>
