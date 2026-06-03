@@ -189,9 +189,11 @@ export default function Navbar() {
 
   const isCorporateActive =
     pathname === '/corporate' ||
+    pathname === '/brands' ||
     pathname.startsWith('/corporate/') ||
     pathname.startsWith('/corporate-gifting') ||
-    pathname.startsWith('/promotional-gifts');
+    pathname.startsWith('/promotional-gifts') ||
+    pathname.startsWith('/brands/');
 
   interface DropdownItem {
     label: string;
@@ -215,7 +217,6 @@ export default function Navbar() {
     { label: 'Shop', href: '/shop' },
     { label: 'Personalized gifts', href: '/shop' },
     { label: 'Corporate gifting', href: '/corporate' },
-    { label: 'Our Brands', href: '/brands' },
     { label: 'Make Your Own Hamper', href: '/custom-boxes' },
     { label: 'About us', href: '/about' },
     { label: 'Contact', href: '/contact' },
@@ -224,6 +225,7 @@ export default function Navbar() {
   const corporateDrawerLinks: NavLinkItem[] = [
     { label: 'Promotional Gifts', href: '/promotional-gifts' },
     { label: 'Corporate Gifting', href: '/corporate-gifting' },
+    { label: 'Our Brands', href: '/brands' },
     { label: 'Bulk Enquiry', href: '/contact' },
     { label: 'Bulk Gifting', href: '/corporate', badge: 'New' },
     { label: 'About us', href: '/about' },
@@ -233,7 +235,6 @@ export default function Navbar() {
 
   const personalizedNavLinks: NavLinkItem[] = [
     { label: 'Shop', href: '/shop', chevron: true, dropdown: SHOP_MEGA_MENU },
-    { label: 'Our Brands', href: '/brands' },
     { label: 'Make Your Own Hamper', href: '/hamper-builder' },
     { label: 'About us', href: '/about' },
     { label: 'Contact', href: '/contact' },
@@ -279,6 +280,7 @@ export default function Navbar() {
         },
       ],
     },
+    { label: 'Our Brands', href: '/brands' },
     { label: 'Bulk Enquiry', href: '/contact' },
     { label: 'Bulk Gifting', href: '/corporate', badge: 'New' },
     { label: 'About us', href: '/about' },

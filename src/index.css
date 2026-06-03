@@ -136,8 +136,8 @@ body {
 :root {
   --site-header-mobile: calc(10.75rem + env(safe-area-inset-top, 0px));
   --site-header-tablet: calc(9rem + env(safe-area-inset-top, 0px));
-  --site-header-desktop: calc(5.75rem + env(safe-area-inset-top, 0px));
-  --site-header-desktop-lg: calc(6rem + env(safe-area-inset-top, 0px));
+  --site-header-desktop: calc(8.25rem + env(safe-area-inset-top, 0px));
+  --site-header-desktop-lg: calc(8.5rem + env(safe-area-inset-top, 0px));
 }
 
 @utility page-main-offset {
