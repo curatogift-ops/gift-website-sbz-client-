@@ -103,7 +103,7 @@ const STATS = [
 const HERO_SLIDES = [
   {
     id: 'curated-gifts',
-    eyebrow: '',
+    eyebrow: 'PREMIUM CORPORATE GIFTING',
     headingLight: "Thoughtfully\nCurated Gifts",
     headingItalic: "For Stronger\nBusiness Relationships.",
     image: '/images/corporate-hero-banner.png',
@@ -220,66 +220,14 @@ export default function CorporatePage() {
                 return (
                   <div
                     key={slide.id}
-                    className={`absolute inset-0 w-full h-full flex flex-col justify-between md:justify-center transition-all duration-1000 ease-in-out ${slide.bgClass} ${
+                    className={`absolute inset-0 w-full h-full flex items-center justify-center md:justify-start transition-all duration-1000 ease-in-out ${slide.bgClass} ${
                       isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
                     }`}
                   >
                     {!slide.hasEmbeddedText && <CorporateHeroDecor />}
 
-                    {!slide.hasEmbeddedText && (
-                      <div
-                        className={[
-                          slide.hasMobileEmbeddedText ? 'hidden md:flex' : 'flex',
-                          'relative z-[2] flex w-full min-w-0 flex-col items-center px-4 pb-3 pt-4 text-center sm:px-6 md:pointer-events-none md:absolute md:inset-y-0 md:w-auto md:max-w-[48%] md:items-start md:justify-center md:bg-transparent md:px-10 md:py-12 md:text-left lg:max-w-[45%] lg:px-12 lg:py-16 xl:max-w-[42%] xl:px-16 xl:py-20 2xl:max-w-[38%]',
-                          slide.textPosition === 'left' ? 'md:left-[5%] lg:left-[6.5%] xl:left-[7.5%] 2xl:left-[8.5%] md:right-auto md:text-left' : 'md:right-[5%] lg:right-[6.5%] xl:right-[7.5%] 2xl:right-[8.5%] md:left-auto md:text-left'
-                        ].join(' ')}
-                      >
-                        <motion.div
-                          className="md:pointer-events-auto"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                          <p className={`eyebrow sm:tracking-[0.32em] ${slide.eyebrowColor}`}>
-                            {slide.eyebrow}
-                          </p>
-                          <h1
-                            id="corporate-hero-heading"
-                            className="hero-heading-corporate mt-1.5 max-w-[20rem] drop-shadow-[0_2px_16px_rgba(249,246,241,0.85)] sm:mt-2 sm:max-w-[24rem] md:max-w-[27rem] lg:max-w-[30rem] xl:max-w-[33rem]"
-                          >
-                            <span className={`block ${slide.textColorLight}`}>
-                              {slide.headingLight.split('\n').map((line, i) => (
-                                <span key={i} className="block">{line}</span>
-                              ))}
-                            </span>
-                            <span className={`mt-2 block font-serif italic font-semibold text-[clamp(1.35rem,3vw,2.25rem)] leading-[1.14] md:mt-2.5 ${slide.textColorItalic}`}>
-                              {slide.headingItalic.split('\n').map((line, i) => (
-                                <span key={i} className="block">{line}</span>
-                              ))}
-                            </span>
-                          </h1>
-
-                          <div className="mt-8 hidden md:flex flex-wrap items-center justify-center md:justify-start gap-[18px] w-full">
-                            <Link
-                              to="/contact"
-                              className="inline-flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-[#4A1020] via-[#5C1629] to-[#4A1020] hover:from-[#5C1629] hover:to-[#731E34] px-6 py-3.5 font-sans text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.12em] text-white border border-[#C9A96E]/30 shadow-[0_8px_24px_-6px_rgba(74,16,32,0.5),0_0_12px_rgba(201,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-6px_rgba(74,16,32,0.6),0_0_16px_rgba(201,169,110,0.25)] active:translate-y-0 active:scale-[0.98]"
-                            >
-                              <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
-                              <span>Get Bulk Quote</span>
-                            </Link>
-                            <Link
-                              to="/shop"
-                              className="inline-flex items-center gap-2.5 rounded-xl border-2 border-[#9D7D47] bg-white hover:bg-[#4A1020] hover:border-[#4A1020] px-6 py-3.5 font-sans text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.12em] text-[#4A1020] hover:text-white shadow-[0_6px_16px_rgba(157,125,71,0.1)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(74,16,32,0.15)] active:translate-y-0 active:scale-[0.98] group"
-                            >
-                              <ShoppingBag className="h-4 w-4 text-[#C9A96E] transition-colors duration-300 group-hover:text-[#C9A96E]" strokeWidth={1.5} />
-                              <span>Explore Collections</span>
-                            </Link>
-                          </div>
-                        </motion.div>
-                      </div>
-                    )}
-
-                    <div className={`relative w-full ${slide.hasMobileEmbeddedText ? 'h-full absolute inset-0' : 'h-[50%] sm:h-[55%]'} md:absolute md:inset-0 md:h-full md:z-0`}>
+                    {/* Background Image Container */}
+                    <div className="absolute inset-0 w-full h-full z-0">
                       {!slide.hasEmbeddedText && (
                         <div
                           className="pointer-events-none absolute inset-0 z-[1] hidden md:block bg-[radial-gradient(ellipse_85%_95%_at_20%_50%,rgba(249,246,241,0.42)_0%,transparent_58%)]"
@@ -303,25 +251,56 @@ export default function CorporatePage() {
                       </picture>
                     </div>
 
-                    {/* Mobile CTA buttons — rendered below the banner image on mobile view */}
+                    {/* Content Overlay */}
                     {!slide.hasEmbeddedText && (
-                      <div className="flex md:hidden flex-col items-center justify-center gap-2.5 w-full px-4 py-3.5 bg-[#FFF9F5] border-t border-[#ebe6e0]/40 shrink-0">
-                        <div className="flex flex-col gap-2.5 w-full max-w-[21rem]">
-                          <Link
-                            to="/contact"
-                            className="w-full inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#4A1020] to-[#5C1629] py-3.5 px-4 font-sans text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.1em] text-white border border-[#C9A96E]/20 shadow-[0_6px_20px_rgba(74,16,32,0.3)] active:scale-[0.98] transition-all duration-300"
+                      <div
+                        className={[
+                          'relative z-10 flex w-full min-w-0 flex-col items-center px-4 pt-10 pb-6 text-center sm:px-6 md:absolute md:inset-y-0 md:pt-0 md:pb-0 md:w-auto md:max-w-[48%] md:items-start md:justify-center md:bg-transparent md:px-10 md:py-12 md:text-left lg:max-w-[45%] lg:px-12 lg:py-16 xl:max-w-[42%] xl:px-16 xl:py-20 2xl:max-w-[38%]',
+                          slide.textPosition === 'left' ? 'md:left-[5%] lg:left-[6.5%] xl:left-[7.5%] 2xl:left-[8.5%] md:right-auto' : 'md:right-[5%] lg:right-[6.5%] xl:right-[7.5%] 2xl:right-[8.5%] md:left-auto'
+                        ].join(' ')}
+                      >
+                        <motion.div
+                          className="w-full max-w-[22rem] sm:max-w-[26rem] md:max-w-none bg-transparent flex flex-col items-center md:items-start"
+                          initial={{ opacity: 0, y: 15 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <p className={`eyebrow tracking-[0.24em] sm:tracking-[0.32em] ${slide.eyebrowColor}`}>
+                            {slide.eyebrow}
+                          </p>
+                          <h1
+                            id="corporate-hero-heading"
+                            className="hero-heading-corporate mt-1.5 max-w-[20rem] sm:max-w-[24rem] md:max-w-[27rem] lg:max-w-[30rem] xl:max-w-[33rem] text-center md:text-left"
                           >
-                            <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
-                            <span className="whitespace-nowrap">Get Bulk Quote</span>
-                          </Link>
-                          <Link
-                            to="/shop"
-                            className="w-full inline-flex items-center justify-center gap-2.5 rounded-xl border-2 border-[#9D7D47] bg-white py-3.5 px-4 font-sans text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.1em] text-[#4A1020] shadow-[0_4px_12px_rgba(157,125,71,0.08)] active:scale-[0.98] transition-all duration-300"
-                          >
-                            <ShoppingBag className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
-                            <span className="whitespace-nowrap">Explore Collections</span>
-                          </Link>
-                        </div>
+                            <span className={`block ${slide.textColorLight}`}>
+                              {slide.headingLight.split('\n').map((line, i) => (
+                                <span key={i} className="block">{line}</span>
+                              ))}
+                            </span>
+                            <span className={`mt-2 block font-serif italic font-semibold text-[clamp(1.35rem,3vw,2.25rem)] leading-[1.14] md:mt-2.5 ${slide.textColorItalic}`}>
+                              {slide.headingItalic.split('\n').map((line, i) => (
+                                <span key={i} className="block">{line}</span>
+                              ))}
+                            </span>
+                          </h1>
+
+                          <div className="mt-5 sm:mt-8 flex flex-row items-center justify-center md:justify-start gap-2.5 w-full max-w-[21rem] sm:max-w-none">
+                            <Link
+                              to="/contact"
+                              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 sm:gap-2.5 rounded-xl bg-gradient-to-r from-[#4A1020] via-[#5C1629] to-[#4A1020] hover:from-[#5C1629] hover:to-[#731E34] px-3.5 py-2.5 sm:px-5 sm:py-3.5 font-sans text-[10px] sm:text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.08em] sm:tracking-[0.12em] text-white border border-[#C9A96E]/30 shadow-[0_8px_24px_-6px_rgba(74,16,32,0.4),0_0_12px_rgba(201,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-6px_rgba(74,16,32,0.5),0_0_16px_rgba(201,169,110,0.25)] active:scale-[0.98]"
+                            >
+                              <Gift className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                              <span className="whitespace-nowrap">Get Bulk Quote</span>
+                            </Link>
+                            <Link
+                              to="/shop"
+                              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 sm:gap-2.5 rounded-xl border-2 border-[#9D7D47] bg-white hover:bg-[#4A1020] hover:border-[#4A1020] px-3.5 py-2.5 sm:px-5 sm:py-3.5 font-sans text-[10px] sm:text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.08em] sm:tracking-[0.12em] text-[#4A1020] hover:text-white shadow-[0_6px_16px_rgba(157,125,71,0.1)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(74,16,32,0.15)] active:scale-[0.98] group"
+                            >
+                              <ShoppingBag className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                              <span className="whitespace-nowrap">Explore Shop</span>
+                            </Link>
+                          </div>
+                        </motion.div>
                       </div>
                     )}
                   </div>
