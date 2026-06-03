@@ -112,9 +112,9 @@ const HERO_SLIDES = [
     textPosition: 'left',
     theme: 'light',
     bgClass: 'bg-[#F9F6F1]',
-    textColorLight: 'text-[#1A1010]',
-    textColorItalic: 'text-[#966E31]',
-    eyebrowColor: 'text-[#966E31]',
+    textColorLight: 'text-[#FFFDF9]',
+    textColorItalic: 'text-[#C9A96E]',
+    eyebrowColor: 'text-[#C9A96E]',
     gradientClass: '',
     imgTranslate: 'md:object-[72%_center]',
     imgPosition: 'object-center',
@@ -229,10 +229,18 @@ export default function CorporatePage() {
                     {/* Background Image Container */}
                     <div className="absolute inset-0 w-full h-full z-0">
                       {!slide.hasEmbeddedText && (
-                        <div
-                          className="pointer-events-none absolute inset-0 z-[1] hidden md:block bg-[radial-gradient(ellipse_85%_95%_at_20%_50%,rgba(249,246,241,0.42)_0%,transparent_58%)]"
-                          aria-hidden
-                        />
+                        <>
+                          {/* Desktop Gradient Overlay */}
+                          <div
+                            className="pointer-events-none absolute inset-0 z-[1] hidden md:block bg-[linear-gradient(to_right,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.55)_35%,rgba(26,16,16,0.15)_65%,transparent_100%)]"
+                            aria-hidden
+                          />
+                          {/* Mobile Gradient Overlay */}
+                          <div
+                            className="pointer-events-none absolute inset-0 z-[1] md:hidden bg-[linear-gradient(to_bottom,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.5)_40%,rgba(26,16,16,0.15)_70%,transparent_100%)]"
+                            aria-hidden
+                          />
+                        </>
                       )}
                       <picture className="block h-full w-full">
                         {slide.mobileImage && (
