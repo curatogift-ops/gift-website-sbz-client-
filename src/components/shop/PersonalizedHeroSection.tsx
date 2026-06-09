@@ -18,7 +18,7 @@ export default function PersonalizedHeroSection() {
   )}`;
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#F5F0EB]" aria-labelledby="personalized-hero-heading">
+    <section className="relative w-full overflow-hidden bg-white" aria-labelledby="personalized-hero-heading">
       <div className="relative mx-auto w-full max-w-[2500px]">
         <div className="relative min-h-[480px] sm:min-h-[520px] lg:min-h-[560px]">
           {/* Hero image — gift boxes on the right, open space on the left for copy */}
@@ -31,13 +31,13 @@ export default function PersonalizedHeroSection() {
               sizes="100vw"
               className="object-cover object-[72%_center] sm:object-[68%_center] lg:object-[right_center]"
             />
-            {/* Soft cream fade on the left so headline stays readable */}
+            {/* Soft white fade on the left so headline stays readable */}
             <div
-              className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(245,240,235,0.97)_0%,rgba(245,240,235,0.88)_28%,rgba(245,240,235,0.45)_48%,transparent_72%)]"
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.92)_28%,rgba(255,255,255,0.55)_48%,transparent_72%)]"
               aria-hidden
             />
             <div
-              className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(245,240,235,0.5)_0%,transparent_35%,transparent_75%,rgba(245,240,235,0.35)_100%)] md:hidden"
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.65)_0%,transparent_35%,transparent_75%,rgba(255,255,255,0.4)_100%)] md:hidden"
               aria-hidden
             />
           </div>

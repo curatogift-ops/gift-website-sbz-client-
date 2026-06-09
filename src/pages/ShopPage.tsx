@@ -25,7 +25,7 @@ export default function ShopPage() {
   }, [hash]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F9F6F1]">
+    <div className="flex min-h-screen flex-col bg-white">
       <Navbar />
 
       <main className="page-main-offset flex-grow">

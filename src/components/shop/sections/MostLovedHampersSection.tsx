@@ -11,7 +11,7 @@ export default function MostLovedHampersSection() {
   return (
     <section
       id="celebrations"
-      className="section-pad scroll-mt-28 bg-[#F9F6F1]"
+      className="section-pad scroll-mt-28 bg-white"
       aria-labelledby="most-loved-heading"
     >
       <div className="section-container">
@@ -85,7 +85,7 @@ export default function MostLovedHampersSection() {
                 key={item.id}
                 to={item.href}
                 className={cn(
-                  'group relative overflow-hidden rounded-2xl border border-[#ebe6e0]/60 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg',
+                  'group relative overflow-hidden rounded-2xl border border-[#EBEBEB]/60 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg',
                   spanClass,
                   i >= 2 ? 'min-h-[140px] lg:min-h-[195px]' : 'min-h-[120px] lg:min-h-[195px]'
                 )}

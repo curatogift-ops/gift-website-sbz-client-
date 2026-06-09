@@ -25,7 +25,7 @@ export function GiftCategoryCard({ item, className }: GiftCategoryCardProps) {
     <Link
       to={item.href}
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-2xl border border-[#ebe6e0]/80 bg-white shadow-[0_4px_20px_-8px_rgba(74,16,32,0.1)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_-8px_rgba(74,16,32,0.18)]',
+        'group relative flex flex-col overflow-hidden rounded-2xl border border-[#EBEBEB] bg-white shadow-[0_4px_24px_-8px_rgba(0,0,0,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-[#C9A96E]/30 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.12)]',
         className
       )}
     >

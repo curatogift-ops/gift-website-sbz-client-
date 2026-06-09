@@ -47,7 +47,7 @@ export default function EventConferenceGiftingSection() {
         headingAccent="Conferences"
         items={EVENT_ITEMS}
         columns={4}
-        bgClass="bg-[#FFF9F5]"
+        bgClass="bg-white"
       />
       <BulkEnquiryFormSection
         id="event-bulk-enquiry"
@@ -56,7 +56,7 @@ export default function EventConferenceGiftingSection() {
         variant="inline"
         imageSrc="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=800"
         imageAlt="Corporate event gifting team collaboration"
-        className="border-t border-[#ebe6e0]/60 bg-white pt-0"
+        className="border-t border-[#EBEBEB]/60 bg-white pt-0"
       />
     </>
   );

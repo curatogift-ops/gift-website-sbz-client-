@@ -279,7 +279,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
   }, [rawProducts]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#FFF9F5]">
+    <div className="flex min-h-screen flex-col bg-white">
       <Navbar />
 
       <main className="page-main-offset flex-grow pb-24">
@@ -298,7 +298,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
           </div>
 
           {/* Controls Bar: Sort, View, Result counter */}
-          <div className="flex flex-col gap-4 border-b border-[#d8cec1]/40 pb-4 mb-8 sm:flex-row sm:items-center sm:justify-between text-[13px] font-sans">
+          <div className="flex flex-col gap-4 border-b border-[#E0E0E0]/40 pb-4 mb-8 sm:flex-row sm:items-center sm:justify-between text-[13px] font-sans">
             {/* Left side: Sort options */}
             <div className="no-scrollbar -mx-1 flex max-w-full flex-wrap items-center gap-x-2 gap-y-1.5 overflow-x-auto px-1 text-gray-500 sm:mx-0 sm:overflow-visible">
               <span className="font-semibold text-gray-800">Sort By:</span>
@@ -346,9 +346,9 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
 
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
             {/* Left Sidebar Filter Section */}
-            <aside className="w-full lg:w-64 shrink-0 bg-white border border-[#d8cec1]/40 rounded-2xl p-6 shadow-sm">
+            <aside className="w-full lg:w-64 shrink-0 bg-white border border-[#E0E0E0]/40 rounded-2xl p-6 shadow-sm">
               {/* Product Category collapsible */}
-              <div className="border-b border-[#d8cec1]/30 pb-4 mb-4">
+              <div className="border-b border-[#E0E0E0]/30 pb-4 mb-4">
                 <button
                   onClick={() => setIsCategoryOpen(o => !o)}
                   className="flex w-full items-center justify-between font-sans text-[13px] font-bold uppercase tracking-wider text-[#4A1020]"
@@ -370,7 +370,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
                           type="checkbox"
                           checked={selectedCategoryFilter === cat}
                           onChange={() => setSelectedCategoryFilter(selectedCategoryFilter === cat ? null : cat)}
-                          className="rounded border-[#d8cec1] text-[#9D7D47] focus:ring-[#9D7D47]/30 h-4 w-4 shrink-0 cursor-pointer"
+                          className="rounded border-[#E0E0E0] text-[#9D7D47] focus:ring-[#9D7D47]/30 h-4 w-4 shrink-0 cursor-pointer"
                         />
                         <span>{cat}</span>
                       </label>
@@ -380,7 +380,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
               </div>
 
               {/* Price collapsible */}
-              <div className="border-b border-[#d8cec1]/30 pb-4 mb-4">
+              <div className="border-b border-[#E0E0E0]/30 pb-4 mb-4">
                 <button
                   onClick={() => setIsPriceOpen(o => !o)}
                   className="flex w-full items-center justify-between font-sans text-[13px] font-bold uppercase tracking-wider text-[#4A1020]"
@@ -391,7 +391,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
                 {isPriceOpen && (
                   <div className="mt-3 flex flex-col pl-0.5">
                     {/* Visual premium slider track */}
-                    <div className="relative h-1 w-full bg-[#FAF7F4] border border-[#d8cec1]/40 rounded-full mb-3">
+                    <div className="relative h-1 w-full bg-surface-muted border border-[#E0E0E0]/40 rounded-full mb-3">
                       <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#9D7D47] rounded-full opacity-60" />
                       <span className="absolute -top-1.5 left-0 h-4 w-4 rounded-full bg-white border-2 border-[#9D7D47] shadow cursor-pointer" />
                       <span className="absolute -top-1.5 right-0 h-4 w-4 rounded-full bg-white border-2 border-[#9D7D47] shadow cursor-pointer" />
@@ -420,7 +420,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
                         type="checkbox"
                         checked={inStockOnly}
                         onChange={(e) => setInStockOnly(e.target.checked)}
-                        className="rounded border-[#d8cec1] text-[#9D7D47] focus:ring-[#9D7D47]/30 h-4 w-4 shrink-0 cursor-pointer"
+                        className="rounded border-[#E0E0E0] text-[#9D7D47] focus:ring-[#9D7D47]/30 h-4 w-4 shrink-0 cursor-pointer"
                       />
                       <span>In stock ({rawProducts.filter(p => !p.isSoldOut).length})</span>
                     </label>
@@ -429,7 +429,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
                         type="checkbox"
                         disabled
                         checked={false}
-                        className="rounded border-[#d8cec1] text-[#9D7D47] focus:ring-[#9D7D47]/30 h-4 w-4 shrink-0 cursor-not-allowed"
+                        className="rounded border-[#E0E0E0] text-[#9D7D47] focus:ring-[#9D7D47]/30 h-4 w-4 shrink-0 cursor-not-allowed"
                       />
                       <span>Out of stock ({rawProducts.filter(p => p.isSoldOut).length})</span>
                     </label>
@@ -445,10 +445,10 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
                   {processedProducts.map((product) => (
                     <div key={product.id} className="group relative flex flex-col overflow-visible">
                       {/* Product Image Box */}
-                      <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-[#F6F3EE] border border-[#d8cec1]/20 transition-all duration-300 group-hover:shadow-[0_8px_24px_rgba(74,16,32,0.06)]">
+                      <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-surface-muted border border-[#E0E0E0]/20 transition-all duration-300 group-hover:shadow-[0_8px_24px_rgba(74,16,32,0.06)]">
                         {/* Sold out Badge overlay */}
                         {product.isSoldOut && (
-                          <span className="absolute left-3 top-3 z-10 bg-[#FFF9F5]/90 border border-[#d8cec1] text-gray-600 font-sans font-bold text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-[4px] leading-none shadow-sm select-none">
+                          <span className="absolute left-3 top-3 z-10 bg-white/90 border border-[#E0E0E0] text-gray-600 font-sans font-bold text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-[4px] leading-none shadow-sm select-none">
                             Sold out
                           </span>
                         )}
@@ -484,7 +484,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-20 bg-white border border-[#d8cec1]/20 rounded-2xl p-8">
+                <div className="text-center py-20 bg-white border border-[#E0E0E0]/20 rounded-2xl p-8">
                   <SlidersHorizontal className="mx-auto h-8 w-8 text-[#9D7D47] opacity-60 mb-3" />
                   <h3 className="font-sans text-[15px] font-bold uppercase tracking-wide text-[#4A1020]">No products match these filters</h3>
                   <p className="text-sm text-gray-500 mt-1 max-w-sm mx-auto">

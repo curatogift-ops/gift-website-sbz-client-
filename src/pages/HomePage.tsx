@@ -264,7 +264,7 @@ export default function HomePage() {
         </section>
 
         {/* ───── TRUST / USP STRIP ─────────────────────────────────────── */}
-        <section className="relative bg-[#FFF9F5] border-y border-[#EDE6DE]/50 py-8 md:py-10 lg:py-12" aria-label="Why choose Giftz Gallerei">
+        <section className="relative bg-white border-y border-[#F0F0F0] py-8 md:py-10 lg:py-12" aria-label="Why choose Giftz Gallerei">
           {/* Mobile — premium flat grid (no card borders/shadows, direct on cream background) */}
           <div className="section-container md:hidden">
             <ul className="grid grid-cols-2 gap-y-8 sm:grid-cols-3">
@@ -279,7 +279,7 @@ export default function HomePage() {
                       isEven ? 'border-r' : 'border-r-0'
                     } ${isNotThird ? 'sm:border-r' : 'sm:border-r-0'}`}
                   >
-                    <div className="mb-2.5 flex h-10 w-10 items-center justify-center rounded-full border border-[#C5A059]/30 text-[#B8924F] bg-[#FAF8F5]/80 shadow-sm">
+                    <div className="mb-2.5 flex h-10 w-10 items-center justify-center rounded-full border border-[#C5A059]/30 text-[#B8924F] bg-white/80 shadow-sm">
                       <Icon className="h-4.5 w-4.5" strokeWidth={1.65} aria-hidden />
                     </div>
                     <h3 className="font-sans text-[11.5px] font-bold uppercase tracking-[0.12em] text-[#1A1010] leading-tight">
@@ -305,7 +305,7 @@ export default function HomePage() {
                       isNotThird ? 'md:border-r md:border-[#E8E2DC]/80 lg:border-r-0' : 'lg:border-r-0'
                     }`}
                   >
-                    <div className="mb-3.5 flex h-12 w-12 items-center justify-center rounded-full border border-[#C5A059]/35 text-[#B8924F] bg-[#FAF8F5]/80 shadow-sm transition-transform duration-300 hover:scale-110">
+                    <div className="mb-3.5 flex h-12 w-12 items-center justify-center rounded-full border border-[#C5A059]/35 text-[#B8924F] bg-white/80 shadow-sm transition-transform duration-300 hover:scale-110">
                       <Icon className="h-5 w-5" strokeWidth={1.65} aria-hidden />
                     </div>
                     <h3 className="font-sans text-[12.5px] font-bold uppercase tracking-[0.14em] text-[#1A1010]">{item.title}</h3>
@@ -317,7 +317,7 @@ export default function HomePage() {
         </section>
 
         {/* ───── SHOP BY CATEGORY ───────────────────────────────────────── */}
-        <section className="bg-[#FFFBF8] pb-12 pt-8 sm:pb-14 sm:pt-10 md:pb-20 md:pt-20 lg:pb-24 lg:pt-24" aria-labelledby="shop-by-category-heading">
+        <section className="bg-white pb-12 pt-8 sm:pb-14 sm:pt-10 md:pb-20 md:pt-20 lg:pb-24 lg:pt-24" aria-labelledby="shop-by-category-heading">
           <div className="section-container">
             <div className="mx-auto max-w-2xl text-center">
               <p className="eyebrow">— Shop by category —</p>
@@ -399,7 +399,7 @@ export default function HomePage() {
         <FestiveCollectionSection />
 
         {/* ───── INSTAGRAM GALLERY ─────────────────────────────────────── */}
-        <section className="section-pad bg-[#FFFBF8]" aria-labelledby="instagram-heading">
+        <section className="section-pad bg-white" aria-labelledby="instagram-heading">
           <div className="section-container">
             <div className="mx-auto max-w-2xl text-center">
               <p className="eyebrow">Follow us @giftzgallerei</p>
@@ -454,7 +454,7 @@ export default function HomePage() {
         <ClientsAndTestimonialsSection />
 
         {/* ───── FAQ ───────────────────────────────────────────────────── */}
-        <section className="section-pad bg-[#FFFBF8]" aria-labelledby="faq-heading">
+        <section className="section-pad bg-white" aria-labelledby="faq-heading">
           <div className="section-container">
             <div className="mx-auto max-w-2xl text-center">
               <p className="eyebrow">Frequently asked</p>

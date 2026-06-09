@@ -142,7 +142,7 @@ export default function FestiveCollectionSection() {
           })}
         </div>
 
-        <div className="mx-auto mt-12 max-w-6xl rounded-2xl border border-[#e8e0d8] bg-[#F4EFE8] px-5 py-7 sm:px-8 md:mt-14 md:py-9">
+        <div className="mx-auto mt-12 max-w-6xl rounded-2xl border border-[#EBEBEB] bg-white px-5 py-7 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.06)] sm:px-8 md:mt-14 md:py-9">
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4 lg:gap-6">
             {BAR_FEATURES.map((item) => {
               const Icon = item.Icon;

@@ -116,7 +116,7 @@ const HERO_SLIDES = [
     imageAlt: 'Curated premium corporate gifts',
     textPosition: 'left',
     theme: 'light',
-    bgClass: 'bg-[#F9F6F1]',
+    bgClass: 'bg-white',
     textColorLight: 'text-[#FFFDF9]',
     textColorItalic: 'text-[#C9A96E]',
     eyebrowColor: 'text-[#C9A96E]',
@@ -136,7 +136,7 @@ const HERO_SLIDES = [
     imageAlt: 'Premium custom corporate gifts collection showcase',
     textPosition: 'left',
     theme: 'light',
-    bgClass: 'bg-[#F9F6F1]',
+    bgClass: 'bg-white',
     textColorLight: '',
     textColorItalic: '',
     eyebrowColor: '',
@@ -242,13 +242,13 @@ export default function CorporatePage() {
 
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F9F6F1]">
+    <div className="flex min-h-screen flex-col bg-white">
       <Navbar />
 
       <main className="page-main-offset flex-grow">
 
         {/* ── Hero Slider ────────────────────────────────────────────────── */}
-        <section className="relative w-full overflow-hidden bg-[#F9F6F1]" aria-labelledby="corporate-hero-heading">
+        <section className="relative w-full overflow-hidden bg-white" aria-labelledby="corporate-hero-heading">
           <div className="relative mx-auto w-full max-w-[2500px]">
             
             {/* Slides Container */}
@@ -374,7 +374,7 @@ export default function CorporatePage() {
         </section>
 
         {/* ── Mobile Stats Section (Premium Rectangular Dark Blue Boxes) ──── */}
-        <div className="mt-2 bg-[#F9F6F1] py-5 px-4 w-full md:hidden border-b border-[#ebe6e0]/30">
+        <div className="mt-2 bg-white py-5 px-4 w-full md:hidden border-b border-[#EBEBEB]/30">
           <div className="grid grid-cols-2 gap-2.5">
             {STATS.map(({ Icon, value, label }) => (
               <div
@@ -434,7 +434,7 @@ export default function CorporatePage() {
         </div>
 
         {/* ── Value Props Section ──────────────────────────────────── */}
-        <section className="bg-[#F9F6F1] py-4 sm:py-6 lg:py-8" aria-label="Why choose us">
+        <section className="bg-white py-4 sm:py-6 lg:py-8" aria-label="Why choose us">
           <div className="section-container">
             {/* Scrollable on mobile, beautiful cards grid on desktop */}
             <div className="no-scrollbar -mx-4 flex overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:px-0 lg:grid-cols-6 lg:gap-4 xl:gap-5">
@@ -443,11 +443,11 @@ export default function CorporatePage() {
                 return (
                   <div
                     key={item.title}
-                    className="flex w-[130px] shrink-0 flex-col items-center text-center bg-[#FAF8F5] border border-[#C9A96E]/12 rounded-2xl px-2.5 py-4.5 shadow-[0_4px_16px_rgba(26,16,16,0.03)] sm:w-full transition-all duration-300 hover:bg-white hover:border-[#C9A96E]/30 hover:shadow-[0_8px_24px_-4px_rgba(166,124,55,0.08)] hover:-translate-y-0.5 group"
+                    className="flex w-[130px] shrink-0 flex-col items-center text-center bg-white border border-[#EBEBEB] rounded-2xl px-2.5 py-4.5 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.06)] sm:w-full transition-all duration-300 hover:border-[#C9A96E]/30 hover:shadow-[0_12px_32px_-8px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 group"
                   >
                     {/* Gold-ringed circular icon button container */}
                     <div
-                      className="flex h-[52px] w-[52px] sm:h-[60px] sm:w-[60px] items-center justify-center rounded-full border border-[#C9A96E]/25 bg-gradient-to-b from-[#FFFDFB] to-[#F5F2ED] shadow-[inset_0_2px_4px_rgba(255,255,255,0.9),0_4px_12px_rgba(166,124,55,0.04)] transition-all duration-300 group-hover:scale-[1.03] group-hover:border-[#C9A96E]/45 group-hover:shadow-[0_4px_16px_rgba(166,124,55,0.08)]"
+                      className="flex h-[52px] w-[52px] sm:h-[60px] sm:w-[60px] items-center justify-center rounded-full border border-[#C9A96E]/25 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 group-hover:scale-[1.03] group-hover:border-[#C9A96E]/45 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
                       aria-hidden
                     >
                       <Icon className="h-5.5 w-5.5 sm:h-6 sm:w-6 text-[#A67C37] transition-colors duration-300 group-hover:text-[#B8924F]" strokeWidth={1.25} />
@@ -472,7 +472,7 @@ export default function CorporatePage() {
         </section>
 
         {/* ── Explore gifting solutions ─────────────────────────────────── */}
-        <section className="border-t border-[#ebe6e0] bg-[#F9F6F1] py-5 sm:py-8 lg:py-10" aria-labelledby="gifting-solutions-heading">
+        <section className="border-t border-[#EBEBEB] bg-white py-5 sm:py-8 lg:py-10" aria-labelledby="gifting-solutions-heading">
           <div className="section-container">
             <div className="flex items-center justify-center gap-4 sm:gap-6 lg:gap-8">
               <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
@@ -496,7 +496,7 @@ export default function CorporatePage() {
                   to={item.href}
                   className="group flex w-[120px] shrink-0 flex-col transition-opacity hover:opacity-90"
                 >
-                  <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-[#ebe6e0]/80 bg-[#f5f2ee] shadow-[0_2px_12px_-4px_rgba(26,16,16,0.08)]">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-[#EBEBEB] bg-surface-muted shadow-[0_4px_16px_-6px_rgba(0,0,0,0.08)]">
                     <AppImage
                       src={item.image}
                       alt={item.imageAlt}
@@ -517,7 +517,7 @@ export default function CorporatePage() {
                 <button
                   type="button"
                   onClick={() => slideGiftingSolutions('prev')}
-                  className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#d8d1c8] bg-white text-[#1A1010] shadow-sm transition-colors hover:bg-[#f7f3ee]"
+                  className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#d8d1c8] bg-white text-[#1A1010] shadow-sm transition-colors hover:bg-surface-muted"
                   aria-label="Previous solutions"
                 >
                   <ChevronLeft className="h-3 w-3" strokeWidth={2.25} />
@@ -536,7 +536,7 @@ export default function CorporatePage() {
                 <button
                   type="button"
                   onClick={() => slideGiftingSolutions('next')}
-                  className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#d8d1c8] bg-white text-[#1A1010] shadow-sm transition-colors hover:bg-[#f7f3ee]"
+                  className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#d8d1c8] bg-white text-[#1A1010] shadow-sm transition-colors hover:bg-surface-muted"
                   aria-label="Next solutions"
                 >
                   <ChevronRight className="h-3 w-3" strokeWidth={2.25} />
@@ -549,7 +549,7 @@ export default function CorporatePage() {
               {GIFTING_SOLUTIONS.map((item) => (
                 <li key={item.id}>
                   <Link to={item.href} className="group flex flex-col transition-opacity hover:opacity-90">
-                    <div className="relative aspect-square overflow-hidden rounded-lg border border-[#ebe6e0]/80 bg-[#f5f2ee] shadow-[0_2px_12px_-4px_rgba(26,16,16,0.08)]">
+                    <div className="relative aspect-square overflow-hidden rounded-lg border border-[#EBEBEB] bg-surface-muted shadow-[0_4px_16px_-6px_rgba(0,0,0,0.08)]">
                       <AppImage
                         src={item.image}
                         alt={item.imageAlt}

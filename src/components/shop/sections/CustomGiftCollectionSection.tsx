@@ -35,7 +35,7 @@ export default function CustomGiftCollectionSection() {
                 key={item.id}
                 to={item.href}
                 className={cn(
-                  'group flex overflow-hidden rounded-2xl border border-[#ebe6e0]/70 bg-[#FAFAF8] transition-all duration-300 hover:border-[#C9A96E]/40 hover:shadow-[0_12px_40px_-12px_rgba(74,16,32,0.15)]',
+                  'group flex overflow-hidden rounded-2xl border border-[#EBEBEB]/70 bg-white transition-all duration-300 hover:border-[#C9A96E]/40 hover:shadow-[0_12px_40px_-12px_rgba(74,16,32,0.15)]',
                   isEven ? 'flex-row' : 'flex-row-reverse'
                 )}
               >
@@ -60,7 +60,7 @@ export default function CustomGiftCollectionSection() {
                       <p className="mt-0.5 hidden text-[13px] text-[#6b6560] sm:block">Personalize &amp; order</p>
                     </div>
                   </div>
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#ebe6e0] bg-white text-[#6B1E30] transition-all group-hover:border-[#6B1E30] group-hover:bg-[#6B1E30] group-hover:text-white">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#EBEBEB] bg-white text-[#6B1E30] transition-all group-hover:border-[#6B1E30] group-hover:bg-[#6B1E30] group-hover:text-white">
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2.25} />
                   </span>
                 </div>

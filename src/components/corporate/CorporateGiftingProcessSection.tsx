@@ -45,7 +45,7 @@ export default function CorporateGiftingProcessSection() {
   return (
     <section
       id="gifting-process"
-      className="section-pad scroll-mt-28 border-t border-[#ebe6e0]/60 bg-[#FFF9F5]"
+      className="section-pad scroll-mt-28 bg-white"
       aria-labelledby="gifting-process-heading"
     >
       <div className="section-container">
@@ -60,13 +60,13 @@ export default function CorporateGiftingProcessSection() {
           {STEPS.map(({ step, title, description, Icon }) => (
             <li
               key={step}
-              className="relative flex flex-col rounded-2xl border border-[#ebe6e0]/80 bg-white p-5 shadow-sm"
+              className="relative flex flex-col rounded-2xl border border-[#EBEBEB]/80 bg-white p-5 shadow-sm"
             >
               <div className="mb-3 flex items-center gap-3">
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#6B1E30] font-sans text-[12px] font-bold text-white">
                   {step}
                 </span>
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#C9A96E]/25 bg-[#FAF7F4] text-[#9D7D47]">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#C9A96E]/25 bg-surface-muted text-[#9D7D47]">
                   <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden />
                 </div>
               </div>
@@ -89,7 +89,7 @@ export default function CorporateGiftingProcessSection() {
             {WHY_CHOOSE_US.map((item) => (
               <div
                 key={item.title}
-                className="flex gap-3 rounded-2xl border border-[#ebe6e0]/60 bg-white px-5 py-4 shadow-sm"
+                className="flex gap-3 rounded-2xl border border-[#EBEBEB]/60 bg-white px-5 py-4 shadow-sm"
               >
                 <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#9D7D47]" strokeWidth={1.75} aria-hidden />
                 <div>

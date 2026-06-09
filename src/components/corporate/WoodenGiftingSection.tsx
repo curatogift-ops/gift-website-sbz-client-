@@ -64,7 +64,7 @@ export default function WoodenGiftingSection() {
   };
 
   return (
-    <section className="bg-white py-12 sm:py-16 lg:py-20 border-t border-[#ebe6e0]" aria-labelledby="wooden-gifting-heading">
+    <section className="bg-white py-12 sm:py-16 lg:py-20 border-t border-[#EBEBEB]" aria-labelledby="wooden-gifting-heading">
       <div className="section-container">
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center mb-10 sm:mb-14">
@@ -86,7 +86,7 @@ export default function WoodenGiftingSection() {
                 className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-black/[0.04] shadow-[0_4px_18px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)] hover:-translate-y-1"
               >
                 {/* Image Container with precise aspect-square */}
-                <div className="relative aspect-square w-full overflow-hidden bg-[#FAF8F5]">
+                <div className="relative aspect-square w-full overflow-hidden bg-white">
                   <AppImage
                     src={prod.image}
                     alt={prod.title}

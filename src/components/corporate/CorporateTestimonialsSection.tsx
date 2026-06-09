@@ -109,7 +109,7 @@ export default function CorporateTestimonialsSection() {
           <button
             type="button"
             onClick={() => scrollTestimonials(-1)}
-            className="absolute left-0 top-[42%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-[#faf8f5] md:flex lg:-left-1.5 active:scale-95"
+            className="absolute left-0 top-[42%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-surface-muted md:flex lg:-left-1.5 active:scale-95"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={2} />
@@ -117,7 +117,7 @@ export default function CorporateTestimonialsSection() {
           <button
             type="button"
             onClick={() => scrollTestimonials(1)}
-            className="absolute right-0 top-[42%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-[#faf8f5] md:flex lg:-right-1.5 active:scale-95"
+            className="absolute right-0 top-[42%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-surface-muted md:flex lg:-right-1.5 active:scale-95"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-5 w-5" strokeWidth={2} />
@@ -134,7 +134,7 @@ export default function CorporateTestimonialsSection() {
                 data-testimonial-card
                 className="w-[min(82vw,18.5rem)] shrink-0 snap-start sm:w-[20rem] md:w-[21rem] lg:w-[20rem] xl:w-[19rem]"
               >
-                <div className="flex h-full flex-col rounded-2xl border border-[#ebe8e4] bg-[#FFFBF8] p-4.5 shadow-[0_10px_32px_-18px_rgba(74,16,32,0.06)] hover:shadow-[0_12px_36px_-16px_rgba(74,16,32,0.12)] transition-shadow duration-300">
+                <div className="flex h-full flex-col rounded-2xl border border-[#EBEBEB] bg-white p-4.5 shadow-[0_10px_32px_-18px_rgba(74,16,32,0.06)] hover:shadow-[0_12px_36px_-16px_rgba(74,16,32,0.12)] transition-shadow duration-300">
                   <div className="flex items-center justify-between gap-2.5">
                     <div className="flex items-center gap-2.5 min-w-0">
                       {/* User initials bubble */}

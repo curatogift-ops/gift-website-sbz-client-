@@ -9,7 +9,7 @@ export default function GiftHampersSection() {
   return (
     <section
       id="gift-hampers"
-      className="section-pad scroll-mt-28 bg-[#F4EFE8]"
+      className="section-pad scroll-mt-28 section-alt"
       aria-labelledby="gift-hampers-heading"
     >
       <div className="section-container">
@@ -57,7 +57,7 @@ export default function GiftHampersSection() {
                 <Link
                   key={item.id}
                   to={item.href}
-                  className="group flex items-center gap-4 rounded-2xl border border-[#e8e0d8]/80 bg-white/80 p-3 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-[#C9A96E]/40 hover:bg-white hover:shadow-md sm:p-4"
+                  className="group flex items-center gap-4 rounded-2xl border border-[#E5E5E5]/80 bg-white/80 p-3 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-[#C9A96E]/40 hover:bg-white hover:shadow-md sm:p-4"
                 >
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl sm:h-[72px] sm:w-[72px]">
                     <AppImage
@@ -74,7 +74,7 @@ export default function GiftHampersSection() {
                     </p>
                     <p className="font-serif text-[16px] font-semibold text-[#1A1010] sm:text-[17px]">{item.label}</p>
                   </div>
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FAF7F4] text-[#6B1E30] transition group-hover:bg-[#6B1E30] group-hover:text-white">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-muted text-[#6B1E30] transition group-hover:bg-[#6B1E30] group-hover:text-white">
                     <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden />
                   </div>
                 </Link>
@@ -83,7 +83,7 @@ export default function GiftHampersSection() {
 
             <Link
               to="/hamper-builder"
-              className="mt-2 flex items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#C9A96E]/50 bg-[#FAF7F4]/50 py-4 text-[12px] font-bold uppercase tracking-[0.12em] text-[#6B1E30] transition hover:border-[#6B1E30] hover:bg-[#6B1E30] hover:text-white"
+              className="mt-2 flex items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#C9A96E]/50 bg-surface-muted/50 py-4 text-[12px] font-bold uppercase tracking-[0.12em] text-[#6B1E30] transition hover:border-[#6B1E30] hover:bg-[#6B1E30] hover:text-white"
             >
               <Gift className="h-4 w-4" strokeWidth={2} aria-hidden />
               Create Your Own Hamper

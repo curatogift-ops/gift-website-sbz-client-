@@ -23,7 +23,7 @@ export default function GiftCategoryGridSection({
   columns = 4,
   showOrnament = true,
   className,
-  bgClass = 'bg-[#F9F6F1]',
+  bgClass = 'bg-white',
 }: GiftCategoryGridSectionProps) {
   const HeadingTag = headingTag;
 

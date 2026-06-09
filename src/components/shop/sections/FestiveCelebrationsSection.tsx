@@ -24,7 +24,7 @@ export default function FestiveCelebrationsSection() {
   return (
     <section
       id="festive-celebrations"
-      className="scroll-mt-28 overflow-hidden border-y border-[#ebe6e0]/60 bg-[#1A1010] py-14 sm:py-16 lg:py-20"
+      className="scroll-mt-28 overflow-hidden border-y border-[#EBEBEB]/60 bg-[#1A1010] py-14 sm:py-16 lg:py-20"
       aria-labelledby="festive-heading"
     >
       <div className="section-container">

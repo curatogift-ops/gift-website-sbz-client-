@@ -190,7 +190,7 @@ export default function TrustedLeadingBrandsSection() {
 
   return (
     <section
-      className="border-t border-[#ebe6e0] bg-[#F9F7F2] py-8 sm:py-10 lg:py-12 overflow-hidden"
+      className="border-t border-[#EBEBEB] bg-surface-subtle py-8 sm:py-10 lg:py-12 overflow-hidden"
       aria-labelledby="trusted-brands-heading"
     >
       <style dangerouslySetInnerHTML={{__html: `
@@ -222,7 +222,7 @@ export default function TrustedLeadingBrandsSection() {
         </div>
 
         {/* Infinite sliding marquee */}
-        <div className="relative mt-8 sm:mt-10 lg:mt-12 w-full overflow-hidden py-2 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 sm:before:w-24 before:bg-gradient-to-r before:from-[#F9F7F2] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 sm:after:w-24 after:bg-gradient-to-l after:from-[#F9F7F2] after:to-transparent">
+        <div className="relative mt-8 sm:mt-10 lg:mt-12 w-full overflow-hidden py-2 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 sm:before:w-24 before:bg-gradient-to-r before:from-white before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 sm:after:w-24 after:bg-gradient-to-l after:from-white after:to-transparent">
           <div className="animate-marquee-scroll gap-6 sm:gap-10">
             {/* Render 1st set of logos */}
             {ALL_BRANDS.map((brand, idx) => (

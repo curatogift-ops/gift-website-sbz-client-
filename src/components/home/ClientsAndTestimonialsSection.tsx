@@ -122,7 +122,7 @@ export default function ClientsAndTestimonialsSection() {
             <button
               type="button"
               onClick={() => scrollLogo(-1)}
-              className="absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-[#faf8f5] md:flex lg:-left-1"
+              className="absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-surface-muted md:flex lg:-left-1"
               aria-label="Scroll brands left"
             >
               <ChevronLeft className="h-5 w-5" strokeWidth={2} />
@@ -130,7 +130,7 @@ export default function ClientsAndTestimonialsSection() {
             <button
               type="button"
               onClick={() => scrollLogo(1)}
-              className="absolute right-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-[#faf8f5] md:flex lg:-right-1"
+              className="absolute right-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-surface-muted md:flex lg:-right-1"
               aria-label="Scroll brands right"
             >
               <ChevronRight className="h-5 w-5" strokeWidth={2} />
@@ -138,12 +138,12 @@ export default function ClientsAndTestimonialsSection() {
 
             <div
               ref={logoScrollRef}
-              className="no-scrollbar flex overflow-x-auto rounded-2xl border border-[#ebe8e4] bg-[#FFFBF8] px-2 py-2 shadow-[0_8px_28px_-16px_rgba(74,16,32,0.1)] md:mx-10 md:px-1"
+              className="no-scrollbar flex overflow-x-auto rounded-2xl border border-[#EBEBEB] bg-white px-2 py-2 shadow-[0_8px_28px_-16px_rgba(74,16,32,0.1)] md:mx-10 md:px-1"
             >
               {BRANDS.map((b, idx) => (
                 <div
                   key={b.id}
-                  className={`flex min-w-[7.5rem] shrink-0 flex-1 items-center justify-center border-[#ebe8e4] py-6 sm:min-w-[8.5rem] md:min-w-0 md:flex-1 ${
+                  className={`flex min-w-[7.5rem] shrink-0 flex-1 items-center justify-center border-[#EBEBEB] py-6 sm:min-w-[8.5rem] md:min-w-0 md:flex-1 ${
                     idx < BRANDS.length - 1 ? 'border-r' : ''
                   }`}
                 >
@@ -195,7 +195,7 @@ export default function ClientsAndTestimonialsSection() {
             <button
               type="button"
               onClick={() => scrollTestimonial(-1)}
-              className="absolute left-0 top-[42%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-[#faf8f5] md:flex lg:-left-1"
+              className="absolute left-0 top-[42%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-surface-muted md:flex lg:-left-1"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="h-5 w-5" strokeWidth={2} />
@@ -203,7 +203,7 @@ export default function ClientsAndTestimonialsSection() {
             <button
               type="button"
               onClick={() => scrollTestimonial(1)}
-              className="absolute right-0 top-[42%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-[#faf8f5] md:flex lg:-right-1"
+              className="absolute right-0 top-[42%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e2de] bg-white text-[#4a4846] shadow-md transition hover:bg-surface-muted md:flex lg:-right-1"
               aria-label="Next testimonial"
             >
               <ChevronRight className="h-5 w-5" strokeWidth={2} />
@@ -219,9 +219,9 @@ export default function ClientsAndTestimonialsSection() {
                   data-testimonial-card
                   className="w-[min(88vw,22rem)] shrink-0 snap-start sm:w-[min(85vw,24rem)] md:w-[min(42vw,22rem)] lg:w-[min(32vw,20rem)] xl:w-[19rem]"
                 >
-                  <div className="flex h-full flex-col rounded-2xl border border-[#ebe8e4] bg-[#FFFBF8] p-5 shadow-[0_10px_36px_-18px_rgba(74,16,32,0.1)] sm:p-6">
+                  <div className="flex h-full flex-col rounded-2xl border border-[#EBEBEB] bg-white p-5 shadow-[0_10px_36px_-18px_rgba(74,16,32,0.1)] sm:p-6">
                     <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#ebe8e4] text-[14px] font-bold text-[#4a4846] sm:h-12 sm:w-12 sm:text-[15px]">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#EBEBEB] text-[14px] font-bold text-[#4a4846] sm:h-12 sm:w-12 sm:text-[15px]">
                         {t.initials}
                       </div>
                       <div className="flex justify-center gap-0.5">

@@ -14,7 +14,7 @@ export default function FaqAccordionSection({
   id = 'faqs',
   title = 'Frequently Asked Questions',
   items,
-  className = 'bg-[#F9F6F1]',
+  className = 'bg-white',
 }: FaqAccordionSectionProps) {
   return (
     <section id={id} className={`section-pad scroll-mt-28 ${className}`} aria-labelledby={`${id}-heading`}>
@@ -30,7 +30,7 @@ export default function FaqAccordionSection({
           {items.map((item, idx) => (
             <details
               key={idx}
-              className="group rounded-2xl border border-[#ebe6e0]/80 bg-white px-5 py-4 shadow-sm open:shadow-[0_4px_20px_-8px_rgba(74,16,32,0.1)] sm:px-6"
+              className="group rounded-2xl border border-[#EBEBEB]/80 bg-white px-5 py-4 shadow-sm open:shadow-[0_4px_20px_-8px_rgba(74,16,32,0.1)] sm:px-6"
             >
               <summary className="cursor-pointer list-none font-serif text-[16px] font-semibold text-[#1A1010] marker:hidden [&::-webkit-details-marker]:hidden">
                 <span className="flex items-center justify-between gap-4">

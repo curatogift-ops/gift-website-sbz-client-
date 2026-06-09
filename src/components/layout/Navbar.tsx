@@ -20,7 +20,7 @@ import { cn } from '@/utils/cn';
 import { SHOP_MEGA_MENU } from '@/config/shopMenu';
 import { PROMOTIONAL_GIFTS_MEGA_MENU } from '@/config/promotionalGiftsMenu';
 
-const CREAM = '#FFF9F5';
+const SURFACE = '#FFFFFF';
 const MAROON_RIBBON = '#3D181C';
 
 type GiftModeSwitcherSize = 'mobile' | 'compact' | 'desktop';
@@ -64,7 +64,7 @@ function GiftModeSwitcher({
   return (
     <div
       className={cn(
-        'grid w-full min-w-0 max-w-full grid-cols-2 gap-1 rounded-[0.95rem] border border-[#d8cec1] bg-[#F6F3EE] p-1 shadow-sm',
+        'grid w-full min-w-0 max-w-full grid-cols-2 gap-1 rounded-[0.95rem] border border-[#E0E0E0] bg-surface-muted p-1 shadow-sm',
         size === 'desktop' && 'w-auto max-w-none rounded-[0.8rem] p-0.5 shadow-[0_3px_8px_rgba(74,16,32,0.08)]',
         size === 'compact' && 'max-w-full'
       )}
@@ -298,7 +298,7 @@ export default function Navbar() {
   return (
     <div
       className={cn(
-        'fixed top-0 z-50 w-full max-w-[100vw] overflow-x-clip bg-white transition-transform duration-300 md:bg-[#FFF9F5]',
+        'fixed top-0 z-50 w-full max-w-[100vw] overflow-x-clip bg-white transition-transform duration-300 md:bg-white',
         !isVisible && '-translate-y-full'
       )}
     >
@@ -409,7 +409,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      <header className="hidden border-b border-black/[0.05] bg-[#FFF9F5] xl:block">
+      <header className="hidden border-b border-black/[0.05] bg-white xl:block">
         <div className="w-full px-4 2xl:px-6">
           {/* Row 1: Logo (left) + Search Bar (centered) + Utility icons (right) */}
           <div className="relative flex items-start justify-between pt-4 pb-3 border-b border-[#e8e4e1]/40">
@@ -423,7 +423,7 @@ export default function Navbar() {
 
             {/* Small elegant search bar in the absolute center */}
             <div className="absolute left-1/2 top-[1.35rem] -translate-x-1/2 z-10 2xl:top-[1.4rem]">
-              <div className="flex items-center gap-2 rounded-full border border-[#d8cec1]/80 bg-[#FAF7F4] hover:bg-[#F6F3EE] px-3.5 py-1.5 w-[16rem] transition-all focus-within:border-[#9D7D47] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#9D7D47]/10 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
+              <div className="flex items-center gap-2 rounded-full border border-[#E0E0E0]/80 bg-surface-muted hover:bg-white px-3.5 py-1.5 w-[16rem] transition-all focus-within:border-[#9D7D47] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#9D7D47]/10 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
                 <Search className="h-3.5 w-3.5 shrink-0 text-[#9a9490]" strokeWidth={2} />
                 <input
                   type="text"
@@ -519,7 +519,7 @@ export default function Navbar() {
                             : 'left-1/2 -translate-x-1/2 w-[85vw] max-w-5xl'
                         )}
                       >
-                        <div className="bg-[#FFF9F5] border border-[#d8cec1]/60 rounded-[1.2rem] p-6 lg:p-8 shadow-[0_12px_36px_rgba(0,0,0,0.08)]">
+                        <div className="bg-white border border-[#EBEBEB] rounded-[1.2rem] p-6 lg:p-8 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.12),0_8px_24px_-8px_rgba(0,0,0,0.06)]">
                           <div className={cn(
                             'grid gap-6 lg:gap-8',
                             link.dropdown.length >= 5 ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5' : 'grid-cols-2 lg:grid-cols-3'
@@ -527,7 +527,7 @@ export default function Navbar() {
                             {link.dropdown.map((col, idx) => (
                               <div key={idx} className="flex flex-col">
                                 {col.title ? (
-                                  <div className="mb-4 pb-2 border-b border-[#d8cec1]/30">
+                                  <div className="mb-4 pb-2 border-b border-[#E0E0E0]/30">
                                     <h4 className="font-sans text-[10.5px] 2xl:text-[11.5px] font-extrabold uppercase tracking-widest text-[#9D7D47]">
                                       {col.title}
                                     </h4>
@@ -575,7 +575,7 @@ export default function Navbar() {
       </header>
 
       {/* ─── TABLET / SMALL DESKTOP (md–xl) — two rows, full nav visible ── */}
-      <header className="hidden border-b border-black/[0.06] bg-[#FFF9F5] md:block xl:hidden">
+      <header className="hidden border-b border-black/[0.06] bg-white md:block xl:hidden">
         <div className="w-full px-4 sm:px-5">
           <div className="flex items-start justify-between gap-4 py-4">
             <BrandLogo
@@ -650,7 +650,7 @@ export default function Navbar() {
                           : 'left-1/2 -translate-x-1/2 w-[85vw] max-w-5xl'
                       )}
                     >
-                      <div className="bg-[#FFF9F5] border border-[#d8cec1]/60 rounded-[1.2rem] p-6 lg:p-8 shadow-[0_12px_36px_rgba(0,0,0,0.08)]">
+                      <div className="bg-white border border-[#EBEBEB] rounded-[1.2rem] p-6 lg:p-8 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.12),0_8px_24px_-8px_rgba(0,0,0,0.06)]">
                         <div
                           className={cn(
                             'grid gap-6 lg:gap-8',
@@ -660,7 +660,7 @@ export default function Navbar() {
                           {link.dropdown.map((col, idx) => (
                             <div key={idx} className="flex flex-col">
                               {col.title ? (
-                                <div className="mb-4 pb-2 border-b border-[#d8cec1]/30">
+                                <div className="mb-4 pb-2 border-b border-[#E0E0E0]/30">
                                   <h4 className="font-sans text-[10.5px] font-extrabold uppercase tracking-widest text-[#9D7D47]">
                                     {col.title}
                                   </h4>
@@ -715,11 +715,11 @@ export default function Navbar() {
             'absolute left-0 top-0 flex h-[100dvh] max-h-[100dvh] w-[min(88vw,24rem)] max-w-sm flex-col overscroll-contain shadow-2xl transition-transform duration-300 ease-out touch-auto',
             isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
           )}
-          style={{ backgroundColor: CREAM }}
+          style={{ backgroundColor: SURFACE }}
           onClick={(e) => e.stopPropagation()}
         >
           {/* DRAWER HEADER */}
-          <div className="flex flex-shrink-0 items-center justify-between border-b border-[#ebe6e2] px-4 py-3 bg-white">
+          <div className="flex flex-shrink-0 items-center justify-between border-b border-[#EBEBEB] px-4 py-3 bg-white">
             <div className="flex flex-col items-start gap-0.5 shrink-0 w-[8.5rem] sm:w-[9.5rem]">
               <BrandLogo
                 to="/"
@@ -1262,7 +1262,7 @@ export default function Navbar() {
               href="https://wa.me/919876543210"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#C9A96E]/40 bg-[#FAF7F4] hover:bg-[#F6F3EE] transition-colors py-3 font-sans text-[12px] font-semibold text-[#4A1020]"
+              className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#C9A96E]/40 bg-surface-muted hover:bg-surface-muted transition-colors py-3 font-sans text-[12px] font-semibold text-[#4A1020]"
             >
               <svg className="h-4.5 w-4.5 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.706 1.458h.008c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>

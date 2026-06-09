@@ -9,7 +9,7 @@ export default function WishlistPage() {
       <Navbar />
       <main className="flex-grow pb-24 px-6 pt-[12rem] md:pt-[9.5rem] xl:pt-[5.75rem] 2xl:pt-[6rem]">
         <div className="container mx-auto max-w-lg text-center py-16">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[#C9A96E]/40 bg-gradient-to-b from-white to-[#FAF7F4] text-[#6B1E30] shadow-sm">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[#C9A96E]/40 bg-gradient-to-b from-white to-surface-muted text-[#6B1E30] shadow-sm">
             <Heart className="h-7 w-7" strokeWidth={2.25} aria-hidden />
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">Your wishlist</h1>

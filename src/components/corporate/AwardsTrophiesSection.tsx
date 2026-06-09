@@ -27,7 +27,7 @@ export default function AwardsTrophiesSection() {
   return (
     <section
       id="awards-trophies"
-      className="section-pad scroll-mt-28 border-t border-[#ebe6e0]/60 bg-[#F9F6F1]"
+      className="section-pad scroll-mt-28 section-alt"
       aria-labelledby="awards-trophies-heading"
     >
       <div className="section-container">
@@ -46,7 +46,7 @@ export default function AwardsTrophiesSection() {
             <Link
               key={item.title}
               to={item.href}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-[#ebe6e0]/80 bg-white shadow-[0_4px_20px_-8px_rgba(74,16,32,0.1)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_-8px_rgba(74,16,32,0.18)]"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-[#EBEBEB]/80 bg-white shadow-[0_4px_20px_-8px_rgba(74,16,32,0.1)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_-8px_rgba(74,16,32,0.18)]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <AppImage
@@ -72,7 +72,7 @@ export default function AwardsTrophiesSection() {
           ))}
         </div>
 
-        <div className="mx-auto mt-8 flex max-w-6xl flex-wrap items-center justify-center gap-6 rounded-2xl border border-[#C9A96E]/20 bg-[#FAF7F4] px-6 py-5 sm:gap-10">
+        <div className="mx-auto mt-8 flex max-w-6xl flex-wrap items-center justify-center gap-6 rounded-2xl border border-[#C9A96E]/20 bg-white px-6 py-5 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.06)] sm:gap-10">
           <div className="flex items-center gap-3">
             <Award className="h-5 w-5 text-[#9D7D47]" strokeWidth={1.75} aria-hidden />
             <span className="text-[13px] font-semibold text-[#1A1010]">Custom engraving & branding</span>

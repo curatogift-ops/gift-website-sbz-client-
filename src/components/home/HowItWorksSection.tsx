@@ -78,7 +78,7 @@ function StepCard({ step, className }: { step: Step; className?: string }) {
   return (
     <article
       className={cn(
-        "relative flex flex-col items-center rounded-2xl border border-[#ebe8e4] bg-white px-5 pb-8 pt-12 shadow-[0_10px_36px_-20px_rgba(27,48,34,0.12)] sm:px-6 sm:pb-10 sm:pt-14",
+        "relative flex flex-col items-center rounded-2xl border border-[#EBEBEB] bg-white px-5 pb-8 pt-12 shadow-[0_10px_36px_-20px_rgba(27,48,34,0.12)] sm:px-6 sm:pb-10 sm:pt-14",
         className
       )}
     >
@@ -122,7 +122,7 @@ function DesktopConnector() {
     <div className="relative hidden w-8 shrink-0 self-center lg:block xl:w-11" aria-hidden>
       <div className="relative py-5">
         <div className="absolute left-0 right-0 top-1/2 -translate-y-[1px] border-t border-dotted border-[#c0b8ae]" />
-        <div className="relative mx-auto flex h-9 w-9 items-center justify-center rounded-full border border-[#e5e0d8] bg-[#FFFBF8] shadow-sm">
+        <div className="relative mx-auto flex h-9 w-9 items-center justify-center rounded-full border border-[#e5e0d8] bg-white shadow-sm">
           <ChevronRight className="h-4 w-4 text-[#7a756d]" strokeWidth={2} />
         </div>
       </div>
@@ -173,7 +173,7 @@ export default function HowItWorksSection() {
   };
 
   return (
-    <section className="section-pad bg-[#FFFBF8]" aria-labelledby="how-it-works-heading">
+    <section className="section-pad bg-white" aria-labelledby="how-it-works-heading">
       <div className="section-container">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">How it works</p>

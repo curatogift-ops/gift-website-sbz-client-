@@ -108,14 +108,14 @@ export default function BrandsPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAF8F5] text-[#2C2523] font-sans antialiased">
+    <div className="flex min-h-screen flex-col bg-white text-[#2C2523] font-sans antialiased">
       <Navbar />
 
       {/* Main Container */}
       <main className="page-main-offset flex-grow pb-16">
         
         {/* Breadcrumb section */}
-        <div className="border-b border-[#E8E0D8]/40 bg-[#FAF8F5]">
+        <div className="border-b border-[#EBEBEB]/40 bg-white">
           <div className="section-container py-3">
             <nav className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#8C7A76]">
               <a href="/" className="hover:text-[#4A1020] transition-colors">Home</a>
@@ -143,7 +143,7 @@ export default function BrandsPage() {
 
         {/* ─── ALPHABET FILTER BAR (Desktop & Mobile Responsive Styles) ─── */}
         <section className="section-container mb-8">
-          <div className="rounded-[1.2rem] border border-[#E8E0D8]/75 bg-white p-3.5 shadow-[0_4px_16px_rgba(74,16,32,0.02)] md:p-3">
+          <div className="rounded-[1.2rem] border border-[#EBEBEB]/75 bg-white p-3.5 shadow-[0_4px_16px_rgba(74,16,32,0.02)] md:p-3">
             
             {/* Desktop Alphabet Bar (Single line, smooth spacing) */}
             <div className="hidden md:flex flex-wrap items-center justify-between gap-1 w-full px-2">
@@ -153,7 +153,7 @@ export default function BrandsPage() {
                 className={`h-7 px-3.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider transition-all duration-300 ${
                   activeLetter === 'ALL'
                     ? 'bg-[#4A1020] text-white shadow-[0_4px_10px_rgba(74,16,32,0.2)]'
-                    : 'text-[#4A1020] hover:bg-[#FAF8F5]'
+                    : 'text-[#4A1020] hover:bg-white'
                 }`}
               >
                 ALL
@@ -170,7 +170,7 @@ export default function BrandsPage() {
                       activeLetter === letter
                         ? 'bg-[#4A1020] text-white shadow-[0_4px_10px_rgba(74,16,32,0.2)]'
                         : hasBrands
-                        ? 'text-[#4A1020] hover:bg-[#FAF8F5] cursor-pointer'
+                        ? 'text-[#4A1020] hover:bg-white cursor-pointer'
                         : 'text-[#C8C2BE] opacity-35 cursor-not-allowed'
                     }`}
                   >
@@ -225,8 +225,8 @@ export default function BrandsPage() {
             <aside className="space-y-6">
               
               {/* Browse brands category card */}
-              <div className="rounded-[1.2rem] border border-[#E8E0D8]/60 bg-white p-5 shadow-sm">
-                <h3 className="font-sans text-[13.5px] font-extrabold uppercase tracking-[0.16em] text-[#4A1020] mb-4 pb-2 border-b border-[#FAF8F5]">
+              <div className="rounded-[1.2rem] border border-[#EBEBEB]/60 bg-white p-5 shadow-sm">
+                <h3 className="font-sans text-[13.5px] font-extrabold uppercase tracking-[0.16em] text-[#4A1020] mb-4 pb-2 border-b border-[#F0F0F0]">
                   BROWSE BRANDS
                 </h3>
                 <nav className="flex flex-col gap-1 text-[13.5px] font-bold text-[#6E6360]">
@@ -241,7 +241,7 @@ export default function BrandsPage() {
                       onClick={() => setActiveCategory(cat.key)}
                       className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-300 ${
                         activeCategory === cat.key
-                          ? 'bg-[#FAF8F5] text-[#C9A96E] pl-4.5 shadow-[inset_3px_0_0_#C9A96E]'
+                          ? 'bg-white text-[#C9A96E] pl-4.5 shadow-[inset_3px_0_0_#C9A96E]'
                           : 'hover:text-[#4A1020] hover:bg-black/[0.01]'
                       }`}
                     >
@@ -261,7 +261,7 @@ export default function BrandsPage() {
                     {paginatedBrands.map((brand) => (
                       <div
                         key={brand.name}
-                        className="group relative flex aspect-[1.8] items-center justify-center rounded-[1rem] border border-[#E8E0D8]/50 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-[#C9A96E]/50 cursor-pointer select-none"
+                        className="group relative flex aspect-[1.8] items-center justify-center rounded-[1rem] border border-[#EBEBEB]/50 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-[#C9A96E]/50 cursor-pointer select-none"
                       >
                         {brand.image ? (
                           <img
@@ -296,10 +296,10 @@ export default function BrandsPage() {
                         <button
                           disabled={currentPage === 1}
                           onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                          className={`h-8 w-8 inline-flex items-center justify-center rounded-full border border-[#E8E0D8]/60 transition-all ${
+                          className={`h-8 w-8 inline-flex items-center justify-center rounded-full border border-[#EBEBEB]/60 transition-all ${
                             currentPage === 1
                               ? 'text-[#C8C2BE] opacity-35 cursor-not-allowed'
-                              : 'text-[#4A1020] hover:bg-[#FAF8F5] hover:border-[#C9A96E] cursor-pointer'
+                              : 'text-[#4A1020] hover:bg-white hover:border-[#C9A96E] cursor-pointer'
                           }`}
                         >
                           <ChevronLeft className="h-4 w-4" strokeWidth={2.5} />
@@ -314,7 +314,7 @@ export default function BrandsPage() {
                               className={`h-8 w-8 inline-flex items-center justify-center rounded-full text-[12.5px] font-extrabold transition-all duration-300 ${
                                 currentPage === pageNum
                                   ? 'bg-[#4A1020] text-white shadow-md'
-                                  : 'text-[#4A1020] hover:bg-[#FAF8F5] cursor-pointer'
+                                  : 'text-[#4A1020] hover:bg-white cursor-pointer'
                               }`}
                             >
                               {pageNum}
@@ -325,10 +325,10 @@ export default function BrandsPage() {
                         <button
                           disabled={currentPage === totalPages}
                           onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                          className={`h-8 w-8 inline-flex items-center justify-center rounded-full border border-[#E8E0D8]/60 transition-all ${
+                          className={`h-8 w-8 inline-flex items-center justify-center rounded-full border border-[#EBEBEB]/60 transition-all ${
                             currentPage === totalPages
                               ? 'text-[#C8C2BE] opacity-35 cursor-not-allowed'
-                              : 'text-[#4A1020] hover:bg-[#FAF8F5] hover:border-[#C9A96E] cursor-pointer'
+                              : 'text-[#4A1020] hover:bg-white hover:border-[#C9A96E] cursor-pointer'
                           }`}
                         >
                           <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
@@ -338,8 +338,8 @@ export default function BrandsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="rounded-[1.2rem] border border-[#E8E0D8]/60 bg-white p-12 text-center space-y-4 shadow-sm">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FAF8F5] text-[#C9A96E] mx-auto">
+                <div className="rounded-[1.2rem] border border-[#EBEBEB]/60 bg-white p-12 text-center space-y-4 shadow-sm">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#C9A96E] mx-auto">
                     <Gift className="h-6 w-6" strokeWidth={1.5} />
                   </div>
                   <h3 className="font-serif text-[18px] font-semibold text-[#4A1020]">No brands match your selection</h3>
@@ -372,7 +372,7 @@ export default function BrandsPage() {
               const isOpen = expandedAccordions[letter] ?? false;
 
               return (
-                <section key={letter} id={`accordion-${letter}`} className="border-b border-[#E8E0D8]/40 pb-2">
+                <section key={letter} id={`accordion-${letter}`} className="border-b border-[#EBEBEB]/40 pb-2">
                   
                   {/* Accordion Header */}
                   <button
@@ -402,7 +402,7 @@ export default function BrandsPage() {
                         {brandsForLetter.map((brand) => (
                           <div
                             key={brand.name}
-                            className="flex flex-col items-center justify-center rounded-lg border border-[#E8E0D8]/45 bg-white p-2 shadow-sm w-full aspect-square text-center select-none"
+                            className="flex flex-col items-center justify-center rounded-lg border border-[#EBEBEB]/45 bg-white p-2 shadow-sm w-full aspect-square text-center select-none"
                           >
                             {brand.image ? (
                               <>
@@ -443,7 +443,7 @@ export default function BrandsPage() {
       </main>
 
       {/* ─── TRUST BANNER FEATURE BAR (Beautiful, premium highlight above footer) ─── */}
-      <section className="border-y border-[#E8E0D8]/50 bg-white py-8 md:py-9">
+      <section className="border-y border-[#EBEBEB]/50 bg-white py-8 md:py-9">
         <div className="section-container">
           <div className="grid grid-cols-2 gap-y-6 gap-x-4 md:grid-cols-4 md:gap-6">
             

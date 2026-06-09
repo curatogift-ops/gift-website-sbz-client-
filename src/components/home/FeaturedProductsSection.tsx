@@ -197,8 +197,8 @@ export default function FeaturedProductsSection() {
                   data-featured-card
                   className="w-[min(88vw,20rem)] shrink-0 snap-start sm:w-[min(82vw,18.5rem)] md:w-[min(32vw,17.5rem)] lg:w-[min(28vw,18rem)] xl:w-[17.25rem]"
                 >
-                  <div className="flex h-full flex-col rounded-2xl border border-[#ebe8e4] bg-white p-4 shadow-[0_10px_36px_-18px_rgba(74,16,32,0.12)] sm:p-5">
-                    <div className="relative aspect-square overflow-hidden rounded-xl bg-[#f0eeeb]">
+                  <div className="flex h-full flex-col rounded-2xl border border-[#EBEBEB] bg-white p-4 shadow-[0_10px_36px_-18px_rgba(74,16,32,0.12)] sm:p-5">
+                    <div className="relative aspect-square overflow-hidden rounded-xl bg-surface-muted">
                       <AppImage
                         src={product.image}
                         alt={product.imageAlt}

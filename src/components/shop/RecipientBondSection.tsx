@@ -72,7 +72,7 @@ function RecipientCardItem({ item, size = 'default' }: { item: RecipientCard; si
     <Link
       to={item.href}
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-2xl border border-[#ebe6e0]/80 bg-white shadow-[0_4px_20px_-8px_rgba(74,16,32,0.1)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_-8px_rgba(74,16,32,0.18)]',
+        'group relative flex flex-col overflow-hidden rounded-2xl border border-[#EBEBEB] bg-white shadow-[0_4px_24px_-8px_rgba(0,0,0,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-[#C9A96E]/30 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.12)]',
         size === 'compact' && 'max-w-[280px] mx-auto w-full'
       )}
     >
@@ -110,11 +110,11 @@ function FeatureHighlight({
   return (
     <div
       className={cn(
-        'flex flex-col justify-center gap-3 rounded-2xl border border-[#ebe6e0]/60 bg-white/60 px-5 py-6 text-center sm:px-6 lg:text-left',
+        'flex flex-col justify-center gap-3 rounded-2xl border border-[#EBEBEB]/60 bg-white/60 px-5 py-6 text-center sm:px-6 lg:text-left',
         align === 'right' && 'lg:text-right lg:items-end'
       )}
     >
-      <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-[#FAF7F4] text-[#6B1E30] ring-1 ring-[#C5A059]/25 lg:mx-0">
+      <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-surface-muted text-[#6B1E30] ring-1 ring-[#C5A059]/25 lg:mx-0">
         <Icon className="h-5 w-5" strokeWidth={1.65} aria-hidden />
       </div>
       <div>
@@ -131,11 +131,8 @@ export default function RecipientBondSection() {
 
   return (
     <section
-      className="relative section-pad overflow-hidden"
+      className="section-alt relative section-pad overflow-hidden"
       aria-labelledby="recipient-bond-heading"
-      style={{
-        background: 'linear-gradient(180deg, #FFF9F5 0%, #F9F6F1 50%, #F4EFE8 100%)',
-      }}
     >
       {/* Soft decorative arcs */}
       <div className="pointer-events-none absolute -left-32 top-20 h-64 w-64 rounded-full bg-[#C9A96E]/8 blur-3xl" aria-hidden />

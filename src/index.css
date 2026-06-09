@@ -8,12 +8,17 @@
   --secondary: #4A1020;
   --secondary-foreground: #F2EDE8;
   --accent: #C9A96E;
-  --muted: #E8E0D8;
-  --border: #E8E0D8;
+  --muted: #F5F5F5;
+  --border: #EBEBEB;
+  --surface: #FFFFFF;
+  --surface-subtle: #FAFAFA;
+  --surface-muted: #F5F5F5;
+  --divider: #EBEBEB;
+  --divider-subtle: #F0F0F0;
   --radius: 1rem;
   --muted-rose: #8C3048;
   --cream: #F2EDE8;
-  --greige: #E8E0D8;
+  --greige: #EBEBEB;
   --dark-wine: #4A1020;
   --deep-burgundy: #6B1E30;
   --near-black: #1A1010;
@@ -265,7 +270,7 @@ body {
 }
 
 @utility bg-greige {
-  background-color: #E8E0D8;
+  background-color: #F5F5F5;
 }
 
 @utility text-cream {
@@ -279,18 +284,19 @@ body {
 /* Header — white / frosted white (readable dark text on top) */
 .nav-glass-hero {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.97);
   -webkit-backdrop-filter: blur(24px) saturate(140%);
   backdrop-filter: blur(24px) saturate(140%);
   box-shadow:
     inset 0 1px 0 0 rgba(255, 255, 255, 1),
-    0 8px 30px -10px rgba(0, 0, 0, 0.08);
+    0 1px 0 0 rgba(0, 0, 0, 0.04),
+    0 8px 30px -10px rgba(0, 0, 0, 0.06);
 }
 
 .nav-glass-solid {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   background: #ffffff;
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04), 0 4px 20px -8px rgba(0, 0, 0, 0.04);
 }
 
 .nav-glass-ribbon {
@@ -300,20 +306,20 @@ body {
 }
 
 .nav-glass-search {
-  border: 1px solid rgba(201, 169, 110, 0.28);
-  background: linear-gradient(180deg, #fffefb 0%, #faf6f1 55%, #f3ebe3 100%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
   box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.98),
-    0 2px 8px rgba(74, 16, 32, 0.06),
-    0 8px 24px -12px rgba(74, 16, 32, 0.08);
+    inset 0 1px 0 0 rgba(255, 255, 255, 1),
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 8px 24px -12px rgba(0, 0, 0, 0.06);
 }
 
 .nav-glass-search:focus-within {
-  border-color: rgba(107, 30, 48, 0.35);
+  border-color: rgba(107, 30, 48, 0.28);
   box-shadow:
     inset 0 1px 0 0 rgba(255, 255, 255, 1),
-    0 0 0 2px rgba(201, 169, 110, 0.35),
-    0 4px 16px rgba(74, 16, 32, 0.1);
+    0 0 0 2px rgba(201, 169, 110, 0.28),
+    0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 /* Reference header — minimal pill search */
@@ -640,4 +646,57 @@ body {
 @utility rule-line {
   height: 1px;
   background: rgba(166, 124, 55, 0.4);
+}
+
+/* ── White-first surface system ── */
+@utility bg-surface {
+  background-color: var(--surface);
+}
+
+@utility bg-surface-subtle {
+  background-color: var(--surface-subtle);
+}
+
+@utility bg-surface-muted {
+  background-color: var(--surface-muted);
+}
+
+@utility border-divider {
+  border-color: var(--divider);
+}
+
+@utility section-alt {
+  background-color: var(--surface-subtle);
+  border-top: 1px solid var(--divider-subtle);
+  border-bottom: 1px solid var(--divider-subtle);
+}
+
+@utility card-elevated {
+  background-color: #ffffff;
+  border: 1px solid var(--divider);
+  box-shadow:
+    0 4px 24px -8px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+@utility card-elevated-hover {
+  transition: box-shadow 200ms ease, transform 200ms ease, border-color 200ms ease;
+}
+.card-elevated-hover:hover {
+  border-color: rgba(201, 169, 110, 0.35);
+  box-shadow:
+    0 12px 40px -12px rgba(0, 0, 0, 0.1),
+    0 4px 12px -4px rgba(74, 16, 32, 0.06);
+  transform: translateY(-2px);
+}
+
+@utility input-surface {
+  border: 1px solid var(--divider);
+  background-color: var(--surface-muted);
+}
+.input-surface:focus {
+  background-color: #ffffff;
+  border-color: rgba(157, 125, 71, 0.45);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(157, 125, 71, 0.12);
 }

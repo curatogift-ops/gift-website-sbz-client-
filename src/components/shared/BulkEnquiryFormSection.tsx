@@ -40,7 +40,7 @@ export default function BulkEnquiryFormSection({
   return (
     <section
       id={id}
-      className={cn('section-pad scroll-mt-28 bg-[#FFF9F5]', className)}
+      className={cn('section-pad scroll-mt-28 section-alt', className)}
       aria-labelledby={`${id}-heading`}
     >
       <div className="section-container">
@@ -58,7 +58,7 @@ export default function BulkEnquiryFormSection({
             variant === 'full' ? 'lg:grid-cols-[1fr_1fr]' : 'lg:grid-cols-[1.1fr_0.9fr]'
           )}
         >
-          <div className="rounded-2xl border border-[#ebe6e0]/80 bg-white p-6 shadow-[0_8px_32px_-12px_rgba(74,16,32,0.1)] sm:p-8">
+          <div className="rounded-2xl border border-[#EBEBEB]/80 bg-white p-6 shadow-[0_8px_32px_-12px_rgba(74,16,32,0.1)] sm:p-8">
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#ECFDF3] text-[#166534]">
@@ -79,7 +79,7 @@ export default function BulkEnquiryFormSection({
                       type="text"
                       value={form.name}
                       onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                      className="rounded-xl border border-[#e8e4e1] bg-[#FAF7F4] px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                      className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
                       placeholder="Your name"
                     />
                   </label>
@@ -90,7 +90,7 @@ export default function BulkEnquiryFormSection({
                       type="text"
                       value={form.company}
                       onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
-                      className="rounded-xl border border-[#e8e4e1] bg-[#FAF7F4] px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                      className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
                       placeholder="Company name"
                     />
                   </label>
@@ -103,7 +103,7 @@ export default function BulkEnquiryFormSection({
                       type="email"
                       value={form.email}
                       onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                      className="rounded-xl border border-[#e8e4e1] bg-[#FAF7F4] px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                      className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
                       placeholder="you@company.com"
                     />
                   </label>
@@ -114,7 +114,7 @@ export default function BulkEnquiryFormSection({
                       type="tel"
                       value={form.phone}
                       onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                      className="rounded-xl border border-[#e8e4e1] bg-[#FAF7F4] px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                      className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
                       placeholder="+91 98765 43210"
                     />
                   </label>
@@ -125,7 +125,7 @@ export default function BulkEnquiryFormSection({
                     type="text"
                     value={form.quantity}
                     onChange={(e) => setForm((f) => ({ ...f, quantity: e.target.value }))}
-                    className="rounded-xl border border-[#e8e4e1] bg-[#FAF7F4] px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                    className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
                     placeholder="e.g. 50–100 units"
                   />
                 </label>
@@ -136,7 +136,7 @@ export default function BulkEnquiryFormSection({
                     rows={4}
                     value={form.message}
                     onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                    className="resize-none rounded-xl border border-[#e8e4e1] bg-[#FAF7F4] px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                    className="resize-none rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
                     placeholder="Tell us about your gifting needs, occasion, budget, and branding requirements..."
                   />
                 </label>
@@ -148,7 +148,7 @@ export default function BulkEnquiryFormSection({
             )}
           </div>
 
-          <div className="relative min-h-[280px] overflow-hidden rounded-2xl border border-[#ebe6e0]/80 shadow-[0_8px_32px_-12px_rgba(74,16,32,0.1)] lg:min-h-0">
+          <div className="relative min-h-[280px] overflow-hidden rounded-2xl border border-[#EBEBEB]/80 shadow-[0_8px_32px_-12px_rgba(74,16,32,0.1)] lg:min-h-0">
             <AppImage
               src={imageSrc}
               alt={imageAlt}

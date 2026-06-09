@@ -7,13 +7,13 @@ const BUDGET_META: Record<string, { price: string; accent: string; bg: string; b
   'under-499': {
     price: '₹499',
     accent: 'text-[#6B6560]',
-    bg: 'bg-[#FAFAF8]',
-    border: 'border-[#e8e4e1]',
+    bg: 'bg-white',
+    border: 'border-[#EBEBEB]',
   },
   'under-999': {
     price: '₹999',
     accent: 'text-[#9D7D47]',
-    bg: 'bg-[#FFF9F5]',
+    bg: 'bg-white',
     border: 'border-[#C9A96E]/25',
   },
   'under-1999': {
@@ -34,7 +34,7 @@ export default function GiftsByBudgetSection() {
   return (
     <section
       id="gifts-by-budget"
-      className="section-pad scroll-mt-28 bg-[#F9F6F1]"
+      className="section-pad scroll-mt-28 section-alt"
       aria-labelledby="budget-heading"
     >
       <div className="section-container">
