@@ -134,10 +134,10 @@ body {
 
 /* Sticky header offsets — mobile ribbon + logo + mode switcher */
 :root {
-  --site-header-mobile: calc(10.75rem + env(safe-area-inset-top, 0px));
-  --site-header-tablet: calc(9rem + env(safe-area-inset-top, 0px));
-  --site-header-desktop: calc(8.25rem + env(safe-area-inset-top, 0px));
-  --site-header-desktop-lg: calc(8.5rem + env(safe-area-inset-top, 0px));
+  --site-header-mobile: calc(11.25rem + env(safe-area-inset-top, 0px));
+  --site-header-tablet: calc(9.75rem + env(safe-area-inset-top, 0px));
+  --site-header-desktop: calc(9.25rem + env(safe-area-inset-top, 0px));
+  --site-header-desktop-lg: calc(9.5rem + env(safe-area-inset-top, 0px));
 }
 
 @utility page-main-offset {
@@ -459,6 +459,25 @@ body {
   .eyebrow {
     font-size: var(--font-size-tiny);
     letter-spacing: 0.26em;
+  }
+}
+
+@utility brand-tagline {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+@media (min-width: 640px) {
+  .brand-tagline {
+    font-size: 0.6875rem;
+    letter-spacing: 0.025em;
+  }
+}
+@media (min-width: 1280px) {
+  .brand-tagline {
+    font-size: 0.71875rem;
   }
 }
 @media (min-width: 1280px) {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CorporateExpertsCtaSection from '@/components/corporate/CorporateExpertsCtaSection';
@@ -8,6 +8,11 @@ import TrustedLeadingBrandsSection from '@/components/corporate/TrustedLeadingBr
 import CorporateTestimonialsSection from '@/components/corporate/CorporateTestimonialsSection';
 import WoodenGiftingSection from '@/components/corporate/WoodenGiftingSection';
 import CorporateHeroDecor from '@/components/corporate/CorporateHeroDecor';
+import EventConferenceGiftingSection from '@/components/corporate/EventConferenceGiftingSection';
+import AwardsTrophiesSection from '@/components/corporate/AwardsTrophiesSection';
+import CorporateGiftingProcessSection from '@/components/corporate/CorporateGiftingProcessSection';
+import BulkEnquiryFormSection from '@/components/shared/BulkEnquiryFormSection';
+import FaqAccordionSection from '@/components/shared/FaqAccordionSection';
 import AppImage from '@/components/ui/AppImage';
 import {
   Building2,
@@ -142,7 +147,31 @@ const HERO_SLIDES = [
   }
 ] as const;
 
+const CORPORATE_FAQS = [
+  {
+    question: 'What is the minimum order quantity?',
+    answer: 'Minimum order quantities typically start from 25 units for most corporate gifting categories. For custom branding and awards, MOQs may vary — our team will confirm based on your specific requirement.',
+  },
+  {
+    question: 'What branding options are available?',
+    answer: 'We offer logo printing, embossing, engraving, custom ribbons, branded sleeves, product tagging, and fully customized packaging. Share your brand guidelines and we will recommend the best options.',
+  },
+  {
+    question: 'What are the delivery timelines?',
+    answer: 'Standard bulk orders are delivered within 7–14 business days across India. Express delivery is available for urgent requirements — timelines are confirmed at the quotation stage.',
+  },
+  {
+    question: 'Can I customize the packaging?',
+    answer: 'Yes. We provide fully customizable packaging including box design, inserts, ribbons, sleeves, and branded messaging. Mockups are shared for approval before production.',
+  },
+  {
+    question: 'Do you provide samples?',
+    answer: 'Sample units can be arranged for bulk orders above a certain quantity. Sample costs may apply and are often adjustable against the final order — ask our team during your enquiry.',
+  },
+];
+
 export default function CorporatePage() {
+  const { hash } = useLocation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [giftingPageCount, setGiftingPageCount] = useState(1);
   const [activeGiftingPage, setActiveGiftingPage] = useState(0);
@@ -183,6 +212,15 @@ export default function CorporatePage() {
       window.removeEventListener('resize', updatePager);
     };
   }, []);
+
+  useEffect(() => {
+    if (!hash) return;
+    const id = hash.replace('#', '');
+    const timer = window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+    return () => window.clearTimeout(timer);
+  }, [hash]);
 
   const goToGiftingPage = (page: number) => {
     const node = giftingSolutionsScrollRef.current;
@@ -294,7 +332,7 @@ export default function CorporatePage() {
 
                           <div className="mt-5 sm:mt-8 flex flex-row items-center justify-center md:justify-start gap-2.5 w-full max-w-[21rem] sm:max-w-none">
                             <Link
-                              to="/contact"
+                              to="/corporate#bulk-order-enquiry"
                               className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 sm:gap-2.5 rounded-xl bg-gradient-to-r from-[#4A1020] via-[#5C1629] to-[#4A1020] hover:from-[#5C1629] hover:to-[#731E34] px-3.5 py-2.5 sm:px-5 sm:py-3.5 font-sans text-[10px] sm:text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.08em] sm:tracking-[0.12em] text-white border border-[#C9A96E]/30 shadow-[0_8px_24px_-6px_rgba(74,16,32,0.4),0_0_12px_rgba(201,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-6px_rgba(74,16,32,0.5),0_0_16px_rgba(201,169,110,0.25)] active:scale-[0.98]"
                             >
                               <Gift className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#C9A96E]" strokeWidth={1.5} />
@@ -532,9 +570,24 @@ export default function CorporatePage() {
 
         <WoodenGiftingSection />
 
+        <EventConferenceGiftingSection />
+
+        <AwardsTrophiesSection />
+
+        <CorporateGiftingProcessSection />
+
         <TrustedLeadingBrandsSection />
 
         <CorporateTestimonialsSection />
+
+        <BulkEnquiryFormSection
+          title="Bulk Order Enquiry"
+          subtitle="Share your corporate gifting requirements and our experts will prepare a custom quotation with curated options."
+          imageSrc="/images/corporate-hero-banner.png"
+          imageAlt="Premium corporate bulk gifting solutions"
+        />
+
+        <FaqAccordionSection items={CORPORATE_FAQS} />
 
         <CorporateExpertsCtaSection />
       </main>

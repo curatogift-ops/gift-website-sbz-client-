@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
-import AppImage from '@/components/ui/AppImage';
+import BrandLogo from '@/components/ui/BrandLogo';
 import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
-
-const LOGO_SRC = '/images/gift-gallerei-logo.png';
 
 const Instagram = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -30,16 +28,13 @@ export default function Footer() {
       <div className="section-container">
         {/* Top — brand, links, newsletter */}
         <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 md:grid-cols-2 md:gap-x-12 md:gap-y-10 lg:grid-cols-12 lg:pb-14">
-          <div className="space-y-5 lg:col-span-5">
-            <div className="relative h-12 w-52 sm:h-14 sm:w-60">
-              <AppImage
-                src={LOGO_SRC}
-                alt="Giftz Gallerei"
-                fill
-                className="object-contain object-left"
-                sizes="(max-width:768px) 208px, 240px"
-              />
-            </div>
+          <div className="space-y-4 lg:col-span-5">
+            <BrandLogo
+              to="/"
+              variant="footer"
+              logoHeightClass="h-11 sm:h-12"
+              widthClass="w-52 sm:w-60"
+            />
             <p className="max-w-sm text-sm leading-relaxed text-[#F2EDE8]/75">
               Curating luxury hampers with a personal touch. Elevating the art of gifting across India with handcrafted
               excellence.

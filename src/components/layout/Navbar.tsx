@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import AppImage from '@/components/ui/AppImage';
+import BrandLogo from '@/components/ui/BrandLogo';
 import {
   ShoppingBag,
   CircleUser,
@@ -19,8 +19,6 @@ import { useState, useEffect } from 'react';
 import { cn } from '@/utils/cn';
 import { SHOP_MEGA_MENU } from '@/config/shopMenu';
 import { PROMOTIONAL_GIFTS_MEGA_MENU } from '@/config/promotionalGiftsMenu';
-
-const LOGO_SRC = '/images/gift-gallerei-logo.png';
 
 const CREAM = '#FFF9F5';
 const MAROON_RIBBON = '#3D181C';
@@ -190,14 +188,15 @@ export default function Navbar() {
   const iconThin = 1.65;
 
   const isNavActive = (href: string) => {
-    if (href === '/' || href === '/shop') {
+    const baseHref = href.split('#')[0] || href;
+    if (baseHref === '/' || baseHref === '/shop') {
       return (
         pathname === '/' ||
         pathname === '/shop' ||
         pathname.startsWith('/shop/browse')
       );
     }
-    return pathname === href || pathname.startsWith(`${href}/`);
+    return pathname === baseHref || pathname.startsWith(`${baseHref}/`);
   };
 
   const searchShell = (compact: boolean) =>
@@ -242,6 +241,7 @@ export default function Navbar() {
 
   const personalizedNavLinks: NavLinkItem[] = [
     { label: 'Shop', href: '/shop', chevron: true, dropdown: SHOP_MEGA_MENU },
+    { label: 'Celebrations', href: '/shop#celebrations' },
     { label: 'Make Your Own Hamper', href: '/hamper-builder' },
     { label: 'About us', href: '/about' },
     { label: 'Contact', href: '/contact' },
@@ -288,8 +288,8 @@ export default function Navbar() {
       ],
     },
     { label: 'Our Brands', href: '/brands' },
-    { label: 'Bulk Enquiry', href: '/contact' },
-    { label: 'Bulk Gifting', href: '/corporate', badge: 'New' },
+    { label: 'Bulk Enquiry', href: '/corporate#bulk-order-enquiry' },
+    { label: 'Bulk Gifting', href: '/corporate#bulk-order-enquiry', badge: 'New' },
     { label: 'About us', href: '/about' },
   ];
 
@@ -349,21 +349,12 @@ export default function Navbar() {
             </div>
 
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-              <Link
+              <BrandLogo
                 to="/"
-                className="flex w-[8.5rem] max-w-[40vw] flex-col items-center sm:w-[12.5rem] sm:max-w-none"
-              >
-                <div className="relative h-[1.8rem] w-full shrink-0 sm:h-[2.2rem]">
-                  <AppImage
-                    src={LOGO_SRC}
-                    alt="Giftz Gallerei"
-                    fill
-                    className="object-contain object-center"
-                    priority
-                    sizes="(max-width: 640px) 136px, 200px"
-                  />
-                </div>
-              </Link>
+                logoHeightClass="h-[1.65rem] sm:h-[1.85rem]"
+                widthClass="w-[10rem] sm:w-[11.5rem]"
+                priority
+              />
             </div>
 
             <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-4 z-10">
@@ -421,26 +412,17 @@ export default function Navbar() {
       <header className="hidden border-b border-black/[0.05] bg-[#FFF9F5] xl:block">
         <div className="w-full px-4 2xl:px-6">
           {/* Row 1: Logo (left) + Search Bar (centered) + Utility icons (right) */}
-          <div className="relative flex items-center justify-between py-4 border-b border-[#e8e4e1]/40">
-            {/* Logo on the left */}
-            <Link
+          <div className="relative flex items-start justify-between pt-4 pb-3 border-b border-[#e8e4e1]/40">
+            <BrandLogo
               to="/"
-              className="flex flex-col items-start gap-1 shrink-0 w-[12.5rem] 2xl:w-[14rem] z-10"
-            >
-              <div className="relative h-[2.2rem] w-full 2xl:h-[2.4rem] shrink-0">
-                <AppImage
-                  src={LOGO_SRC}
-                  alt="Giftz Gallerei"
-                  fill
-                  className="object-contain object-left"
-                  priority
-                  sizes="200px"
-                />
-              </div>
-            </Link>
+              className="z-10"
+              logoHeightClass="h-[2rem] 2xl:h-[2.15rem]"
+              widthClass="w-[12.5rem] 2xl:w-[14rem]"
+              priority
+            />
 
             {/* Small elegant search bar in the absolute center */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+            <div className="absolute left-1/2 top-[1.35rem] -translate-x-1/2 z-10 2xl:top-[1.4rem]">
               <div className="flex items-center gap-2 rounded-full border border-[#d8cec1]/80 bg-[#FAF7F4] hover:bg-[#F6F3EE] px-3.5 py-1.5 w-[16rem] transition-all focus-within:border-[#9D7D47] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#9D7D47]/10 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
                 <Search className="h-3.5 w-3.5 shrink-0 text-[#9a9490]" strokeWidth={2} />
                 <input
@@ -452,7 +434,7 @@ export default function Navbar() {
             </div>
 
             {/* Utility icons on the right */}
-            <div className="flex shrink-0 items-center gap-2.5 border-l border-[#dcd8d4] pl-2.5 2xl:gap-5 2xl:pl-5 z-10">
+            <div className="flex shrink-0 items-start gap-2.5 border-l border-[#dcd8d4] pl-2.5 pt-0.5 2xl:gap-5 2xl:pl-5 z-10">
               <Link
                 to="/wishlist"
                 className="flex flex-col items-center gap-1 text-[#1a1a1a] transition-opacity hover:opacity-75"
@@ -595,12 +577,13 @@ export default function Navbar() {
       {/* ─── TABLET / SMALL DESKTOP (md–xl) — two rows, full nav visible ── */}
       <header className="hidden border-b border-black/[0.06] bg-[#FFF9F5] md:block xl:hidden">
         <div className="w-full px-4 sm:px-5">
-          <div className="flex items-center justify-between gap-4 py-[18px]">
-            <Link to="/" className="flex flex-col items-start gap-1 shrink-0 w-[11.5rem]">
-              <div className="relative h-[2.1rem] w-full shrink-0">
-                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" priority sizes="192px" />
-              </div>
-            </Link>
+          <div className="flex items-start justify-between gap-4 py-4">
+            <BrandLogo
+              to="/"
+              logoHeightClass="h-[2rem]"
+              widthClass="w-[12rem]"
+              priority
+            />
             <div className="flex items-center gap-5">
               <Link to="/wishlist" className="flex flex-col items-center gap-0.5 text-[#1a1a1a] transition-opacity hover:opacity-75" aria-label="Wishlist">
                 <Heart className="h-5 w-5" strokeWidth={iconThin} />
@@ -737,10 +720,12 @@ export default function Navbar() {
         >
           {/* DRAWER HEADER */}
           <div className="flex flex-shrink-0 items-center justify-between border-b border-[#ebe6e2] px-4 py-3 bg-white">
-            <div className="flex flex-col items-center gap-1 shrink-0 w-[8.5rem] sm:w-[9.5rem]">
-              <div className="relative h-[1.6rem] w-full sm:h-[1.8rem] shrink-0">
-                <AppImage src={LOGO_SRC} alt="Giftz Gallerei" fill className="object-contain object-left" sizes="152px" />
-              </div>
+            <div className="flex flex-col items-start gap-0.5 shrink-0 w-[8.5rem] sm:w-[9.5rem]">
+              <BrandLogo
+                to="/"
+                logoHeightClass="h-[1.55rem] sm:h-[1.7rem]"
+                widthClass="w-[10rem] sm:w-[11rem]"
+              />
             </div>
             <div className="flex items-center gap-1">
               <Link
@@ -831,6 +816,13 @@ export default function Navbar() {
                       <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
                     </button>
                     <Link
+                      to="/shop#celebrations"
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Celebrations
+                    </Link>
+                    <Link
                       to="/hamper-builder"
                       className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
                       onClick={() => setIsMobileMenuOpen(false)}
@@ -884,14 +876,14 @@ export default function Navbar() {
                       Our Brands
                     </Link>
                     <Link
-                      to="/contact"
+                      to="/corporate#bulk-order-enquiry"
                       className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Bulk Enquiry
                     </Link>
                     <Link
-                      to="/corporate"
+                      to="/corporate#bulk-order-enquiry"
                       className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
