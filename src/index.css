@@ -30,12 +30,12 @@
   --font-brand: "Playfair Display", ui-serif, Georgia, serif;
 
   /* Type scale — mobile-first clamp, desktop caps in comments */
-  --font-size-display: clamp(2rem, 3.5vw + 1rem, 3.25rem);      /* Hero H1: Balanced from 32px to 52px */
-  --font-size-h1: clamp(1.75rem, 3vw + 0.75rem, 2.5rem);        /* Standard Page Title: 28px to 40px */
-  --font-size-h2: clamp(1.5rem, 2vw + 0.65rem, 2.125rem);       /* Section Heading: 24px to 34px */
-  --font-size-h3: clamp(1.25rem, 1.5vw + 0.5rem, 1.625rem);     /* Cards & Subheadings: 20px to 26px */
-  --font-size-h4: clamp(1.1rem, 1vw + 0.5rem, 1.35rem);         /* Small Headings: 17.6px to 21.6px */
-  --font-size-body-lg: clamp(1rem, 0.4vw + 0.9rem, 1.125rem);   /* Large Body / Lede: 16px to 18px */
+  --font-size-display: clamp(2.375rem, 3.2vw + 1.5rem, 4.25rem); /* Hero H1: 38px to 68px */
+  --font-size-h1: clamp(2.125rem, 2.6vw + 1.25rem, 3.5rem);      /* Standard Page Title: 34px to 56px */
+  --font-size-h2: clamp(1.875rem, 1.9vw + 1.15rem, 3rem);        /* Section Heading: 30px to 48px */
+  --font-size-h3: clamp(1.5rem, 1.2vw + 1rem, 2.25rem);          /* Cards & Subheadings: 24px to 36px */
+  --font-size-h4: clamp(1.125rem, 0.8vw + 0.85rem, 1.375rem);    /* Small Headings: 18px to 22px */
+  --font-size-body-lg: clamp(1.125rem, 0.4vw + 1rem, 1.25rem);   /* Large Body / Lede: 18px to 20px */
   --font-size-body: clamp(0.9375rem, 0.2vw + 0.88rem, 1rem);    /* Standard Body Text: 15px to 16px */
   --font-size-small: 0.875rem;                                  /* Navigation & UI Buttons: 14px */
   --font-size-tiny: 0.8125rem;                                  /* Micro descriptions & details: 13px */
@@ -403,15 +403,16 @@ body {
    Section vertical rhythm: 56→64→80→96 (mobile→sm→md→lg)
    ─────────────────────────────────────────────────────────────────────────── */
 
+/* 8px-grid section rhythm: 48px mobile · 56px small · 72px tablet · 96px desktop */
 @utility section-pad {
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 @media (min-width: 640px) {
-  .section-pad { padding-top: 4rem; padding-bottom: 4rem; }
+  .section-pad { padding-top: 3.5rem; padding-bottom: 3.5rem; }
 }
 @media (min-width: 768px) {
-  .section-pad { padding-top: 5rem; padding-bottom: 5rem; }
+  .section-pad { padding-top: 4.5rem; padding-bottom: 4.5rem; }
 }
 @media (min-width: 1024px) {
   .section-pad { padding-top: 6rem; padding-bottom: 6rem; }
@@ -430,7 +431,7 @@ body {
 
 @utility section-container {
   width: 100%;
-  max-width: 100%;
+  max-width: 90rem; /* single shared max-width so every section aligns */
   margin-inline: auto;
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
@@ -468,22 +469,42 @@ body {
   }
 }
 
-@utility brand-tagline {
+/* Tagline — single line, small caps, contained under logo */
+.brand-tagline {
+  display: block;
+  width: 100%;
+  max-width: 100%;
   font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
+  font-size: clamp(0.34375rem, 1.05vw, 0.46875rem);
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-feature-settings: 'kern' 1;
+  -webkit-font-smoothing: antialiased;
 }
+
+.brand-tagline--header {
+  color: #1A1010;
+}
+
+.brand-tagline--footer {
+  color: rgba(232, 207, 154, 0.92);
+  font-size: clamp(0.375rem, 1.1vw, 0.5rem);
+  letter-spacing: 0.06em;
+}
+
 @media (min-width: 640px) {
-  .brand-tagline {
-    font-size: 0.6875rem;
-    letter-spacing: 0.025em;
+  .brand-tagline--header {
+    letter-spacing: 0.05em;
   }
 }
+
 @media (min-width: 1280px) {
-  .brand-tagline {
-    font-size: 0.71875rem;
+  .brand-tagline--header {
+    font-size: 0.46875rem;
+    letter-spacing: 0.055em;
   }
 }
 @media (min-width: 1280px) {
@@ -646,6 +667,191 @@ body {
 @utility rule-line {
   height: 1px;
   background: rgba(166, 124, 55, 0.4);
+}
+
+/* ── Relationship picks — arched editorial cards ── */
+.relationship-picks-section {
+  background: linear-gradient(180deg, #ffffff 0%, #faf8f5 45%, #ffffff 100%);
+}
+
+.relationship-picks-leaf {
+  pointer-events: none;
+  position: absolute;
+  width: clamp(7rem, 18vw, 11rem);
+  height: clamp(7rem, 18vw, 11rem);
+  opacity: 0.14;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' fill='none'%3E%3Cpath d='M20 95c25-45 55-65 85-75M15 70c20-15 40-28 65-35M30 105c15-25 35-42 60-52' stroke='%23C9A96E' stroke-width='1.2' stroke-linecap='round'/%3E%3Cpath d='M75 25c-8 12-12 28-10 42 2 14 10 26 22 32' stroke='%239D7D47' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.relationship-picks-leaf--tl {
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.relationship-picks-leaf--br {
+  bottom: 0.5rem;
+  left: 0.5rem;
+  transform: rotate(180deg);
+}
+
+.relationship-arch-frame {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  filter: drop-shadow(0 8px 24px rgba(26, 16, 16, 0.06));
+  transition: filter 300ms ease;
+}
+
+.relationship-arch-card:hover .relationship-arch-frame {
+  filter: drop-shadow(0 16px 36px rgba(74, 16, 32, 0.12));
+}
+
+.relationship-arch-image {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px 9999px 0 0;
+  border: 1px solid rgba(201, 169, 110, 0.22);
+  border-bottom: none;
+  background: #f5f5f5;
+}
+
+.relationship-arch-card:hover .relationship-arch-image {
+  border-color: rgba(201, 169, 110, 0.45);
+}
+
+.relationship-arch-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.875rem 0.75rem;
+  background: linear-gradient(180deg, #f3ebe3 0%, #ebe3da 100%);
+  border: 1px solid rgba(201, 169, 110, 0.18);
+  border-top: none;
+  text-align: center;
+  transition: background 300ms ease;
+}
+
+.relationship-arch-card:hover .relationship-arch-label {
+  background: linear-gradient(180deg, #faf6f1 0%, #f0e8df 100%);
+}
+
+/* ── Celebrations horizontal carousel (Postcard-style) ── */
+.celebrations-carousel-shell {
+  align-items: stretch;
+}
+
+.celebrations-intro-card h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.celebrations-view-all-btn {
+  border: 1px solid #ffffff;
+  background: transparent;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.celebrations-view-all-btn:hover {
+  background-color: #ffffff;
+  color: #4a1020;
+}
+
+.celebrations-card-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* ── Corporate dual-row gifting gallery marquee ── */
+.corporate-gallery-marquee {
+  pointer-events: none;
+  user-select: none;
+}
+
+.corporate-gallery-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  will-change: transform;
+}
+
+@media (min-width: 640px) {
+  .corporate-gallery-track {
+    gap: 1.25rem;
+  }
+}
+
+.corporate-gallery-track--left {
+  animation: corporate-gallery-marquee-left 28s linear infinite;
+}
+
+.corporate-gallery-track--right {
+  animation: corporate-gallery-marquee-right 28s linear infinite;
+}
+
+@keyframes corporate-gallery-marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes corporate-gallery-marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corporate-gallery-track--left,
+  .corporate-gallery-track--right {
+    animation: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .celebrations-intro-sticky,
+  .custom-intro-sticky {
+    position: sticky;
+    left: 0;
+    flex-shrink: 0;
+  }
+}
+
+.celebrations-scroll-track {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scroll-padding-inline: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .celebrations-scroll-track {
+    scroll-padding-inline: 0;
+  }
+}
+
+.celebrations-snap-card,
+.custom-snap-card {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
 }
 
 /* ── White-first surface system ── */

@@ -1,121 +1,132 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
-import { ArrowRight, Gift } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import type { GiftCategoryItem } from '@/components/shop/GiftCategoryCard';
 import { MOST_LOVED_HAMPERS } from '@/config/personalizedSections';
 import { cn } from '@/utils/cn';
 
+function occasionName(label: string): string {
+  return label
+    .replace(/\s+Gifts$/, '')
+    .replace(/\s+Celebrations$/, '')
+    .replace(/\s+Events$/, '');
+}
+
+function IntroCard({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        'celebrations-intro-card flex w-full flex-col justify-center rounded-[1.5rem] bg-[#6B1E30] p-8 shadow-[0_16px_40px_-12px_rgba(74,16,32,0.45)] sm:p-10 min-h-[280px] lg:min-h-0 lg:h-[460px] lg:w-[320px] xl:w-[340px]',
+        className
+      )}
+    >
+      <h2
+        id="most-loved-heading"
+        className="text-[clamp(1.75rem,4.2vw,2.125rem)] leading-[1.32] text-white"
+      >
+        Discover celebration hampers for every special moment.
+      </h2>
+      <Link
+        to="/shop/browse?cat=hampers"
+        className="celebrations-view-all-btn group mt-9 inline-flex min-h-[48px] w-fit items-center gap-2.5 rounded-full px-7 py-3"
+      >
+        View All
+        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} aria-hidden />
+      </Link>
+    </div>
+  );
+}
+
+function CelebrationScrollCard({ item }: { item: GiftCategoryItem }) {
+  const Icon = item.Icon;
+  const displayName = occasionName(item.label);
+
+  return (
+    <Link
+      to={item.href}
+      className="celebrations-snap-card group flex h-[clamp(420px,120vw,480px)] w-[min(88vw,360px)] shrink-0 snap-start flex-col overflow-hidden rounded-[1.5rem] bg-[#1A1010] shadow-[0_12px_36px_-10px_rgba(0,0,0,0.18)] transition-all duration-300 active:scale-[0.99] sm:h-[460px] sm:w-[300px] lg:h-[460px] lg:w-[300px]"
+    >
+      <div className="relative h-[85%] min-h-0 overflow-hidden bg-[#2A2424]">
+        <AppImage
+          src={item.image}
+          alt=""
+          fill
+          sizes="(max-width: 640px) 88vw, 300px"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/95 shadow-sm">
+          <Icon className="h-[18px] w-[18px] text-[#6B1E30]" strokeWidth={1.75} aria-hidden />
+        </div>
+      </div>
+
+      <div className="flex h-[15%] shrink-0 items-center bg-[#1A1010] px-5 sm:px-6">
+        <h3 className="celebrations-card-title text-[clamp(1rem,3vw,1.25rem)] text-white">
+          {displayName}
+        </h3>
+      </div>
+    </Link>
+  );
+}
+
 export default function MostLovedHampersSection() {
-  const [featured, ...rest] = MOST_LOVED_HAMPERS;
-  const FeaturedIcon = featured.Icon;
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollBy = (direction: 'left' | 'right') => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>('.celebrations-snap-card');
+    const gap = 20;
+    const amount = card ? card.offsetWidth + gap : 300;
+    el.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
+  };
 
   return (
     <section
       id="celebrations"
-      className="section-pad scroll-mt-28 bg-white"
+      className="celebrations-carousel-section section-pad relative scroll-mt-28 overflow-hidden bg-[#F7F4F0]"
       aria-labelledby="most-loved-heading"
     >
-      <div className="section-container">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-xl">
-            <p className="eyebrow">Celebrations</p>
-            <h2 id="most-loved-heading" className="section-heading mt-2">
-              Most Loved Gift <span className="text-[#6B1E30]">Hampers</span>
-            </h2>
-            <p className="mt-3 text-[15px] leading-relaxed text-[#6b6560]">
-              Handpicked hampers for life&apos;s biggest moments — from birthdays to weddings and everything in between.
-            </p>
+      <div className="section-container relative">
+        <div className="mb-6 hidden items-center justify-end gap-2 lg:flex">
+          <button
+            type="button"
+            onClick={() => scrollBy('left')}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[#EBEBEB] bg-white text-[#4A1020] shadow-sm transition hover:border-[#C9A96E]/40"
+            aria-label="Scroll celebrations left"
+          >
+            <ChevronLeft className="h-5 w-5" strokeWidth={2} aria-hidden />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollBy('right')}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[#EBEBEB] bg-white text-[#4A1020] shadow-sm transition hover:border-[#C9A96E]/40"
+            aria-label="Scroll celebrations right"
+          >
+            <ChevronRight className="h-5 w-5" strokeWidth={2} aria-hidden />
+          </button>
+        </div>
+
+        <div className="celebrations-carousel-shell flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-stretch lg:gap-6">
+          <div className="celebrations-intro-sticky z-20 w-full shrink-0 lg:w-auto">
+            <IntroCard />
           </div>
-          <Link
-            to="/shop/browse?cat=hampers"
-            className="inline-flex shrink-0 items-center gap-2 self-start font-sans text-[12px] font-bold uppercase tracking-[0.14em] text-[#6B1E30] hover:text-[#4A0E1C] lg:self-auto"
-          >
-            View all hampers
-            <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-          </Link>
-        </div>
 
-        {/* Bento editorial grid */}
-        <div className="mx-auto mt-10 grid max-w-6xl grid-cols-2 gap-3 sm:gap-4 lg:mt-12 lg:grid-cols-12 lg:grid-rows-[auto_auto] lg:gap-5">
-          {/* Featured large tile */}
-          <Link
-            to={featured.href}
-            className="group relative col-span-2 row-span-2 overflow-hidden rounded-3xl bg-[#6B1E30] shadow-[0_20px_50px_-20px_rgba(74,16,32,0.45)] lg:col-span-5 lg:row-span-2 lg:min-h-[420px]"
-          >
-            <AppImage
-              src={featured.image}
-              alt={featured.imageAlt}
-              fill
-              sizes="(max-width:1024px) 100vw, 42vw"
-              className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+          <div className="relative min-w-0 flex-1">
+            <div
+              className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#F7F4F0] to-transparent"
+              aria-hidden
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#4A1020]/95 via-[#4A1020]/40 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-[#C9A96E] backdrop-blur-sm">
-                <FeaturedIcon className="h-6 w-6" strokeWidth={1.75} aria-hidden />
-              </div>
-              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Most popular</p>
-              <h3 className="mt-1 font-serif text-[26px] font-semibold leading-tight text-white sm:text-[32px]">
-                {featured.label}
-              </h3>
-              <span className="mt-4 inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.14em] text-white/90 transition group-hover:gap-3">
-                Explore collection
-                <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-              </span>
+
+            <div
+              ref={scrollRef}
+              className="celebrations-scroll-track no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-4 pb-2 sm:-mx-8 sm:gap-6 sm:px-8 lg:mx-0 lg:px-0"
+            >
+              {MOST_LOVED_HAMPERS.map((item) => (
+                <CelebrationScrollCard key={item.id} item={item} />
+              ))}
             </div>
-          </Link>
-
-          {/* Smaller bento tiles */}
-          {rest.map((item, i) => {
-            const Icon = item.Icon;
-            const spanClass =
-              i === 0
-                ? 'lg:col-span-4 lg:col-start-6'
-                : i === 1
-                  ? 'lg:col-span-3 lg:col-start-10'
-                  : i === 2
-                    ? 'lg:col-span-3 lg:col-start-6'
-                    : i === 3
-                      ? 'lg:col-span-4 lg:col-start-9'
-                      : i === 4
-                        ? 'lg:col-span-4 lg:col-start-6'
-                        : 'lg:col-span-3 lg:col-start-10';
-
-            return (
-              <Link
-                key={item.id}
-                to={item.href}
-                className={cn(
-                  'group relative overflow-hidden rounded-2xl border border-[#EBEBEB]/60 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg',
-                  spanClass,
-                  i >= 2 ? 'min-h-[140px] lg:min-h-[195px]' : 'min-h-[120px] lg:min-h-[195px]'
-                )}
-              >
-                <div className="absolute inset-0">
-                  <AppImage
-                    src={item.image}
-                    alt={item.imageAlt}
-                    fill
-                    sizes="280px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                </div>
-                <div className="relative flex h-full min-h-[inherit] flex-col justify-end p-4">
-                  <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#6B1E30] text-white shadow-md">
-                    <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-                  </div>
-                  <p className="font-serif text-[14px] font-semibold leading-snug text-white sm:text-[15px]">{item.label}</p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-
-        <div className="mt-8 flex justify-center lg:hidden">
-          <Link to="/hamper-builder" className="btn-pill btn-pill-maroon">
-            <Gift className="h-4 w-4" strokeWidth={2} aria-hidden />
-            Build Custom Hamper
-          </Link>
+          </div>
         </div>
       </div>
     </section>

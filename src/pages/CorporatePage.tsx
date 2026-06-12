@@ -7,6 +7,7 @@ import CorporateExpertsCtaSection from '@/components/corporate/CorporateExpertsC
 import TrustedLeadingBrandsSection from '@/components/corporate/TrustedLeadingBrandsSection';
 import CorporateTestimonialsSection from '@/components/corporate/CorporateTestimonialsSection';
 import WoodenGiftingSection from '@/components/corporate/WoodenGiftingSection';
+import CorporateGiftingGallerySection from '@/components/corporate/CorporateGiftingGallerySection';
 import CorporateHeroDecor from '@/components/corporate/CorporateHeroDecor';
 import EventConferenceGiftingSection from '@/components/corporate/EventConferenceGiftingSection';
 import AwardsTrophiesSection from '@/components/corporate/AwardsTrophiesSection';
@@ -248,7 +249,7 @@ export default function CorporatePage() {
       <main className="page-main-offset flex-grow">
 
         {/* ── Hero Slider ────────────────────────────────────────────────── */}
-        <section className="relative w-full overflow-hidden bg-white" aria-labelledby="corporate-hero-heading">
+        <section className="relative w-full overflow-hidden bg-[#152033]" aria-labelledby="corporate-hero-heading">
           <div className="relative mx-auto w-full max-w-[2500px]">
             
             {/* Slides Container */}
@@ -374,7 +375,7 @@ export default function CorporatePage() {
         </section>
 
         {/* ── Mobile Stats Section (Premium Rectangular Dark Blue Boxes) ──── */}
-        <div className="mt-2 bg-white py-5 px-4 w-full md:hidden border-b border-[#EBEBEB]/30">
+        <div className="w-full px-4 py-5 md:hidden">
           <div className="grid grid-cols-2 gap-2.5">
             {STATS.map(({ Icon, value, label }) => (
               <div
@@ -569,6 +570,8 @@ export default function CorporatePage() {
         </section>
 
         <WoodenGiftingSection />
+
+        <CorporateGiftingGallerySection />
 
         <EventConferenceGiftingSection />
 

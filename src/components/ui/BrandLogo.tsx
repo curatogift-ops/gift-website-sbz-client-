@@ -5,8 +5,8 @@ import { cn } from '@/utils/cn';
 export const LOGO_SRC = '/images/gift-gallerei-logo.png';
 export const BRAND_TAGLINE = 'One stop gifting solution';
 
-/** Matches the giftz gallerei wordmark grey in the logo PNG */
-const TAGLINE_COLOR = '#595959';
+/** Near-black — matches logo wordmark for strong contrast on white */
+export const TAGLINE_COLOR = '#1A1010';
 
 type BrandLogoProps = {
   className?: string;
@@ -20,6 +20,29 @@ type BrandLogoProps = {
   widthClass?: string;
 };
 
+function BrandTagline({
+  variant,
+  className,
+}: {
+  variant: 'default' | 'footer';
+  className?: string;
+}) {
+  const isFooter = variant === 'footer';
+
+  return (
+    <p
+      className={cn(
+        'brand-tagline whitespace-nowrap',
+        isFooter ? 'brand-tagline--footer' : 'brand-tagline--header',
+        className
+      )}
+      style={!isFooter ? { color: TAGLINE_COLOR } : undefined}
+    >
+      {BRAND_TAGLINE}
+    </p>
+  );
+}
+
 export default function BrandLogo({
   className,
   logoClassName,
@@ -31,32 +54,23 @@ export default function BrandLogo({
   logoHeightClass = 'h-[2.2rem]',
   widthClass = 'w-[13rem]',
 }: BrandLogoProps) {
-  const isFooter = variant === 'footer';
-
   const lockup = (
-    <div className={cn('flex flex-col items-stretch', widthClass, className)}>
+    <div className={cn('flex w-full max-w-full flex-col items-center', widthClass, className)}>
       <div className={cn('relative w-full shrink-0', logoHeightClass, logoClassName)}>
         <AppImage
           src={LOGO_SRC}
           alt="Giftz Gallerei"
           fill
-          className="object-contain object-left"
+          className="object-contain object-center"
           priority={priority}
           sizes="(max-width:640px) 140px, 240px"
         />
       </div>
 
       {showTagline && (
-        <p
-          className={cn(
-            'brand-tagline mt-1 w-full text-center leading-none',
-            isFooter ? 'text-[#E8CF9A]' : 'text-[#595959]',
-            taglineClassName
-          )}
-          style={!isFooter ? { color: TAGLINE_COLOR } : undefined}
-        >
-          {BRAND_TAGLINE}
-        </p>
+        <div className="mt-1 w-full max-w-full overflow-hidden">
+          <BrandTagline variant={variant} className={taglineClassName} />
+        </div>
       )}
     </div>
   );
@@ -65,8 +79,8 @@ export default function BrandLogo({
     return (
       <Link
         to={to}
-        className={cn('inline-block shrink-0 transition-opacity hover:opacity-90', widthClass)}
-        aria-label="Giftz Gallerei — One stop gifting solution"
+        className={cn('inline-flex max-w-full shrink-0 transition-opacity hover:opacity-90', widthClass)}
+        aria-label={`Giftz Gallerei — ${BRAND_TAGLINE}`}
       >
         {lockup}
       </Link>

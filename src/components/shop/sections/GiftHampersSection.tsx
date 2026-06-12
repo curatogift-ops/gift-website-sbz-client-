@@ -13,7 +13,7 @@ export default function GiftHampersSection() {
       aria-labelledby="gift-hampers-heading"
     >
       <div className="section-container">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:items-center">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
           {/* Left: immersive showcase */}
           <div className="relative">
             <div className="absolute -left-4 -top-4 h-24 w-24 rounded-full bg-[#C9A96E]/15 blur-2xl" aria-hidden />
@@ -32,10 +32,10 @@ export default function GiftHampersSection() {
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Signature pick</p>
-                <h2 id="gift-hampers-heading" className="mt-1 font-serif text-[28px] font-semibold leading-tight text-white sm:text-[34px]">
+                <h2 id="gift-hampers-heading" className="mt-2 font-serif text-[length:var(--font-size-h3)] font-semibold leading-[1.2] text-white">
                   Gift Hampers
                 </h2>
-                <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-white/85">
+                <p className="mt-3 max-w-sm text-[15px] leading-[1.65] text-white/85 sm:text-base">
                   Indulgent collections of chocolates, dry fruits, wellness treats, and premium boxes.
                 </p>
                 <Link

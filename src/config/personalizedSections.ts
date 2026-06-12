@@ -19,18 +19,18 @@ import {
 } from 'lucide-react';
 
 const IMG = {
-  birthday: 'https://images.unsplash.com/photo-1464349095432-e9a21285b5f3?auto=format&fit=crop&q=80&w=600',
+  birthday: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=800',
   wedding: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80&w=600',
   anniversary: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&q=80&w=600',
-  baby: 'https://images.unsplash.com/photo-1515488042361-ee00ebbfddd1?auto=format&fit=crop&q=80&w=600',
+  baby: 'https://images.unsplash.com/photo-1515488042361-ee00ebbfddd1?auto=format&fit=crop&q=80&w=800',
   achievement: 'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&q=80&w=600',
   family: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&q=80&w=600',
   custom: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=600',
-  newYear: 'https://images.unsplash.com/photo-1482517967863-00e15c717b44?auto=format&fit=crop&q=80&w=600',
-  diwali: 'https://images.unsplash.com/photo-1605810233971-f8f155d8869f?auto=format&fit=crop&q=80&w=600',
-  christmas: 'https://images.unsplash.com/photo-1513885536991-8b943e177042?auto=format&fit=crop&q=80&w=600',
-  eid: 'https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&q=80&w=600',
-  holi: 'https://images.unsplash.com/photo-1524492412930-59525977c5cf?auto=format&fit=crop&q=80&w=600',
+  newYear: 'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?auto=format&fit=crop&q=80&w=800',
+  diwali: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800',
+  christmas: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&q=80&w=800',
+  eid: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&q=80&w=800',
+  holi: 'https://images.unsplash.com/photo-1530092285049-1c42085fd395?auto=format&fit=crop&q=80&w=800',
   photo: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=600',
   name: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=600',
   mug: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&q=80&w=600',
@@ -41,9 +41,9 @@ const IMG = {
   chocolate: 'https://images.unsplash.com/photo-1549007953-2f2dc0b24019?auto=format&fit=crop&q=80&w=600',
   dryFruit: 'https://images.unsplash.com/photo-1599599810769-bcde5a16007c?auto=format&fit=crop&q=80&w=600',
   wellness: 'https://images.unsplash.com/photo-1610552050899-df6c5848284a?auto=format&fit=crop&q=80&w=600',
-  premium: 'https://images.unsplash.com/photo-1512496015851-a90fb38f7968?auto=format&fit=crop&q=80&w=600',
-  luxury: 'https://images.unsplash.com/photo-1512496015851-a90fb38f7968?auto=format&fit=crop&q=80&w=600',
-  executive: 'https://images.unsplash.com/photo-1549463574-04d2c2b46ac?auto=format&fit=crop&q=80&w=600',
+  premium: 'https://images.unsplash.com/photo-1505944270255-72b8c68c6a70?auto=format&fit=crop&q=80&w=600',
+  luxury: 'https://images.unsplash.com/photo-1561715276-a2d087060f1d?auto=format&fit=crop&q=80&w=600',
+  executive: 'https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&q=80&w=600',
   exclusive: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=600',
 };
 

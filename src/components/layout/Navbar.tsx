@@ -352,7 +352,7 @@ export default function Navbar() {
               <BrandLogo
                 to="/"
                 logoHeightClass="h-[1.65rem] sm:h-[1.85rem]"
-                widthClass="w-[10rem] sm:w-[11.5rem]"
+                widthClass="w-[11rem] sm:w-[12.5rem]"
                 priority
               />
             </div>
@@ -409,7 +409,12 @@ export default function Navbar() {
         </div>
       </header>
 
-      <header className="hidden border-b border-black/[0.05] bg-white xl:block">
+      <header
+        className={cn(
+          'hidden bg-white xl:block',
+          !isCorporateActive && 'border-b border-black/[0.05]'
+        )}
+      >
         <div className="w-full px-4 2xl:px-6">
           {/* Row 1: Logo (left) + Search Bar (centered) + Utility icons (right) */}
           <div className="relative flex items-start justify-between pt-4 pb-3 border-b border-[#e8e4e1]/40">
@@ -417,7 +422,7 @@ export default function Navbar() {
               to="/"
               className="z-10"
               logoHeightClass="h-[2rem] 2xl:h-[2.15rem]"
-              widthClass="w-[12.5rem] 2xl:w-[14rem]"
+              widthClass="w-[13rem] 2xl:w-[14.5rem]"
               priority
             />
 
@@ -575,13 +580,18 @@ export default function Navbar() {
       </header>
 
       {/* ─── TABLET / SMALL DESKTOP (md–xl) — two rows, full nav visible ── */}
-      <header className="hidden border-b border-black/[0.06] bg-white md:block xl:hidden">
+      <header
+        className={cn(
+          'hidden bg-white md:block xl:hidden',
+          !isCorporateActive && 'border-b border-black/[0.06]'
+        )}
+      >
         <div className="w-full px-4 sm:px-5">
           <div className="flex items-start justify-between gap-4 py-4">
             <BrandLogo
               to="/"
               logoHeightClass="h-[2rem]"
-              widthClass="w-[12rem]"
+              widthClass="w-[13rem]"
               priority
             />
             <div className="flex items-center gap-5">
@@ -720,11 +730,11 @@ export default function Navbar() {
         >
           {/* DRAWER HEADER */}
           <div className="flex flex-shrink-0 items-center justify-between border-b border-[#EBEBEB] px-4 py-3 bg-white">
-            <div className="flex flex-col items-start gap-0.5 shrink-0 w-[8.5rem] sm:w-[9.5rem]">
+            <div className="flex shrink-0 w-[10.5rem] sm:w-[11.5rem]">
               <BrandLogo
                 to="/"
                 logoHeightClass="h-[1.55rem] sm:h-[1.7rem]"
-                widthClass="w-[10rem] sm:w-[11rem]"
+                widthClass="w-full"
               />
             </div>
             <div className="flex items-center gap-1">

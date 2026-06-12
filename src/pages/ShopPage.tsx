@@ -3,13 +3,11 @@ import { useLocation } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import PersonalizedHeroSection from '@/components/shop/PersonalizedHeroSection';
-import RecipientBondSection from '@/components/shop/RecipientBondSection';
+import RelationshipPicksSection from '@/components/shop/RelationshipPicksSection';
 import MostLovedHampersSection from '@/components/shop/sections/MostLovedHampersSection';
 import FestiveCelebrationsSection from '@/components/shop/sections/FestiveCelebrationsSection';
 import CustomGiftCollectionSection from '@/components/shop/sections/CustomGiftCollectionSection';
-import GiftHampersSection from '@/components/shop/sections/GiftHampersSection';
 import PremiumCollectionSection from '@/components/shop/sections/PremiumCollectionSection';
-import GiftsByBudgetSection from '@/components/shop/sections/GiftsByBudgetSection';
 import ShopClosingCtaSection from '@/components/shop/sections/ShopClosingCtaSection';
 
 export default function ShopPage() {
@@ -30,13 +28,11 @@ export default function ShopPage() {
 
       <main className="page-main-offset flex-grow">
         <PersonalizedHeroSection />
-        <RecipientBondSection />
+        <RelationshipPicksSection />
         <MostLovedHampersSection />
         <FestiveCelebrationsSection />
         <CustomGiftCollectionSection />
-        <GiftHampersSection />
         <PremiumCollectionSection />
-        <GiftsByBudgetSection />
         <ShopClosingCtaSection />
       </main>
 
