@@ -906,3 +906,20 @@ body {
   outline: none;
   box-shadow: 0 0 0 2px rgba(157, 125, 71, 0.12);
 }
+
+/* Image Requirements admin — isolated form controls */
+.image-req-admin .image-req-search,
+.image-req-admin .image-req-select {
+  color: #0f172a;
+  background-color: #ffffff;
+}
+
+.image-req-admin .image-req-select option {
+  color: #0f172a;
+  background-color: #ffffff;
+}
+
+.image-req-admin .image-req-search::placeholder {
+  color: #64748b;
+  opacity: 1;
+}
