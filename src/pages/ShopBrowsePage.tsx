@@ -2,21 +2,7 @@ import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PlaceholderPage from '@/pages/PlaceholderPage';
 import { getShopBrowseCategoryKey, getShopBrowseTitle } from '@/config/shopMenu';
-
-function parsePriceRange(price: string | null): { minPrice?: number; maxPrice?: number } {
-  switch (price) {
-    case 'under-999':
-      return { maxPrice: 999 };
-    case '1000-2000':
-      return { minPrice: 1000, maxPrice: 2000 };
-    case '2000-3000':
-      return { minPrice: 2000, maxPrice: 3000 };
-    case 'above-3000':
-      return { minPrice: 3000 };
-    default:
-      return {};
-  }
-}
+import { parseBrowsePriceRange } from '@/lib/shopBrowseParams';
 
 /**
  * Catalog listing for Shop mega-menu links (/shop/browse?...).
@@ -26,7 +12,7 @@ export default function ShopBrowsePage() {
   const title = getShopBrowseTitle(searchParams);
   const categoryKey = getShopBrowseCategoryKey(searchParams);
   const priceRange = useMemo(
-    () => parsePriceRange(searchParams.get('price')),
+    () => parseBrowsePriceRange(searchParams.get('price')),
     [searchParams]
   );
 
@@ -36,6 +22,7 @@ export default function ShopBrowsePage() {
       categoryKey={categoryKey}
       minPrice={priceRange.minPrice}
       maxPrice={priceRange.maxPrice}
+      searchQuery={searchParams.get('q') ?? ''}
     />
   );
 }

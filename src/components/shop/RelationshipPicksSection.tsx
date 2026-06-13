@@ -118,7 +118,8 @@ export default function RelationshipPicksSection() {
 
   return (
     <section
-      className="relationship-picks-section section-pad relative overflow-hidden"
+      id="relationship-picks"
+      className="relationship-picks-section section-pad relative scroll-mt-28 overflow-hidden"
       aria-labelledby="relationship-picks-heading"
     >
       {/* Botanical corner accents */}
@@ -131,7 +132,7 @@ export default function RelationshipPicksSection() {
             Curated by relationship
           </p>
           <h2 id="relationship-picks-heading" className="section-heading mt-3">
-            Most Loved Gift <span className="text-[#6B1E30]">Hampers</span>
+            Gifts by <span className="text-[#6B1E30]">Relationship</span>
           </h2>
         </header>
 

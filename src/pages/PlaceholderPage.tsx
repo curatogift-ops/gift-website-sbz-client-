@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { ChevronDown, ChevronUp, SlidersHorizontal, X } from 'lucide-react';
@@ -8,6 +8,7 @@ type PlaceholderPageProps = {
   categoryKey?: string;
   minPrice?: number;
   maxPrice?: number;
+  searchQuery?: string;
 };
 
 interface Product {
@@ -77,6 +78,11 @@ function getCategoryProducts(categoryName: string): Product[] {
 
   if (
     norm.includes('recipient') ||
+    norm.includes('for-her') ||
+    norm.includes('for-him') ||
+    norm.includes('for-couple') ||
+    norm.includes('for-parent') ||
+    norm.includes('for-kid') ||
     norm.includes('women') ||
     norm.includes('men') ||
     norm.includes('wife') ||
@@ -92,6 +98,33 @@ function getCategoryProducts(categoryName: string): Product[] {
       { id: 'r2', name: 'Personalized Keepsake Box', brand: 'GIFTZ GALLEREI', price: 1890, image: MOCK_IMAGES.box2, category: 'Personalized' },
       { id: 'r3', name: 'Artisan Gourmet Collection', brand: 'GIFTZ GALLEREI', price: 1650, image: MOCK_IMAGES.chocolates, category: 'Gourmet' },
       { id: 'r4', name: 'Wellness & Self Care Set', brand: 'GIFTZ GALLEREI', price: 2100, image: MOCK_IMAGES.candle, category: 'Self Care' },
+    ];
+  }
+
+  if (norm === 'personalized' || norm.startsWith('type ')) {
+    return [
+      { id: 'p1', name: 'Personalized Photo Frame', brand: 'GIFTZ GALLEREI', price: 890, image: MOCK_IMAGES.frame, category: 'Personalized' },
+      { id: 'p2', name: 'Custom Engraved Keepsake Box', brand: 'GIFTZ GALLEREI', price: 1450, image: MOCK_IMAGES.box2, category: 'Personalized' },
+      { id: 'p3', name: 'Name-Engraved Mug Set', brand: 'GIFTZ GALLEREI', price: 680, image: MOCK_IMAGES.mug, category: 'Personalized' },
+      { id: 'p4', name: 'Custom Gift Box Collection', brand: 'GIFTZ GALLEREI', price: 2199, image: MOCK_IMAGES.box1, category: 'Personalized' },
+    ];
+  }
+
+  if (norm === 'premium' || (norm.startsWith('cat ') && !norm.includes('festive') && !norm.includes('corporate') && !norm.includes('employee') && !norm.includes('eco') && !norm.includes('event'))) {
+    return [
+      { id: 'pm1', name: 'Luxury Executive Hamper', brand: 'GIFTZ GALLEREI', price: 4599, image: MOCK_IMAGES.box3, category: 'Luxury' },
+      { id: 'pm2', name: 'Exclusive Premium Gift Set', brand: 'GIFTZ GALLEREI', price: 5299, image: MOCK_IMAGES.box2, category: 'Premium' },
+      { id: 'pm3', name: 'Executive Signature Collection', brand: 'GIFTZ GALLEREI', price: 3899, image: MOCK_IMAGES.generic3, category: 'Executive' },
+      { id: 'pm4', name: 'Limited Edition Luxury Box', brand: 'GIFTZ GALLEREI', price: 6200, image: MOCK_IMAGES.box1, category: 'Exclusive' },
+    ];
+  }
+
+  if (norm === 'hamper' || norm.includes('chocolate-hampers') || norm.includes('dry-fruit-hampers') || norm.includes('wellness-hampers')) {
+    return [
+      { id: 'hmp1', name: 'Chocolate Indulgence Hamper', brand: 'GIFTZ GALLEREI', price: 1299, image: MOCK_IMAGES.chocolates, category: 'Hampers' },
+      { id: 'hmp2', name: 'Premium Dry Fruit Hamper', brand: 'GIFTZ GALLEREI', price: 1890, image: MOCK_IMAGES.nuts, category: 'Hampers' },
+      { id: 'hmp3', name: 'Wellness & Self Care Hamper', brand: 'GIFTZ GALLEREI', price: 2100, image: MOCK_IMAGES.candle, category: 'Hampers' },
+      { id: 'hmp4', name: 'Festive Celebration Hamper', brand: 'GIFTZ GALLEREI', price: 2750, image: MOCK_IMAGES.box3, category: 'Hampers' },
     ];
   }
 
@@ -210,6 +243,26 @@ function getCategoryProducts(categoryName: string): Product[] {
     ];
   }
 
+  // Free-text search — return a broad catalog so name/category filtering works
+  if (
+    norm.length >= 2 &&
+    !norm.startsWith('recipient ') &&
+    !norm.startsWith('occasion ') &&
+    !norm.startsWith('interest ') &&
+    !norm.startsWith('collection ')
+  ) {
+    return [
+      { id: 's1', name: 'Curated Luxury Hamper', brand: 'GIFTZ GALLEREI', price: 2499, image: MOCK_IMAGES.box1, category: 'Curated Hampers' },
+      { id: 's2', name: 'Birthday Celebration Box', brand: 'GIFTZ GALLEREI', price: 2199, image: MOCK_IMAGES.box2, category: 'Birthday' },
+      { id: 's3', name: 'Artisan Chocolate Collection', brand: 'GIFTZ GALLEREI', price: 1450, image: MOCK_IMAGES.chocolates, category: 'Gourmet' },
+      { id: 's4', name: 'Wellness & Self Care Set', brand: 'GIFTZ GALLEREI', price: 2100, image: MOCK_IMAGES.candle, category: 'Self Care' },
+      { id: 's5', name: 'Executive Desk Gift Set', brand: 'GIFTZ GALLEREI', price: 3299, image: MOCK_IMAGES.deskMat, category: 'Office' },
+      { id: 's6', name: 'Premium Dry Fruit Hamper', brand: 'GIFTZ GALLEREI', price: 1890, image: MOCK_IMAGES.nuts, category: 'Gourmet' },
+      { id: 's7', name: 'Personalized Keepsake Box', brand: 'GIFTZ GALLEREI', price: 1650, image: MOCK_IMAGES.frame, category: 'Personalized' },
+      { id: 's8', name: 'Festive Diwali Delight Hamper', brand: 'GIFTZ GALLEREI', price: 2750, image: MOCK_IMAGES.box3, category: 'Festive' },
+    ];
+  }
+
   // Fallback beautiful generic gift set items
   return [
     { id: 'gn1', name: 'Luxury Leather Cardholder', brand: 'BOX BUILDER', price: 650, image: MOCK_IMAGES.generic1, category: 'Premium Gifts' },
@@ -219,9 +272,14 @@ function getCategoryProducts(categoryName: string): Product[] {
   ];
 }
 
-export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice }: PlaceholderPageProps) {
+export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice, searchQuery = '' }: PlaceholderPageProps) {
   // Sorting state
   const [sortBy, setSortBy] = useState<'best' | 'low' | 'high' | 'new' | 'rec'>('best');
+  const [localSearch, setLocalSearch] = useState(searchQuery);
+
+  useEffect(() => {
+    setLocalSearch(searchQuery);
+  }, [searchQuery]);
   
   // Collapse sidebar states
   const [isCategoryOpen, setIsCategoryOpen] = useState(true);
@@ -241,6 +299,16 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
   // Dynamically filter and sort products list in real-time!
   const processedProducts = useMemo(() => {
     let list = [...rawProducts];
+
+    const q = localSearch.trim().toLowerCase();
+    if (q) {
+      list = list.filter(
+        (product) =>
+          product.name.toLowerCase().includes(q) ||
+          product.brand.toLowerCase().includes(q) ||
+          product.category.toLowerCase().includes(q)
+      );
+    }
 
     // Filter by availability
     if (inStockOnly) {
@@ -270,7 +338,7 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
     }
 
     return list;
-  }, [rawProducts, sortBy, inStockOnly, selectedCategoryFilter, minPrice, maxPrice]);
+  }, [rawProducts, sortBy, inStockOnly, selectedCategoryFilter, minPrice, maxPrice, localSearch]);
 
   // Dynamic filter categories available in this list
   const availableCategories = useMemo(() => {
@@ -297,10 +365,32 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
             </h1>
           </div>
 
-          {/* Controls Bar: Sort, View, Result counter */}
-          <div className="flex flex-col gap-4 border-b border-[#E0E0E0]/40 pb-4 mb-8 sm:flex-row sm:items-center sm:justify-between text-[13px] font-sans">
-            {/* Left side: Sort options */}
-            <div className="no-scrollbar -mx-1 flex max-w-full flex-wrap items-center gap-x-2 gap-y-1.5 overflow-x-auto px-1 text-gray-500 sm:mx-0 sm:overflow-visible">
+          {/* Controls Bar: Search, Sort, Result counter */}
+          <div className="mb-8 flex flex-col gap-4 border-b border-[#E0E0E0]/40 pb-4 text-[13px] font-sans">
+            <div className="flex w-full max-w-xl items-center gap-2 rounded-full border border-[#E0E0E0]/80 bg-surface-muted px-3.5 py-2 shadow-sm focus-within:border-[#9D7D47] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#9D7D47]/10">
+              <SlidersHorizontal className="h-4 w-4 shrink-0 text-[#9a9490]" aria-hidden />
+              <input
+                type="search"
+                value={localSearch}
+                onChange={(event) => setLocalSearch(event.target.value)}
+                placeholder="Filter products in this collection..."
+                className="min-w-0 flex-1 bg-transparent text-[13px] text-[#1A1010] outline-none placeholder:text-[#a8a29e]"
+                aria-label="Filter products"
+              />
+              {localSearch && (
+                <button
+                  type="button"
+                  onClick={() => setLocalSearch('')}
+                  className="rounded-full p-0.5 text-[#9a9490] transition hover:text-[#4A1020]"
+                  aria-label="Clear search"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="no-scrollbar -mx-1 flex max-w-full flex-wrap items-center gap-x-2 gap-y-1.5 overflow-x-auto px-1 text-gray-500 sm:mx-0 sm:overflow-visible">
               <span className="font-semibold text-gray-800">Sort By:</span>
               <button
                 onClick={() => setSortBy('best')}
@@ -338,9 +428,9 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
               </button>
             </div>
 
-            {/* Right side: Product counter */}
-            <div className="font-sans font-medium text-gray-500">
+            <div className="shrink-0 font-sans font-medium text-gray-500">
               Search Result: {processedProducts.length} {processedProducts.length === 1 ? 'product' : 'products'}
+            </div>
             </div>
           </div>
 

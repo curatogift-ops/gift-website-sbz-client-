@@ -72,17 +72,17 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/shop?category=wedding" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                  <Link to="/shop/browse?occasion=wedding" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
                     Wedding collection <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
                   </Link>
                 </li>
                 <li>
-                  <Link to="/shop?category=corporate" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                  <Link to="/corporate" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
                     Corporate gifting <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
                   </Link>
                 </li>
                 <li>
-                  <Link to="/shop?category=birthday" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                  <Link to="/shop/browse?occasion=birthday" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
                     Birthday hampers <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
                   </Link>
                 </li>

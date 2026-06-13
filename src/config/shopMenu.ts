@@ -34,7 +34,7 @@ export const SHOP_MEGA_MENU: ShopMenuColumn[] = [
       { label: 'Housewarming Gifts', href: '/shop/browse?occasion=housewarming' },
       { label: 'Get Well Soon Gifts', href: '/shop/browse?occasion=get-well-soon' },
       { label: 'Office Gifts', href: '/shop/browse?occasion=office' },
-      { label: 'Wedding & Celebration', href: '/shop?type=wedding' },
+      { label: 'Wedding & Celebration', href: '/shop/browse?occasion=wedding' },
     ],
   },
   {
@@ -42,13 +42,13 @@ export const SHOP_MEGA_MENU: ShopMenuColumn[] = [
     items: [
       { label: 'Love Gifts', href: '/shop/browse?interest=love' },
       { label: 'Dry Fruit Gifts', href: '/shop/browse?interest=dry-fruit' },
-      { label: 'Eco-friendly Gifts', href: '/shop?type=eco' },
+      { label: 'Eco-friendly Gifts', href: '/shop/browse?interest=eco' },
       { label: 'Home Decor Gifts', href: '/shop/browse?interest=home-decor' },
       { label: 'Gourmet Edibles', href: '/shop/browse?interest=gourmet' },
       { label: 'Self Care Hampers', href: '/shop/browse?interest=self-care' },
       { label: 'Gifts for Coffee Lovers', href: '/shop/browse?interest=coffee' },
       { label: 'Gifts for Fitness Freaks', href: '/shop/browse?interest=fitness' },
-      { label: 'Luxury Personalized Boxes', href: '/shop?type=luxury' },
+      { label: 'Luxury Personalized Boxes', href: '/shop/browse?cat=luxury' },
     ],
   },
   {
@@ -70,7 +70,7 @@ export const SHOP_MEGA_MENU: ShopMenuColumn[] = [
       { label: 'Best Sellers', href: '/shop/browse?collection=best-sellers' },
       { label: 'Same Day Delivery — Bangalore', href: '/shop/browse?collection=same-day-bangalore' },
       { label: 'Build Your Own Hamper', href: '/hamper-builder' },
-      { label: 'All Gift Types', href: '/' },
+      { label: 'All Gift Types', href: '/shop/browse' },
     ],
   },
 ];
@@ -86,6 +86,11 @@ const RECIPIENT_LABELS: Record<string, string> = {
   couple: 'Gifts for Couple',
   'moms-to-be': 'Gifts for Moms to Be',
   kids: 'Gifts for Kids',
+  'for-her': 'Gifts for Her',
+  'for-him': 'Gifts for Him',
+  'for-couples': 'Gifts for Couples',
+  'for-parents': 'Gifts for Parents',
+  'for-kids': 'Gifts for Kids',
 };
 
 const OCCASION_LABELS: Record<string, string> = {
@@ -95,11 +100,22 @@ const OCCASION_LABELS: Record<string, string> = {
   housewarming: 'Housewarming',
   'get-well-soon': 'Get Well Soon',
   office: 'Office',
+  wedding: 'Wedding & Celebration',
+  'baby-shower': 'Baby & Family Celebrations',
+  achievement: 'Achievement Celebrations',
+  family: 'Family Events',
+  'new-year': 'New Year Parties',
+  diwali: 'Diwali Celebrations',
+  christmas: 'Christmas Parties',
+  eid: 'Eid Celebrations',
+  holi: 'Holi Events',
+  ramadan: 'Ramadan Celebrations',
 };
 
 const INTEREST_LABELS: Record<string, string> = {
   love: 'Love',
   'dry-fruit': 'Dry Fruit',
+  eco: 'Eco-friendly Gifts',
   'home-decor': 'Home Decor',
   gourmet: 'Gourmet Edibles',
   'self-care': 'Self Care',
@@ -107,8 +123,43 @@ const INTEREST_LABELS: Record<string, string> = {
   fitness: 'Fitness',
 };
 
+const TYPE_LABELS: Record<string, string> = {
+  photo: 'Photo Gifts',
+  engraved: 'Gifts with Your Name',
+  mugs: 'Custom Mugs',
+  frames: 'Personalized Frames',
+  bottles: 'Customized Bottles',
+  accessories: 'Personalized Accessories',
+  'custom-boxes': 'Custom Gift Boxes',
+  employee: 'Employee Joining Kits',
+  merch: 'Custom Merchandise',
+  tech: 'Tech Gifts',
+  drinkware: 'Drinkware',
+  event: 'Event & Conference Gifting',
+  packaging: 'Luxury Packaging Solutions',
+};
+
+const CAT_LABELS: Record<string, string> = {
+  'chocolate-hampers': 'Chocolate Hampers',
+  'dry-fruit-hampers': 'Dry Fruit Hampers',
+  'wellness-hampers': 'Wellness Hampers',
+  'premium-boxes': 'Premium Gift Boxes',
+  luxury: 'Luxury Gifts',
+  executive: 'Executive Gifts',
+  'premium-sets': 'Premium Gift Sets',
+  exclusive: 'Exclusive Collections',
+  'corporate-hampers': 'Corporate Hampers',
+  festive: 'Festive Gifts',
+  employee: 'Employee Gifts',
+  eco: 'Eco-friendly Gifts',
+  event: 'Event Gifting',
+};
+
 const PRICE_LABELS: Record<string, string> = {
+  'under-499': 'Under Rs 499',
   'under-999': 'Under Rs 999',
+  'under-1999': 'Under Rs 1,999',
+  premium: 'Premium Gifts',
   '1000-2000': 'Rs 1000 to Rs 2000',
   '2000-3000': 'Rs 2000 to Rs 3000',
   'above-3000': 'Above Rs 3000',
@@ -125,8 +176,17 @@ const COLLECTION_LABELS: Record<string, string> = {
 
 /** Page title for ShopBrowse / Placeholder catalog */
 export function getShopBrowseTitle(params: URLSearchParams): string {
+  const q = params.get('q')?.trim();
+  if (q) return `Search: ${q}`;
+
   const recipient = params.get('recipient');
   if (recipient && RECIPIENT_LABELS[recipient]) return RECIPIENT_LABELS[recipient];
+
+  const type = params.get('type');
+  if (type && TYPE_LABELS[type]) return TYPE_LABELS[type];
+
+  const cat = params.get('cat');
+  if (cat && CAT_LABELS[cat]) return CAT_LABELS[cat];
 
   const occasion = params.get('occasion');
   if (occasion && OCCASION_LABELS[occasion]) return OCCASION_LABELS[occasion];
@@ -145,8 +205,32 @@ export function getShopBrowseTitle(params: URLSearchParams): string {
 
 /** Maps browse filters to PlaceholderPage product category seed */
 export function getShopBrowseCategoryKey(params: URLSearchParams): string {
+  const q = params.get('q')?.trim();
+  if (q) return q;
+
   const recipient = params.get('recipient');
   if (recipient) return `recipient ${recipient}`;
+
+  const type = params.get('type');
+  if (type) {
+    if (type === 'tech') return 'tech';
+    if (type === 'drinkware') return 'drinkware';
+    if (type === 'employee' || type === 'merch' || type === 'event' || type === 'packaging') return 'welcome';
+    if (type === 'photo' || type === 'engraved' || type === 'mugs' || type === 'frames' || type === 'bottles' || type === 'accessories' || type === 'custom-boxes') {
+      return 'personalized';
+    }
+    return `type ${type}`;
+  }
+
+  const cat = params.get('cat');
+  if (cat) {
+    if (cat.includes('chocolate') || cat.includes('dry-fruit') || cat.includes('wellness') || cat === 'festive') return 'hamper';
+    if (cat === 'luxury' || cat === 'executive' || cat === 'premium-sets' || cat === 'exclusive' || cat === 'premium-boxes') return 'premium';
+    if (cat === 'corporate-hampers' || cat === 'employee') return 'welcome';
+    if (cat === 'eco') return 'interest eco';
+    if (cat === 'event') return 'occasion office';
+    return `cat ${cat}`;
+  }
 
   const occasion = params.get('occasion');
   if (occasion) return `occasion ${occasion}`;

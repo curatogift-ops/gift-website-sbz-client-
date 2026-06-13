@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import BrandLogo from '@/components/ui/BrandLogo';
+import NavSearchBar from '@/components/layout/NavSearchBar';
 import {
   ShoppingBag,
   CircleUser,
@@ -199,12 +200,6 @@ export default function Navbar() {
     return pathname === baseHref || pathname.startsWith(`${baseHref}/`);
   };
 
-  const searchShell = (compact: boolean) =>
-    cn(
-      'nav-header-search flex w-full items-center gap-2 rounded-full transition-colors duration-200',
-      compact ? 'max-w-full px-3 py-2.5' : 'max-w-[min(100%,320px)] px-3.5 py-2 md:max-w-[min(100%,280px)] lg:max-w-[300px]'
-    );
-
   const isCorporateActive =
     pathname === '/corporate' ||
     pathname === '/brands' ||
@@ -392,15 +387,7 @@ export default function Navbar() {
               mobileSearchOpen ? 'max-h-28 pb-3 pt-2 opacity-100' : 'max-h-0 border-t-0 py-0 opacity-0'
             )}
           >
-            <div className={searchShell(true)} role="search">
-              <Search className="h-4 w-4 shrink-0 text-[#9a9490]" strokeWidth={2} aria-hidden />
-              <input
-                type="search"
-                placeholder="Search luxury hampers, gifts..."
-                className="min-w-0 flex-1 bg-transparent text-[14.5px] text-[#1a1a1a] outline-none placeholder:text-[#a8a29e]"
-                aria-label="Search gifts and hampers"
-              />
-            </div>
+            <NavSearchBar compact className="w-full border-0 bg-transparent shadow-none focus-within:ring-0" onSubmitted={() => setMobileSearchOpen(false)} />
           </div>
 
           <div className="min-w-0 border-t border-black/[0.06] bg-white px-2 pb-3 pt-2.5 sm:px-3">
@@ -428,14 +415,7 @@ export default function Navbar() {
 
             {/* Small elegant search bar in the absolute center */}
             <div className="absolute left-1/2 top-[1.35rem] -translate-x-1/2 z-10 2xl:top-[1.4rem]">
-              <div className="flex items-center gap-2 rounded-full border border-[#E0E0E0]/80 bg-surface-muted hover:bg-white px-3.5 py-1.5 w-[16rem] transition-all focus-within:border-[#9D7D47] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#9D7D47]/10 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-                <Search className="h-3.5 w-3.5 shrink-0 text-[#9a9490]" strokeWidth={2} />
-                <input
-                  type="text"
-                  placeholder="Search luxury hampers, gifts..."
-                  className="min-w-0 flex-1 bg-transparent text-[12px] font-medium text-[#1A1010] outline-none placeholder:text-[#a8a29e]"
-                />
-              </div>
+              <NavSearchBar className="w-[16rem] hover:bg-white" />
             </div>
 
             {/* Utility icons on the right */}
@@ -615,6 +595,9 @@ export default function Navbar() {
           <div className="flex min-w-0 flex-col gap-2 border-t border-[#e8e4e1]/50 py-2.5">
             <div className="w-full min-w-0 px-1">
               <GiftModeSwitcher isCorporateActive={isCorporateActive} size="compact" />
+            </div>
+            <div className="px-1">
+              <NavSearchBar compact className="w-full max-w-none" />
             </div>
             <nav
               className="no-scrollbar flex min-w-0 items-center gap-1 overflow-x-auto px-1 pb-0.5"
