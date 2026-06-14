@@ -7,12 +7,16 @@ import CustomBoxesPage from '@/pages/CustomBoxesPage';
 import PlaceholderPage from '@/pages/PlaceholderPage';
 import CorporatePage from '@/pages/CorporatePage';
 import BrandsPage from '@/pages/BrandsPage';
+import VouchersBrandsPage from '@/pages/VouchersBrandsPage';
+import TrophiesPage from '@/pages/TrophiesPage';
 import ImageRequirementsPage from '@/pages/ImageRequirementsPage';
 import WhatsAppWidget from '@/components/layout/WhatsAppWidget';
+import CursorSparkles from '@/components/ui/CursorSparkles';
 
 export default function App() {
   return (
     <>
+      <CursorSparkles />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Navigate to="/corporate" replace />} />
@@ -24,6 +28,8 @@ export default function App() {
         <Route path="/custom-boxes" element={<CustomBoxesPage />} />
         <Route path="/corporate" element={<CorporatePage />} />
         <Route path="/brands" element={<BrandsPage />} />
+        <Route path="/vouchers-brands" element={<VouchersBrandsPage />} />
+        <Route path="/trophies" element={<TrophiesPage />} />
         <Route path="/admin/image-requirements" element={<ImageRequirementsPage />} />
         <Route path="/promotional-gifts" element={<PlaceholderPage title="Promotional Gifts" />} />
         {/* Promotional Gifts sub-pages */}

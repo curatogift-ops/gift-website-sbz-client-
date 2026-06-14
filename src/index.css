@@ -29,7 +29,7 @@
   --near-black: #1A1010;
 
   /* ── Typography families (Giftz Gallerei luxury system) ── */
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
   --font-accent: "DM Serif Display", ui-serif, Georgia, serif;
   --font-brand: "Playfair Display", ui-serif, Georgia, serif;
@@ -116,7 +116,7 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
 
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-sans: "DM Sans", sans-serif;
   --font-serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
   --font-accent: "DM Serif Display", ui-serif, Georgia, serif;
   --font-brand: "Playfair Display", ui-serif, Georgia, serif;
@@ -181,6 +181,11 @@
   border-color: var(--border);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
 }
 
 html {
@@ -1190,4 +1195,14 @@ body {
   html {
     @apply font-sans;
   }
+}
+
+@keyframes cursor-sparkle {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translate(-50%, calc(-50% + 20px)) scale(1.5) rotate(90deg); opacity: 0; }
+}
+
+.animate-cursor-sparkle {
+  animation: cursor-sparkle 0.35s ease-out forwards;
 }

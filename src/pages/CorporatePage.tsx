@@ -117,7 +117,7 @@ const HERO_SLIDES = [
     imageAlt: 'Curated premium corporate gifts',
     textPosition: 'left',
     theme: 'light',
-    bgClass: 'bg-white',
+    bgClass: 'bg-[#1A1010]',
     textColorLight: 'text-[#FFFDF9]',
     textColorItalic: 'text-[#C9A96E]',
     eyebrowColor: 'text-[#C9A96E]',
@@ -126,6 +126,27 @@ const HERO_SLIDES = [
     imgPosition: 'object-center',
     hasEmbeddedText: false,
     hasMobileEmbeddedText: false
+  },
+  {
+    id: 'bespoke-branding',
+    eyebrow: 'BESPOKE BRANDING',
+    headingLight: "Elevate Every",
+    headingItalic: "Corporate Impression.",
+    image: '/images/corporate-hero-slide-2.png',
+    mobileImage: '/images/corporate-hero-slide-2-mobile.png',
+    imageAlt: 'Bespoke corporate experiences and branding',
+    textPosition: 'left',
+    theme: 'light',
+    bgClass: 'bg-[#0f1423]', // Dark navy to match the image
+    textColorLight: 'text-[#FFFDF9]',
+    textColorItalic: 'text-[#C9A96E]',
+    eyebrowColor: 'text-[#C9A96E]',
+    gradientClass: '',
+    imgTranslate: 'md:object-center',
+    imgPosition: 'object-center',
+    imgFit: 'object-contain',
+    hasEmbeddedText: true,
+    hasMobileEmbeddedText: true
   }
 ] as const;
 
@@ -273,7 +294,7 @@ export default function CorporatePage() {
                           decoding="async"
                           fetchPriority={index === 0 ? 'high' : 'low'}
                           sizes="(max-width: 2500px) 100vw, 2500px"
-                          className={`block h-full w-full object-cover ${slide.imgPosition || 'object-center'} ${slide.imgTranslate || ''} ${slide.id === 'curated-gifts' ? 'object-[50%_43%] sm:object-[52%_44%] md:object-[72%_center]' : ''}`}
+                          className={`block h-full w-full ${slide.imgFit || 'object-cover'} ${slide.imgPosition || 'object-center'} ${slide.imgTranslate || ''} ${slide.id === 'curated-gifts' ? 'object-[50%_43%] sm:object-[52%_44%] md:object-[72%_center]' : ''}`}
                         />
                       </picture>
                     </div>

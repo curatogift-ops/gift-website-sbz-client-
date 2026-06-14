@@ -164,6 +164,37 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Secure Payment */}
+        <div className="flex flex-col items-center justify-center gap-6 border-b border-white/10 py-10 md:py-12">
+          <h4 className="font-sans text-[18px] md:text-[22px] font-extrabold uppercase tracking-[0.05em] text-[#E8CF9A]">
+            100% SECURE PAYMENT
+          </h4>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-1">
+            {[
+              { name: 'Razorpay', customUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg', width: 'w-[140px]' },
+              { name: 'Google Pay', domain: 'pay.google.com', width: 'w-[76px]' },
+              { name: 'Paytm', domain: 'paytm.com', width: 'w-[76px]' },
+              { name: 'PhonePe', domain: 'phonepe.com', width: 'w-[76px]' },
+              { name: 'Visa', domain: 'visa.com', width: 'w-[76px]' },
+              { name: 'RuPay', domain: 'rupay.co.in', width: 'w-[76px]' },
+              { name: 'Mastercard', domain: 'mastercard.us', width: 'w-[76px]' },
+            ].map((method) => (
+              <div
+                key={method.name}
+                className={`flex h-[48px] ${method.width} items-center justify-center rounded-md bg-white p-1.5 shadow-sm transition-transform hover:scale-105`}
+              >
+                <img
+                  src={method.customUrl || `https://img.logo.dev/${method.domain}?token=pk_CMw_iB1FQuWiQT75l8pqZg&size=160&retina=true`}
+                  alt={method.name}
+                  className="h-full w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Legal */}
         <div className="flex flex-col items-center justify-between gap-6 pt-8 text-center md:flex-row md:gap-4 md:text-left">
           <p className="max-w-xl font-sans text-[12px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-[#F2EDE8]/45 sm:text-[13px] sm:tracking-[0.16em]">

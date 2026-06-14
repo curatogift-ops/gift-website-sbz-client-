@@ -20,15 +20,15 @@ const AWARD_TYPES: AwardType[] = [
     Icon: Trophy,
   },
   {
-    title: 'Wooden Plaques',
-    href: '/shop/browse?cat=wooden-plaques',
+    title: 'Vouchers',
+    href: '/vouchers-brands',
     image: '/images/corporate-hero.png',
     imageAlt: 'Branded desk gift set with a premium wooden finish',
     Icon: Medal,
   },
   {
-    title: 'Metal Trophies',
-    href: '/shop/browse?cat=metal-trophies',
+    title: 'Trophies',
+    href: '/trophies',
     image: '/images/corporate-hero-slide-2.png',
     imageAlt: 'Gold accented corporate gifting collection for award ceremonies',
     Icon: Sparkles,
@@ -49,7 +49,7 @@ export default function AwardsTrophiesSection() {
           <div className="max-w-2xl">
             <p className="eyebrow">Recognition</p>
             <h2 id="awards-trophies-heading" className="section-heading-corporate mt-3">
-              Customized Awards & Trophies
+              Trophies & vouchers
             </h2>
           </div>
 

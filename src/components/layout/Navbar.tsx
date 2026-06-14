@@ -411,23 +411,24 @@ export default function Navbar() {
         )}
       >
         <div className="w-full px-4 2xl:px-6">
-          {/* Row 1: Logo (left) + Search Bar (centered) + Utility icons (right) */}
-          <div className="relative flex items-start justify-between pt-4 pb-3 border-b border-[#e8e4e1]/40">
+          {/* Row 1: Logo (left) + Search & Icons (right) */}
+          <div className="relative flex items-center justify-between pt-3 pb-3 border-b border-[#e8e4e1]/40">
             <BrandLogo
               to="/"
               className="z-10"
-              logoHeightClass="h-[2rem] 2xl:h-[2.15rem]"
-              widthClass="w-[13rem] 2xl:w-[14.5rem]"
+              logoHeightClass="h-[2.15rem] 2xl:h-[2.3rem]"
+              widthClass="w-[14rem] 2xl:w-[15.5rem]"
               priority
             />
 
-            {/* Small elegant search bar in the absolute center */}
-            <div className="absolute left-1/2 top-[1.35rem] -translate-x-1/2 z-10 2xl:top-[1.4rem]">
-              <NavSearchBar className="w-[16rem] hover:bg-white" />
-            </div>
+            <div className="flex items-center gap-6 z-10">
+              {/* Search Bar next to icons */}
+              <div className="hidden lg:block w-[18rem] 2xl:w-[20rem]">
+                <NavSearchBar className="w-full shadow-none" />
+              </div>
 
-            {/* Utility icons on the right */}
-            <div className="flex shrink-0 items-start gap-2.5 border-l border-[#dcd8d4] pl-2.5 pt-0.5 2xl:gap-5 2xl:pl-5 z-10">
+              {/* Utility icons on the right */}
+              <div className="flex shrink-0 items-center gap-3 2xl:gap-5">
               <Link
                 to="/wishlist"
                 className="flex flex-col items-center gap-1 text-[#1a1a1a] transition-opacity hover:opacity-75"
@@ -455,8 +456,9 @@ export default function Navbar() {
                     0
                   </span>
                 </span>
-                <span className="font-sans text-[11.5px] font-semibold leading-none 2xl:text-[12.5px]">Cart</span>
+                <span className="font-sans text-[11.5px] font-semibold leading-none 2xl:text-[12.5px] mt-0.5">Cart</span>
               </Link>
+            </div>
             </div>
           </div>
 
@@ -467,9 +469,8 @@ export default function Navbar() {
               <GiftModeSwitcher isCorporateActive={isCorporateActive} size="desktop" />
             </div>
 
-            {/* Main nav links — aligned center so it fits perfectly on all desktops */}
             <nav
-              className="relative flex min-w-0 items-center justify-center gap-3.5 2xl:gap-5 overflow-visible py-0.5"
+              className="relative flex min-w-0 items-center justify-center gap-4 2xl:gap-6 overflow-visible py-0.5"
               aria-label="Primary"
             >
               {desktopNavLinks.map((link) => {
@@ -479,8 +480,8 @@ export default function Navbar() {
                     <Link
                       to={link.href}
                       className={cn(
-                        'relative inline-flex items-center gap-0.5 py-0.5 font-sans text-[10px] font-bold uppercase tracking-[0.08em] transition-colors 2xl:text-[11px] 2xl:tracking-[0.09em]',
-                        active ? 'text-[#4A0E1C]' : 'text-[#1A1010] hover:text-[#4A0E1C]'
+                        'relative inline-flex items-center gap-0.5 py-0.5 font-sans text-[12.5px] font-bold uppercase tracking-[0.1em] transition-colors 2xl:text-[13.5px] 2xl:tracking-[0.1em]',
+                        active ? 'text-[#4A1020]' : 'text-[#111111] hover:text-[#4A1020]'
                       )}
                     >
                       {link.badge && (
@@ -608,7 +609,7 @@ export default function Navbar() {
               <NavSearchBar compact className="w-full max-w-none" />
             </div>
             <nav
-              className="no-scrollbar flex min-w-0 items-center gap-1 overflow-x-auto px-1 pb-0.5"
+              className="no-scrollbar flex min-w-0 items-center gap-3 overflow-x-auto px-1 pb-0.5"
               aria-label="Primary"
             >
             {desktopNavLinks.map((link) => {
@@ -618,8 +619,8 @@ export default function Navbar() {
                   <Link
                     to={link.href}
                     className={cn(
-                      'relative inline-flex items-center gap-0.5 py-0.5 font-sans text-[12px] font-bold uppercase tracking-[0.08em] transition-colors',
-                      active ? 'text-[#4A0E1C]' : 'text-[#1A1010] hover:text-[#4A0E1C]'
+                      'relative inline-flex items-center gap-0.5 py-0.5 font-sans text-[12.5px] font-bold uppercase tracking-[0.1em] transition-colors',
+                      active ? 'text-[#4A1020]' : 'text-[#111111] hover:text-[#4A1020]'
                     )}
                   >
                     {link.badge && (

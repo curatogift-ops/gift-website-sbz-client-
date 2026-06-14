@@ -61,7 +61,10 @@ export default function BrandLogo({
           src={LOGO_SRC}
           alt="Giftz Gallerei"
           fill
-          className="object-contain object-center"
+          className={cn(
+            'object-contain object-center',
+            variant === 'footer' && 'brightness-0 invert'
+          )}
           priority={priority}
           sizes="(max-width:640px) 140px, 240px"
         />
