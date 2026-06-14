@@ -32,11 +32,11 @@ import {
 } from 'lucide-react';
 
 const VALUE_PROPS = [
-  { title: 'PREMIUM QUALITY',     Icon: Gem },
-  { title: 'CUSTOM BRANDING',     Icon: Tag },
-  { title: 'PAN INDIA DELIVERY',  Icon: Truck },
-  { title: 'BULK ORDER SUPPORT',  Icon: Headset },
-  { title: 'SECURE PACKAGING',    Icon: Shield },
+  { title: 'PREMIUM QUALITY', Icon: Gem },
+  { title: 'CUSTOM BRANDING', Icon: Tag },
+  { title: 'PAN INDIA DELIVERY', Icon: Truck },
+  { title: 'BULK ORDER SUPPORT', Icon: Headset },
+  { title: 'SECURE PACKAGING', Icon: Shield },
   { title: 'SUSTAINABLE CHOICES', Icon: Leaf },
 ] as const;
 
@@ -59,7 +59,7 @@ const GIFTING_SOLUTIONS = [
     id: 'festive',
     label: 'FESTIVE GIFTS',
     href: '/shop/browse?cat=festive',
-    image: 'https://images.unsplash.com/photo-1513885536991-8b943e177042?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Festive gift boxes with gold ribbon',
   },
   {
@@ -94,16 +94,16 @@ const GIFTING_SOLUTIONS = [
     id: 'luxury-packaging',
     label: 'LUXURY PACKAGING SOLUTIONS',
     href: '/shop/browse?type=packaging',
-    image: 'https://images.unsplash.com/photo-1512496015851-a90fb38f7968?auto=format&fit=crop&q=80&w=480&h=480',
+    image: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=480&h=480',
     imageAlt: 'Luxury gift packaging with ribbon',
   },
 ] as const;
 
 const STATS = [
-  { Icon: Building2, value: '500+',      label: 'Corporate Clients' },
-  { Icon: Gift,      value: '1,00,000+', label: 'Gifts Delivered' },
-  { Icon: Users,     value: '10+ Years', label: 'Trust & Reliability' },
-  { Icon: Star,      value: '4.9/5',     label: 'Client Satisfaction' },
+  { Icon: Building2, value: '500+', label: 'Corporate Clients' },
+  { Icon: Gift, value: '1,00,000+', label: 'Gifts Delivered' },
+  { Icon: Users, value: '10+ Years', label: 'Trust & Reliability' },
+  { Icon: Star, value: '4.9/5', label: 'Client Satisfaction' },
 ] as const;
 
 const HERO_SLIDES = [
@@ -126,25 +126,6 @@ const HERO_SLIDES = [
     imgPosition: 'object-center',
     hasEmbeddedText: false,
     hasMobileEmbeddedText: false
-  },
-  {
-    id: 'corporate-showcase-2',
-    eyebrow: '',
-    headingLight: '',
-    headingItalic: '',
-    image: '/images/corporate-hero-slide-2.png',
-    mobileImage: '/images/corporate-hero-slide-2-mobile.png',
-    imageAlt: 'Premium custom corporate gifts collection showcase',
-    textPosition: 'left',
-    theme: 'light',
-    bgClass: 'bg-white',
-    textColorLight: '',
-    textColorItalic: '',
-    eyebrowColor: '',
-    imgTranslate: '',
-    imgPosition: 'object-[center_92%] md:object-[center_55%]',
-    hasEmbeddedText: true,
-    hasMobileEmbeddedText: true
   }
 ] as const;
 
@@ -243,15 +224,15 @@ export default function CorporatePage() {
 
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <div className="corporate-page flex min-h-screen flex-col bg-white font-sans">
       <Navbar />
 
       <main className="page-main-offset flex-grow">
 
         {/* ── Hero Slider ────────────────────────────────────────────────── */}
-        <section className="relative w-full overflow-hidden bg-[#152033]" aria-labelledby="corporate-hero-heading">
+        <section className="relative w-full overflow-hidden bg-primary" aria-labelledby="corporate-hero-heading">
           <div className="relative mx-auto w-full max-w-[2500px]">
-            
+
             {/* Slides Container */}
             <div className="relative h-[500px] sm:h-[540px] md:h-auto md:aspect-[1024/435] lg:aspect-[1024/410] xl:aspect-[1024/395] w-full overflow-hidden">
               {HERO_SLIDES.map((slide, index) => {
@@ -259,9 +240,8 @@ export default function CorporatePage() {
                 return (
                   <div
                     key={slide.id}
-                    className={`absolute inset-0 w-full h-full flex items-center justify-center md:justify-start transition-all duration-1000 ease-in-out ${slide.bgClass} ${
-                      isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
-                    }`}
+                    className={`absolute inset-0 w-full h-full flex items-center justify-center md:justify-start transition-all duration-1000 ease-in-out ${slide.bgClass} ${isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+                      }`}
                   >
                     {!slide.hasEmbeddedText && <CorporateHeroDecor />}
 
@@ -324,26 +304,26 @@ export default function CorporatePage() {
                                 <span key={i} className="block">{line}</span>
                               ))}
                             </span>
-                            <span className={`mt-2 block font-serif italic font-semibold text-[clamp(1.35rem,3vw,2.25rem)] leading-[1.14] md:mt-2.5 ${slide.textColorItalic}`}>
+                            <span className={`mt-2 block font-serif italic font-medium text-[clamp(1.35rem,3vw,2.25rem)] leading-[1.14] md:mt-2.5 ${slide.textColorItalic}`}>
                               {slide.headingItalic.split('\n').map((line, i) => (
                                 <span key={i} className="block">{line}</span>
                               ))}
                             </span>
                           </h1>
 
-                          <div className="mt-5 sm:mt-8 flex flex-row items-center justify-center md:justify-start gap-2.5 w-full max-w-[21rem] sm:max-w-none">
+                          <div className="mt-6 flex w-full max-w-[22rem] flex-row items-center justify-center gap-2.5 sm:mt-8 sm:max-w-none md:justify-start">
                             <Link
                               to="/corporate#bulk-order-enquiry"
-                              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 sm:gap-2.5 rounded-xl bg-gradient-to-r from-[#4A1020] via-[#5C1629] to-[#4A1020] hover:from-[#5C1629] hover:to-[#731E34] px-3.5 py-2.5 sm:px-5 sm:py-3.5 font-sans text-[10px] sm:text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.08em] sm:tracking-[0.12em] text-white border border-[#C9A96E]/30 shadow-[0_8px_24px_-6px_rgba(74,16,32,0.4),0_0_12px_rgba(201,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-6px_rgba(74,16,32,0.5),0_0_16px_rgba(201,169,110,0.25)] active:scale-[0.98]"
+                              className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground shadow transition hover:bg-[#4A1020] sm:flex-none sm:px-6 sm:text-xs"
                             >
-                              <Gift className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                              <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
                               <span className="whitespace-nowrap">Get Bulk Quote</span>
                             </Link>
                             <Link
                               to="/shop"
-                              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 sm:gap-2.5 rounded-xl border-2 border-[#9D7D47] bg-white hover:bg-[#4A1020] hover:border-[#4A1020] px-3.5 py-2.5 sm:px-5 sm:py-3.5 font-sans text-[10px] sm:text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.08em] sm:tracking-[0.12em] text-[#4A1020] hover:text-white shadow-[0_6px_16px_rgba(157,125,71,0.1)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(74,16,32,0.15)] active:scale-[0.98] group"
+                              className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md border border-primary-foreground/80 bg-primary-foreground px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary transition hover:bg-[var(--cream)] sm:flex-none sm:px-6 sm:text-xs"
                             >
-                              <ShoppingBag className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                              <ShoppingBag className="h-4 w-4 text-[#9D7D47]" strokeWidth={1.5} />
                               <span className="whitespace-nowrap">Explore Shop</span>
                             </Link>
                           </div>
@@ -362,9 +342,8 @@ export default function CorporatePage() {
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={`h-[3px] rounded-full transition-all duration-300 ${ 
-                      index === currentSlide ? 'w-8 bg-white' : 'w-5 bg-white/40 hover:bg-white/65'
-                    }`}
+                    className={`h-[3px] rounded-full transition-all duration-300 ${index === currentSlide ? 'w-8 bg-white' : 'w-5 bg-white/40 hover:bg-white/65'
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
@@ -375,23 +354,21 @@ export default function CorporatePage() {
         </section>
 
         {/* ── Mobile Stats Section (Premium Rectangular Dark Blue Boxes) ──── */}
-        <div className="w-full px-4 py-5 md:hidden">
+        <div className="w-full bg-primary px-4 py-5 md:hidden">
           <div className="grid grid-cols-2 gap-2.5">
             {STATS.map(({ Icon, value, label }) => (
               <div
                 key={label}
-                className="flex items-center gap-2.5 rounded-lg border border-[#C9A96E]/20 bg-gradient-to-br from-[#1A2A44] via-[#121E30] to-[#0B1220] px-3 py-3 shadow-[0_6px_16px_rgba(0,0,0,0.2)]"
+                className="flex items-center gap-2.5 rounded-md border border-primary-foreground/15 bg-primary-foreground/[0.06] px-3 py-3"
               >
-                {/* Elegant gold box outline badge (keep box like previous) */}
-                <div className="flex h-7.5 w-7.5 shrink-0 items-center justify-center rounded-lg border border-[#C9A96E]/30 bg-[#1C2C45]/60 text-[#C9A96E] shadow-[inset_0_1px_2px_rgba(201,169,110,0.1)]">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[#C9A96E]/35 bg-primary-foreground/[0.08] text-[#C9A96E]">
                   <Icon className="h-3.5 w-3.5" strokeWidth={1.3} aria-hidden />
                 </div>
-                {/* Text stack — slightly bigger, highlighted */}
                 <div className="min-w-0 flex flex-col items-start justify-center">
-                  <p className="font-serif text-[14px] font-bold leading-none text-[#C9A96E] tracking-wide whitespace-nowrap">
+                  <p className="font-serif text-[15px] font-semibold leading-none text-[#C9A96E]">
                     {value}
                   </p>
-                  <p className="mt-1 font-sans text-[8px] font-extrabold uppercase leading-[1.25] tracking-[0.04em] text-[#FFFDF9]/95">
+                  <p className="mt-1 font-sans text-[9px] font-bold uppercase leading-[1.25] tracking-[0.06em] text-primary-foreground/90">
                     {label}
                   </p>
                 </div>
@@ -401,32 +378,27 @@ export default function CorporatePage() {
         </div>
 
         {/* ── Desktop/Tablet Stats Section (Premium Wireframe Dark Grid) ──── */}
-        <div className="hidden md:block w-full pt-0 pb-0">
+        <div className="hidden w-full bg-primary md:block">
           <div className="w-full">
-            <div className="grid grid-cols-4 gap-px overflow-hidden border-y border-[#C9A96E]/20 bg-[#152033] shadow-[0_12px_36px_-12px_rgba(26,16,16,0.35)]">
+            <div className="grid grid-cols-4 overflow-hidden border-y border-primary-foreground/10">
               {STATS.map(({ Icon, value, label }, i) => (
                 <div
                   key={label}
                   className={[
-                    'flex items-center justify-center gap-3.5 bg-gradient-to-br from-[#1A2A44] via-[#121E30] to-[#0B1220] px-5 py-6 lg:px-6 lg:py-6.5',
-                    i < 3 ? 'border-r border-[#C9A96E]/15' : '', // Gold border separator on desktop
+                    'flex items-center justify-center gap-3.5 bg-primary px-5 py-6 lg:px-6',
+                    i < 3 ? 'border-r border-primary-foreground/10' : '',
                   ].filter(Boolean).join(' ')}
                 >
-                  {/* Elegant premium transparent wireframe gold box outline badge */}
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#C9A96E]/30 bg-[#1C2C45]/40 text-[#C9A96E] shadow-[inset_0_1px_2px_rgba(201,169,110,0.15)]">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-[#C9A96E]/35 bg-primary-foreground/[0.08] text-[#C9A96E]">
                     <Icon className="h-5 w-5" strokeWidth={1.2} aria-hidden />
                   </div>
-                  
-                  {/* Number & label vertical stack */}
                   <div className="min-w-0 flex flex-col items-start">
-                    <p className="font-serif text-[16px] lg:text-[18.5px] font-bold leading-none text-[#C9A96E] tracking-wide">
+                    <p className="font-serif text-[17px] font-semibold leading-none text-[#C9A96E] lg:text-[19px]">
                       {value}
                     </p>
-                    <p className="mt-1.5 font-sans text-[9px] lg:text-[10px] font-bold uppercase leading-snug tracking-[0.06em] text-white/90">
+                    <p className="mt-1.5 font-sans text-[10px] font-bold uppercase leading-snug tracking-[0.08em] text-primary-foreground/90 lg:text-[11px]">
                       {label}
                     </p>
-                    {/* Golden horizontal divider line */}
-                    <div className="mt-1.5 h-[1.5px] w-7 bg-[#C9A96E]/30 rounded-full" />
                   </div>
                 </div>
               ))}
@@ -435,36 +407,25 @@ export default function CorporatePage() {
         </div>
 
         {/* ── Value Props Section ──────────────────────────────────── */}
-        <section className="bg-white py-4 sm:py-6 lg:py-8" aria-label="Why choose us">
+        <section className="bg-[var(--cream)] py-6 sm:py-8 lg:py-10" aria-label="Why choose us">
           <div className="section-container">
-            {/* Scrollable on mobile, beautiful cards grid on desktop */}
             <div className="no-scrollbar -mx-4 flex overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:px-0 lg:grid-cols-6 lg:gap-4 xl:gap-5">
               {VALUE_PROPS.map((item) => {
                 const Icon = item.Icon;
                 return (
                   <div
                     key={item.title}
-                    className="flex w-[130px] shrink-0 flex-col items-center text-center bg-white border border-[#EBEBEB] rounded-2xl px-2.5 py-4.5 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.06)] sm:w-full transition-all duration-300 hover:border-[#C9A96E]/30 hover:shadow-[0_12px_32px_-8px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 group"
+                    className="group flex w-[136px] shrink-0 flex-col items-center rounded-2xl border border-border bg-white px-3 py-5 text-center transition-colors duration-300 hover:border-[#C9A96E]/45 sm:w-full"
                   >
-                    {/* Gold-ringed circular icon button container */}
                     <div
-                      className="flex h-[52px] w-[52px] sm:h-[60px] sm:w-[60px] items-center justify-center rounded-full border border-[#C9A96E]/25 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 group-hover:scale-[1.03] group-hover:border-[#C9A96E]/45 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
+                      className="flex h-12 w-12 items-center justify-center rounded-md border border-[#C9A96E]/30 bg-[#4A1020] text-[#C9A96E] transition-colors duration-300 group-hover:border-[#C9A96E]/55 group-hover:bg-[#5C1529] sm:h-14 sm:w-14"
                       aria-hidden
                     >
-                      <Icon className="h-5.5 w-5.5 sm:h-6 sm:w-6 text-[#A67C37] transition-colors duration-300 group-hover:text-[#B8924F]" strokeWidth={1.25} />
+                      <Icon className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.5} />
                     </div>
-                    
-                    {/* Label */}
-                    <p className="mt-3 font-sans text-[9.5px] sm:text-[11px] font-bold uppercase leading-snug tracking-[0.08em] text-[#1A1010] sm:tracking-[0.1em] px-1">
+                    <p className="mt-3 px-1 font-sans text-[10px] font-bold uppercase leading-snug tracking-[0.08em] text-foreground sm:text-[11px] sm:tracking-[0.1em]">
                       {item.title}
                     </p>
-                    
-                    {/* Mockup premium gold center-dot divider ornament */}
-                    <div className="mt-2.5 flex items-center justify-center gap-1.5 w-full">
-                      <div className="h-[1px] w-5 bg-[#C9A96E]/35 transition-colors duration-300 group-hover:bg-[#C9A96E]/50" />
-                      <div className="h-1.5 w-1.5 rounded-full bg-[#A67C37] transition-all duration-300 group-hover:bg-[#B8924F] group-hover:scale-[1.1] shadow-[0_0_4px_rgba(166,124,55,0.2)]" />
-                      <div className="h-[1px] w-5 bg-[#C9A96E]/35 transition-colors duration-300 group-hover:bg-[#C9A96E]/50" />
-                    </div>
                   </div>
                 );
               })}
@@ -473,31 +434,29 @@ export default function CorporatePage() {
         </section>
 
         {/* ── Explore gifting solutions ─────────────────────────────────── */}
-        <section className="border-t border-[#EBEBEB] bg-white py-5 sm:py-8 lg:py-10" aria-labelledby="gifting-solutions-heading">
+        <section className="bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="gifting-solutions-heading">
           <div className="section-container">
-            <div className="flex items-center justify-center gap-4 sm:gap-6 lg:gap-8">
-              <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
+            <div className="mx-auto max-w-3xl text-center">
               <h2
                 id="gifting-solutions-heading"
-                className="section-heading-corporate shrink-0 text-center leading-snug text-[#1A1010] sm:tracking-[0.2em] lg:tracking-[0.22em] capitalize"
+                className="section-heading-corporate"
               >
                 Our Corporate Gifting Solutions
               </h2>
-              <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
             </div>
 
             {/* Mobile: horizontal scroll */}
             <div
               ref={giftingSolutionsScrollRef}
-              className="no-scrollbar -mx-4 mt-4 flex gap-3 overflow-x-auto px-4 pb-1 sm:hidden"
+              className="no-scrollbar -mx-4 mt-7 flex gap-3 overflow-x-auto px-4 pb-1 sm:hidden"
             >
               {GIFTING_SOLUTIONS.map((item) => (
                 <Link
                   key={item.id}
                   to={item.href}
-                  className="group flex w-[120px] shrink-0 flex-col transition-opacity hover:opacity-90"
+                  className="group flex w-[132px] shrink-0 flex-col outline-none transition-all duration-300"
                 >
-                  <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-[#EBEBEB] bg-surface-muted shadow-[0_4px_16px_-6px_rgba(0,0,0,0.08)]">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-border bg-muted ring-1 ring-transparent transition-all duration-300 group-hover:border-[#C9A96E]/40 group-hover:ring-[#C9A96E]/20 group-focus-visible:ring-[#C9A96E]">
                     <AppImage
                       src={item.image}
                       alt={item.imageAlt}
@@ -506,7 +465,7 @@ export default function CorporatePage() {
                       className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <p className="mt-2 text-center font-sans text-[10.5px] font-bold uppercase leading-snug tracking-[0.06em] text-[#1A1010]">
+                  <p className="mt-3 text-center font-sans text-[11px] font-bold uppercase leading-snug tracking-[0.06em] text-foreground">
                     {item.label}
                   </p>
                 </Link>
@@ -518,7 +477,7 @@ export default function CorporatePage() {
                 <button
                   type="button"
                   onClick={() => slideGiftingSolutions('prev')}
-                  className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#d8d1c8] bg-white text-[#1A1010] shadow-sm transition-colors hover:bg-surface-muted"
+                  className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border bg-white text-foreground transition-colors hover:bg-muted"
                   aria-label="Previous solutions"
                 >
                   <ChevronLeft className="h-3 w-3" strokeWidth={2.25} />
@@ -528,16 +487,15 @@ export default function CorporatePage() {
                     key={index}
                     type="button"
                     onClick={() => goToGiftingPage(index)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      index === activeGiftingPage ? 'w-4 bg-[#1A1010]' : 'w-1.5 bg-[#b9b2aa]'
-                    }`}
+                    className={`h-1.5 rounded-full transition-all ${index === activeGiftingPage ? 'w-4 bg-primary' : 'w-1.5 bg-border'
+                      }`}
                     aria-label={`Go to solutions slide ${index + 1}`}
                   />
                 ))}
                 <button
                   type="button"
                   onClick={() => slideGiftingSolutions('next')}
-                  className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#d8d1c8] bg-white text-[#1A1010] shadow-sm transition-colors hover:bg-surface-muted"
+                  className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border bg-white text-foreground transition-colors hover:bg-muted"
                   aria-label="Next solutions"
                 >
                   <ChevronRight className="h-3 w-3" strokeWidth={2.25} />
@@ -546,11 +504,11 @@ export default function CorporatePage() {
             )}
 
             {/* sm+: grid */}
-            <ul className="mt-6 hidden list-none grid-cols-4 gap-x-4 gap-y-6 sm:grid lg:mt-8 xl:grid-cols-8 xl:gap-x-3">
+            <ul className="mt-8 hidden list-none grid-cols-4 gap-x-5 gap-y-8 sm:grid lg:mt-10 xl:grid-cols-8 xl:gap-x-4">
               {GIFTING_SOLUTIONS.map((item) => (
                 <li key={item.id}>
-                  <Link to={item.href} className="group flex flex-col transition-opacity hover:opacity-90">
-                    <div className="relative aspect-square overflow-hidden rounded-lg border border-[#EBEBEB] bg-surface-muted shadow-[0_4px_16px_-6px_rgba(0,0,0,0.08)]">
+                  <Link to={item.href} className="group flex flex-col outline-none transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#C9A96E] focus-visible:ring-offset-4 rounded-xl">
+                    <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-muted transition-colors duration-300 group-hover:border-[#C9A96E]/40">
                       <AppImage
                         src={item.image}
                         alt={item.imageAlt}
@@ -559,7 +517,7 @@ export default function CorporatePage() {
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
-                    <p className="mt-2.5 text-center font-sans text-[12.5px] font-bold uppercase leading-snug tracking-[0.06em] text-[#1A1010] sm:tracking-[0.08em] lg:text-[13px] xl:text-[12px]">
+                    <p className="mt-3 text-center font-sans text-[12px] font-bold uppercase leading-snug tracking-[0.08em] text-foreground lg:text-[13px] xl:text-[12px]">
                       {item.label}
                     </p>
                   </Link>
@@ -585,7 +543,6 @@ export default function CorporatePage() {
 
         <BulkEnquiryFormSection
           title="Bulk Order Enquiry"
-          subtitle="Share your corporate gifting requirements and our experts will prepare a custom quotation with curated options."
           imageSrc="/images/corporate-hero-banner.png"
           imageAlt="Premium corporate bulk gifting solutions"
         />

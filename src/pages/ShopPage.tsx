@@ -8,8 +8,6 @@ import RelationshipPicksSection from '@/components/shop/RelationshipPicksSection
 import MostLovedHampersSection from '@/components/shop/sections/MostLovedHampersSection';
 import FestiveCelebrationsSection from '@/components/shop/sections/FestiveCelebrationsSection';
 import CustomGiftCollectionSection from '@/components/shop/sections/CustomGiftCollectionSection';
-import GiftHampersSection from '@/components/shop/sections/GiftHampersSection';
-import GiftsByBudgetSection from '@/components/shop/sections/GiftsByBudgetSection';
 import PremiumCollectionSection from '@/components/shop/sections/PremiumCollectionSection';
 import ShopClosingCtaSection from '@/components/shop/sections/ShopClosingCtaSection';
 
@@ -41,8 +39,6 @@ export default function ShopPage() {
         <MostLovedHampersSection />
         <FestiveCelebrationsSection />
         <CustomGiftCollectionSection />
-        <GiftHampersSection />
-        <GiftsByBudgetSection />
         <PremiumCollectionSection />
         <ShopClosingCtaSection />
       </main>

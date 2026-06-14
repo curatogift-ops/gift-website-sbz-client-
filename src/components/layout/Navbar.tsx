@@ -16,7 +16,7 @@ import {
   ChevronLeft,
   Phone,
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/utils/cn';
 import { SHOP_MEGA_MENU } from '@/config/shopMenu';
 import { PROMOTIONAL_GIFTS_MEGA_MENU } from '@/config/promotionalGiftsMenu';
@@ -111,6 +111,7 @@ export default function Navbar() {
   const [menuLevel, setMenuLevel] = useState<0 | 1 | 2>(0);
   const [activeParent0, setActiveParent0] = useState<string | null>(null);
   const [activeParent1, setActiveParent1] = useState<string | null>(null);
+  const skipScrollRestoreRef = useRef(false);
 
   useEffect(() => {
     if (!isMobileMenuOpen) {
@@ -143,11 +144,18 @@ export default function Navbar() {
       body.style.width = '';
       body.style.overflow = '';
       html.style.overflow = '';
-      window.scrollTo(0, scrollY);
+
+      if (skipScrollRestoreRef.current) {
+        skipScrollRestoreRef.current = false;
+        window.scrollTo(0, 0);
+      } else {
+        window.scrollTo(0, scrollY);
+      }
     };
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
+    skipScrollRestoreRef.current = true;
     setIsMobileMenuOpen(false);
     setMobileSearchOpen(false);
     setMenuLevel(0);

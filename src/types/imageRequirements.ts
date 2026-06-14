@@ -71,11 +71,16 @@ export interface ImageRequirement {
   componentName: string;
   imageName: string;
   purpose: ImagePurpose;
-  priority: PriorityLevel;
+  /** @internal retained for spec builders — not shown in admin UI */
+  priority?: PriorityLevel;
   currentSource?: string;
   status: 'missing' | 'placeholder' | 'production';
   technical: ImageTechnicalSpec;
   content: ImageContentGuidance;
+  /** Used for grouped admin view — set via catalog in imageRequirementsRegistry */
+  pageOrder?: number;
+  sectionOrder?: number;
+  sectionDescription?: string;
   designerBrief: string;
 }
 

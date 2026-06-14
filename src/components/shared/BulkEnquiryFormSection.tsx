@@ -40,7 +40,7 @@ export default function BulkEnquiryFormSection({
   return (
     <section
       id={id}
-      className={cn('section-pad scroll-mt-28 section-alt', className)}
+      className={cn('scroll-mt-28 section-alt py-12 sm:py-14 lg:py-16', className)}
       aria-labelledby={`${id}-heading`}
     >
       <div className="section-container">
@@ -54,18 +54,19 @@ export default function BulkEnquiryFormSection({
 
         <div
           className={cn(
-            'mx-auto mt-10 grid max-w-6xl gap-8 lg:mt-12',
+            'mx-auto grid max-w-6xl gap-8',
+            subtitle ? 'mt-10 lg:mt-12' : 'mt-8 lg:mt-10',
             variant === 'full' ? 'lg:grid-cols-[1fr_1fr]' : 'lg:grid-cols-[1.1fr_0.9fr]'
           )}
         >
-          <div className="rounded-2xl border border-[#EBEBEB]/80 bg-white p-6 shadow-[0_8px_32px_-12px_rgba(74,16,32,0.1)] sm:p-8">
+          <div className="rounded-2xl border border-border bg-white p-6 sm:p-8">
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#ECFDF3] text-[#166534]">
                   <Check className="h-7 w-7" strokeWidth={2} />
                 </div>
-                <p className="font-serif text-xl font-semibold text-[#1A1010]">Thank you for your enquiry!</p>
-                <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-[#6b6560]">
+                <p className="font-serif text-xl font-semibold text-foreground">Thank you for your enquiry!</p>
+                <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-muted-foreground">
                   Our gifting experts will reach out within 24 hours with curated options for your requirement.
                 </p>
               </div>
@@ -73,70 +74,70 @@ export default function BulkEnquiryFormSection({
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-[#6b6560]">Full Name *</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Full Name *</span>
                     <input
                       required
                       type="text"
                       value={form.name}
                       onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                      className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                      className="rounded-md border border-border bg-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/15"
                       placeholder="Your name"
                     />
                   </label>
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-[#6b6560]">Company *</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Company *</span>
                     <input
                       required
                       type="text"
                       value={form.company}
                       onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
-                      className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                      className="rounded-md border border-border bg-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/15"
                       placeholder="Company name"
                     />
                   </label>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-[#6b6560]">Email *</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Email *</span>
                     <input
                       required
                       type="email"
                       value={form.email}
                       onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                      className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                      className="rounded-md border border-border bg-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/15"
                       placeholder="you@company.com"
                     />
                   </label>
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-[#6b6560]">Phone *</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Phone *</span>
                     <input
                       required
                       type="tel"
                       value={form.phone}
                       onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                      className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                      className="rounded-md border border-border bg-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/15"
                       placeholder="+91 98765 43210"
                     />
                   </label>
                 </div>
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-[#6b6560]">Estimated Quantity</span>
+                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Estimated Quantity</span>
                   <input
                     type="text"
                     value={form.quantity}
                     onChange={(e) => setForm((f) => ({ ...f, quantity: e.target.value }))}
-                    className="rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                    className="rounded-md border border-border bg-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/15"
                     placeholder="e.g. 50–100 units"
                   />
                 </label>
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-[#6b6560]">Your Requirement *</span>
+                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Your Requirement *</span>
                   <textarea
                     required
                     rows={4}
                     value={form.message}
                     onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                    className="resize-none rounded-xl border border-[#e8e4e1] bg-surface-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/10"
+                    className="resize-none rounded-md border border-border bg-muted px-4 py-3 text-[14px] outline-none transition-colors focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/15"
                     placeholder="Tell us about your gifting needs, occasion, budget, and branding requirements..."
                   />
                 </label>
@@ -148,7 +149,7 @@ export default function BulkEnquiryFormSection({
             )}
           </div>
 
-          <div className="relative min-h-[280px] overflow-hidden rounded-2xl border border-[#EBEBEB]/80 shadow-[0_8px_32px_-12px_rgba(74,16,32,0.1)] lg:min-h-0">
+          <div className="relative min-h-[280px] overflow-hidden rounded-2xl border border-border lg:min-h-0">
             <AppImage
               src={imageSrc}
               alt={imageAlt}

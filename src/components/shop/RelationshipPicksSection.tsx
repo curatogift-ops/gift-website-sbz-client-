@@ -129,10 +129,10 @@ export default function RelationshipPicksSection() {
       <div className="section-container relative">
         <header className="mx-auto max-w-2xl text-center">
           <p className="font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#9D7D47]">
-            Curated by relationship
+            Customer favorites
           </p>
           <h2 id="relationship-picks-heading" className="section-heading mt-3">
-            Gifts by <span className="text-[#6B1E30]">Relationship</span>
+            Most Loved <span className="text-[#6B1E30]">Gift Hampers</span>
           </h2>
         </header>
 

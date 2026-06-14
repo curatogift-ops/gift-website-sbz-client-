@@ -42,17 +42,18 @@ export default function GiftCategoryGridSection({
     >
       <div className="section-container">
         <div className="mx-auto max-w-3xl text-center">
+          <p className="eyebrow">Event gifting</p>
           <HeadingTag
             id={id ? `${id}-heading` : undefined}
             className={cn(
-              'section-heading',
+              'section-heading-corporate mt-3',
               headingTag === 'h1' && 'text-[clamp(1.75rem,3vw+0.75rem,2.5rem)]'
             )}
           >
             {headingAccent ? (
               <>
                 {heading}{' '}
-                <span className="text-[#6B1E30]">{headingAccent}</span>
+                <span>{headingAccent}</span>
               </>
             ) : (
               heading

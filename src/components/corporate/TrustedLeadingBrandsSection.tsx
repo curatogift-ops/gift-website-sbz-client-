@@ -179,7 +179,7 @@ const TRUSTED_BRANDS_ROW_2: TrustedBrand[] = [
 
 function BrandLogo({ brand }: { brand: TrustedBrand }) {
   return (
-    <div className="flex shrink-0 items-center justify-center w-[120px] sm:w-[150px] px-3.5 opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300">
+    <div className="flex w-[128px] shrink-0 items-center justify-center px-3.5 opacity-70 transition-opacity duration-300 hover:opacity-100 sm:w-[156px]">
       {brand.logoSvg}
     </div>
   );
@@ -190,7 +190,7 @@ export default function TrustedLeadingBrandsSection() {
 
   return (
     <section
-      className="border-t border-[#EBEBEB] bg-surface-subtle py-8 sm:py-10 lg:py-12 overflow-hidden"
+      className="overflow-hidden bg-[var(--cream)] py-9 sm:py-10 lg:py-12"
       aria-labelledby="trusted-brands-heading"
     >
       <style dangerouslySetInnerHTML={{__html: `
@@ -209,20 +209,16 @@ export default function TrustedLeadingBrandsSection() {
       `}} />
 
       <div className="w-full">
-        {/* Title with horizontal rules */}
-        <div className="section-container flex items-center justify-center gap-4 sm:gap-6 lg:gap-8">
-          <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
+        <div className="section-container mx-auto max-w-3xl text-center">
           <h2
             id="trusted-brands-heading"
-            className="shrink-0 text-center font-sans text-[10px] font-bold uppercase leading-snug tracking-[0.14em] text-[#1A1010] sm:text-[11px] sm:tracking-[0.2em] lg:text-xs lg:tracking-[0.22em]"
+            className="section-heading-corporate"
           >
             Trusted by leading brands
           </h2>
-          <span className="rule-line min-w-[2.5rem] max-w-[6rem] flex-1 sm:max-w-[8rem] lg:max-w-[10rem]" aria-hidden />
         </div>
 
-        {/* Infinite sliding marquee */}
-        <div className="relative mt-8 sm:mt-10 lg:mt-12 w-full overflow-hidden py-2 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 sm:before:w-24 before:bg-gradient-to-r before:from-white before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 sm:after:w-24 after:bg-gradient-to-l after:from-white after:to-transparent">
+        <div className="relative mt-7 w-full overflow-hidden py-3 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 before:bg-gradient-to-r before:from-[var(--cream)] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 after:bg-gradient-to-l after:from-[var(--cream)] after:to-transparent sm:mt-8 sm:before:w-24 sm:after:w-24 lg:mt-9">
           <div className="animate-marquee-scroll gap-6 sm:gap-10">
             {/* Render 1st set of logos */}
             {ALL_BRANDS.map((brand, idx) => (

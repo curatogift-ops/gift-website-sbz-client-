@@ -6,12 +6,12 @@ export type ShopSearchResult = {
 };
 
 const SHOP_SECTIONS: { keywords: string[]; href: string; label: string }[] = [
-  { keywords: ['relationship', 'for her', 'for him', 'for couple', 'for parents', 'for kids', 'recipient'], href: '/shop#relationship-picks', label: 'Gifts by Relationship' },
+  { keywords: ['relationship', 'for her', 'for him', 'for couple', 'for parents', 'for kids', 'recipient', 'hampers', 'most loved'], href: '/shop#relationship-picks', label: 'Most Loved Gift Hampers' },
   { keywords: ['celebration', 'birthday', 'wedding', 'anniversary', 'occasion', 'baby shower', 'achievement'], href: '/shop#celebrations', label: 'Celebrations' },
   { keywords: ['festive', 'diwali', 'christmas', 'holi', 'eid', 'new year'], href: '/shop#festive-celebrations', label: 'Festive Celebrations' },
   { keywords: ['custom', 'personalized', 'photo gift', 'engraved', 'mug', 'frame'], href: '/shop#custom-gift-collection', label: 'Custom Gift Collection' },
-  { keywords: ['hamper', 'hampers', 'chocolate hamper', 'dry fruit', 'wellness hamper'], href: '/shop#gift-hampers', label: 'Gift Hampers' },
-  { keywords: ['budget', 'under 499', 'under 999', 'under 1999', 'price'], href: '/shop#gifts-by-budget', label: 'Gifts by Budget' },
+  { keywords: ['hamper', 'hampers', 'chocolate hamper', 'dry fruit', 'wellness hamper'], href: '/shop/browse?cat=hampers', label: 'Gift Hampers' },
+  { keywords: ['budget', 'under 499', 'under 999', 'under 1999', 'price'], href: '/shop/browse?price=under-499', label: 'Gifts by Budget' },
   { keywords: ['premium', 'luxury', 'executive', 'exclusive'], href: '/shop#premium-collection', label: 'Premium Collection' },
   { keywords: ['hamper builder', 'build your own', 'make your own'], href: '/hamper-builder', label: 'Make Your Own Hamper' },
 ];

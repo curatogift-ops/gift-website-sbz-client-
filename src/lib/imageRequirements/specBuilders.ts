@@ -86,7 +86,7 @@ export interface BuildSlotOptions {
   componentName: string;
   imageName: string;
   purpose: ImagePurpose;
-  priority: PriorityLevel;
+  priority?: PriorityLevel;
   currentSource?: string;
   technical: ImageTechnicalSpec;
   content: ImageContentGuidance;
@@ -517,7 +517,7 @@ export function giftTagSlot(opts: {
     id: opts.id,
     pageName: 'Personalized Shop',
     pageRoute: '/shop',
-    sectionName: 'Relationship Picks',
+    sectionName: 'Most Loved Gift Hampers',
     componentName: 'RelationshipPicksSection.tsx',
     imageName: `${opts.label} gift tag image`,
     purpose: 'Category Thumbnail',

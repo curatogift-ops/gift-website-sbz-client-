@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import ScrollToTop from '@/components/layout/ScrollToTop';
 import ShopPage from '@/pages/ShopPage';
 import ShopBrowsePage from '@/pages/ShopBrowsePage';
 import WishlistPage from '@/pages/WishlistPage';
@@ -12,6 +13,7 @@ import WhatsAppWidget from '@/components/layout/WhatsAppWidget';
 export default function App() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Navigate to="/corporate" replace />} />
         <Route path="/home" element={<Navigate to="/corporate" replace />} />

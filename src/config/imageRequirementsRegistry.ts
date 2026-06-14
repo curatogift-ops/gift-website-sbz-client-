@@ -27,6 +27,354 @@ import {
 } from '@/lib/imageRequirements/specBuilders';
 import { customImageSlots, type ImageRequirement } from '@/types/imageRequirements';
 
+/** Canonical page → section order for the designer handoff admin view */
+export type SiteSectionCatalogEntry = {
+  order: number;
+  name: string;
+  component: string;
+  description: string;
+};
+
+export type SitePageCatalogEntry = {
+  order: number;
+  pageName: string;
+  pageRoute: string;
+  sections: SiteSectionCatalogEntry[];
+};
+
+export const SITE_PAGE_CATALOG: SitePageCatalogEntry[] = [
+  {
+    order: 0,
+    pageName: 'Global (All Pages)',
+    pageRoute: '—',
+    sections: [
+      {
+        order: 1,
+        name: 'Site Logo & Branding',
+        component: 'BrandLogo.tsx',
+        description: 'Primary logo in navbar and footer on every page.',
+      },
+    ],
+  },
+  {
+    order: 1,
+    pageName: 'Corporate',
+    pageRoute: '/corporate',
+    sections: [
+      {
+        order: 1,
+        name: 'Hero Slider',
+        component: 'CorporatePage.tsx',
+        description: 'Main hero carousel — 2 slides, each with desktop and mobile artwork (4 images).',
+      },
+      {
+        order: 2,
+        name: 'Corporate Gifting Solutions',
+        component: 'CorporatePage.tsx',
+        description: '8 square category thumbnails in the solutions grid.',
+      },
+      {
+        order: 3,
+        name: 'Eco Friendly Corporate Gifting',
+        component: 'WoodenGiftingSection.tsx',
+        description: '4 sustainable wooden product card images.',
+      },
+      {
+        order: 4,
+        name: 'Corporate Gifting Gallery',
+        component: 'CorporateGiftingGallerySection.tsx',
+        description: '16 lifestyle gallery tiles in the scrolling marquee.',
+      },
+      {
+        order: 5,
+        name: 'Events & Conferences',
+        component: 'EventConferenceGiftingSection.tsx',
+        description: '4 event gifting category card images.',
+      },
+      {
+        order: 6,
+        name: 'Customized Awards & Trophies',
+        component: 'AwardsTrophiesSection.tsx',
+        description: '3 awards and trophies category card images.',
+      },
+      {
+        order: 7,
+        name: 'Bulk Order Enquiry',
+        component: 'BulkEnquiryFormSection.tsx',
+        description: 'Supporting photo beside the single bulk enquiry form.',
+      },
+    ],
+  },
+  {
+    order: 2,
+    pageName: 'Personalized Shop',
+    pageRoute: '/shop',
+    sections: [
+      {
+        order: 1,
+        name: 'Personalized Hero',
+        component: 'PersonalizedHeroSection.tsx',
+        description: 'Home hero banner — desktop and mobile variants.',
+      },
+      {
+        order: 2,
+        name: 'Most Loved Gift Hampers',
+        component: 'RelationshipPicksSection.tsx',
+        description: '5 hanging gift-tag images: For Her, For Him, For Couple, For Parents, For Kids.',
+      },
+      {
+        order: 3,
+        name: 'Celebrations & Occasions',
+        component: 'MostLovedHampersSection.tsx',
+        description: '7 occasion hamper cards (Birthday, Wedding, Anniversary, etc.).',
+      },
+      {
+        order: 4,
+        name: 'Festive Celebrations',
+        component: 'FestiveCelebrationsSection.tsx',
+        description: '5 festival spotlight images (New Year, Diwali, Christmas, Eid, Holi).',
+      },
+      {
+        order: 5,
+        name: 'Custom Gift Collection',
+        component: 'CustomGiftCollectionSection.tsx',
+        description: '7 personalized gift category card images.',
+      },
+      {
+        order: 6,
+        name: 'Premium Collection',
+        component: 'PremiumCollectionSection.tsx',
+        description: '4 premium category cards plus desktop hover preview images.',
+      },
+    ],
+  },
+  {
+    order: 3,
+    pageName: 'Hamper Builder',
+    pageRoute: '/hamper-builder',
+    sections: [
+      {
+        order: 1,
+        name: 'Step 1 — Choose Box',
+        component: 'CustomBoxesPage.tsx',
+        description: '4 hamper box option product shots.',
+      },
+      {
+        order: 2,
+        name: 'Step 2 — Add Products',
+        component: 'CustomBoxesPage.tsx',
+        description: '8 add-on product shots for the builder.',
+      },
+      {
+        order: 3,
+        name: 'Step 3 — Select Card',
+        component: 'CustomBoxesPage.tsx',
+        description: '4 greeting card option images.',
+      },
+      {
+        order: 4,
+        name: 'Sticky Cart Bar',
+        component: 'CustomBoxesPage.tsx',
+        description: 'Tiny cart chip thumbnails (derived from selected items).',
+      },
+    ],
+  },
+  {
+    order: 4,
+    pageName: 'Shop Browse & Placeholder Pages',
+    pageRoute: '/shop/browse, /promotional-gifts/*, /corporate-gifting/*',
+    sections: [
+      {
+        order: 1,
+        name: 'Product Grid',
+        component: 'ShopBrowsePage.tsx / PlaceholderPage.tsx',
+        description: 'Square product thumbnail template for browse and placeholder routes.',
+      },
+    ],
+  },
+  {
+    order: 5,
+    pageName: 'Home (unrouted)',
+    pageRoute: '/home',
+    sections: [
+      {
+        order: 1,
+        name: 'Hero',
+        component: 'HomePage.tsx',
+        description: 'Legacy home hero — page redirects to /corporate but assets may still be referenced.',
+      },
+    ],
+  },
+];
+
+export type SectionGroup = {
+  sectionName: string;
+  sectionOrder: number;
+  sectionDescription: string;
+  componentName: string;
+  requirements: ImageRequirement[];
+  stats: { total: number; production: number; placeholder: number; missing: number };
+};
+
+export type PageGroup = {
+  pageName: string;
+  pageRoute: string;
+  pageOrder: number;
+  sections: SectionGroup[];
+  stats: { total: number; production: number; placeholder: number; missing: number };
+};
+
+function sectionStats(requirements: ImageRequirement[]) {
+  return {
+    total: requirements.length,
+    production: requirements.filter((r) => r.status === 'production').length,
+    placeholder: requirements.filter((r) => r.status === 'placeholder').length,
+    missing: requirements.filter((r) => r.status === 'missing').length,
+  };
+}
+
+function applyCatalogMeta(slots: ImageRequirement[]): ImageRequirement[] {
+  return slots.map((slot) => {
+    const page = SITE_PAGE_CATALOG.find((p) => p.pageName === slot.pageName);
+    const section = page?.sections.find((s) => s.name === slot.sectionName);
+    return {
+      ...slot,
+      pageOrder: page?.order ?? 99,
+      sectionOrder: section?.order ?? 99,
+      sectionDescription: section?.description,
+    };
+  });
+}
+
+/** Group requirements into page → section hierarchy for the admin UI */
+export function groupImageRequirements(requirements: ImageRequirement[]): PageGroup[] {
+  const byPage = new Map<string, ImageRequirement[]>();
+  for (const r of requirements) {
+    const list = byPage.get(r.pageName) ?? [];
+    list.push(r);
+    byPage.set(r.pageName, list);
+  }
+
+  const pages: PageGroup[] = [];
+
+  for (const catalogPage of SITE_PAGE_CATALOG) {
+    const pageReqs = byPage.get(catalogPage.pageName) ?? [];
+    if (pageReqs.length === 0) continue;
+
+    const sections: SectionGroup[] = [];
+
+    for (const catalogSection of catalogPage.sections) {
+      const sectionReqs = pageReqs.filter((r) => r.sectionName === catalogSection.name);
+      if (sectionReqs.length === 0) continue;
+
+      sections.push({
+        sectionName: catalogSection.name,
+        sectionOrder: catalogSection.order,
+        sectionDescription: catalogSection.description,
+        componentName: catalogSection.component,
+        requirements: sectionReqs.sort((a, b) => a.imageName.localeCompare(b.imageName)),
+        stats: sectionStats(sectionReqs),
+      });
+    }
+
+    const uncatalogued = pageReqs.filter(
+      (r) => !catalogPage.sections.some((s) => s.name === r.sectionName)
+    );
+    if (uncatalogued.length > 0) {
+      const bySection = new Map<string, ImageRequirement[]>();
+      for (const r of uncatalogued) {
+        const list = bySection.get(r.sectionName) ?? [];
+        list.push(r);
+        bySection.set(r.sectionName, list);
+      }
+      for (const [sectionName, sectionReqs] of bySection) {
+        sections.push({
+          sectionName,
+          sectionOrder: 999,
+          sectionDescription: 'Uncatalogued section — add to SITE_PAGE_CATALOG in imageRequirementsRegistry.ts',
+          componentName: sectionReqs[0]?.componentName ?? '—',
+          requirements: sectionReqs,
+          stats: sectionStats(sectionReqs),
+        });
+      }
+    }
+
+    sections.sort((a, b) => a.sectionOrder - b.sectionOrder);
+
+    pages.push({
+      pageName: catalogPage.pageName,
+      pageRoute: catalogPage.pageRoute,
+      pageOrder: catalogPage.order,
+      sections,
+      stats: sectionStats(pageReqs),
+    });
+
+    byPage.delete(catalogPage.pageName);
+  }
+
+  for (const [pageName, pageReqs] of byPage) {
+    const bySection = new Map<string, ImageRequirement[]>();
+    for (const r of pageReqs) {
+      const list = bySection.get(r.sectionName) ?? [];
+      list.push(r);
+      bySection.set(r.sectionName, list);
+    }
+    pages.push({
+      pageName,
+      pageRoute: pageReqs[0]?.pageRoute ?? '—',
+      pageOrder: 99,
+      sections: [...bySection.entries()].map(([sectionName, sectionReqs]) => ({
+        sectionName,
+        sectionOrder: 999,
+        sectionDescription: 'Uncatalogued page — add to SITE_PAGE_CATALOG',
+        componentName: sectionReqs[0]?.componentName ?? '—',
+        requirements: sectionReqs,
+        stats: sectionStats(sectionReqs),
+      })),
+      stats: sectionStats(pageReqs),
+    });
+  }
+
+  return pages.sort((a, b) => a.pageOrder - b.pageOrder);
+}
+
+function buildGlobalSlots(): ImageRequirement[] {
+  return [
+    buildImageSlot({
+      id: 'global-brand-logo',
+      pageName: 'Global (All Pages)',
+      pageRoute: '/',
+      sectionName: 'Site Logo & Branding',
+      componentName: 'BrandLogo.tsx',
+      imageName: 'Giftz Gallerei logo',
+      purpose: 'Logo',
+      currentSource: '/images/gift-gallerei-logo.png',
+      technical: {
+        desktop: dim(220, 56),
+        tablet: dim(200, 52),
+        mobile: dim(180, 48),
+        aspectRatio: '~4:1',
+        format: 'PNG',
+        compressionQuality: 90,
+        retinaExport: dim(440, 112, 1),
+        maxFileSizeKb: 80,
+        cropRules: 'Full logo mark with wordmark — transparent background',
+        safeArea: 'Entire logo visible; no cropping',
+        focalPoint: 'Center-left (icon + wordmark)',
+        transparency: true,
+      },
+      content: {
+        subject: 'Giftz Gallerei primary brand logo with gift box icon and wordmark',
+        composition: 'Horizontal lockup on transparent PNG',
+        style: 'Brand-official colors — pink/orange gift icon, dark wordmark',
+        brandColors: 'As per brand guidelines',
+        mood: 'Premium, approachable gifting',
+        additionalNotes: 'Used in Navbar and Footer via BrandLogo.tsx',
+      },
+    }),
+  ];
+}
+
 const CORPORATE_SOLUTIONS = [
   { id: 'corporate-hampers', label: 'Corporate Hampers', image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=480&h=480' },
   { id: 'employee-joining', label: 'Employee Joining Kits', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=480&h=480' },
@@ -138,7 +486,7 @@ function buildCorporatePageSlots(): ImageRequirement[] {
       id: 'corp-hero-slide1-desktop',
       pageName: 'Corporate',
       pageRoute: '/corporate',
-      sectionName: 'Hero Slider — Slide 1',
+      sectionName: 'Hero Slider',
       componentName: 'CorporatePage.tsx',
       imageName: 'Curated Corporate Gifts Hero',
       variant: 'desktop',
@@ -152,7 +500,7 @@ function buildCorporatePageSlots(): ImageRequirement[] {
       id: 'corp-hero-slide1-mobile',
       pageName: 'Corporate',
       pageRoute: '/corporate',
-      sectionName: 'Hero Slider — Slide 1',
+      sectionName: 'Hero Slider',
       componentName: 'CorporatePage.tsx',
       imageName: 'Curated Corporate Gifts Hero',
       variant: 'mobile',
@@ -166,7 +514,7 @@ function buildCorporatePageSlots(): ImageRequirement[] {
       id: 'corp-hero-slide2-desktop',
       pageName: 'Corporate',
       pageRoute: '/corporate',
-      sectionName: 'Hero Slider — Slide 2',
+      sectionName: 'Hero Slider',
       componentName: 'CorporatePage.tsx',
       imageName: 'Corporate Showcase Hero',
       variant: 'desktop',
@@ -179,7 +527,7 @@ function buildCorporatePageSlots(): ImageRequirement[] {
       id: 'corp-hero-slide2-mobile',
       pageName: 'Corporate',
       pageRoute: '/corporate',
-      sectionName: 'Hero Slider — Slide 2',
+      sectionName: 'Hero Slider',
       componentName: 'CorporatePage.tsx',
       imageName: 'Corporate Showcase Hero',
       variant: 'mobile',
@@ -187,14 +535,6 @@ function buildCorporatePageSlots(): ImageRequirement[] {
       subject: 'Mobile variant of corporate showcase slide',
       textSafeArea: 'Top third for any overlay text',
       focalPoint: 'Center',
-    }),
-    formSupportingPhotoSlot({
-      id: 'corp-bulk-enquiry-event',
-      pageName: 'Corporate',
-      pageRoute: '/corporate',
-      sectionName: 'Event Bulk Enquiry',
-      imageName: 'Event conference gifting photo',
-      currentSource: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=800',
     }),
     formSupportingPhotoSlot({
       id: 'corp-bulk-enquiry-main',
@@ -212,7 +552,7 @@ function buildCorporatePageSlots(): ImageRequirement[] {
         id: `corp-solution-${item.id}`,
         pageName: 'Corporate',
         pageRoute: '/corporate',
-        sectionName: 'Corporate Gifting Solutions Grid',
+        sectionName: 'Corporate Gifting Solutions',
         componentName: 'CorporatePage.tsx',
         imageName: item.label,
         label: item.label,
@@ -243,7 +583,7 @@ function buildCorporatePageSlots(): ImageRequirement[] {
         id: `corp-gallery-${i}`,
         pageName: 'Corporate',
         pageRoute: '/corporate',
-        sectionName: 'Corporate Gifting Gallery Marquee',
+        sectionName: 'Corporate Gifting Gallery',
         componentName: 'CorporateGiftingGallerySection.tsx',
         imageName: `Gallery tile ${i + 1}`,
         theme: GALLERY_THEMES[i] ?? 'Corporate gifting lifestyle moment',
@@ -330,7 +670,7 @@ function buildShopPageSlots(): ImageRequirement[] {
         id: `shop-celebrations-${item.id}`,
         pageName: 'Personalized Shop',
         pageRoute: '/shop',
-        sectionName: 'Celebrations Carousel',
+        sectionName: 'Celebrations & Occasions',
         componentName: 'MostLovedHampersSection.tsx',
         imageName: item.label,
         label: item.label,
@@ -346,7 +686,7 @@ function buildShopPageSlots(): ImageRequirement[] {
         id: `shop-festive-${item.id}`,
         pageName: 'Personalized Shop',
         pageRoute: '/shop',
-        sectionName: 'Festive Celebrations Spotlight',
+        sectionName: 'Festive Celebrations',
         componentName: 'FestiveCelebrationsSection.tsx',
         imageName: item.label,
         festival: item.label,
@@ -536,9 +876,9 @@ function buildHomePageSlots(): ImageRequirement[] {
   ];
 }
 
-/** Merge registry + config expansions + custom slots. Called on every page load. */
 export function buildImageRequirements(): ImageRequirement[] {
   const all: ImageRequirement[] = [
+    ...buildGlobalSlots(),
     ...buildCorporatePageSlots(),
     ...buildShopPageSlots(),
     ...buildHamperBuilderSlots(),
@@ -552,31 +892,32 @@ export function buildImageRequirements(): ImageRequirement[] {
     }
   }
 
-  return all.sort((a, b) => {
-    const pageCmp = a.pageName.localeCompare(b.pageName);
+  return applyCatalogMeta(all).sort((a, b) => {
+    const pageCmp = (a.pageOrder ?? 99) - (b.pageOrder ?? 99);
     if (pageCmp !== 0) return pageCmp;
-    return a.sectionName.localeCompare(b.sectionName);
+    const sectionCmp = (a.sectionOrder ?? 99) - (b.sectionOrder ?? 99);
+    if (sectionCmp !== 0) return sectionCmp;
+    return a.imageName.localeCompare(b.imageName);
   });
 }
 
 export function getRequirementStats(requirements: ImageRequirement[]) {
   const byPage = new Map<string, number>();
   const byPurpose = new Map<string, number>();
-  const byPriority = new Map<string, number>();
   const byStatus = new Map<string, number>();
 
   for (const r of requirements) {
     byPage.set(r.pageName, (byPage.get(r.pageName) ?? 0) + 1);
     byPurpose.set(r.purpose, (byPurpose.get(r.purpose) ?? 0) + 1);
-    byPriority.set(r.priority, (byPriority.get(r.priority) ?? 0) + 1);
     byStatus.set(r.status, (byStatus.get(r.status) ?? 0) + 1);
   }
 
-  return { byPage, byPurpose, byPriority, byStatus, total: requirements.length };
+  return { byPage, byPurpose, byStatus, total: requirements.length };
 }
 
 export const PAGE_OPTIONS = [
   'All pages',
+  'Global (All Pages)',
   'Corporate',
   'Personalized Shop',
   'Hamper Builder',
@@ -591,8 +932,7 @@ export const PURPOSE_OPTIONS = [
   'Product Image',
   'Gallery Tile',
   'Form Supporting Photo',
+  'Logo',
 ] as const;
-
-export const PRIORITY_OPTIONS = ['All priorities', 'Critical', 'High', 'Medium', 'Low'] as const;
 
 export const STATUS_OPTIONS = ['All statuses', 'missing', 'placeholder', 'production'] as const;

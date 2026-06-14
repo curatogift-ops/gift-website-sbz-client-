@@ -16,7 +16,7 @@ export default function CorporateExpertsCtaSection() {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#3D0A14] border-t border-white/5"
+      className="relative overflow-hidden bg-primary"
       aria-labelledby="corporate-experts-cta-heading"
     >
       {/* Subtle texture overlay */}
@@ -33,12 +33,12 @@ export default function CorporateExpertsCtaSection() {
         aria-hidden
       />
 
-      <div className="section-container relative py-10 sm:py-12 lg:py-14">
+      <div className="section-container relative py-12 sm:py-14 lg:py-16">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-0">
           {/* Left — icon + headline */}
           <div className="flex gap-5 sm:gap-6 lg:min-w-0 lg:flex-[0.9] lg:pr-8">
             <div
-              className="flex h-[4.5rem] w-[4.5rem] shrink-0 items-center justify-center rounded-full border-2 border-[#C9A96E] sm:h-20 sm:w-20"
+              className="flex h-[4.5rem] w-[4.5rem] shrink-0 items-center justify-center rounded-2xl border border-[#C9A96E]/45 bg-primary-foreground/[0.06] sm:h-20 sm:w-20"
               aria-hidden
             >
               <Gift className="h-9 w-9 text-[#C9A96E] sm:h-10 sm:w-10" strokeWidth={1.35} />
@@ -79,7 +79,7 @@ export default function CorporateExpertsCtaSection() {
                 href={contactHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[3rem] items-center justify-center gap-2.5 rounded-md bg-[#C9A96E] px-6 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.14em] text-[#1A1010] shadow-[0_8px_24px_-8px_rgba(0,0,0,0.45)] transition duration-300 hover:bg-[#b89355] hover:scale-[1.02] active:scale-[0.98] sm:min-h-[3.25rem] sm:px-8 sm:text-[14px] sm:tracking-[0.16em]"
+                className="inline-flex min-h-[3rem] items-center justify-center gap-2.5 rounded-md bg-primary-foreground px-6 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.14em] text-primary shadow transition duration-300 hover:bg-[var(--cream)] sm:min-h-[3.25rem] sm:px-8 sm:text-[14px] sm:tracking-[0.16em]"
               >
                 Contact our experts
                 <ArrowRight className="h-4 w-4 shrink-0" strokeWidth={2.5} aria-hidden />
