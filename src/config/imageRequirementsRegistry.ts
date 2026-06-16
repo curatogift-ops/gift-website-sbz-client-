@@ -65,7 +65,7 @@ export const SITE_PAGE_CATALOG: SitePageCatalogEntry[] = [
         order: 1,
         name: 'Hero Slider',
         component: 'CorporatePage.tsx',
-        description: 'Main hero carousel — 2 slides, each with desktop and mobile artwork (4 images).',
+        description: 'Main hero carousel — deliver 4 separate files: 2 desktop + 2 mobile (one pair per slide).',
       },
       {
         order: 2,

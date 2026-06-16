@@ -33,20 +33,51 @@ function StatusDot({ status }: { status: ImageRequirement['status'] }) {
 }
 
 function SpecCard({ block }: { block: SimpleSpecBlock }) {
+  const isDesktopHero = block.title.startsWith('Desktop hero');
+  const isMobileHero = block.title.startsWith('Mobile hero');
+
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-4 sm:p-5">
+    <div
+      className={cn(
+        'rounded-lg border bg-white p-4 sm:p-5',
+        isDesktopHero && 'border-blue-200/80 ring-1 ring-blue-100',
+        isMobileHero && 'border-violet-200/80 ring-1 ring-violet-100',
+        !isDesktopHero && !isMobileHero && 'border-slate-200'
+      )}
+    >
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <h4 className="text-sm font-semibold text-slate-900">{block.title}</h4>
+          <div className="flex flex-wrap items-center gap-2">
+            {(isDesktopHero || isMobileHero) && (
+              <span
+                className={cn(
+                  'rounded px-1.5 py-0.5 font-sans text-[10px] font-bold uppercase tracking-wide',
+                  isDesktopHero && 'bg-blue-50 text-blue-800',
+                  isMobileHero && 'bg-violet-50 text-violet-800'
+                )}
+              >
+                {isDesktopHero ? 'Desktop' : 'Mobile'}
+              </span>
+            )}
+            <h4 className="text-sm font-semibold text-slate-900">{block.title}</h4>
+          </div>
           {block.subtitle && (
-            <p className="mt-0.5 text-xs text-slate-500">{block.subtitle}</p>
+            <p className="mt-1 text-xs leading-relaxed text-slate-500">{block.subtitle}</p>
           )}
         </div>
         <StatusDot status={block.status} />
       </div>
       <ul className="mt-3 space-y-1">
         {block.lines.map((line) => (
-          <li key={line} className="text-sm text-slate-700">
+          <li
+            key={line}
+            className={cn(
+              'text-sm text-slate-700',
+              line.startsWith('Desktop:') && 'font-medium text-blue-900',
+              line.startsWith('Mobile:') && 'font-medium text-violet-900',
+              line.startsWith('Current file:') && 'break-all font-mono text-xs text-slate-500'
+            )}
+          >
             {line}
           </li>
         ))}
@@ -65,6 +96,13 @@ function SectionBlock({ section }: { section: SectionGroup }) {
           <p className="text-xs font-bold tabular-nums text-[#9D7D47]">{section.sectionOrder}.</p>
           <h3 className="text-base font-semibold text-slate-900 lg:text-lg">{section.sectionName}</h3>
           <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{section.sectionDescription}</p>
+          {section.sectionName === 'Hero Slider' && (
+            <p className="mt-2 rounded-md border border-blue-100 bg-blue-50/80 px-3 py-2 text-xs leading-relaxed text-blue-900">
+              <strong className="font-semibold">Important:</strong> Each slide needs two files — one{' '}
+              <strong>Desktop</strong> (blue) and one <strong>Mobile</strong> (purple). Do not use the mobile
+              file on desktop or vice versa.
+            </p>
+          )}
         </div>
         <div className="min-w-0 flex-1 grid gap-3 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {blocks.map((block, i) => (
