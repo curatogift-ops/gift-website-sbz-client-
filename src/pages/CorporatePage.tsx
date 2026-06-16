@@ -294,7 +294,7 @@ export default function CorporatePage() {
                           decoding="async"
                           fetchPriority={index === 0 ? 'high' : 'low'}
                           sizes="(max-width: 2500px) 100vw, 2500px"
-                          className={`block h-full w-full ${slide.imgFit || 'object-cover'} ${slide.imgPosition || 'object-center'} ${slide.imgTranslate || ''} ${slide.id === 'curated-gifts' ? 'object-[50%_43%] sm:object-[52%_44%] md:object-[72%_center]' : ''}`}
+                          className={`block h-full w-full ${'imgFit' in slide && slide.imgFit ? slide.imgFit : 'object-cover'} ${slide.imgPosition || 'object-center'} ${slide.imgTranslate || ''} ${slide.id === 'curated-gifts' ? 'object-[50%_43%] sm:object-[52%_44%] md:object-[72%_center]' : ''}`}
                         />
                       </picture>
                     </div>

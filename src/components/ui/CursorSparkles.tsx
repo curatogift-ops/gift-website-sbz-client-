@@ -28,8 +28,6 @@ export default function CursorSparkles() {
     let lastX = 0;
     let lastY = 0;
     let sparkleId = 0;
-    let frameId: number;
-
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
       
@@ -60,7 +58,6 @@ export default function CursorSparkles() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      if (frameId) cancelAnimationFrame(frameId);
     };
   }, []);
 

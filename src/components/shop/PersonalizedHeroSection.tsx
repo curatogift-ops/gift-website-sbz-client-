@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
-import { Gift, Headphones, Heart, Leaf, ShieldCheck, Truck, Sparkles, MapPin, Diamond } from 'lucide-react';
+import { Gift, Headphones, Heart, ShieldCheck, Sparkles, MapPin, Diamond } from 'lucide-react';
 
 const WA = '919876543210';
 
