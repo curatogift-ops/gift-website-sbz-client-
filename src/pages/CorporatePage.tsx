@@ -15,6 +15,7 @@ import CorporateGiftingProcessSection from '@/components/corporate/CorporateGift
 import BulkEnquiryFormSection from '@/components/shared/BulkEnquiryFormSection';
 import FaqAccordionSection from '@/components/shared/FaqAccordionSection';
 import AppImage from '@/components/ui/AppImage';
+import { CORPORATE_CATEGORIES } from '@/config/corporateGiftingData';
 import {
   Building2,
   Gem,
@@ -40,64 +41,13 @@ const VALUE_PROPS = [
   { title: 'SUSTAINABLE CHOICES', Icon: Leaf },
 ] as const;
 
-const GIFTING_SOLUTIONS = [
-  {
-    id: 'corporate-hampers',
-    label: 'CORPORATE HAMPERS',
-    href: '/shop/browse?cat=corporate-hampers',
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=480&h=480',
-    imageAlt: 'Premium corporate hamper gift box',
-  },
-  {
-    id: 'employee-joining',
-    label: 'EMPLOYEE JOINING KITS',
-    href: '/shop/browse?type=employee',
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=480&h=480',
-    imageAlt: 'Employee welcome kit with backpack and branded items',
-  },
-  {
-    id: 'festive',
-    label: 'FESTIVE GIFTS',
-    href: '/shop/browse?cat=festive',
-    image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&q=80&w=480&h=480',
-    imageAlt: 'Festive gift boxes with gold ribbon',
-  },
-  {
-    id: 'custom-merchandise',
-    label: 'CUSTOM MERCHANDISE',
-    href: '/shop/browse?type=merch',
-    image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=480&h=480',
-    imageAlt: 'Custom branded polo shirt and cap',
-  },
-  {
-    id: 'tech',
-    label: 'TECH GIFTS',
-    href: '/shop/browse?type=tech',
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=480&h=480',
-    imageAlt: 'Premium tech gifts including headphones',
-  },
-  {
-    id: 'drinkware',
-    label: 'DRINKWARE',
-    href: '/shop/browse?type=drinkware',
-    image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=480&h=480',
-    imageAlt: 'Branded drinkware bottles and mugs',
-  },
-  {
-    id: 'event-conference',
-    label: 'EVENT & CONFERENCE GIFTING',
-    href: '/shop/browse?type=event',
-    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=480&h=480',
-    imageAlt: 'Event and conference gifting tote and badge',
-  },
-  {
-    id: 'luxury-packaging',
-    label: 'LUXURY PACKAGING SOLUTIONS',
-    href: '/shop/browse?type=packaging',
-    image: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=480&h=480',
-    imageAlt: 'Luxury gift packaging with ribbon',
-  },
-] as const;
+const GIFTING_SOLUTIONS = CORPORATE_CATEGORIES.map((category) => ({
+  id: category.slug,
+  label: category.label.toUpperCase(),
+  href: `/corporate/category/${category.slug}`,
+  image: category.image,
+  imageAlt: category.imageAlt,
+}));
 
 const STATS = [
   { Icon: Building2, value: '500+', label: 'Corporate Clients' },
@@ -112,9 +62,9 @@ const HERO_SLIDES = [
     eyebrow: 'PREMIUM CORPORATE GIFTING',
     headingLight: "Thoughtfully\nCurated Gifts",
     headingItalic: "For Stronger\nBusiness Relationships.",
-    image: '/images/corporate-hero-banner.png',
-    mobileImage: '/images/corporate-hero-banner-mobile-custom.png',
-    imageAlt: 'Curated premium corporate gifts',
+    image: '/images/corporate-hero-desktop-new.jpeg',
+    mobileImage: '/images/corporate-hero-mobile-new.png',
+    imageAlt: 'Premium corporate gift hampers, branded merchandise and executive keepsakes',
     textPosition: 'left',
     theme: 'light',
     bgClass: 'bg-[#1A1010]',
@@ -122,7 +72,7 @@ const HERO_SLIDES = [
     textColorItalic: 'text-[#C9A96E]',
     eyebrowColor: 'text-[#C9A96E]',
     gradientClass: '',
-    imgTranslate: 'md:object-[72%_center]',
+    imgTranslate: 'md:object-[58%_center]',
     imgPosition: 'object-center',
     hasEmbeddedText: false,
     hasMobileEmbeddedText: false
@@ -294,7 +244,7 @@ export default function CorporatePage() {
                           decoding="async"
                           fetchPriority={index === 0 ? 'high' : 'low'}
                           sizes="(max-width: 2500px) 100vw, 2500px"
-                          className={`block h-full w-full ${'imgFit' in slide && slide.imgFit ? slide.imgFit : 'object-cover'} ${slide.imgPosition || 'object-center'} ${slide.imgTranslate || ''} ${slide.id === 'curated-gifts' ? 'object-[50%_43%] sm:object-[52%_44%] md:object-[72%_center]' : ''}`}
+                          className={`block h-full w-full ${'imgFit' in slide && slide.imgFit ? slide.imgFit : 'object-cover'} ${slide.imgPosition || 'object-center'} ${slide.imgTranslate || ''} ${slide.id === 'curated-gifts' ? 'object-[50%_43%] sm:object-[52%_44%] md:object-[58%_center]' : ''}`}
                         />
                       </picture>
                     </div>
@@ -524,8 +474,8 @@ export default function CorporatePage() {
               </div>
             )}
 
-            {/* sm+: grid */}
-            <ul className="mt-8 hidden list-none grid-cols-4 gap-x-5 gap-y-8 sm:grid lg:mt-10 xl:grid-cols-8 xl:gap-x-4">
+            {/* sm+: grid — 11 categories: 4 cols tablet, 6 cols desktop */}
+            <ul className="mt-8 hidden list-none grid-cols-3 gap-x-5 gap-y-8 sm:grid lg:mt-10 lg:grid-cols-4 xl:grid-cols-6 xl:gap-x-4">
               {GIFTING_SOLUTIONS.map((item) => (
                 <li key={item.id}>
                   <Link to={item.href} className="group flex flex-col outline-none transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#C9A96E] focus-visible:ring-offset-4 rounded-xl">

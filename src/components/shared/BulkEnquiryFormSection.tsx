@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import AppImage from '@/components/ui/AppImage';
 import { Check, Gift, Send } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { submitCorporateEnquiry } from '@/lib/submitCorporateEnquiry';
 
 type BulkEnquiryFormSectionProps = {
   id?: string;
@@ -23,6 +24,8 @@ export default function BulkEnquiryFormSection({
   className,
 }: BulkEnquiryFormSectionProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
   const [form, setForm] = useState({
     name: '',
     company: '',
@@ -32,9 +35,27 @@ export default function BulkEnquiryFormSection({
     message: '',
   });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setError('');
+
+    const result = await submitCorporateEnquiry({
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      company: form.company,
+      quantity: form.quantity,
+      message: form.message,
+      source: 'bulk-order-enquiry-section',
+    });
+
+    setSubmitting(false);
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setError(result.message);
+    }
   };
 
   return (
@@ -67,7 +88,7 @@ export default function BulkEnquiryFormSection({
                 </div>
                 <p className="font-serif text-xl font-semibold text-foreground">Thank you for your enquiry!</p>
                 <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-muted-foreground">
-                  Our gifting experts will reach out within 24 hours with curated options for your requirement.
+                  Our team will contact you shortly.
                 </p>
               </div>
             ) : (
@@ -121,7 +142,7 @@ export default function BulkEnquiryFormSection({
                   </label>
                 </div>
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Estimated Quantity</span>
+                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Approx. No. of Gifts</span>
                   <input
                     type="text"
                     value={form.quantity}
@@ -131,9 +152,8 @@ export default function BulkEnquiryFormSection({
                   />
                 </label>
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Your Requirement *</span>
+                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Message (Optional)</span>
                   <textarea
-                    required
                     rows={4}
                     value={form.message}
                     onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
@@ -141,9 +161,21 @@ export default function BulkEnquiryFormSection({
                     placeholder="Tell us about your gifting needs, occasion, budget, and branding requirements..."
                   />
                 </label>
-                <button type="submit" className="btn-pill btn-pill-maroon mt-2 w-full sm:w-auto sm:self-start">
+                {error && (
+                  <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
+                    {error}
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className={cn(
+                    'btn-pill btn-pill-maroon mt-2 w-full sm:w-auto sm:self-start',
+                    submitting && 'pointer-events-none opacity-70',
+                  )}
+                >
                   <Send className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
-                  Submit Enquiry
+                  {submitting ? 'Submitting…' : 'Submit Enquiry'}
                 </button>
               </form>
             )}

@@ -6,6 +6,8 @@ import WishlistPage from '@/pages/WishlistPage';
 import CustomBoxesPage from '@/pages/CustomBoxesPage';
 import PlaceholderPage from '@/pages/PlaceholderPage';
 import CorporatePage from '@/pages/CorporatePage';
+import CorporateCategoryPage from '@/pages/CorporateCategoryPage';
+import CorporateProductPage from '@/pages/CorporateProductPage';
 import BrandsPage from '@/pages/BrandsPage';
 import VouchersBrandsPage from '@/pages/VouchersBrandsPage';
 import TrophiesPage from '@/pages/TrophiesPage';
@@ -27,6 +29,8 @@ export default function App() {
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/custom-boxes" element={<CustomBoxesPage />} />
         <Route path="/corporate" element={<CorporatePage />} />
+        <Route path="/corporate/category/:categorySlug" element={<CorporateCategoryPage />} />
+        <Route path="/corporate/product/:productSlug" element={<CorporateProductPage />} />
         <Route path="/brands" element={<BrandsPage />} />
         <Route path="/vouchers-brands" element={<VouchersBrandsPage />} />
         <Route path="/trophies" element={<TrophiesPage />} />

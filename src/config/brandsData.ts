@@ -25,20 +25,14 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'A', file: 'Amos.png', name: 'Amos', tags: ['new'] },
   { letter: 'A', file: 'Apple.png', name: 'Apple', tags: ['top'] },
   { letter: 'A', file: 'Aquaminder.png', name: 'Aquaminder', tags: ['new'] },
-  { letter: 'A', file: 'Asics.webp', name: 'Asics', tags: ['popular'] },
   // B
   { letter: 'B', file: 'boAt.png', name: 'boAt', tags: ['popular'] },
-  { letter: 'B', file: 'Boss_Watches.webp', name: 'Boss Watches', tags: ['top'] },
-  { letter: 'B', file: 'Brooks.png', name: 'Brooks', tags: ['new'] },
-  { letter: 'B', file: 'Bvlgari.jpg', name: 'Bvlgari', tags: ['top'] },
   // C
-  { letter: 'C', file: 'Case_Construction.png', name: 'Case Construction', tags: ['new'] },
   { letter: 'C', file: 'Cup_Ji.png', name: 'Cup-Ji', tags: ['new'] },
   // D
   { letter: 'D', file: 'Deep_Roots.png', name: 'Deep Roots', tags: ['new'] },
   // E
   { letter: 'E', file: 'Eat_Anytime.png', name: 'Eat Anytime', tags: ['new'] },
-  { letter: 'E', file: 'Echolac.png', name: 'Echolac', tags: ['new'] },
   // F
   { letter: 'F', file: 'Fireside.png', name: 'Fireside', tags: ['new'] },
   { letter: 'F', file: 'Fuzo.png', name: 'Fuzo', tags: ['new'] },
@@ -57,11 +51,8 @@ const BRAND_ENTRIES: BrandEntry[] = [
   // N
   { letter: 'N', file: 'Nasher_Miles.jpg', name: 'Nasher Miles', tags: ['new'] },
   { letter: 'N', file: 'Nedis.jpg', name: 'Nedis', tags: ['new'] },
-  { letter: 'N', file: 'Nike_Perfumes.png', name: 'Nike Perfumes', tags: ['top'] },
   { letter: 'N', file: 'Nothing.png', name: 'Nothing', tags: ['new'] },
   { letter: 'N', file: 'Nuuk.jpeg', name: 'Nuuk', tags: ['new'] },
-  // O
-  { letter: 'O', file: 'OnePlus.png', name: 'OnePlus', tags: ['top'] },
   // P
   { letter: 'P', file: 'Pebble.jpg', name: 'Pebble', tags: ['new'] },
   { letter: 'P', file: 'Portronics.png', name: 'Portronics', tags: ['popular'] },
@@ -76,7 +67,6 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'S', file: 'Snackible.png', name: 'Snackible', tags: ['new'] },
   { letter: 'S', file: 'Swiss_Cross.jpg', name: 'Swiss Military (Swiss Cross)', tags: ['top', 'new'] },
   // T
-  { letter: 'T', file: 'Tarbull.jpg', name: 'Tarbull', tags: ['new'] },
   { letter: 'T', file: 'Toreto.png', name: 'Toreto', tags: ['new'] },
   // U
   { letter: 'U', file: 'Urban_Gear.png', name: 'Urban Gear', tags: ['new'] },
