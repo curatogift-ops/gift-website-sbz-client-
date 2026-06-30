@@ -17,7 +17,7 @@ const EVENT_CATEGORIES: EventCategory[] = [
   {
     id: 'delegate-kits',
     label: 'Delegate Kits',
-    href: '/shop/browse?cat=delegate-kits',
+    href: '/corporate/product/delegate-welcome-kit',
     image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=1200',
     imageAlt: 'Premium corporate delegate welcome kits with branded backpack',
     productLabel: '85+ Products',
@@ -26,7 +26,7 @@ const EVENT_CATEGORIES: EventCategory[] = [
   {
     id: 'conference-giveaways',
     label: 'Conference Giveaways',
-    href: '/shop/browse?cat=conference-giveaways',
+    href: '/corporate/product/exhibition-goodie-bag',
     image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=1200',
     imageAlt: 'Luxury corporate conference giveaway gift boxes',
     productLabel: '120+ Products',
@@ -35,7 +35,7 @@ const EVENT_CATEGORIES: EventCategory[] = [
   {
     id: 'speaker-vip',
     label: 'Speaker & VIP Gifts',
-    href: '/shop/browse?cat=speaker-vip-gifts',
+    href: '/corporate/product/vip-lounge-gift',
     image: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=1200',
     imageAlt: 'Luxury executive gift hamper for speakers and VIP guests',
     productLabel: '64+ Products',
@@ -44,7 +44,7 @@ const EVENT_CATEGORIES: EventCategory[] = [
   {
     id: 'recognition-trophies',
     label: 'Recognition Awards',
-    href: '/shop/browse?cat=award-recognition-trophies',
+    href: '/corporate/product/crystal-achievement-award',
     image: 'https://images.unsplash.com/photo-1512496015851-a90fb38f7968?auto=format&fit=crop&q=80&w=1200',
     imageAlt: 'Luxury recognition awards and premium gift packaging',
     productLabel: '48+ Products',
@@ -138,7 +138,7 @@ export default function EventConferenceGiftingSection() {
             </h2>
           </div>
           <Link
-            to="/shop/browse?type=event"
+            to="/corporate/category/event-conference-gifting"
             className="group hidden items-center gap-2 font-sans text-[13px] font-semibold tracking-wider text-[#9D7D47] uppercase transition-colors hover:text-[#C9A96E] lg:flex mb-2"
           >
             Explore all collections

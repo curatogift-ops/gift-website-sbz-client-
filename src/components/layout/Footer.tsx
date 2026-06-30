@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import BrandLogo from '@/components/ui/BrandLogo';
+import CompanyLegalDetails from '@/components/shared/CompanyLegalDetails';
+import { COMPANY_INFO } from '@/config/companyInfo';
 import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 
 const Instagram = ({ size = 18 }: { size?: number }) => (
@@ -133,8 +135,16 @@ export default function Footer() {
               <MapPin className="h-5 w-5" strokeWidth={1.75} aria-hidden />
             </div>
             <div className="min-w-0 pt-0.5">
-              <p className="font-sans text-[12px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Visit us</p>
-              <p className="mt-1 text-sm font-medium leading-snug text-[#F2EDE8]">Bangalore, Karnataka, India</p>
+              <p className="font-sans text-[12px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">
+                {COMPANY_INFO.registeredOfficeLabel}
+              </p>
+              <address className="mt-1 not-italic text-sm font-medium leading-snug text-[#F2EDE8]">
+                {COMPANY_INFO.addressLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </address>
             </div>
           </div>
           <div className="flex gap-4 sm:items-start">
@@ -143,8 +153,8 @@ export default function Footer() {
             </div>
             <div className="min-w-0 pt-0.5">
               <p className="font-sans text-[12px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Call us</p>
-              <a href="tel:+919876543210" className="mt-1 block text-sm font-medium text-[#F2EDE8] transition hover:text-[#E8CF9A]">
-                +91 98765 43210
+              <a href={`tel:${COMPANY_INFO.phone}`} className="mt-1 block text-sm font-medium text-[#F2EDE8] transition hover:text-[#E8CF9A]">
+                {COMPANY_INFO.phoneDisplay}
               </a>
             </div>
           </div>
@@ -155,13 +165,18 @@ export default function Footer() {
             <div className="min-w-0 pt-0.5">
               <p className="font-sans text-[12px] font-bold uppercase tracking-[0.22em] text-[#C9A96E]">Email us</p>
               <a
-                href="mailto:hello@giftzgallerei.com"
+                href={`mailto:${COMPANY_INFO.email}`}
                 className="mt-1 block break-all text-sm font-medium text-[#F2EDE8] transition hover:text-[#E8CF9A]"
               >
-                hello@giftzgallerei.com
+                {COMPANY_INFO.email}
               </a>
             </div>
           </div>
+        </div>
+
+        {/* Registration details */}
+        <div className="border-b border-white/10 py-8 md:py-9">
+          <CompanyLegalDetails variant="dark" showHeading={false} showAddress={false} />
         </div>
 
         {/* Secure Payment */}
@@ -198,7 +213,7 @@ export default function Footer() {
         {/* Legal */}
         <div className="flex flex-col items-center justify-between gap-6 pt-8 text-center md:flex-row md:gap-4 md:text-left">
           <p className="max-w-xl font-sans text-[12px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-[#F2EDE8]/45 sm:text-[13px] sm:tracking-[0.16em]">
-            © {new Date().getFullYear()} Giftz Gallerei. Crafting memories, one box at a time.
+            © {new Date().getFullYear()} {COMPANY_INFO.brandName}. GSTIN: {COMPANY_INFO.gstin} · MSME: {COMPANY_INFO.msme}
           </p>
           <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 font-sans text-[12px] font-bold uppercase tracking-[0.18em] text-[#F2EDE8]/55">
             <Link to="/privacy" className="transition hover:text-[#E8CF9A]">

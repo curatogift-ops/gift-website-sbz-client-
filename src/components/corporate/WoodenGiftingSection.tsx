@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
 import { Heart, Leaf } from 'lucide-react';
 import { cn } from '@/utils/cn';
@@ -9,8 +10,7 @@ type Product = {
   category: string;
   price: number;
   image: string;
-  rating: number;
-  reviewsCount: number;
+  productSlug: string;
   hasOverlay?: boolean;
 };
 
@@ -20,18 +20,16 @@ const WOODEN_PRODUCTS: Product[] = [
     title: 'Coffee Mug With Cork Detail',
     category: 'Corporate Gifting',
     price: 450,
+    productSlug: 'ceramic-coffee-mug',
     image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=600',
-    rating: 4.0,
-    reviewsCount: 2,
   },
   {
     id: 'savvy-sustainable-hamper',
     title: 'Savvy and Sustainable Gift Hamper',
     category: 'Corporate Gifting',
     price: 1470,
+    productSlug: 'sustainable-gift-hamper',
     image: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=600',
-    rating: 5.0,
-    reviewsCount: 4,
     hasOverlay: true,
   },
   {
@@ -39,8 +37,7 @@ const WOODEN_PRODUCTS: Product[] = [
     title: 'Bamboo Coffee Sipper',
     category: 'Corporate Gifting',
     price: 350,
-    rating: 4.5,
-    reviewsCount: 6,
+    productSlug: 'bamboo-coffee-sipper',
     image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=600',
   },
   {
@@ -48,8 +45,7 @@ const WOODEN_PRODUCTS: Product[] = [
     title: 'Journal - Rumi',
     category: 'Corporate Gifting',
     price: 250,
-    rating: 4.8,
-    reviewsCount: 5,
+    productSlug: 'cork-notebook-set',
     image: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&q=80&w=600',
   },
 ];
@@ -79,8 +75,9 @@ export default function WoodenGiftingSection() {
           {WOODEN_PRODUCTS.map((prod) => {
             const isFavorite = !!favorites[prod.id];
             return (
-              <div
+              <Link
                 key={prod.id}
+                to={`/corporate/product/${prod.productSlug}`}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-white transition-colors duration-300 hover:border-[#C9A96E]/45"
               >
                 <div className="relative aspect-square w-full overflow-hidden bg-muted">
@@ -158,7 +155,7 @@ export default function WoodenGiftingSection() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

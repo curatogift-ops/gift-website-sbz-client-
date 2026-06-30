@@ -8,6 +8,9 @@ import PlaceholderPage from '@/pages/PlaceholderPage';
 import CorporatePage from '@/pages/CorporatePage';
 import CorporateCategoryPage from '@/pages/CorporateCategoryPage';
 import CorporateProductPage from '@/pages/CorporateProductPage';
+import ContactPage from '@/pages/ContactPage';
+import TermsPage from '@/pages/TermsPage';
+import PrivacyPage from '@/pages/PrivacyPage';
 import BrandsPage from '@/pages/BrandsPage';
 import VouchersBrandsPage from '@/pages/VouchersBrandsPage';
 import TrophiesPage from '@/pages/TrophiesPage';
@@ -76,7 +79,7 @@ export default function App() {
         <Route path="/corporate-gifting/executive-gifts" element={<PlaceholderPage title="Executive Gifts" />} />
         <Route path="/about" element={<PlaceholderPage title="About us" />} />
         <Route path="/blog" element={<PlaceholderPage title="Blog" />} />
-        <Route path="/contact" element={<PlaceholderPage title="Contact" />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/account" element={<PlaceholderPage title="Account" />} />
         <Route path="/cart" element={<PlaceholderPage title="Cart" />} />
         <Route path="/hamper-builder" element={<CustomBoxesPage />} />
@@ -84,8 +87,8 @@ export default function App() {
         <Route path="/shipping" element={<PlaceholderPage title="Shipping & delivery" />} />
         <Route path="/returns" element={<PlaceholderPage title="Returns policy" />} />
         <Route path="/faq" element={<PlaceholderPage title="FAQs" />} />
-        <Route path="/privacy" element={<PlaceholderPage title="Privacy" />} />
-        <Route path="/terms" element={<PlaceholderPage title="Terms" />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
         <Route path="/sitemap" element={<PlaceholderPage title="Sitemap" />} />
         <Route path="*" element={<PlaceholderPage title="Page not found" />} />
       </Routes>

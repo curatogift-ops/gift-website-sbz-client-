@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
-import type { CorporateProduct } from '@/config/corporateGiftingData';
+import { formatCorporatePrice, type CorporateProduct } from '@/config/corporateGiftingData';
 
 type CorporateProductCardProps = {
   product: CorporateProduct;
 };
-
-function formatPrice(amount: number): string {
-  return `₹${amount.toLocaleString('en-IN')}`;
-}
 
 export default function CorporateProductCard({ product }: CorporateProductCardProps) {
   return (
@@ -26,14 +22,14 @@ export default function CorporateProductCard({ product }: CorporateProductCardPr
         />
       </div>
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="font-serif text-[15px] font-semibold leading-snug text-foreground transition-colors group-hover:text-primary sm:text-[16px]">
+        <h3 className="font-serif text-[15px] font-semibold leading-snug text-[#4A1020] transition-colors group-hover:text-[#6B1E30] sm:text-[16px]">
           {product.name}
         </h3>
-        <p className="mt-1.5 line-clamp-2 text-[12.5px] leading-relaxed text-muted-foreground">
+        <p className="mt-1.5 line-clamp-2 text-[12.5px] leading-relaxed text-[#6E6360]">
           {product.description}
         </p>
         <div className="mt-auto pt-3">
-          <p className="font-sans text-[14px] font-bold text-primary">{formatPrice(product.price)}</p>
+          <p className="font-serif text-[14px] font-bold text-[#4A1020]">{formatCorporatePrice(product.price)}</p>
           <p className="mt-0.5 text-[11px] font-medium text-[#9D7D47]">{product.bulkPrice}</p>
         </div>
       </div>

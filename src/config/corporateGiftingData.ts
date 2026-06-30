@@ -6,6 +6,11 @@ export type CorporateCategory = {
   description: string;
 };
 
+export type CorporateProductItem = {
+  name: string;
+  description: string;
+};
+
 export type CorporateProduct = {
   slug: string;
   categorySlug: string;
@@ -16,6 +21,14 @@ export type CorporateProduct = {
   price: number;
   bulkPrice: string;
   images: string[];
+  contents: CorporateProductItem[];
+  contentsLabel: string;
+  longDescription: string;
+  shippingInfo: string;
+  assistanceInfo: string;
+  knowMore: string;
+  rating: number;
+  reviewCount: number;
 };
 
 const IMG = (id: string, w = 800) =>
@@ -101,6 +114,78 @@ export const CORPORATE_CATEGORIES: CorporateCategory[] = [
   },
 ];
 
+function buildGallery(image: string): string[] {
+  const normalized = image.replace(/w=\d+/, 'w=800');
+  return [800, 720, 640, 560].map((w) => normalized.replace('w=800', `w=${w}`));
+}
+
+function getContentsLabel(categorySlug: string): string {
+  if (
+    categorySlug.includes('hamper') ||
+    categorySlug === 'festive-gifts' ||
+    categorySlug === 'eco-friendly-gifting'
+  ) {
+    return "What's in the hamper?";
+  }
+  if (categorySlug.includes('joining') || categorySlug.includes('event') || categorySlug.includes('conference')) {
+    return "What's in the kit?";
+  }
+  if (categorySlug === 'luxury-packaging') {
+    return 'Package includes';
+  }
+  return "What's included?";
+}
+
+function buildContents(features: string[], categorySlug: string): CorporateProductItem[] {
+  const extras: CorporateProductItem[] =
+    categorySlug.includes('hamper') || categorySlug === 'festive-gifts'
+      ? [
+          {
+            name: 'Premium gift packaging',
+            description: 'Elegant box or hamper presentation with ribbon finish and protective inner packaging.',
+          },
+          {
+            name: 'Custom note card',
+            description: 'Personalised message card with your brand logo and greeting for recipients.',
+          },
+        ]
+      : categorySlug.includes('joining') || categorySlug.includes('event')
+        ? [
+            {
+              name: 'Branded carry solution',
+              description: 'Tote, backpack, or kit bag with your company logo — practical and premium.',
+            },
+            {
+              name: 'Welcome message card',
+              description: 'Custom welcome note or event branding insert for a polished first impression.',
+            },
+          ]
+        : [];
+
+  const featureItems = features.map((name) => ({
+    name,
+    description:
+      'Thoughtfully selected for corporate programs with logo printing, embossing, or custom packaging available.',
+  }));
+
+  return [...featureItems, ...extras].slice(0, 6);
+}
+
+function stableRating(slug: string): { rating: number; reviewCount: number } {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i += 1) hash += slug.charCodeAt(i);
+  return {
+    rating: 4.5 + (hash % 5) * 0.08,
+    reviewCount: 90 + (hash % 180),
+  };
+}
+
+const SHIPPING_INFO =
+  'Pan-India delivery available for bulk corporate orders. Standard dispatch is 7–14 business days after artwork approval. Express fulfilment can be arranged for urgent requirements — timelines are confirmed at quotation stage.';
+
+const ASSISTANCE_INFO =
+  'Need help choosing quantities, branding, or delivery schedules? Use the bulk enquiry form or contact our corporate gifting team. We provide mockups, sampling options, and dedicated support for large orders.';
+
 function product(
   categorySlug: string,
   slug: string,
@@ -111,17 +196,20 @@ function product(
   image: string,
   features?: string[],
 ): CorporateProduct {
+  const featureList = features ?? [
+    'Premium quality materials',
+    'Custom branding available',
+    'Pan-India bulk delivery',
+    'Gift-ready packaging',
+  ];
+  const { rating, reviewCount } = stableRating(slug);
+
   return {
     slug,
     categorySlug,
     name,
     description,
-    features: features ?? [
-      'Premium quality materials',
-      'Custom branding available',
-      'Pan-India bulk delivery',
-      'Gift-ready packaging',
-    ],
+    features: featureList,
     brandingOptions: [
       'Logo printing & embossing',
       'Custom ribbons & sleeves',
@@ -130,7 +218,20 @@ function product(
     ],
     price,
     bulkPrice,
-    images: [image, image.replace(`w=${800}`, 'w=600')],
+    images: buildGallery(image),
+    contentsLabel: getContentsLabel(categorySlug),
+    contents: buildContents(featureList, categorySlug),
+    longDescription: `${name} – Premium Bulk Corporate Gift. ${description} Whether you are welcoming new team members, celebrating festivals, or thanking clients, this solution delivers a refined unboxing experience with custom branding and bulk packaging. ${bulkPrice}.`,
+    shippingInfo: SHIPPING_INFO,
+    assistanceInfo: ASSISTANCE_INFO,
+    knowMore: [
+      'Custom branding with your logo on products and packaging.',
+      'Bulk pricing tiers based on order quantity.',
+      'Mockups shared for approval before production.',
+      'Pan-India logistics with secure, gift-ready dispatch.',
+    ].join(' '),
+    rating,
+    reviewCount,
   };
 }
 
@@ -244,4 +345,18 @@ export function getProductsByCategory(categorySlug: string): CorporateProduct[] 
 
 export function getProductBySlug(productSlug: string): CorporateProduct | undefined {
   return CORPORATE_PRODUCTS.find((p) => p.slug === productSlug);
+}
+
+export function getRelatedProducts(
+  productSlug: string,
+  categorySlug: string,
+  limit = 8,
+): CorporateProduct[] {
+  return CORPORATE_PRODUCTS.filter(
+    (p) => p.categorySlug === categorySlug && p.slug !== productSlug,
+  ).slice(0, limit);
+}
+
+export function formatCorporatePrice(amount: number): string {
+  return `₹ ${amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }

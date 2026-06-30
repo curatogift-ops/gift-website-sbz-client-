@@ -14,21 +14,21 @@ type AwardType = {
 const AWARD_TYPES: AwardType[] = [
   {
     title: 'Crystal Awards',
-    href: '/shop/browse?cat=crystal-awards',
+    href: '/corporate/product/crystal-achievement-award',
     image: '/images/corporate-hero-banner-mobile-custom.png',
     imageAlt: 'Premium branded corporate gift presentation for a recognition moment',
     Icon: Trophy,
   },
   {
     title: 'Vouchers',
-    href: '/vouchers-brands',
+    href: '/corporate/product/branded-gift-voucher',
     image: '/images/corporate-hero.png',
     imageAlt: 'Branded desk gift set with a premium wooden finish',
     Icon: Medal,
   },
   {
     title: 'Trophies',
-    href: '/trophies',
+    href: '/corporate/product/employee-of-month-award',
     image: '/images/corporate-hero-slide-2.png',
     imageAlt: 'Gold accented corporate gifting collection for award ceremonies',
     Icon: Sparkles,
@@ -54,7 +54,7 @@ export default function AwardsTrophiesSection() {
           </div>
 
           <Link
-            to="/shop/browse?cat=award-recognition-trophies"
+            to="/corporate/category/trophies-vouchers"
             className="inline-flex min-h-11 w-fit items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.14em] text-primary-foreground transition hover:bg-[#4A1020]"
           >
             Explore awards
