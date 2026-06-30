@@ -16,6 +16,7 @@ import {
   Tag,
 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { COMPANY_INFO } from '@/config/companyInfo';
 
 type ButtonVariant = 'maroon' | 'gold' | 'green';
 
@@ -104,8 +105,6 @@ const PRODUCTS: FeaturedProduct[] = [
   },
 ];
 
-const WA = '919876543210';
-
 export default function FeaturedProductsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
@@ -190,7 +189,7 @@ export default function FeaturedProductsSection() {
             className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 md:px-14 lg:px-16"
           >
             {PRODUCTS.map((product) => {
-              const waHref = `https://wa.me/${WA}?text=${encodeURIComponent(product.waMessage)}`;
+              const waHref = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(product.waMessage)}`;
               return (
                 <article
                   key={product.title}
@@ -286,7 +285,7 @@ export default function FeaturedProductsSection() {
 
         <div className="mt-12 flex justify-center md:mt-14">
           <a
-            href={`https://wa.me/${WA}?text=${encodeURIComponent("Hi, I'd like to request your catalogue.")}`}
+            href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent("Hi, I'd like to request your catalogue.")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-pill btn-pill-maroon"

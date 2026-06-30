@@ -1,9 +1,9 @@
-const WA = '919876543210';
+import { COMPANY_INFO } from '@/config/companyInfo';
 
 export default function WhatsAppWidget() {
   return (
     <a
-      href={`https://wa.me/${WA}`}
+      href={`https://wa.me/${COMPANY_INFO.whatsapp}`}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-5 right-4 z-[90] flex items-center justify-center drop-shadow-xl transition-transform hover:scale-110 md:bottom-8 md:right-8"

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
+import { COMPANY_INFO } from "@/config/companyInfo";
 
 const FOREST = "#1B3022";
 const GOLD = "#A67C37";
@@ -66,8 +67,6 @@ const STEPS: Step[] = [
     bottomIconClass: "text-[#A67C37]",
   },
 ];
-
-const WA = "919876543210";
 
 function StepCard({ step, className }: { step: Step; className?: string }) {
   const Top = step.TopIcon;
@@ -257,7 +256,7 @@ export default function HowItWorksSection() {
 
         <div className="mt-12 flex justify-center md:mt-14">
           <a
-            href={`https://wa.me/${WA}?text=${encodeURIComponent("Hi, I'd like to request your catalogue.")}`}
+            href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent("Hi, I'd like to request your catalogue.")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-pill btn-pill-forest"

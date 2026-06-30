@@ -20,8 +20,7 @@ import {
   Calendar,
   Plus,
 } from "lucide-react";
-
-const WA = "919876543210";
+import { COMPANY_INFO } from "@/config/companyInfo";
 
 /* Inline Instagram icon (lucide-react in this project doesn't export Instagram) */
 const InstagramIcon = ({
@@ -248,7 +247,7 @@ export default function HomePage() {
                   <ArrowRight className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} aria-hidden />
                 </Link>
                 <a
-                  href={`https://wa.me/${WA}`}
+                  href={`https://wa.me/${COMPANY_INFO.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-pill btn-pill-ghost-light"
@@ -378,7 +377,7 @@ export default function HomePage() {
 
             <div className="mt-12 flex justify-center md:mt-14">
               <a
-                href={`https://wa.me/${WA}?text=${encodeURIComponent("Hi, I'd like to request your catalogue.")}`}
+                href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent("Hi, I'd like to request your catalogue.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-pill btn-pill-maroon"
@@ -486,7 +485,7 @@ export default function HomePage() {
 
             <div className="mt-10 flex justify-center md:mt-12">
               <a
-                href={`https://wa.me/${WA}?text=${encodeURIComponent("Hi, I have a question about gifting.")}`}
+                href={`https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent("Hi, I have a question about gifting.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-pill btn-pill-forest"

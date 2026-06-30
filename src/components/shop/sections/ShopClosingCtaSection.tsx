@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Gift, MessageCircle } from 'lucide-react';
-
-const WA = '919876543210';
+import { COMPANY_INFO } from '@/config/companyInfo';
 
 export default function ShopClosingCtaSection() {
-  const waHref = `https://wa.me/${WA}?text=${encodeURIComponent(
+  const waHref = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(
     "Hi, I'd like help curating a personalized gift."
   )}`;
 

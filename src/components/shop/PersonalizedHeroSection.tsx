@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
 import { Gift, Headphones, Heart, ShieldCheck, Sparkles, MapPin, Diamond } from 'lucide-react';
-
-const WA = '919876543210';
+import { COMPANY_INFO } from '@/config/companyInfo';
 
 const HERO_DESKTOP_SRC = '/images/personalized-hero-desktop.png';
 const HERO_MOBILE_SRC = '/images/personalized-hero-mobile.png';
@@ -20,7 +19,7 @@ const HERO_TRUST = [
 ];
 
 export default function PersonalizedHeroSection() {
-  const conciergeHref = `https://wa.me/${WA}?text=${encodeURIComponent(
+  const conciergeHref = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(
     "Hi, I'd like help choosing a personalized gift."
   )}`;
 

@@ -1,6 +1,5 @@
 import { ArrowRight, BadgeCheck, Clock, Gift, Shield, UserRound } from 'lucide-react';
-
-const WA = '919876543210';
+import { COMPANY_INFO } from '@/config/companyInfo';
 
 const CTA_FEATURES = [
   { label: 'Custom Solutions', Icon: Shield },
@@ -10,7 +9,7 @@ const CTA_FEATURES = [
 ] as const;
 
 export default function CorporateExpertsCtaSection() {
-  const contactHref = `https://wa.me/${WA}?text=${encodeURIComponent(
+  const contactHref = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(
     "Hi, I'd like to speak with your corporate gifting experts."
   )}`;
 

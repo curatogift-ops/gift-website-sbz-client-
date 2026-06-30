@@ -21,7 +21,7 @@ const AWARD_TYPES: AwardType[] = [
   },
   {
     title: 'Vouchers',
-    href: '/corporate/product/branded-gift-voucher',
+    href: '/vouchers-brands',
     image: '/images/corporate-hero.png',
     imageAlt: 'Branded desk gift set with a premium wooden finish',
     Icon: Medal,

@@ -436,7 +436,7 @@ export default function CorporatePage() {
                       className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <p className="mt-3 text-center font-sans text-[11px] font-bold uppercase leading-snug tracking-[0.06em] text-foreground">
+                  <p className="mt-3 flex min-h-[2.75rem] items-center justify-center text-center font-sans text-[11px] font-bold uppercase leading-snug tracking-[0.06em] text-foreground">
                     {item.label}
                   </p>
                 </Link>
@@ -488,7 +488,7 @@ export default function CorporatePage() {
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
-                    <p className="mt-3 text-center font-sans text-[12px] font-bold uppercase leading-snug tracking-[0.08em] text-foreground lg:text-[13px] xl:text-[12px]">
+                    <p className="mt-3 flex min-h-[3rem] items-center justify-center text-center font-sans text-[12px] font-bold uppercase leading-snug tracking-[0.08em] text-foreground lg:text-[13px] xl:text-[12px]">
                       {item.label}
                     </p>
                   </Link>

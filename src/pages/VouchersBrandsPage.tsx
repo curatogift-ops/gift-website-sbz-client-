@@ -1,322 +1,107 @@
+import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Search } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-
-const VOUCHER_BRANDS = [
-  { name: "@Home", domain: "home.com" },
-  { name: "Absolute Barbecues", domain: "absolutebarbecues.com" },
-  { name: "Air India", domain: "airindia.com" },
-  { name: "Ajio", domain: "ajio.com" },
-  { name: "Aldo", domain: "aldo.com" },
-  { name: "Aliste", domain: "aliste.com" },
-  { name: "Allen Solly", domain: "allensolly.com" },
-  { name: "Amazon", domain: "amazon.in" },
-  { name: "Amazon Fresh", domain: "amazon.in" },
-  { name: "Amazon Prime Lite", domain: "amazon.in" },
-  { name: "Amazon Prime Membership", domain: "amazon.in" },
-  { name: "Amazon Prime Shopping", domain: "amazon.in" },
-  { name: "Amazon Shopping", domain: "amazon.in" },
-  { name: "American Eagle", domain: "americaneagle.com" },
-  { name: "American Tourister", domain: "americantourister.com" },
-  { name: "AND", domain: "and.com" },
-  { name: "Anita Dongre", domain: "anitadongre.com" },
-  { name: "Apollo Pharmacy", domain: "apollopharmacy.in" },
-  { name: "Archies", domain: "archies.com" },
-  { name: "Armani Exchange", domain: "armaniexchange.com" },
-  { name: "Arrow", domain: "arrow.com" },
-  { name: "Asia Seven Express", domain: "asiasevenexpress.com" },
-  { name: "Assembly", domain: "assembly.com" },
-  { name: "Aurelia", domain: "aurelia.com" },
-  { name: "Barbeque Nation", domain: "barbequenation.com" },
-  { name: "Bare Anatomy", domain: "bareanatomy.com" },
-  { name: "Baskin Robbins", domain: "baskinrobbinsindia.com" },
-  { name: "Bata", domain: "bata.in" },
-  { name: "Bath and Body Works", domain: "bathandbodyworks.in" },
-  { name: "Behrouz Biryani", domain: "behrouzbiryani.com" },
-  { name: "Beverly Hills Polo Club", domain: "beverlyhillspoloclub.com" },
-  { name: "Bewakoof", domain: "bewakoof.com" },
-  { name: "Beyoung", domain: "beyoung.com" },
-  { name: "Bhima Jewellers", domain: "bhimajewellers.com" },
-  { name: "Bhima Jewellers - Gold Jewellery", domain: "bhimajewellers.com" },
-  { name: "Biba (Online)", domain: "bibaonline.com" },
-  { name: "Big Basket", domain: "bigbasket.com" },
-  { name: "Bikanervala", domain: "bikanervala.com" },
-  { name: "Blackberrys", domain: "blackberrys.com" },
-  { name: "Blaupunkt", domain: "blaupunkt.com" },
-  { name: "Blinkit", domain: "blinkit.com" },
-  { name: "Blissclub", domain: "blissclub.com" },
-  { name: "Blue Tokai", domain: "bluetokai.com" },
-  { name: "Bluestone", domain: "bluestone.com" },
-  { name: "Bobbi Brown", domain: "bobbibrown.com" },
-  { name: "Body Craft", domain: "bodycraft.com" },
-  { name: "Bombay Shaving", domain: "bombayshaving.com" },
-  { name: "Book My Show", domain: "bookmyshow.com" },
-  { name: "Cafe Coffee Day", domain: "cafecoffeeday.com" },
-  { name: "Cafe Delhi Heights", domain: "cafedelhiheights.com" },
-  { name: "Call it Spring", domain: "callitspring.com" },
-  { name: "Campus", domain: "campus.com" },
-  { name: "Campus Sutra", domain: "campussutra.com" },
-  { name: "Cello", domain: "cello.com" },
-  { name: "Charles and Keith", domain: "charlesandkeith.com" },
-  { name: "Chemist at Play", domain: "chemistatplay.com" },
-  { name: "Chumbak", domain: "chumbak.com" },
-  { name: "Cleartrip", domain: "cleartrip.com" },
-  { name: "Cleartrip Hotels", domain: "cleartrip.com" },
-  { name: "Coach", domain: "coach.com" },
-  { name: "ColorPlus", domain: "colorplus.com" },
-  { name: "Costa Coffee", domain: "costacoffee.com" },
-  { name: "Croma", domain: "croma.com" },
-  { name: "Cult", domain: "cult.com" },
-  { name: "Decathlon Omni", domain: "decathlon.in" },
-  { name: "Decathlon Sports India", domain: "decathlon.in" },
-  { name: "Discovery Plus", domain: "discoveryplus.in" },
-  { name: "District", domain: "district.com" },
-  { name: "Dominos", domain: "dominos.co.in" },
-  { name: "Donatekart", domain: "donatekart.com" },
-  { name: "Dune London", domain: "dunelondon.com" },
-  { name: "EaseMyTrip", domain: "easemytrip.com" },
-  { name: "Easy Buy", domain: "easybuy.com" },
-  { name: "EatSure", domain: "eatsure.com" },
-  { name: "Euphoria", domain: "euphoria.com" },
-  { name: "Euphoria Gold Coin", domain: "euphoriagoldcoin.com" },
-  { name: "Fab Hotels", domain: "fabhotels.com" },
-  { name: "Fabindia", domain: "fabindia.com" },
-  { name: "Fastrack", domain: "fastrack.com" },
-  { name: "Ferns N Petals", domain: "fernsnpetals.com" },
-  { name: "First Cry", domain: "firstcry.com" },
-  { name: "Fitpass", domain: "fitpass.com" },
-  { name: "Flipkart", domain: "flipkart.com" },
-  { name: "Flower Aura", domain: "floweraura.com" },
-  { name: "Forever New", domain: "forevernew.com" },
-  { name: "Forever21", domain: "forever21.com" },
-  { name: "Foxtale", domain: "foxtale.com" },
-  { name: "Freecultr", domain: "freecultr.com" },
-  { name: "Fresh Menu", domain: "freshmenu.com" },
-  { name: "Future World", domain: "futureworld.com" },
-  { name: "Gaana", domain: "gaana.com" },
-  { name: "Giva Gold Jewellery", domain: "giva.co" },
-  { name: "Giva Silver Jewellery", domain: "giva.co" },
-  { name: "GRT", domain: "grt.com" },
-  { name: "G-Star Raw", domain: "gstarraw.com" },
-  { name: "Gupta Distributors", domain: "guptadistributors.com" },
-  { name: "Hamleys", domain: "hamleys.com" },
-  { name: "Health and Glow", domain: "healthandglow.com" },
-  { name: "Helios", domain: "helios.com" },
-  { name: "HiDesign", domain: "hidesign.com" },
-  { name: "Himalaya", domain: "himalayawellness.in" },
-  { name: "Hindustan Times Premium", domain: "hindustantimespremium.com" },
-  { name: "Hoichoi", domain: "hoichoi.com" },
-  { name: "Home Centre", domain: "homecentre.com" },
-  { name: "Home Stop", domain: "homestop.com" },
-  { name: "HPCL", domain: "hpcl.com" },
-  { name: "Hugo Boss", domain: "hugoboss.com" },
-  { name: "Hush Puppies", domain: "hushpuppies.com" },
-  { name: "IKEA", domain: "ikea.com" },
-  { name: "Imagine Apple Premium Reseller", domain: "imagineapplepremiumreseller.com" },
-  { name: "Indian Terrrain", domain: "indianterrrain.com" },
-  { name: "Inglot", domain: "inglot.com" },
-  { name: "ITC Hotels", domain: "itchotels.com" },
-  { name: "ixigo", domain: "ixigo.com" },
-  { name: "Jack & Jones", domain: "jackjones.com" },
-  { name: "Jimmy Choo", domain: "jimmychoo.com" },
-  { name: "Jio Mart", domain: "jiomart.com" },
-  { name: "JioHotstar", domain: "jiohotstar.com" },
-  { name: "Jockey", domain: "jockey.com" },
-  { name: "Jos Alukkas Gold Jewellery", domain: "josalukkasgoldjewellery.com" },
-  { name: "Joyalukkas Diamond & Platinum", domain: "joyalukkas.in" },
-  { name: "Joyalukkas Gold Jewellery", domain: "joyalukkas.in" },
-  { name: "Kalyan Jewellers Diamond Jewellery", domain: "kalyanjewellers.net" },
-  { name: "Kalyan Jewellers Gold Jewellery", domain: "kalyanjewellers.net" },
-  { name: "Kalyan jewellery", domain: "kalyanjewellers.net" },
-  { name: "Kama Ayurveda", domain: "kamaayurveda.in" },
-  { name: "Kate Spade", domain: "katespade.com" },
-  { name: "KFC", domain: "kfc.co.in" },
-  { name: "Lakme Salon", domain: "lakmesalon.com" },
-  { name: "Lawrence And Mayo", domain: "lawrenceandmayo.com" },
-  { name: "Lee", domain: "lee.com" },
-  { name: "Lenskart", domain: "lenskart.com" },
-  { name: "Levis", domain: "levi.in" },
-  { name: "Lifestyle", domain: "lifestylestores.com" },
-  { name: "Linen Club", domain: "linenclub.com" },
-  { name: "Lite Bite Foods", domain: "litebitefoods.com" },
-  { name: "Live Hindustan", domain: "livehindustan.com" },
-  { name: "Louis Philippe", domain: "louisphilippe.com" },
-  { name: "Luxe", domain: "luxe.com" },
-  { name: "Mac", domain: "mac.com" },
-  { name: "Machaan", domain: "machaan.com" },
-  { name: "Mainland China", domain: "mainlandchina.com" },
-  { name: "Make My Trip", domain: "makemytrip.com" },
-  { name: "MakeMyTrip Holiday", domain: "makemytrip.com" },
-  { name: "MakeMyTrip Hotels", domain: "makemytrip.com" },
-  { name: "Mamaearth", domain: "mamaearth.in" },
-  { name: "Marks & Spencer", domain: "marksspencer.com" },
-  { name: "Marriott", domain: "marriott.com" },
-  { name: "Marriott Hotels", domain: "marriott.com" },
-  { name: "Marriott Spa", domain: "marriottspa.com" },
-  { name: "Max Fashion", domain: "maxfashion.in" },
-  { name: "McDonalds", domain: "mcdonaldsindia.com" },
-  { name: "Mediwheel", domain: "mediwheel.com" },
-  { name: "Mia By Tanishq", domain: "miabytanishq.com" },
-  { name: "Michael Kors", domain: "michaelkors.com" },
-  { name: "MiniKlub", domain: "miniklub.com" },
-  { name: "More", domain: "more.com" },
-  { name: "Mother care", domain: "mothercare.com" },
-  { name: "My Jio Store", domain: "myjiostore.com" },
-  { name: "Myntra", domain: "myntra.com" },
-  { name: "Nature's Basket", domain: "naturesbasket.com" },
-  { name: "Netmeds", domain: "netmeds.com" },
-  { name: "Nykaa", domain: "nykaa.com" },
-  { name: "Nykaa Man", domain: "nykaa.com" },
-  { name: "O2 Spa", domain: "o2spa.com" },
-  { name: "Oh! Calcutta", domain: "ohcalcutta.com" },
-  { name: "OLA Cabs", domain: "olacabs.com" },
-  { name: "Organic India", domain: "organicindia.com" },
-  { name: "Ornaz", domain: "ornaz.com" },
-  { name: "OTTPlay", domain: "ottplay.com" },
-  { name: "Ovenstory", domain: "ovenstory.com" },
-  { name: "Pantaloons", domain: "pantaloons.com" },
-  { name: "Park Avenue", domain: "parkavenue.com" },
-  { name: "Parx", domain: "parx.com" },
-  { name: "Pepperfry", domain: "pepperfry.com" },
-  { name: "Peter England", domain: "peterengland.com" },
-  { name: "Pizza Hut", domain: "pizzahut.co.in" },
-  { name: "Planet Fashion", domain: "planetfashion.com" },
-  { name: "Points for Good", domain: "pointsforgood.com" },
-  { name: "Polar Bear", domain: "polarbear.com" },
-  { name: "Prestige", domain: "prestige.com" },
-  { name: "Prestige Smart Kitchen", domain: "prestigesmartkitchen.com" },
-  { name: "Puma", domain: "puma.com" },
-  { name: "Punjab Grill", domain: "punjabgrill.com" },
-  { name: "PVR Cinemas", domain: "pvrcinemas.com" },
-  { name: "R&B", domain: "rb.com" },
-  { name: "Rangriti", domain: "rangriti.com" },
-  { name: "Ratnadeep Super Market", domain: "ratnadeepsupermarket.com" },
-  { name: "Ray Ban", domain: "rayban.com" },
-  { name: "Relaxo", domain: "relaxo.com" },
-  { name: "Reliance Digital", domain: "reliancedigital.in" },
-  { name: "Reliance Footwear", domain: "reliancefootwear.com" },
-  { name: "Reliance Jewels", domain: "reliancejewels.com" },
-  { name: "Reliance Smart", domain: "reliancesmart.com" },
-  { name: "Reliance Smart Bazaar", domain: "reliancesmartbazaar.com" },
-  { name: "Reliance Smart Point", domain: "reliancesmartpoint.com" },
-  { name: "Reliance Trends", domain: "reliancetrends.com" },
-  { name: "Reliance-Fashion Factory", domain: "reliancefashionfactory.com" },
-  { name: "Resonate", domain: "resonate.com" },
-  { name: "Samsonite", domain: "samsonite.com" },
-  { name: "Satya Paul", domain: "satyapaul.com" },
-  { name: "Scotch & Soda", domain: "scotchsoda.com" },
-  { name: "Shell", domain: "shell.com" },
-  { name: "Shiva Organic", domain: "shivaorganic.com" },
-  { name: "Shoppers Stop", domain: "shoppersstop.com" },
-  { name: "Sigree", domain: "sigree.com" },
-  { name: "Simon Carter", domain: "simoncarter.com" },
-  { name: "Simple", domain: "simple.com" },
-  { name: "Skechers", domain: "skechers.com" },
-  { name: "Skullcandy", domain: "skullcandy.com" },
-  { name: "Smile Foundation", domain: "smilefoundation.com" },
-  { name: "Sony Liv", domain: "sonyliv.com" },
-  { name: "Speedo", domain: "speedo.com" },
-  { name: "Spencer's", domain: "spencers.com" },
-  { name: "Starbucks", domain: "starbucks.in" },
-  { name: "Sterling Holidays", domain: "sterlingholidays.com" },
-  { name: "Steve Madden", domain: "stevemadden.com" },
-  { name: "Street Foods By Punjab Grill", domain: "streetfoodsbypunjabgrill.com" },
-  { name: "Subway", domain: "subway.com" },
-  { name: "Sunscoop", domain: "sunscoop.com" },
-  { name: "SUPA", domain: "supa.com" },
-  { name: "Superdry", domain: "superdry.com" },
-  { name: "Sweet Bengal", domain: "sweetbengal.com" },
-  { name: "Swiggy", domain: "swiggy.com" },
-  { name: "Taj Hotels", domain: "tajhotels.com" },
-  { name: "Taneira", domain: "taneira.com" },
-  { name: "Tanishq Gold Jewellery", domain: "tanishq.co.in" },
-  { name: "Tanishq Studded", domain: "tanishq.co.in" },
-  { name: "Tata Cliq", domain: "tatacliq.com" },
-  { name: "Tata CliQ Luxury", domain: "luxury.tatacliq.com" },
-  { name: "Tego", domain: "tego.com" },
-  { name: "TGIF", domain: "tgif.com" },
-  { name: "The Body Shop", domain: "thebodyshop.in" },
-  { name: "The Raymond Shop", domain: "theraymondshop.com" },
-  { name: "Timezone", domain: "timezone.com" },
-  { name: "Titan", domain: "titan.com" },
-  { name: "Toscano", domain: "toscano.com" },
-  { name: "Trends Footwear", domain: "trendsfootwear.com" },
-  { name: "Trends Junior", domain: "trendsjunior.com" },
-  { name: "Trends Man", domain: "trendsman.com" },
-  { name: "Trends Women", domain: "trendswomen.com" },
-  { name: "Truefitt & Hill", domain: "truefitthill.com" },
-  { name: "Tumi", domain: "tumi.com" },
-  { name: "Uber", domain: "uber.com" },
-  { name: "Unlimited", domain: "unlimited.com" },
-  { name: "Urban Ladder", domain: "urbanladder.com" },
-  { name: "USPA", domain: "uspa.com" },
-  { name: "Van Heusen", domain: "vanheusen.com" },
-  { name: "Vero Moda", domain: "veromoda.com" },
-  { name: "Victoria's Secret", domain: "victoriassecret.com" },
-  { name: "Vijay Sales", domain: "vijaysales.com" },
-  { name: "V-Mart", domain: "vmart.com" },
-  { name: "W For Women", domain: "wforwomen.com" },
-  { name: "Wakefit", domain: "wakefit.com" },
-  { name: "Westside", domain: "westside.com" },
-  { name: "Wildcraft", domain: "wildcraft.com" },
-  { name: "William Penn", domain: "williampenn.com" },
-  { name: "Woggles", domain: "woggles.com" },
-  { name: "Wonderchef", domain: "wonderchef.com" },
-  { name: "Woodland", domain: "woodland.com" },
-  { name: "Wow Momo", domain: "wowmomo.com" },
-  { name: "Wow!Chicken", domain: "wowchicken.com" },
-  { name: "Wow!China", domain: "wowchina.com" },
-  { name: "Wrangler", domain: "wrangler.com" },
-  { name: "Yatra", domain: "yatra.com" },
-  { name: "YouMee", domain: "youmee.com" },
-  { name: "Zee5", domain: "zee5.com" },
-  { name: "Zepto", domain: "zepto.in" },
-  { name: "Zomato", domain: "zomato.com" }
-];
+import { VOUCHER_BRANDS } from '@/config/voucherBrandsData';
 
 const LOGO_API_TOKEN = 'pk_CMw_iB1FQuWiQT75l8pqZg';
 
+function brandLogoUrl(domain: string): string {
+  return `https://img.logo.dev/${domain}?token=${LOGO_API_TOKEN}&size=120`;
+}
+
+function brandLogoFallback(name: string): string {
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=f0ebe6&color=4A1020&bold=true&size=120`;
+}
+
 export default function VouchersBrandsPage() {
+  const [query, setQuery] = useState('');
+
+  const filteredBrands = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return VOUCHER_BRANDS;
+    return VOUCHER_BRANDS.filter((brand) => brand.name.toLowerCase().includes(q));
+  }, [query]);
+
   return (
-    <div className="flex min-h-screen flex-col bg-white font-sans">
+    <div className="corporate-page flex min-h-screen flex-col bg-white font-sans">
       <Navbar />
-      
+
       <main className="page-main-offset flex-grow">
-        <section className="bg-[var(--cream)] py-16 sm:py-24">
-          <div className="section-container text-center">
-            <h1 className="font-serif text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-tight text-primary">
-              Vouchers Brands
-            </h1>
-            <p className="mt-6 mx-auto max-w-2xl font-sans text-lg text-muted-foreground">
-              Explore our extensive collection of premium brands offering corporate vouchers.
-            </p>
+        <section className="border-b border-border bg-[var(--cream)] py-10 sm:py-14 lg:py-16">
+          <div className="section-container">
+            <Link
+              to="/corporate#awards-trophies"
+              className="mb-5 inline-flex items-center gap-2 text-[12px] font-semibold text-muted-foreground transition-colors hover:text-primary"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
+              Back to Trophies &amp; vouchers
+            </Link>
+
+            <div className="max-w-3xl">
+              <p className="eyebrow">Corporate vouchers</p>
+              <h1 className="section-heading-corporate mt-3">Voucher brands</h1>
+              <p className="section-lede mt-4">
+                Browse {VOUCHER_BRANDS.length}+ premium partner brands available for corporate gift
+                vouchers and employee rewards.
+              </p>
+            </div>
+
+            <div className="relative mt-8 max-w-xl">
+              <Search
+                className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                strokeWidth={2}
+                aria-hidden
+              />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search brands…"
+                className="w-full rounded-md border border-border bg-white py-3 pl-11 pr-4 text-[14px] text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/15"
+                aria-label="Search voucher brands"
+              />
+            </div>
           </div>
         </section>
 
-        <section className="py-16 sm:py-24">
+        <section className="py-10 sm:py-14 lg:py-16" aria-label="Voucher brand list">
           <div className="section-container">
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
-              {VOUCHER_BRANDS.map((brand, index) => (
-                <div 
-                  key={index} 
-                  className="group flex flex-col h-[140px] items-center justify-center p-4 text-center rounded-lg border border-border bg-white shadow-sm transition-all hover:border-[#C9A96E] hover:shadow-md hover:-translate-y-1"
-                >
-                  <div className="relative w-16 h-16 mb-3 flex items-center justify-center">
-                    <img 
-                      src={`https://img.logo.dev/${brand.domain}?token=${LOGO_API_TOKEN}&size=120`}
-                      alt={`${brand.name} logo`}
-                      className="w-full h-full object-contain grayscale-[20%] transition-all duration-300 group-hover:grayscale-0"
-                      onError={(e) => {
-                        // Fallback handling if logo.dev fails or is slow
-                        (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(brand.name)}&background=f0ebe6&color=4A1020&bold=true&size=120`;
-                      }}
-                    />
+            <p className="mb-6 text-sm text-muted-foreground">
+              Showing {filteredBrands.length} of {VOUCHER_BRANDS.length} brands
+            </p>
+
+            {filteredBrands.length === 0 ? (
+              <div className="rounded-xl border border-border bg-[var(--cream)] px-6 py-12 text-center">
+                <p className="font-serif text-lg font-semibold text-primary">No brands found</p>
+                <p className="mt-2 text-sm text-muted-foreground">Try a different search term.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+                {filteredBrands.map((brand) => (
+                  <div
+                    key={brand.name}
+                    className="group flex h-[132px] flex-col items-center justify-center rounded-xl border border-border bg-white p-3 text-center shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A96E]/45 hover:shadow-md sm:h-[140px] sm:p-4"
+                  >
+                    <div className="relative mb-2.5 flex h-14 w-14 items-center justify-center sm:mb-3 sm:h-16 sm:w-16">
+                      <img
+                        src={brandLogoUrl(brand.domain)}
+                        alt=""
+                        className="h-full w-full object-contain grayscale-[25%] transition-all duration-300 group-hover:grayscale-0"
+                        loading="lazy"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = brandLogoFallback(brand.name);
+                        }}
+                      />
+                    </div>
+                    <span className="line-clamp-2 px-1 font-sans text-[11px] font-medium leading-snug text-primary sm:text-[12px]">
+                      {brand.name}
+                    </span>
                   </div>
-                  <span className="font-sans text-[12px] font-medium leading-tight text-primary px-2 line-clamp-2">
-                    {brand.name}
-                  </span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </main>

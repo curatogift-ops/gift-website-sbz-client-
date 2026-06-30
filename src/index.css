@@ -865,6 +865,56 @@ body {
   opacity: 0.35;
 }
 
+.corp-carousel-nav-dark {
+  border: none;
+  background: var(--foreground);
+  color: var(--primary-foreground);
+  box-shadow: 0 4px 16px color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+
+.corp-carousel-nav-dark:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.corp-product-carousel-section {
+  overflow: hidden;
+}
+
+.corp-product-carousel-wrap {
+  padding-inline: 2.75rem;
+}
+
+@media (min-width: 640px) {
+  .corp-product-carousel-wrap {
+    padding-inline: 3.25rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .corp-product-trust {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-block: 1rem;
+  }
+
+  .corp-product-trust-divider {
+    display: none;
+  }
+
+  .corp-product-trust-item {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding-inline: 0;
+    text-align: left;
+  }
+
+  .corp-product-trust-item p {
+    max-width: none;
+  }
+}
+
 .corp-product-sticky-bar {
   position: fixed;
   bottom: 0;

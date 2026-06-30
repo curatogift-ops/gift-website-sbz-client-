@@ -19,7 +19,8 @@ export const COMPANY_INFO = {
   gstin: '29AEVPC5531P1ZR',
   state: 'Karnataka',
   stateCode: '29',
-  phone: '+919876543210',
-  phoneDisplay: '+91 98765 43210',
-  email: 'hello@giftzgallerei.com',
+  phone: '+919164213044',
+  phoneDisplay: '+91 91642 13044',
+  whatsapp: '919164213044',
+  email: 'Info@giftzgallerei.com',
 } as const;

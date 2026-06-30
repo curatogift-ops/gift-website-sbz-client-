@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { Check, Send, X } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { submitCorporateEnquiry } from '@/lib/submitCorporateEnquiry';
+import { COMPANY_INFO } from '@/config/companyInfo';
 
 export type CorporateEnquiryContext = {
   productName?: string;
@@ -158,7 +159,7 @@ export default function CorporateEnquiryDialog({
                   value={form.phone}
                   onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
                   className="rounded-md border border-border bg-muted px-4 py-3 text-[14px] outline-none focus:border-[#9D7D47] focus:bg-white focus:ring-2 focus:ring-[#9D7D47]/15"
-                  placeholder="+91 98765 43210"
+                  placeholder={COMPANY_INFO.phoneDisplay}
                 />
               </label>
 

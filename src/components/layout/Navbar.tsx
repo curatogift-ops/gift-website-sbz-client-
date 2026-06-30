@@ -20,6 +20,7 @@ import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/utils/cn';
 import { SHOP_MEGA_MENU } from '@/config/shopMenu';
 import { PROMOTIONAL_GIFTS_MEGA_MENU } from '@/config/promotionalGiftsMenu';
+import { COMPANY_INFO } from '@/config/companyInfo';
 
 const SURFACE = '#FFFFFF';
 const MAROON_RIBBON = '#3D181C';
@@ -797,8 +798,8 @@ export default function Navbar() {
                     </div>
                     <div className="min-w-0">
                       <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-[#9D7D47]">Bulk Orders</p>
-                      <a href="tel:+919876543210" className="block text-[12.5px] font-bold text-[#4A1020] hover:underline">
-                        +91 98765 43210
+                      <a href={`tel:${COMPANY_INFO.phone}`} className="block text-[12.5px] font-bold text-[#4A1020] hover:underline">
+                        {COMPANY_INFO.phoneDisplay}
                       </a>
                     </div>
                   </div>
@@ -1261,7 +1262,7 @@ export default function Navbar() {
             )}
             
             <a
-              href="https://wa.me/919876543210"
+              href={`https://wa.me/${COMPANY_INFO.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#C9A96E]/40 bg-surface-muted hover:bg-surface-muted transition-colors py-3 font-sans text-[12px] font-semibold text-[#4A1020]"

@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import {
   BadgeCheck,
@@ -14,6 +14,8 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import AppImage from '@/components/ui/AppImage';
 import CorporateEnquiryDialog from '@/components/corporate/CorporateEnquiryDialog';
+import CorporateProductCarouselSection from '@/components/corporate/CorporateProductCarouselSection';
+import CorporateRecentlyViewedSection from '@/components/corporate/CorporateRecentlyViewedSection';
 import {
   Accordion,
   AccordionContent,
@@ -21,19 +23,17 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import {
+  CORPORATE_PRODUCTS,
   formatCorporatePrice,
   getCategoryBySlug,
   getProductBySlug,
   getRelatedProducts,
   type CorporateProduct,
 } from '@/config/corporateGiftingData';
+import {
+  addCorporateRecentlyViewed,
+  getRecentlyViewedProducts,
+} from '@/lib/corporateRecentlyViewed';
 
 const TRUST_PILLS = [
   { Icon: Truck, label: 'Timely Delivery' },
@@ -60,14 +60,14 @@ function RelatedProductCard({ product }: { product: CorporateProduct }) {
   return (
     <Link
       to={`/corporate/product/${product.slug}`}
-      className="corp-related-card-ref group block overflow-hidden rounded-xl border border-border bg-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A96E]/40 hover:shadow-lg"
+      className="corp-related-card-ref group block h-full min-w-0 overflow-hidden rounded-xl border border-border bg-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A96E]/40 hover:shadow-lg"
     >
-      <div className="relative aspect-square overflow-hidden bg-white">
+      <div className="relative aspect-square overflow-hidden bg-muted">
         <AppImage
           src={product.images[0]}
           alt={product.name}
           fill
-          sizes="260px"
+          sizes="(max-width:640px) 45vw, 260px"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
         />
         <span className="absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-white/95 text-muted-foreground shadow-sm">
@@ -94,13 +94,29 @@ export default function CorporateProductPage() {
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   const [wishlisted, setWishlisted] = useState(false);
   const [readMore, setReadMore] = useState(false);
+  const [recentlyViewed, setRecentlyViewed] = useState<CorporateProduct[]>([]);
+
+  useEffect(() => {
+    if (!productSlug) return;
+    addCorporateRecentlyViewed(productSlug);
+    setRecentlyViewed(getRecentlyViewedProducts(productSlug));
+  }, [productSlug]);
+
+  const category = product ? getCategoryBySlug(product.categorySlug) : undefined;
+  const related = product ? getRelatedProducts(product.slug, product.categorySlug) : [];
+
+  const recentlyViewedDisplay = useMemo(() => {
+    if (recentlyViewed.length > 0) return recentlyViewed;
+    if (!product) return [];
+    return CORPORATE_PRODUCTS.filter(
+      (item) => item.slug !== product.slug && !related.some((rel) => rel.slug === item.slug),
+    ).slice(0, 6);
+  }, [recentlyViewed, product, related]);
 
   if (!product) {
     return <Navigate to="/corporate" replace />;
   }
 
-  const category = getCategoryBySlug(product.categorySlug);
-  const related = getRelatedProducts(product.slug, product.categorySlug);
   const longPreview = product.longDescription.slice(0, 320);
   const showReadMore = product.longDescription.length > longPreview.length;
 
@@ -123,12 +139,12 @@ export default function CorporateProductPage() {
     <div className="corporate-page corporate-product-page flex min-h-screen flex-col bg-white font-sans">
       <Navbar />
 
-      <main className="page-main-offset flex-grow pb-20">
-        <section className="corp-product-hero">
-          <div className="section-container pb-10 pt-5 lg:pb-14 lg:pt-6">
+      <main className="page-main-offset flex-grow pb-24 sm:pb-28">
+        <section className="corp-product-hero border-b border-border">
+          <div className="section-container py-5 sm:py-8 lg:py-10">
             <nav
               aria-label="Breadcrumb"
-              className="mb-6 flex flex-wrap items-center gap-1.5 text-[12px] text-muted-foreground"
+              className="mb-5 flex flex-wrap items-center gap-1.5 text-[12px] text-muted-foreground sm:mb-6"
             >
               <Link to="/" className="transition-colors hover:text-primary">
                 Home
@@ -145,11 +161,11 @@ export default function CorporateProductPage() {
                   <ChevronRight className="h-3 w-3 shrink-0 opacity-50" />
                 </>
               )}
-              <span className="text-foreground">{product.name}</span>
+              <span className="line-clamp-1 text-foreground">{product.name}</span>
             </nav>
 
             <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-14">
-              <div className="corp-product-gallery">
+              <div className="corp-product-gallery min-w-0">
                 <div className="flex gap-3 sm:gap-4">
                   <div className="hidden shrink-0 flex-col gap-2.5 sm:flex">
                     {product.images.map((src, index) => (
@@ -166,7 +182,7 @@ export default function CorporateProductPage() {
                     ))}
                   </div>
 
-                  <div className="corp-product-gallery-main relative min-h-[300px] flex-1 overflow-hidden sm:aspect-square sm:min-h-0">
+                  <div className="corp-product-gallery-main relative min-h-[280px] flex-1 overflow-hidden sm:aspect-square sm:min-h-[320px] md:min-h-0">
                     <AppImage
                       src={product.images[activeImage]}
                       alt={product.name}
@@ -189,7 +205,7 @@ export default function CorporateProductPage() {
                   </div>
                 </div>
 
-                <div className="mt-3 flex gap-2 overflow-x-auto sm:hidden">
+                <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto sm:hidden">
                   {product.images.map((src, index) => (
                     <button
                       key={src}
@@ -205,9 +221,9 @@ export default function CorporateProductPage() {
                 </div>
               </div>
 
-              <div>
-                <div className="flex items-start justify-between gap-4">
-                  <h1 className="font-serif text-[clamp(1.65rem,3vw,2.25rem)] font-semibold leading-[1.12] text-primary">
+              <div className="min-w-0 lg:pt-1">
+                <div className="flex items-start justify-between gap-3 sm:gap-4">
+                  <h1 className="font-serif text-[clamp(1.5rem,3vw,2.25rem)] font-semibold leading-[1.12] text-primary">
                     {product.name}
                   </h1>
                   <button
@@ -220,23 +236,23 @@ export default function CorporateProductPage() {
                   </button>
                 </div>
 
-                <div className="mt-4">
-                  <p className="font-serif text-[clamp(1.25rem,2vw,1.5rem)] font-semibold text-foreground">
+                <div className="mt-4 sm:mt-5">
+                  <p className="font-serif text-[clamp(1.2rem,2vw,1.5rem)] font-semibold text-foreground">
                     {formatCorporatePrice(product.price)}
                   </p>
-                  <p className="mt-0.5 text-[12px] text-muted-foreground">Inclusive of all taxes</p>
+                  <p className="mt-1 text-[12px] text-muted-foreground">Inclusive of all taxes</p>
                 </div>
 
-                <button type="button" onClick={openEnquiry} className="btn-pill btn-pill-maroon mt-5 w-full">
+                <button type="button" onClick={openEnquiry} className="btn-pill btn-pill-maroon mt-5 w-full sm:mt-6">
                   Enquire for Bulk
                 </button>
 
-                <div className="corp-product-trust mt-6">
+                <div className="corp-product-trust mt-5 border-y border-border sm:mt-6">
                   {TRUST_PILLS.map(({ Icon, label }, index) => (
                     <Fragment key={label}>
                       <div className="corp-product-trust-item">
-                        <Icon className="h-5 w-5 text-[#C9A96E]" strokeWidth={1.5} aria-hidden />
-                        <p className="text-[9px] font-bold uppercase tracking-[0.04em] text-foreground sm:text-[10px]">
+                        <Icon className="h-5 w-5 shrink-0 text-[#C9A96E]" strokeWidth={1.5} aria-hidden />
+                        <p className="text-[9px] font-bold uppercase leading-snug tracking-[0.04em] text-foreground sm:text-[10px]">
                           {label}
                         </p>
                       </div>
@@ -247,7 +263,7 @@ export default function CorporateProductPage() {
                   ))}
                 </div>
 
-                <Accordion defaultValue={['contents']} className="corp-product-accordion flex w-full flex-col">
+                <Accordion defaultValue={['contents']} className="corp-product-accordion mt-5 flex w-full flex-col sm:mt-6">
                   <AccordionItem value="contents">
                     <AccordionTrigger className="corp-accordion-trigger">
                       {product.contentsLabel}
@@ -262,18 +278,14 @@ export default function CorporateProductPage() {
                   </AccordionItem>
 
                   <AccordionItem value="description">
-                    <AccordionTrigger className="corp-accordion-trigger">
-                      Description
-                    </AccordionTrigger>
+                    <AccordionTrigger className="corp-accordion-trigger">Description</AccordionTrigger>
                     <AccordionContent className="text-[13px] leading-relaxed text-muted-foreground">
                       {product.description}
                     </AccordionContent>
                   </AccordionItem>
 
                   <AccordionItem value="know-more">
-                    <AccordionTrigger className="corp-accordion-trigger">
-                      Click to know More
-                    </AccordionTrigger>
+                    <AccordionTrigger className="corp-accordion-trigger">Click to know More</AccordionTrigger>
                     <AccordionContent>
                       <ul className="list-disc space-y-1.5 pl-5 text-[13px] leading-relaxed text-muted-foreground">
                         {product.brandingOptions.map((option) => (
@@ -294,9 +306,7 @@ export default function CorporateProductPage() {
                   </AccordionItem>
 
                   <AccordionItem value="assistance">
-                    <AccordionTrigger className="corp-accordion-trigger">
-                      Assistance
-                    </AccordionTrigger>
+                    <AccordionTrigger className="corp-accordion-trigger">Assistance</AccordionTrigger>
                     <AccordionContent className="text-[13px] leading-relaxed text-muted-foreground">
                       {product.assistanceInfo}
                     </AccordionContent>
@@ -307,8 +317,8 @@ export default function CorporateProductPage() {
           </div>
         </section>
 
-        <section className="corp-product-reviews py-8 lg:py-10" aria-labelledby="reviews-heading">
-          <div className="section-container">
+        <section className="corp-product-reviews" aria-labelledby="reviews-heading">
+          <div className="section-container py-8 sm:py-10 lg:py-12">
             <div className="corp-reviews-summary">
               <span className="font-serif text-[1.75rem] font-semibold leading-none text-foreground">
                 {product.rating.toFixed(1)}
@@ -330,7 +340,7 @@ export default function CorporateProductPage() {
               <h2 id="reviews-heading" className="section-heading-corporate">
                 Customer Reviews
               </h2>
-              <button type="button" onClick={openEnquiry} className="btn-pill btn-pill-maroon">
+              <button type="button" onClick={openEnquiry} className="btn-pill btn-pill-maroon w-full sm:w-auto">
                 Write a review
               </button>
             </div>
@@ -338,44 +348,32 @@ export default function CorporateProductPage() {
         </section>
 
         {related.length > 0 && (
-          <section className="bg-[var(--cream)] py-10 lg:py-12" aria-labelledby="related-heading">
-            <div className="section-container">
-              <h2 id="related-heading" className="section-heading-corporate text-center">
-                You may also like
-              </h2>
-              <div className="relative mt-7 px-10 sm:px-12">
-                <Carousel opts={{ align: 'start', loop: false }} className="w-full">
-                  <CarouselContent className="-ml-3">
-                    {related.map((item) => (
-                      <CarouselItem
-                        key={item.slug}
-                        className="basis-[68%] pl-3 sm:basis-[46%] md:basis-[34%] lg:basis-1/4"
-                      >
-                        <RelatedProductCard product={item} />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="corp-carousel-nav -left-1 sm:-left-2" />
-                  <CarouselNext className="corp-carousel-nav -right-1 sm:-right-2" />
-                </Carousel>
-              </div>
-            </div>
-          </section>
+          <CorporateProductCarouselSection
+            id="related-heading"
+            title="You may also like"
+            products={related}
+            className="bg-[var(--cream)]"
+            titleClassName="section-heading-corporate text-center"
+            renderCard={(item) => <RelatedProductCard product={item} />}
+            gridWhenFew={false}
+          />
         )}
 
-        <section className="border-t border-border bg-white py-10 lg:py-12">
-          <div className="section-container">
+        <CorporateRecentlyViewedSection products={recentlyViewedDisplay} />
+
+        <section className="border-t border-border bg-white">
+          <div className="section-container py-10 sm:py-12 lg:py-14">
             <div className="mx-auto max-w-3xl">
               <h2 className="font-serif text-[clamp(1.15rem,2vw,1.4rem)] font-semibold leading-snug text-primary">
                 {product.name} – Premium Bulk Corporate Gift
               </h2>
-              <div className="mt-3 text-[14px] leading-[1.8] text-muted-foreground">
+              <div className="mt-4 text-[14px] leading-[1.8] text-muted-foreground">
                 <p>{readMore ? product.longDescription : `${longPreview}${showReadMore ? '…' : ''}`}</p>
                 {showReadMore && (
                   <button
                     type="button"
                     onClick={() => setReadMore((v) => !v)}
-                    className="mt-2 font-semibold text-primary hover:underline"
+                    className="mt-3 font-semibold text-primary hover:underline"
                   >
                     {readMore ? 'Read less' : 'Read more…'}
                   </button>
