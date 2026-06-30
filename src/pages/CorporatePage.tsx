@@ -4,8 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CorporateExpertsCtaSection from '@/components/corporate/CorporateExpertsCtaSection';
-import TrustedLeadingBrandsSection from '@/components/corporate/TrustedLeadingBrandsSection';
-import CorporateTestimonialsSection from '@/components/corporate/CorporateTestimonialsSection';
 import WoodenGiftingSection from '@/components/corporate/WoodenGiftingSection';
 import CorporateGiftingGallerySection from '@/components/corporate/CorporateGiftingGallerySection';
 import CorporateHeroDecor from '@/components/corporate/CorporateHeroDecor';
@@ -50,7 +48,7 @@ const GIFTING_SOLUTIONS = CORPORATE_CATEGORIES.map((category) => ({
 }));
 
 const STATS = [
-  { Icon: Building2, value: '500+', label: 'Corporate Clients' },
+  { Icon: Building2, value: 'Top', label: 'Corporate Clients' },
   { Icon: Gift, value: '1,00,000+', label: 'Gifts Delivered' },
   { Icon: Users, value: '10+ Years', label: 'Trust & Reliability' },
   { Icon: Star, value: '4.9/5', label: 'Client Satisfaction' },
@@ -58,47 +56,72 @@ const STATS = [
 
 const HERO_SLIDES = [
   {
-    id: 'curated-gifts',
-    eyebrow: 'PREMIUM CORPORATE GIFTING',
-    headingLight: "Thoughtfully\nCurated Gifts",
-    headingItalic: "For Stronger\nBusiness Relationships.",
-    image: '/images/corporate-hero-desktop-new.jpeg',
-    mobileImage: '/images/corporate-hero-mobile-new.png',
-    imageAlt: 'Premium corporate gift hampers, branded merchandise and executive keepsakes',
+    id: 'corporate-hampers',
+    eyebrow: 'CORPORATE HAMPERS',
+    headingLight: 'Thoughtfully',
+    headingItalic: 'Curated Gift Hampers.',
+    image: '/images/corporate/hero/corporate-hero-hampers.jpeg',
+    imageAlt: 'Premium corporate gift hampers with branded packaging',
     textPosition: 'left',
-    theme: 'light',
     bgClass: 'bg-[#1A1010]',
-    textColorLight: 'text-[#FFFDF9]',
-    textColorItalic: 'text-[#C9A96E]',
-    eyebrowColor: 'text-[#C9A96E]',
-    gradientClass: '',
-    imgTranslate: 'md:object-[58%_center]',
     imgPosition: 'object-center',
-    hasEmbeddedText: false,
-    hasMobileEmbeddedText: false
+    imgTranslate: 'md:object-[55%_center]',
   },
   {
-    id: 'bespoke-branding',
-    eyebrow: 'BESPOKE BRANDING',
-    headingLight: "Elevate Every",
-    headingItalic: "Corporate Impression.",
-    image: '/images/corporate-hero-slide-2.png',
-    mobileImage: '/images/corporate-hero-slide-2-mobile.png',
-    imageAlt: 'Bespoke corporate experiences and branding',
+    id: 'tech-gifting',
+    eyebrow: 'TECH GIFTS',
+    headingLight: 'Premium Tech',
+    headingItalic: 'For Modern Teams.',
+    image: '/images/corporate/hero/corporate-hero-tech.jpeg',
+    imageAlt: 'Premium technology corporate gifting collection',
     textPosition: 'left',
-    theme: 'light',
-    bgClass: 'bg-[#0f1423]', // Dark navy to match the image
-    textColorLight: 'text-[#FFFDF9]',
-    textColorItalic: 'text-[#C9A96E]',
-    eyebrowColor: 'text-[#C9A96E]',
-    gradientClass: '',
-    imgTranslate: 'md:object-center',
+    bgClass: 'bg-[#1A1010]',
     imgPosition: 'object-center',
-    imgFit: 'object-contain',
-    hasEmbeddedText: true,
-    hasMobileEmbeddedText: true
-  }
+    imgTranslate: 'md:object-center',
+  },
+  {
+    id: 'premium-products',
+    eyebrow: 'PREMIUM PRODUCTS',
+    headingLight: 'Luxury Corporate',
+    headingItalic: 'Gifting Solutions.',
+    image: '/images/corporate/hero/corporate-hero-premium.jpeg',
+    imageAlt: 'Luxury premium corporate gift products',
+    textPosition: 'left',
+    bgClass: 'bg-[#1A1010]',
+    imgPosition: 'object-center',
+    imgTranslate: 'md:object-[52%_center]',
+  },
+  {
+    id: 'awards-trophies',
+    eyebrow: 'AWARDS & TROPHIES',
+    headingLight: 'Celebrate Every',
+    headingItalic: 'Achievement.',
+    image: '/images/corporate/hero/corporate-hero-awards.jpeg',
+    imageAlt: 'Corporate awards, trophies and recognition gifts',
+    textPosition: 'left',
+    bgClass: 'bg-[#1A1010]',
+    imgPosition: 'object-center',
+    imgTranslate: 'md:object-center',
+  },
+  {
+    id: 'eco-friendly',
+    eyebrow: 'ECO-FRIENDLY GIFTING',
+    headingLight: 'Sustainable Gifts',
+    headingItalic: 'With Premium Finish.',
+    image: '/images/corporate/hero/corporate-hero-eco.jpeg',
+    imageAlt: 'Eco-friendly sustainable corporate gifting collection',
+    textPosition: 'left',
+    bgClass: 'bg-[#1A1010]',
+    imgPosition: 'object-center',
+    imgTranslate: 'md:object-center',
+  },
 ] as const;
+
+const HERO_SLIDE_THEME = {
+  textColorLight: 'text-[#FFFDF9]',
+  textColorItalic: 'text-[#C9A96E]',
+  eyebrowColor: 'text-[#C9A96E]',
+} as const;
 
 const CORPORATE_FAQS = [
   {
@@ -211,96 +234,80 @@ export default function CorporatePage() {
                 return (
                   <div
                     key={slide.id}
-                    className={`absolute inset-0 w-full h-full flex items-center justify-center md:justify-start transition-all duration-1000 ease-in-out ${slide.bgClass} ${isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
-                      }`}
+                    className={`absolute inset-0 flex h-full w-full items-center justify-center transition-all duration-1000 ease-in-out md:justify-start ${slide.bgClass} ${
+                      isActive ? 'z-10 opacity-100 pointer-events-auto' : 'z-0 opacity-0 pointer-events-none'
+                    }`}
                   >
-                    {!slide.hasEmbeddedText && <CorporateHeroDecor />}
+                    <CorporateHeroDecor />
 
-                    {/* Background Image Container */}
-                    <div className="absolute inset-0 w-full h-full z-0">
-                      {!slide.hasEmbeddedText && (
-                        <>
-                          {/* Desktop Gradient Overlay */}
-                          <div
-                            className="pointer-events-none absolute inset-0 z-[1] hidden md:block bg-[linear-gradient(to_right,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.55)_35%,rgba(26,16,16,0.15)_65%,transparent_100%)]"
-                            aria-hidden
-                          />
-                          {/* Mobile Gradient Overlay */}
-                          <div
-                            className="pointer-events-none absolute inset-0 z-[1] md:hidden bg-[linear-gradient(to_bottom,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.5)_40%,rgba(26,16,16,0.15)_70%,transparent_100%)]"
-                            aria-hidden
-                          />
-                        </>
-                      )}
-                      <picture className="block h-full w-full">
-                        {slide.mobileImage && (
-                          <source media="(max-width: 767px)" srcSet={slide.mobileImage} />
-                        )}
-                        <img
-                          src={slide.image}
-                          alt={slide.imageAlt}
-                          width={2500}
-                          height={662}
-                          decoding="async"
-                          fetchPriority={index === 0 ? 'high' : 'low'}
-                          sizes="(max-width: 2500px) 100vw, 2500px"
-                          className={`block h-full w-full ${'imgFit' in slide && slide.imgFit ? slide.imgFit : 'object-cover'} ${slide.imgPosition || 'object-center'} ${slide.imgTranslate || ''} ${slide.id === 'curated-gifts' ? 'object-[50%_43%] sm:object-[52%_44%] md:object-[58%_center]' : ''}`}
-                        />
-                      </picture>
+                    <div className="absolute inset-0 z-0 h-full w-full">
+                      <div
+                        className="pointer-events-none absolute inset-0 z-[1] hidden bg-[linear-gradient(to_right,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.55)_35%,rgba(26,16,16,0.15)_65%,transparent_100%)] md:block"
+                        aria-hidden
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_bottom,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.5)_40%,rgba(26,16,16,0.15)_70%,transparent_100%)] md:hidden"
+                        aria-hidden
+                      />
+                      <img
+                        src={slide.image}
+                        alt={slide.imageAlt}
+                        width={2500}
+                        height={662}
+                        decoding="async"
+                        fetchPriority={index === 0 ? 'high' : 'low'}
+                        sizes="(max-width: 2500px) 100vw, 2500px"
+                        className={`block h-full w-full object-cover ${slide.imgPosition} ${slide.imgTranslate}`}
+                      />
                     </div>
 
-                    {/* Content Overlay */}
-                    {!slide.hasEmbeddedText && (
-                      <div
-                        className={[
-                          'relative z-10 flex w-full min-w-0 flex-col items-center px-4 pt-10 pb-6 text-center sm:px-6 md:absolute md:inset-y-0 md:pt-0 md:pb-0 md:w-auto md:max-w-[48%] md:items-start md:justify-center md:bg-transparent md:px-10 md:py-12 md:text-left lg:max-w-[45%] lg:px-12 lg:py-16 xl:max-w-[42%] xl:px-16 xl:py-20 2xl:max-w-[38%]',
-                          slide.textPosition === 'left' ? 'md:left-[5%] lg:left-[6.5%] xl:left-[7.5%] 2xl:left-[8.5%] md:right-auto' : 'md:right-[5%] lg:right-[6.5%] xl:right-[7.5%] 2xl:right-[8.5%] md:left-auto'
-                        ].join(' ')}
+                    <div
+                      className={[
+                        'relative z-10 flex w-full min-w-0 flex-col items-center px-4 pt-10 pb-6 text-center sm:px-6 md:absolute md:inset-y-0 md:w-auto md:max-w-[48%] md:items-start md:justify-center md:bg-transparent md:px-10 md:py-12 md:pt-0 md:pb-0 md:text-left lg:max-w-[45%] lg:px-12 lg:py-16 xl:max-w-[42%] xl:px-16 xl:py-20 2xl:max-w-[38%]',
+                        slide.textPosition === 'left'
+                          ? 'md:left-[5%] md:right-auto lg:left-[6.5%] xl:left-[7.5%] 2xl:left-[8.5%]'
+                          : 'md:left-auto md:right-[5%] lg:right-[6.5%] xl:right-[7.5%] 2xl:right-[8.5%]',
+                      ].join(' ')}
+                    >
+                      <motion.div
+                        className="flex w-full max-w-[22rem] flex-col items-center bg-transparent sm:max-w-[26rem] md:max-w-none md:items-start"
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 15 }}
+                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                       >
-                        <motion.div
-                          className="w-full max-w-[22rem] sm:max-w-[26rem] md:max-w-none bg-transparent flex flex-col items-center md:items-start"
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        <p className={`eyebrow tracking-[0.24em] sm:tracking-[0.32em] ${HERO_SLIDE_THEME.eyebrowColor}`}>
+                          {slide.eyebrow}
+                        </p>
+                        <h1
+                          id={index === 0 ? 'corporate-hero-heading' : undefined}
+                          className="hero-heading-corporate mt-1.5 max-w-[20rem] text-center sm:max-w-[24rem] md:max-w-[27rem] md:text-left lg:max-w-[30rem] xl:max-w-[33rem]"
                         >
-                          <p className={`eyebrow tracking-[0.24em] sm:tracking-[0.32em] ${slide.eyebrowColor}`}>
-                            {slide.eyebrow}
-                          </p>
-                          <h1
-                            id="corporate-hero-heading"
-                            className="hero-heading-corporate mt-1.5 max-w-[20rem] sm:max-w-[24rem] md:max-w-[27rem] lg:max-w-[30rem] xl:max-w-[33rem] text-center md:text-left"
+                          <span className={`block ${HERO_SLIDE_THEME.textColorLight}`}>{slide.headingLight}</span>
+                          <span
+                            className={`mt-2 block font-serif text-[clamp(1.35rem,3vw,2.25rem)] font-medium italic leading-[1.14] md:mt-2.5 ${HERO_SLIDE_THEME.textColorItalic}`}
                           >
-                            <span className={`block ${slide.textColorLight}`}>
-                              {slide.headingLight.split('\n').map((line, i) => (
-                                <span key={i} className="block">{line}</span>
-                              ))}
-                            </span>
-                            <span className={`mt-2 block font-serif italic font-medium text-[clamp(1.35rem,3vw,2.25rem)] leading-[1.14] md:mt-2.5 ${slide.textColorItalic}`}>
-                              {slide.headingItalic.split('\n').map((line, i) => (
-                                <span key={i} className="block">{line}</span>
-                              ))}
-                            </span>
-                          </h1>
+                            {slide.headingItalic}
+                          </span>
+                        </h1>
 
-                          <div className="mt-6 flex w-full max-w-[22rem] flex-row items-center justify-center gap-2.5 sm:mt-8 sm:max-w-none md:justify-start">
-                            <Link
-                              to="/corporate#bulk-order-enquiry"
-                              className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground shadow transition hover:bg-[#4A1020] sm:flex-none sm:px-6 sm:text-xs"
-                            >
-                              <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
-                              <span className="whitespace-nowrap">Get Bulk Quote</span>
-                            </Link>
-                            <Link
-                              to="/shop"
-                              className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md border border-primary-foreground/80 bg-primary-foreground px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary transition hover:bg-[var(--cream)] sm:flex-none sm:px-6 sm:text-xs"
-                            >
-                              <ShoppingBag className="h-4 w-4 text-[#9D7D47]" strokeWidth={1.5} />
-                              <span className="whitespace-nowrap">Explore Shop</span>
-                            </Link>
-                          </div>
-                        </motion.div>
-                      </div>
-                    )}
+                        <div className="mt-6 flex w-full max-w-[22rem] flex-row items-center justify-center gap-2.5 sm:mt-8 sm:max-w-none md:justify-start">
+                          <Link
+                            to="/corporate#bulk-order-enquiry"
+                            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground shadow transition hover:bg-[#4A1020] sm:flex-none sm:px-6 sm:text-xs"
+                          >
+                            <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
+                            <span className="whitespace-nowrap">Get Bulk Quote</span>
+                          </Link>
+                          <Link
+                            to="/shop"
+                            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md border border-primary-foreground/80 bg-primary-foreground px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary transition hover:bg-[var(--cream)] sm:flex-none sm:px-6 sm:text-xs"
+                          >
+                            <ShoppingBag className="h-4 w-4 text-[#9D7D47]" strokeWidth={1.5} />
+                            <span className="whitespace-nowrap">Explore Shop</span>
+                          </Link>
+                        </div>
+                      </motion.div>
+                    </div>
                   </div>
                 );
               })}
@@ -507,10 +514,6 @@ export default function CorporatePage() {
         <AwardsTrophiesSection />
 
         <CorporateGiftingProcessSection />
-
-        <TrustedLeadingBrandsSection />
-
-        <CorporateTestimonialsSection />
 
         <BulkEnquiryFormSection
           title="Bulk Order Enquiry"
