@@ -1,163 +1,205 @@
-import React, { useState } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
-import { Heart, Leaf } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Leaf, Recycle } from 'lucide-react';
+import {
+  ECO_FRIENDLY_CATEGORY_SLUG,
+  formatCorporatePrice,
+  getEcoFriendlyFeaturedProducts,
+  type CorporateProduct,
+} from '@/config/corporateGiftingData';
 import { cn } from '@/utils/cn';
 
-type Product = {
-  id: string;
-  title: string;
-  category: string;
-  price: number;
-  image: string;
-  productSlug: string;
-  hasOverlay?: boolean;
-};
+function EcoIntroCard({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        'custom-collection-intro relative flex w-full min-h-[280px] flex-col justify-between overflow-hidden rounded-[1.5rem] p-8 shadow-[0_16px_44px_-12px_rgba(45,90,61,0.35)] sm:p-10 lg:h-[460px] lg:min-h-0 lg:w-[320px] xl:w-[340px]',
+        className,
+      )}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#2D5A3D] via-[#3D7A52] to-[#6B1E30]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-2xl"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -bottom-10 -left-6 h-28 w-28 rounded-full bg-[#4A1020]/20 blur-2xl"
+        aria-hidden
+      />
 
-const WOODEN_PRODUCTS: Product[] = [
-  {
-    id: 'coffee-mug-cork',
-    title: 'Coffee Mug With Cork Detail',
-    category: 'Corporate Gifting',
-    price: 450,
-    productSlug: 'ceramic-coffee-mug',
-    image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=600',
-  },
-  {
-    id: 'savvy-sustainable-hamper',
-    title: 'Savvy and Sustainable Gift Hamper',
-    category: 'Corporate Gifting',
-    price: 1470,
-    productSlug: 'sustainable-gift-hamper',
-    image: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=600',
-    hasOverlay: true,
-  },
-  {
-    id: 'bamboo-coffee-sipper',
-    title: 'Bamboo Coffee Sipper',
-    category: 'Corporate Gifting',
-    price: 350,
-    productSlug: 'bamboo-coffee-sipper',
-    image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=600',
-  },
-  {
-    id: 'journal-rumi',
-    title: 'Journal - Rumi',
-    category: 'Corporate Gifting',
-    price: 250,
-    productSlug: 'cork-notebook-set',
-    image: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&q=80&w=600',
-  },
-];
+      <div className="relative">
+        <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/30 bg-white/15 text-white backdrop-blur-sm">
+          <Leaf className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+        </div>
+        <h2
+          id="wooden-gifting-heading"
+          className="font-serif text-[clamp(1.5rem,3.8vw,1.95rem)] font-medium leading-[1.2] text-white"
+        >
+          Eco-Friendly
+          <span className="block text-[#D4E8D4]">Corporate Gifting</span>
+        </h2>
+      </div>
+
+      <div className="relative mt-6">
+        <p className="font-sans text-[13px] leading-relaxed text-white/90 sm:text-[14px]">
+          Sustainable gifts with premium finish — cork, bamboo, and recycled materials for conscious
+          corporate programs.
+        </p>
+        <Link
+          to={`/corporate/category/${ECO_FRIENDLY_CATEGORY_SLUG}`}
+          className="group mt-6 inline-flex min-h-[44px] w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-[#2D5A3D] shadow-md transition-all hover:bg-[#E8F5E9]"
+        >
+          View more
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2.25} aria-hidden />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function EcoProductCard({ product, index }: { product: CorporateProduct; index: number }) {
+  return (
+    <Link
+      to={`/corporate/product/${product.slug}`}
+      className="custom-snap-card group relative flex w-[min(88vw,360px)] shrink-0 snap-start flex-col sm:w-[300px] lg:w-[320px]"
+    >
+      <div className="relative overflow-hidden rounded-[1.25rem] bg-white shadow-[0_10px_32px_-10px_rgba(0,0,0,0.12)] ring-1 ring-[#EBEBEB] transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_20px_48px_-14px_rgba(45,90,61,0.18)] group-hover:ring-[#3D7A52]/35 sm:rounded-[1.35rem]">
+        <div className="relative h-[min(52vw,260px)] min-h-[220px] overflow-hidden sm:h-[255px]">
+          <AppImage
+            src={product.images[0]}
+            alt={product.name}
+            fill
+            sizes="310px"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A1010]/55 via-transparent to-transparent" />
+
+          <span className="absolute left-3 top-3 rounded-full bg-white/92 px-2.5 py-1 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-[#2D5A3D] shadow-sm backdrop-blur-sm">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+
+          <div className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-[#2D5A3D] text-[#C9A96E] shadow-lg transition-transform duration-300 group-hover:scale-110">
+            <Leaf className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+          </div>
+
+          <span className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full border border-white/25 bg-white/15 px-2.5 py-1 font-sans text-[9px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-md">
+            <Recycle className="h-3 w-3 text-[#C9A96E]" strokeWidth={2} aria-hidden />
+            Sustainable
+          </span>
+        </div>
+
+        <div className="border-t border-[#F0F0F0] bg-white px-5 py-5">
+          <h3 className="font-serif text-[16px] font-semibold leading-snug text-[#1A1010] sm:text-[17px]">
+            {product.name}
+          </h3>
+          <p className="mt-1 line-clamp-2 text-[12px] leading-relaxed text-[#6b6560] sm:text-[13px]">
+            {product.description}
+          </p>
+
+          <div className="mt-4 flex items-end justify-between gap-3 border-t border-dashed border-[#E8E8E8] pt-4">
+            <div>
+              <p className="font-sans text-[20px] font-bold tabular-nums leading-none text-[#2D5A3D] sm:text-[22px]">
+                {formatCorporatePrice(product.price)}
+              </p>
+              <p className="mt-1 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-[#9D7D47]">
+                Unit price
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="font-sans text-[13px] font-bold leading-tight text-[#1A1010] sm:text-[14px]">
+                {product.bulkPrice.replace('From ', '')}
+              </p>
+              <p className="mt-1 font-sans text-[9px] font-bold uppercase tracking-[0.14em] text-[#9D7D47]">
+                Bulk pricing
+              </p>
+            </div>
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#EBEBEB] bg-[#FAFAFA] text-[#2D5A3D] transition-all group-hover:border-[#2D5A3D] group-hover:bg-[#2D5A3D] group-hover:text-white">
+              <ArrowRight className="h-4 w-4" strokeWidth={2.25} aria-hidden />
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
 
 export default function WoodenGiftingSection() {
-  const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const products = getEcoFriendlyFeaturedProducts();
 
-  const toggleFavorite = (id: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setFavorites((prev) => ({ ...prev, [id]: !prev[id] }));
+  const scrollBy = (direction: 'left' | 'right') => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>('.custom-snap-card');
+    const gap = 16;
+    const amount = card ? card.offsetWidth + gap : 320;
+    el.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
   };
 
   return (
-    <section className="bg-[var(--cream)] py-12 sm:py-14 lg:py-16" aria-labelledby="wooden-gifting-heading">
-      <div className="section-container">
-        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-10">
-          <h2
-            id="wooden-gifting-heading"
-            className="section-heading-corporate"
-          >
-            Eco-Friendly Corporate Gifting
-          </h2>
+    <section
+      id="eco-friendly-gifting"
+      className="custom-collection-section section-pad relative scroll-mt-28 overflow-hidden bg-[var(--cream)]"
+      aria-labelledby="wooden-gifting-heading"
+    >
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#3D7A52]/25 to-transparent"
+        aria-hidden
+      />
+
+      <div className="section-container relative">
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <p className="hidden font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#3D7A52] lg:block">
+            Sustainable corporate gifts
+          </p>
+          <div className="ml-auto hidden items-center gap-2 lg:flex">
+            <button
+              type="button"
+              onClick={() => scrollBy('left')}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#EBEBEB] bg-white text-[#2D5A3D] shadow-sm transition hover:border-[#3D7A52]/40 hover:shadow-md"
+              aria-label="Scroll eco-friendly gifts left"
+            >
+              <ChevronLeft className="h-5 w-5" strokeWidth={2} aria-hidden />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollBy('right')}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#EBEBEB] bg-white text-[#2D5A3D] shadow-sm transition hover:border-[#3D7A52]/40 hover:shadow-md"
+              aria-label="Scroll eco-friendly gifts right"
+            >
+              <ChevronRight className="h-5 w-5" strokeWidth={2} aria-hidden />
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-3.5 gap-y-7 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-4 lg:gap-6">
-          {WOODEN_PRODUCTS.map((prod) => {
-            const isFavorite = !!favorites[prod.id];
-            return (
-              <Link
-                key={prod.id}
-                to={`/corporate/product/${prod.productSlug}`}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-white transition-colors duration-300 hover:border-[#C9A96E]/45"
-              >
-                <div className="relative aspect-square w-full overflow-hidden bg-muted">
-                  <AppImage
-                    src={prod.image}
-                    alt={prod.title}
-                    fill
-                    sizes="(max-width: 640px) 50vw, 280px"
-                    className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  />
+        <div className="celebrations-carousel-shell flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-stretch lg:gap-6">
+          <div className="custom-intro-sticky z-20 w-full shrink-0 lg:w-auto">
+            <EcoIntroCard />
+          </div>
 
-                  {prod.hasOverlay && (
-                    <div className="absolute inset-0 pointer-events-none select-none z-10 bg-black/5">
-                      <svg className="absolute inset-0 h-full w-full opacity-90" viewBox="0 0 100 100" fill="none" preserveAspectRatio="none">
-                        <path d="M22 24 L22 36" stroke="white" strokeWidth="0.75" strokeDasharray="1.5 1.5" />
-                        <path d="M52 24 L52 48" stroke="white" strokeWidth="0.75" strokeDasharray="1.5 1.5" />
-                        <path d="M78 32 L78 60" stroke="white" strokeWidth="0.75" strokeDasharray="1.5 1.5" />
-                        <path d="M34 88 L34 72" stroke="white" strokeWidth="0.75" strokeDasharray="1.5 1.5" />
-                        <path d="M66 88 L66 75" stroke="white" strokeWidth="0.75" strokeDasharray="1.5 1.5" />
-                      </svg>
-                      <span className="absolute top-[18%] left-[22%] -translate-x-1/2 text-[8px] sm:text-[9.5px] font-sans font-bold uppercase tracking-wider text-white bg-black/35 backdrop-blur-[1px] px-1.5 py-0.5 rounded shadow-sm">
-                        Sipper
-                      </span>
-                      <span className="absolute top-[18%] left-[52%] -translate-x-1/2 text-[8px] sm:text-[9.5px] font-sans font-bold uppercase tracking-wider text-white bg-black/35 backdrop-blur-[1px] px-1.5 py-0.5 rounded shadow-sm">
-                        Reusable box
-                      </span>
-                      <span className="absolute top-[26%] left-[78%] -translate-x-1/2 text-[8px] sm:text-[9.5px] font-sans font-bold uppercase tracking-wider text-white bg-black/35 backdrop-blur-[1px] px-1.5 py-0.5 rounded shadow-sm">
-                        Journal
-                      </span>
-                      <span className="absolute bottom-[6%] left-[34%] -translate-x-1/2 text-[8px] sm:text-[9.5px] font-sans font-bold uppercase tracking-wider text-white bg-black/35 backdrop-blur-[1px] px-1.5 py-0.5 rounded shadow-sm">
-                        Coffee cup
-                      </span>
-                      <span className="absolute bottom-[6%] left-[66%] -translate-x-1/2 text-[8px] sm:text-[9.5px] font-sans font-bold uppercase tracking-wider text-white bg-black/35 backdrop-blur-[1px] px-1.5 py-0.5 rounded shadow-sm">
-                        Sipper
-                      </span>
+          <div className="relative min-w-0 flex-1">
+            <div
+              className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[var(--cream)] to-transparent"
+              aria-hidden
+            />
 
-                      <div className="absolute top-[36%] left-[24%] -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-white shadow-sm ring-2 ring-white/50" />
-                      <div className="absolute top-[48%] left-[54%] -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-white shadow-sm ring-2 ring-white/50" />
-                      <div className="absolute top-[60%] left-[74%] -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-white shadow-sm ring-2 ring-white/50" />
-                      <div className="absolute top-[72%] left-[34%] -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-white shadow-sm ring-2 ring-white/50" />
-                      <div className="absolute top-[75%] left-[66%] -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-white shadow-sm ring-2 ring-white/50" />
-                    </div>
-                  )}
+            <div
+              ref={scrollRef}
+              className="custom-scroll-track celebrations-scroll-track no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-4 pb-2 sm:-mx-8 sm:gap-6 sm:px-8 lg:mx-0 lg:px-0"
+            >
+              {products.map((product, index) => (
+                <EcoProductCard key={product.slug} product={product} index={index} />
+              ))}
+            </div>
 
-                  <button
-                    type="button"
-                    onClick={(e) => toggleFavorite(prod.id, e)}
-                    className="absolute right-2.5 top-2.5 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/85 text-foreground backdrop-blur-md transition-colors hover:bg-white"
-                    aria-label={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
-                  >
-                    <Heart
-                      className={cn(
-                        "h-4 w-4 transition-colors",
-                        isFavorite ? "fill-[#e11d48] text-[#e11d48]" : "text-[#1a1a1a]/80"
-                      )}
-                      strokeWidth={2}
-                    />
-                  </button>
-                </div>
-
-                {/* Content Area */}
-                <div className="flex flex-1 flex-col p-3 sm:p-4.5 bg-white">
-                  <p className="flex items-center gap-1.5 font-sans text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground sm:text-[11px]">
-                    <Leaf className="h-3 w-3 text-[#9D7D47]" strokeWidth={1.75} aria-hidden />
-                    {prod.category}
-                  </p>
-
-                  <h3 className="mt-1.5 min-h-[2.25rem] font-serif text-[14px] font-semibold leading-snug text-foreground transition-colors group-hover:text-primary sm:min-h-[2.75rem] sm:text-[17px]">
-                    {prod.title}
-                  </h3>
-
-                  <div className="mt-2 flex items-baseline justify-between border-t border-black/[0.03] pt-2">
-                    <span className="font-sans text-[13px] font-bold text-primary sm:text-base">
-                      &#8377; {prod.price.toLocaleString('en-IN')}
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+            <p className="mt-3 font-sans text-[11px] font-medium tracking-wide text-[#8C847C] lg:hidden">
+              Swipe cards to explore →
+            </p>
+          </div>
         </div>
       </div>
     </section>

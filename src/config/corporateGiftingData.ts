@@ -35,6 +35,18 @@ const IMG = (id: string, w = 800) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&q=80&w=${w}`;
 
 const CATEGORY_IMG = (slug: string) => `/images/corporate/categories/${slug}.jpeg`;
+const ECO_IMG = (filename: string) => `/images/corporate/eco-friendly/${filename}`;
+
+export const ECO_FRIENDLY_CATEGORY_SLUG = 'eco-friendly-gifting';
+
+export const ECO_FRIENDLY_FEATURED_SLUGS = [
+  'coffee-mug-cork-detail',
+  'sustainable-gift-hamper',
+  'bamboo-coffee-sipper',
+  'cork-notebook-set',
+  'bamboo-desk-organizer',
+  'seed-paper-stationery',
+] as const;
 
 export const CORPORATE_CATEGORIES: CorporateCategory[] = [
   {
@@ -308,7 +320,6 @@ export const CORPORATE_PRODUCTS: CorporateProduct[] = [
   // Drinkware
   product('drinkware', 'insulated-steel-bottle', 'Insulated Steel Bottle', 'Double-wall vacuum bottle with laser-engraved logo — keeps drinks hot or cold for hours.', 649, 'From ₹449/unit (50+ qty)', IMG('photo-1602143407151-7111542de6e8')),
   product('drinkware', 'ceramic-coffee-mug', 'Ceramic Coffee Mug', 'Premium ceramic mug with full-wrap or logo print for office and client gifting.', 299, 'From ₹199/unit (100+ qty)', IMG('photo-1514228742587-6b1558fcca3d')),
-  product('drinkware', 'bamboo-coffee-sipper', 'Bamboo Coffee Sipper', 'Eco-friendly bamboo sipper with cork detail and brand engraving.', 450, 'From ₹325/unit (50+ qty)', IMG('photo-1576092768241-dec231879fc3')),
   product('drinkware', 'glass-water-bottle', 'Glass Water Bottle', 'Borosilicate glass bottle with silicone sleeve and custom branding.', 549, 'From ₹399/unit (50+ qty)', IMG('photo-1602143407151-7111542de6e8')),
   // Event & Conference Gifting
   product('event-conference-gifting', 'delegate-welcome-kit', 'Delegate Welcome Kit', 'Complete delegate kit with badge, notebook, pen, and branded tote for conferences.', 599, 'From ₹449/unit (100+ qty)', IMG('photo-1556761175-5973dc0f32e7')),
@@ -321,10 +332,12 @@ export const CORPORATE_PRODUCTS: CorporateProduct[] = [
   product('luxury-packaging', 'wooden-presentation-box', 'Wooden Presentation Box', 'Handcrafted wooden box with laser-engraved lid for premium gifting.', 899, 'From ₹649/unit (50+ qty)', IMG('photo-1576092768241-dec231879fc3')),
   product('luxury-packaging', 'custom-insert-tray', 'Custom Insert Tray', 'Foam or cardboard insert tray tailored to your product dimensions and branding.', 149, 'From ₹99/unit (200+ qty)', IMG('photo-1513201099705-a9746e1e201f')),
   // Eco-Friendly
-  product('eco-friendly-gifting', 'bamboo-desk-organizer', 'Bamboo Desk Organizer', 'Sustainable bamboo desk organizer with engraved company logo.', 599, 'From ₹449/unit (50+ qty)', IMG('photo-1576092768241-dec231879fc3')),
-  product('eco-friendly-gifting', 'cork-notebook-set', 'Cork Notebook Set', 'Cork-covered notebook and pen set — fully biodegradable packaging.', 399, 'From ₹299/unit (50+ qty)', IMG('photo-1531346878377-a5be20888e57')),
-  product('eco-friendly-gifting', 'sustainable-gift-hamper', 'Savvy and Sustainable Gift Hamper', 'Eco-conscious hamper with wooden items, organic treats, and recycled packaging.', 1470, 'From ₹1,099/unit (25+ qty)', IMG('photo-1513201099705-a9746e1e201f')),
-  product('eco-friendly-gifting', 'seed-paper-stationery', 'Seed Paper Stationery Set', 'Plantable seed paper notebooks and cards for green corporate programs.', 299, 'From ₹219/unit (100+ qty)', IMG('photo-1456324504439-367cee3b3c32')),
+  product('eco-friendly-gifting', 'coffee-mug-cork-detail', 'Coffee Mug With Cork Detail', 'Matte finish mug with natural cork base — insulated, reusable, and brand-ready.', 450, 'From ₹325/unit (50+ qty)', ECO_IMG('coffee-mug-cork-detail.jpeg')),
+  product('eco-friendly-gifting', 'sustainable-gift-hamper', 'Savvy and Sustainable Gift Hamper', 'Eco-conscious hamper with wooden items, organic treats, and recycled packaging.', 1470, 'From ₹1,099/unit (25+ qty)', ECO_IMG('sustainable-gift-hamper.jpeg')),
+  product('eco-friendly-gifting', 'bamboo-coffee-sipper', 'Bamboo Coffee Sipper', 'Eco-friendly bamboo sipper with cork detail and brand engraving.', 350, 'From ₹249/unit (50+ qty)', ECO_IMG('bamboo-coffee-sipper.jpeg')),
+  product('eco-friendly-gifting', 'cork-notebook-set', 'Journal - Rumi', 'Cork-covered notebook and pen set — fully biodegradable packaging.', 250, 'From ₹199/unit (50+ qty)', ECO_IMG('cork-notebook-set.jpeg')),
+  product('eco-friendly-gifting', 'bamboo-desk-organizer', 'Bamboo Desk Organizer', 'Sustainable bamboo desk organizer with engraved company logo.', 599, 'From ₹449/unit (50+ qty)', ECO_IMG('bamboo-desk-organizer.jpeg')),
+  product('eco-friendly-gifting', 'seed-paper-stationery', 'Seed Paper Stationery Set', 'Plantable seed paper notebooks and cards for green corporate programs.', 299, 'From ₹219/unit (100+ qty)', ECO_IMG('seed-paper-stationery.jpeg')),
   // Events & Conferences
   product('events-conferences', 'summit-delegate-kit', 'Summit Delegate Kit', 'Full summit kit with lanyard, notebook, bottle, and event-branded merchandise.', 799, 'From ₹599/unit (100+ qty)', IMG('photo-1540575467063-178a50c2df87')),
   product('events-conferences', 'annual-day-gift', 'Annual Day Gift', 'Celebratory gift for annual day and town hall events with custom branding.', 999, 'From ₹749/unit (50+ qty)', IMG('photo-1513885535751-8b9238bd345a')),
@@ -343,6 +356,15 @@ export function getCategoryBySlug(slug: string): CorporateCategory | undefined {
 
 export function getProductsByCategory(categorySlug: string): CorporateProduct[] {
   return CORPORATE_PRODUCTS.filter((p) => p.categorySlug === categorySlug);
+}
+
+export function getEcoFriendlyFeaturedProducts(): CorporateProduct[] {
+  const bySlug = new Map(
+    getProductsByCategory(ECO_FRIENDLY_CATEGORY_SLUG).map((product) => [product.slug, product]),
+  );
+  return ECO_FRIENDLY_FEATURED_SLUGS.map((slug) => bySlug.get(slug)).filter(
+    (product): product is CorporateProduct => Boolean(product),
+  );
 }
 
 export function getProductBySlug(productSlug: string): CorporateProduct | undefined {

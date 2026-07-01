@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import CorporateEnquiryDialog from '@/components/corporate/CorporateEnquiryDialog';
 import { VOUCHER_BRANDS } from '@/config/voucherBrandsData';
 
 const LOGO_API_TOKEN = 'pk_CMw_iB1FQuWiQT75l8pqZg';
@@ -17,12 +18,15 @@ function brandLogoFallback(name: string): string {
 
 export default function VouchersBrandsPage() {
   const [query, setQuery] = useState('');
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
 
   const filteredBrands = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return VOUCHER_BRANDS;
     return VOUCHER_BRANDS.filter((brand) => brand.name.toLowerCase().includes(q));
   }, [query]);
+
+  const closeEnquiry = () => setSelectedBrand(null);
 
   return (
     <div className="corporate-page flex min-h-screen flex-col bg-white font-sans">
@@ -44,7 +48,7 @@ export default function VouchersBrandsPage() {
               <h1 className="section-heading-corporate mt-3">Voucher brands</h1>
               <p className="section-lede mt-4">
                 Browse {VOUCHER_BRANDS.length}+ premium partner brands available for corporate gift
-                vouchers and employee rewards.
+                vouchers and employee rewards. Click any brand to submit an enquiry.
               </p>
             </div>
 
@@ -80,8 +84,10 @@ export default function VouchersBrandsPage() {
             ) : (
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 {filteredBrands.map((brand) => (
-                  <div
+                  <button
                     key={brand.name}
+                    type="button"
+                    onClick={() => setSelectedBrand(brand.name)}
                     className="group flex h-[132px] flex-col items-center justify-center rounded-xl border border-border bg-white p-3 text-center shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A96E]/45 hover:shadow-md sm:h-[140px] sm:p-4"
                   >
                     <div className="relative mb-2.5 flex h-14 w-14 items-center justify-center sm:mb-3 sm:h-16 sm:w-16">
@@ -98,7 +104,7 @@ export default function VouchersBrandsPage() {
                     <span className="line-clamp-2 px-1 font-sans text-[11px] font-medium leading-snug text-primary sm:text-[12px]">
                       {brand.name}
                     </span>
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
@@ -107,6 +113,21 @@ export default function VouchersBrandsPage() {
       </main>
 
       <Footer />
+
+      <CorporateEnquiryDialog
+        open={selectedBrand !== null}
+        onClose={closeEnquiry}
+        context={
+          selectedBrand
+            ? {
+                productName: selectedBrand,
+                categoryName: 'Voucher Brands',
+                categorySlug: 'trophies-vouchers',
+                source: 'voucher-brand-inquiry',
+              }
+            : undefined
+        }
+      />
     </div>
   );
 }
