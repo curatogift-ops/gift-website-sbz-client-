@@ -170,7 +170,7 @@ export default function CorporateProductPage() {
                   <div className="hidden shrink-0 flex-col gap-2.5 sm:flex">
                     {product.images.map((src, index) => (
                       <button
-                        key={src}
+                        key={`${src}-${index}`}
                         type="button"
                         onClick={() => setActiveImage(index)}
                         className={`corp-product-thumb relative h-[4.25rem] w-[4.25rem] overflow-hidden lg:h-[4.75rem] lg:w-[4.75rem] ${
@@ -208,7 +208,7 @@ export default function CorporateProductPage() {
                 <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto sm:hidden">
                   {product.images.map((src, index) => (
                     <button
-                      key={src}
+                      key={`${src}-${index}`}
                       type="button"
                       onClick={() => setActiveImage(index)}
                       className={`corp-product-thumb relative h-16 w-16 shrink-0 overflow-hidden ${
