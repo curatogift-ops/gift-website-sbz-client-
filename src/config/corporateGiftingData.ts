@@ -37,6 +37,12 @@ const IMG = (id: string, w = 800) =>
 const CATEGORY_IMG = (slug: string) => `/images/corporate/categories/${slug}.jpeg`;
 const ECO_IMG = (filename: string) => `/images/corporate/eco-friendly/${filename}`;
 const ECO_GALLERY = (slug: string) => [ECO_IMG(`${slug}.jpeg`), ECO_IMG(`${slug}-alt.jpeg`)];
+const CORPORATE_PRODUCT_IMG = (folder: string, slug: string, angle: number) =>
+  `/images/corporate/${folder}/${slug}-angle-0${angle}.jpeg`;
+const CORPORATE_PRODUCT_GALLERY = (folder: string, slug: string, angles = 4) =>
+  Array.from({ length: angles }, (_, i) => CORPORATE_PRODUCT_IMG(folder, slug, i + 1));
+const HAMPER_GALLERY = (slug: string) => CORPORATE_PRODUCT_GALLERY('corporate-hampers', slug);
+const JOINER_GALLERY = (slug: string) => CORPORATE_PRODUCT_GALLERY('employee-joining-kits', slug);
 
 export const ECO_FRIENDLY_CATEGORY_SLUG = 'eco-friendly-gifting';
 
@@ -262,7 +268,7 @@ export const CORPORATE_PRODUCTS: CorporateProduct[] = [
     'A premium hamper curated for leadership gifting — fine chocolates, gourmet treats, and elegant presentation for C-suite and VIP clients.',
     3499,
     'From ₹2,499/unit (50+ qty)',
-    IMG('photo-1549465220-1a8b9238cd48'),
+    HAMPER_GALLERY('executive-gift-hamper'),
     ['Assorted gourmet treats', 'Luxury rigid gift box', 'Personalised message card', 'Ideal for leadership gifting'],
   ),
   product(
@@ -272,7 +278,7 @@ export const CORPORATE_PRODUCTS: CorporateProduct[] = [
     'Our signature corporate hamper with a balanced mix of snacks, beverages, and branded keepsakes — perfect for client appreciation.',
     2499,
     'From ₹1,899/unit (50+ qty)',
-    IMG('photo-1513201099705-a9746e1e201f'),
+    HAMPER_GALLERY('premium-gift-hamper'),
   ),
   product(
     'corporate-hampers',
@@ -281,7 +287,7 @@ export const CORPORATE_PRODUCTS: CorporateProduct[] = [
     'Premium dry fruits and nuts in an elegant hamper — a timeless corporate gift for festivals and year-end appreciation.',
     1999,
     'From ₹1,499/unit (50+ qty)',
-    IMG('photo-1606312619070-d48b4c652cec'),
+    HAMPER_GALLERY('dry-fruit-hamper'),
   ),
   product(
     'corporate-hampers',
@@ -290,7 +296,7 @@ export const CORPORATE_PRODUCTS: CorporateProduct[] = [
     'Artisan chocolates and confections in a beautifully packaged hamper — a crowd-pleaser for teams and clients alike.',
     1799,
     'From ₹1,299/unit (50+ qty)',
-    IMG('photo-1549007953-2f2dc6b1f8f3'),
+    HAMPER_GALLERY('chocolate-hamper'),
   ),
   product(
     'corporate-hampers',
@@ -299,13 +305,14 @@ export const CORPORATE_PRODUCTS: CorporateProduct[] = [
     'A thoughtful wellness-focused hamper with healthy snacks, herbal teas, and self-care essentials for employee wellbeing programs.',
     2199,
     'From ₹1,699/unit (50+ qty)',
-    IMG('photo-1505576399279-585b6584a271'),
+    HAMPER_GALLERY('wellness-hamper'),
   ),
   // Employee Joining Kits
-  product('employee-joining-kits', 'starter-welcome-kit', 'Starter Welcome Kit', 'Essential branded items for new hires — notebook, pen, bottle, and welcome card in a premium kit.', 899, 'From ₹649/unit (25+ qty)', IMG('photo-1553062407-98eeb64c6a62')),
-  product('employee-joining-kits', 'premium-onboarding-kit', 'Premium Onboarding Kit', 'Elevated welcome kit with backpack, tech accessories, and branded apparel for a memorable first day.', 2499, 'From ₹1,899/unit (25+ qty)', IMG('photo-1553062407-98eeb64c6a62')),
-  product('employee-joining-kits', 'remote-joiner-kit', 'Remote Joiner Kit', 'Ship-ready kit for remote employees with desk essentials, sipper, and branded merchandise.', 1499, 'From ₹1,099/unit (25+ qty)', IMG('photo-1456324504439-367cee3b3c32')),
-  product('employee-joining-kits', 'executive-joiner-kit', 'Executive Joiner Kit', 'Luxury welcome kit for senior hires with premium leather goods, pen set, and custom packaging.', 4999, 'From ₹3,999/unit (10+ qty)', IMG('photo-1627123424574-724758594e93')),
+  product('employee-joining-kits', 'starter-welcome-kit', 'Starter Welcome Kit', 'Essential branded items for new hires — notebook, pen, bottle, and welcome card in a premium kit.', 899, 'From ₹649/unit (25+ qty)', JOINER_GALLERY('starter-welcome-kit')),
+  product('employee-joining-kits', 'premium-onboarding-kit', 'Premium Onboarding Kit', 'Elevated welcome kit with backpack, tech accessories, and branded apparel for a memorable first day.', 2499, 'From ₹1,899/unit (25+ qty)', JOINER_GALLERY('premium-onboarding-kit')),
+  product('employee-joining-kits', 'remote-joiner-kit', 'Remote Joiner Kit', 'Ship-ready kit for remote employees with desk essentials, sipper, and branded merchandise.', 1499, 'From ₹1,099/unit (25+ qty)', JOINER_GALLERY('remote-joiner-kit')),
+  product('employee-joining-kits', 'executive-joiner-kit', 'Executive Joiner Kit', 'Luxury welcome kit for senior hires with premium leather goods, pen set, and custom packaging.', 4999, 'From ₹3,999/unit (10+ qty)', JOINER_GALLERY('executive-joiner-kit')),
+  product('employee-joining-kits', 'professional-welcome-kit', 'Professional Welcome Kit', 'Desk-ready welcome kit with premium notebook, pen, and insulated bottle in elegant gift packaging.', 1799, 'From ₹1,299/unit (25+ qty)', JOINER_GALLERY('professional-welcome-kit')),
   // Festive Gifts
   product('festive-gifts', 'diwali-delight-box', 'Diwali Delight Box', 'Festive sweets, diyas, and premium packaging for Diwali corporate gifting programs.', 1299, 'From ₹899/unit (50+ qty)', IMG('photo-1604423376506-02708d1bd4f8')),
   product('festive-gifts', 'christmas-celebration-hamper', 'Christmas Celebration Hamper', 'Holiday treats and festive décor in an elegant gift box for year-end celebrations.', 1599, 'From ₹1,199/unit (50+ qty)', IMG('photo-1513885535751-8b9238bd345a')),
