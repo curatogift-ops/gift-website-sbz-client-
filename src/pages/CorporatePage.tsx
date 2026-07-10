@@ -158,7 +158,7 @@ export default function CorporatePage() {
     if (HERO_SLIDES.length <= 1) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 5000);
+    }, 3000);
     return () => clearInterval(timer);
   }, [currentSlide]);
 
