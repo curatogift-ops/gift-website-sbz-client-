@@ -34,3 +34,8 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# Large catalogue PDFs (~680MB) — keep local for View/Download; sync before deploy
+public/catalogues/*.pdf
+public/catalogues/*.pptx
+!public/catalogues/README.md

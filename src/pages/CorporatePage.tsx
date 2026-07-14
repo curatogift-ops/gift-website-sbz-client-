@@ -13,14 +13,13 @@ import CorporateGiftingProcessSection from '@/components/corporate/CorporateGift
 import BulkEnquiryFormSection from '@/components/shared/BulkEnquiryFormSection';
 import FaqAccordionSection from '@/components/shared/FaqAccordionSection';
 import AppImage from '@/components/ui/AppImage';
-import { CORPORATE_CATEGORIES } from '@/config/corporateGiftingData';
+import { getCorporateSolutionsCategories } from '@/config/corporateGiftingData';
 import {
   Building2,
   Gem,
   Gift,
   Leaf,
   Shield,
-  ShoppingBag,
   Star,
   Tag,
   Truck,
@@ -39,7 +38,7 @@ const VALUE_PROPS = [
   { title: 'SUSTAINABLE CHOICES', Icon: Leaf },
 ] as const;
 
-const GIFTING_SOLUTIONS = CORPORATE_CATEGORIES.map((category) => ({
+const GIFTING_SOLUTIONS = getCorporateSolutionsCategories().map((category) => ({
   id: category.slug,
   label: category.label.toUpperCase(),
   href: `/corporate/category/${category.slug}`,
@@ -57,9 +56,11 @@ const STATS = [
 const HERO_SLIDES = [
   {
     id: 'corporate-hampers',
-    eyebrow: 'CORPORATE HAMPERS',
-    headingLight: 'Thoughtfully',
-    headingItalic: 'Curated Gift Hampers.',
+    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
+    headingLight: "India's One-Stop",
+    headingItalic: 'Gifting Solution.',
+    supporting:
+      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
     image: '/images/corporate/hero/corporate-hero-hampers.jpeg',
     imageAlt: 'Premium corporate gift hampers with branded packaging',
     textPosition: 'left',
@@ -69,9 +70,11 @@ const HERO_SLIDES = [
   },
   {
     id: 'tech-gifting',
-    eyebrow: 'TECH GIFTS',
-    headingLight: 'Premium Tech',
-    headingItalic: 'For Modern Teams.',
+    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
+    headingLight: "India's One-Stop",
+    headingItalic: 'Gifting Solution.',
+    supporting:
+      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
     image: '/images/corporate/hero/corporate-hero-tech.jpeg',
     imageAlt: 'Premium technology corporate gifting collection',
     textPosition: 'left',
@@ -81,9 +84,11 @@ const HERO_SLIDES = [
   },
   {
     id: 'premium-products',
-    eyebrow: 'PREMIUM PRODUCTS',
-    headingLight: 'Luxury Corporate',
-    headingItalic: 'Gifting Solutions.',
+    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
+    headingLight: "India's One-Stop",
+    headingItalic: 'Gifting Solution.',
+    supporting:
+      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
     image: '/images/corporate/hero/corporate-hero-premium.jpeg',
     imageAlt: 'Luxury premium corporate gift products',
     textPosition: 'left',
@@ -93,9 +98,11 @@ const HERO_SLIDES = [
   },
   {
     id: 'awards-trophies',
-    eyebrow: 'AWARDS & TROPHIES',
-    headingLight: 'Celebrate Every',
-    headingItalic: 'Achievement.',
+    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
+    headingLight: "India's One-Stop",
+    headingItalic: 'Gifting Solution.',
+    supporting:
+      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
     image: '/images/corporate/hero/corporate-hero-awards.jpeg',
     imageAlt: 'Corporate awards, trophies and recognition gifts',
     textPosition: 'left',
@@ -105,9 +112,11 @@ const HERO_SLIDES = [
   },
   {
     id: 'eco-friendly',
-    eyebrow: 'ECO-FRIENDLY GIFTING',
-    headingLight: 'Sustainable Gifts',
-    headingItalic: 'With Premium Finish.',
+    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
+    headingLight: "India's One-Stop",
+    headingItalic: 'Gifting Solution.',
+    supporting:
+      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
     image: '/images/corporate/hero/corporate-hero-eco.jpeg',
     imageAlt: 'Eco-friendly sustainable corporate gifting collection',
     textPosition: 'left',
@@ -289,21 +298,17 @@ export default function CorporatePage() {
                             {slide.headingItalic}
                           </span>
                         </h1>
+                        <p className="mt-3 max-w-[22rem] font-sans text-[13px] leading-relaxed text-white/85 sm:max-w-[26rem] sm:text-[14px] md:max-w-[28rem]">
+                          {slide.supporting}
+                        </p>
 
                         <div className="mt-6 flex w-full max-w-[22rem] flex-row items-center justify-center gap-2.5 sm:mt-8 sm:max-w-none md:justify-start">
                           <Link
-                            to="/corporate#bulk-order-enquiry"
-                            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground shadow transition hover:bg-[#4A1020] sm:flex-none sm:px-6 sm:text-xs"
+                            to="/corporate/category/corporate-hampers"
+                            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground shadow transition hover:bg-[#4A1020] sm:text-xs"
                           >
                             <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
-                            <span className="whitespace-nowrap">Get Bulk Quote</span>
-                          </Link>
-                          <Link
-                            to="/shop"
-                            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md border border-primary-foreground/80 bg-primary-foreground px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary transition hover:bg-[var(--cream)] sm:flex-none sm:px-6 sm:text-xs"
-                          >
-                            <ShoppingBag className="h-4 w-4 text-[#9D7D47]" strokeWidth={1.5} />
-                            <span className="whitespace-nowrap">Explore Shop</span>
+                            <span className="whitespace-nowrap">Explore Now</span>
                           </Link>
                         </div>
                       </motion.div>
@@ -481,11 +486,17 @@ export default function CorporatePage() {
               </div>
             )}
 
-            {/* sm+: grid — 11 categories: 4 cols tablet, 6 cols desktop */}
-            <ul className="mt-8 hidden list-none grid-cols-3 gap-x-5 gap-y-8 sm:grid lg:mt-10 lg:grid-cols-4 xl:grid-cols-6 xl:gap-x-4">
+            {/* sm+: flex wrap — full row fills width; incomplete last row stays centered */}
+            <ul className="mt-8 hidden list-none flex-wrap justify-center gap-x-5 gap-y-8 sm:flex lg:mt-10 xl:gap-x-4">
               {GIFTING_SOLUTIONS.map((item) => (
-                <li key={item.id}>
-                  <Link to={item.href} className="group flex flex-col outline-none transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#C9A96E] focus-visible:ring-offset-4 rounded-xl">
+                <li
+                  key={item.id}
+                  className="w-[calc((100%-2*1.25rem)/3)] lg:w-[calc((100%-3*1.25rem)/4)] xl:w-[calc((100%-5*1rem)/6)]"
+                >
+                  <Link
+                    to={item.href}
+                    className="group flex h-full flex-col rounded-xl p-2 outline-none transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#C9A96E] focus-visible:ring-offset-4"
+                  >
                     <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-muted transition-colors duration-300 group-hover:border-[#C9A96E]/40">
                       <AppImage
                         src={item.image}
@@ -495,8 +506,8 @@ export default function CorporatePage() {
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
-                    <p className="mt-3 flex min-h-[3rem] items-center justify-center text-center font-sans text-[12px] font-bold uppercase leading-snug tracking-[0.08em] text-foreground lg:text-[13px] xl:text-[12px]">
-                      {item.label}
+                    <p className="mt-3 flex min-h-[3rem] flex-1 items-center justify-center text-center font-sans text-[12px] font-bold uppercase leading-snug tracking-[0.08em] text-foreground lg:text-[13px] xl:text-[12px]">
+                      <span className="line-clamp-2">{item.label}</span>
                     </p>
                   </Link>
                 </li>

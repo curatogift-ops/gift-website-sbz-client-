@@ -8,7 +8,6 @@ import {
   Search,
   Heart,
   X,
-  Gift,
   ChevronDown,
   BriefcaseBusiness,
   ChevronRight,
@@ -178,6 +177,14 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
+    // Keep header pinned on catalogue so sticky category chips don't float mid-page.
+    const keepHeaderPinned =
+      pathname === '/catalogue' || pathname === '/download-catalogue';
+    if (keepHeaderPinned) {
+      setIsVisible(true);
+      return;
+    }
+
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
@@ -193,7 +200,7 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, pathname]);
 
   const iconThin = 1.65;
 
@@ -293,7 +300,6 @@ export default function Navbar() {
     },
     { label: 'Our Brands', href: '/brands' },
     { label: 'Bulk Enquiry', href: '/corporate#bulk-order-enquiry' },
-    { label: 'Bulk Gifting', href: '/corporate#bulk-order-enquiry', badge: 'New' },
     { label: 'About us', href: '/about' },
   ];
 
@@ -306,26 +312,20 @@ export default function Navbar() {
         !isVisible && '-translate-y-full'
       )}
     >
-      {/* ─── MOBILE ONLY (unchanged) ─────────────────────────────────────── */}
+      {/* Announcement bar */}
       <div
-        className="flex items-center gap-1.5 border-b border-white/10 px-2 py-2 text-[10px] font-medium leading-snug text-white sm:gap-2 sm:px-3 sm:py-2.5 sm:text-[11.5px] md:hidden"
+        className="flex items-center justify-center border-b border-white/10 px-3 py-2 text-center text-[10px] font-medium leading-snug text-white sm:px-4 sm:py-2.5 sm:text-[11.5px] lg:text-[12px]"
         style={{ backgroundColor: MAROON_RIBBON }}
       >
-        <Gift className="h-3 w-3 shrink-0 text-white sm:h-3.5 sm:w-3.5" strokeWidth={2} aria-hidden />
-        <div className="flex min-w-0 flex-1 flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-center">
-          <span className="text-white/95">Flat 10%</span>
-          <span className="font-semibold" style={{ color: '#E8C87A' }}>
-            OFF
-          </span>
-          <span className="hidden text-white/95 min-[360px]:inline">on All Orders</span>
-          <span className="hidden text-white/95 min-[420px]:inline">| Code:</span>
-        </div>
-        <div className="flex shrink-0 items-center gap-1">
-          <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-bold tracking-wide text-[#1a1010] sm:px-2.5 sm:py-1 sm:text-[11px]">
-            GIFTZ10
-          </span>
-          <ChevronRight className="h-3.5 w-3.5 text-white/90 sm:h-4 sm:w-4" strokeWidth={2} aria-hidden />
-        </div>
+        <p className="min-w-0 truncate text-white/95">
+          Bulk &amp; Corporate Gifting | Customized Orders | Best Prices |{' '}
+          <a
+            href="tel:+919164213044"
+            className="whitespace-nowrap font-semibold text-[#E8C87A] underline-offset-2 hover:underline"
+          >
+            Call Now: +91 91642 13044
+          </a>
+        </p>
       </div>
 
       <header className="border-b border-black/[0.06] bg-white md:hidden">
@@ -555,10 +555,10 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Right side: Gold "Download Catalogue" button */}
+            {/* Right side: Download Catalogue → Catalogue Library */}
             <div className="flex justify-end w-[12.5rem] 2xl:w-[14rem] shrink-0">
               <Link
-                to={isCorporateActive ? '/contact' : '/'}
+                to="/catalogue"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#4A1020] text-white hover:bg-[#5C1629] transition-all duration-300 px-4 py-2.5 text-[10px] font-sans font-bold uppercase tracking-[0.08em] shadow-[0_4px_12px_rgba(74,16,32,0.15)] hover:shadow-[0_6px_16px_rgba(74,16,32,0.25)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
               >
                 <Download className="h-3.5 w-3.5 text-[#C9A96E]" strokeWidth={2} aria-hidden />
@@ -884,16 +884,6 @@ export default function Navbar() {
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Bulk Enquiry
-                    </Link>
-                    <Link
-                      to="/corporate#bulk-order-enquiry"
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <span>Bulk Gifting</span>
-                      <span className="rounded bg-[#C9A96E] px-2 py-0.5 text-[9px] font-sans font-extrabold uppercase tracking-wide text-white">
-                        New
-                      </span>
                     </Link>
                     <Link
                       to="/about"
@@ -1252,7 +1242,7 @@ export default function Navbar() {
           <div className="flex-shrink-0 border-t border-[#ebe6e2] bg-white p-4 flex flex-col gap-2">
             {drawerCorporateActive && (
               <Link
-                to="/contact"
+                to="/catalogue"
                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#9D7D47] text-white hover:bg-[#8A6C3C] transition-colors py-3.5 font-sans text-[11px] font-bold uppercase tracking-widest shadow-sm"
                 onClick={() => setIsMobileMenuOpen(false)}
               >

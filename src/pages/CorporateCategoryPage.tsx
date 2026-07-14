@@ -4,8 +4,8 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CorporateProductCard from '@/components/corporate/CorporateProductCard';
 import {
-  CORPORATE_CATEGORIES,
   getCategoryBySlug,
+  getCorporateSolutionsCategories,
   getProductsByCategory,
 } from '@/config/corporateGiftingData';
 
@@ -18,6 +18,7 @@ export default function CorporateCategoryPage() {
   }
 
   const products = getProductsByCategory(categorySlug);
+  const otherCategories = getCorporateSolutionsCategories(categorySlug);
 
   return (
     <div className="corporate-page flex min-h-screen flex-col bg-white font-sans">
@@ -56,14 +57,17 @@ export default function CorporateCategoryPage() {
         <section className="border-t border-border bg-[var(--cream)] py-10 sm:py-12">
           <div className="section-container">
             <h2 className="font-serif text-xl font-semibold text-foreground">Explore other categories</h2>
-            <ul className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-              {CORPORATE_CATEGORIES.filter((c) => c.slug !== categorySlug).map((item) => (
-                <li key={item.slug}>
+            <ul className="mt-5 flex list-none flex-wrap justify-center gap-2.5 sm:gap-3">
+              {otherCategories.map((item) => (
+                <li
+                  key={item.slug}
+                  className="flex w-[calc((100%-0.625rem)/2)] sm:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-2.25rem)/4)]"
+                >
                   <Link
                     to={`/corporate/category/${item.slug}`}
-                    className="block rounded-lg border border-border bg-white px-3 py-2.5 text-[12px] font-bold uppercase tracking-[0.06em] text-foreground transition-colors hover:border-[#C9A96E]/40 hover:text-primary"
+                    className="flex min-h-[3.75rem] w-full items-center justify-center rounded-lg border border-border bg-white px-3 py-3 text-center font-sans text-[11px] font-bold uppercase leading-snug tracking-[0.06em] text-foreground transition-colors hover:border-[#C9A96E]/40 hover:text-primary sm:min-h-[4rem] sm:text-[12px]"
                   >
-                    {item.label}
+                    <span className="line-clamp-2">{item.label}</span>
                   </Link>
                 </li>
               ))}

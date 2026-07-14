@@ -104,7 +104,7 @@ export default function EventConferenceGiftingSection() {
               id="event-conference-gifting-heading"
               className="font-serif text-[clamp(2.5rem,5vw,4rem)] font-semibold leading-[1.05] tracking-tight text-[#1A1010]"
             >
-              Events & Conferences
+              Event & Conference Gifting
             </h2>
           </div>
           <Link

@@ -14,6 +14,7 @@ import PrivacyPage from '@/pages/PrivacyPage';
 import BrandsPage from '@/pages/BrandsPage';
 import VouchersBrandsPage from '@/pages/VouchersBrandsPage';
 import TrophiesPage from '@/pages/TrophiesPage';
+import CatalogueLibraryPage from '@/pages/CatalogueLibraryPage';
 import ImageRequirementsPage from '@/pages/ImageRequirementsPage';
 import WhatsAppWidget from '@/components/layout/WhatsAppWidget';
 import CursorSparkles from '@/components/ui/CursorSparkles';
@@ -37,6 +38,8 @@ export default function App() {
         <Route path="/brands" element={<BrandsPage />} />
         <Route path="/vouchers-brands" element={<VouchersBrandsPage />} />
         <Route path="/trophies" element={<TrophiesPage />} />
+        <Route path="/catalogue" element={<CatalogueLibraryPage />} />
+        <Route path="/download-catalogue" element={<Navigate to="/catalogue" replace />} />
         <Route path="/admin/image-requirements" element={<ImageRequirementsPage />} />
         <Route path="/promotional-gifts" element={<PlaceholderPage title="Promotional Gifts" />} />
         {/* Promotional Gifts sub-pages */}

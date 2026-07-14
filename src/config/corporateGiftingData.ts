@@ -361,6 +361,28 @@ export const CORPORATE_PRODUCTS: CorporateProduct[] = [
   product('trophies-vouchers', 'employee-of-month-award', 'Employee of the Month Award', 'Signature award trophy with monthly personalization option.', 1999, 'From ₹1,499/unit (10+ qty)', IMG('photo-1567427017947-545c5f8d16ad')),
 ];
 
+/** Ordered list for solutions grids / "Explore other categories" (9 display items). */
+export const CORPORATE_SOLUTIONS_ORDER = [
+  'corporate-hampers',
+  'employee-joining-kits',
+  'eco-friendly-gifting',
+  'tech-gifts',
+  'drinkware',
+  'trophies-vouchers',
+  'event-conference-gifting',
+  'luxury-packaging',
+  'festive-gifts',
+] as const;
+
+export function getCorporateSolutionsCategories(
+  excludeSlug?: string,
+): CorporateCategory[] {
+  return CORPORATE_SOLUTIONS_ORDER.map((slug) => getCategoryBySlug(slug)).filter(
+    (category): category is CorporateCategory =>
+      Boolean(category) && category!.slug !== excludeSlug,
+  );
+}
+
 export function getCategoryBySlug(slug: string): CorporateCategory | undefined {
   return CORPORATE_CATEGORIES.find((c) => c.slug === slug);
 }
