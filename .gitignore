@@ -35,7 +35,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# Large catalogue PDFs (~680MB) — keep local for View/Download; sync before deploy
+# Large catalogue PDFs — extracted from catalogue-bundles/ during npm run build
 public/catalogues/*.pdf
 public/catalogues/*.pptx
 !public/catalogues/README.md
+# Keep zip bundles tracked so Vercel can extract them at build time
+!catalogue-bundles/*.zip

@@ -1,10 +1,16 @@
 # Catalogue PDFs for Download Catalogue Library
 
-Place catalogue files here. Sync from the source drive folder:
+Files here are served at `/catalogues/<filename>`.
 
+## Local development
 ```bash
-# From project root — use the mapping in src/config/catalogueLibraryData.ts
-# Source: Downloads/drive-download-20260712T093520Z-2-001 2
+# Sync from the source Drive export folder
+./scripts/sync-catalogues.sh
+
+# Or extract committed zip bundles
+npm run extract-catalogues
 ```
 
-Files are served at `/catalogues/<filename>`.
+## Production (Vercel)
+`npm run build` extracts `catalogue-bundles/catalogues-part-*.zip` into this
+folder so real PDFs ship with the site (instead of the SPA `index.html` fallback).

@@ -20,6 +20,7 @@ import {
   Gift,
   Leaf,
   Shield,
+  ShoppingBag,
   Star,
   Tag,
   Truck,
@@ -56,11 +57,9 @@ const STATS = [
 const HERO_SLIDES = [
   {
     id: 'corporate-hampers',
-    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
-    headingLight: "India's One-Stop",
-    headingItalic: 'Gifting Solution.',
-    supporting:
-      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
+    eyebrow: 'CORPORATE HAMPERS',
+    headingLight: 'Thoughtfully',
+    headingItalic: 'Curated Gift Hampers.',
     image: '/images/corporate/hero/corporate-hero-hampers.jpeg',
     imageAlt: 'Premium corporate gift hampers with branded packaging',
     textPosition: 'left',
@@ -70,11 +69,9 @@ const HERO_SLIDES = [
   },
   {
     id: 'tech-gifting',
-    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
-    headingLight: "India's One-Stop",
-    headingItalic: 'Gifting Solution.',
-    supporting:
-      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
+    eyebrow: 'TECH GIFTS',
+    headingLight: 'Premium Tech',
+    headingItalic: 'For Modern Teams.',
     image: '/images/corporate/hero/corporate-hero-tech.jpeg',
     imageAlt: 'Premium technology corporate gifting collection',
     textPosition: 'left',
@@ -84,11 +81,9 @@ const HERO_SLIDES = [
   },
   {
     id: 'premium-products',
-    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
-    headingLight: "India's One-Stop",
-    headingItalic: 'Gifting Solution.',
-    supporting:
-      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
+    eyebrow: 'PREMIUM PRODUCTS',
+    headingLight: 'Luxury Corporate',
+    headingItalic: 'Gifting Solutions.',
     image: '/images/corporate/hero/corporate-hero-premium.jpeg',
     imageAlt: 'Luxury premium corporate gift products',
     textPosition: 'left',
@@ -98,11 +93,9 @@ const HERO_SLIDES = [
   },
   {
     id: 'awards-trophies',
-    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
-    headingLight: "India's One-Stop",
-    headingItalic: 'Gifting Solution.',
-    supporting:
-      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
+    eyebrow: 'AWARDS & TROPHIES',
+    headingLight: 'Celebrate Every',
+    headingItalic: 'Achievement.',
     image: '/images/corporate/hero/corporate-hero-awards.jpeg',
     imageAlt: 'Corporate awards, trophies and recognition gifts',
     textPosition: 'left',
@@ -112,11 +105,9 @@ const HERO_SLIDES = [
   },
   {
     id: 'eco-friendly',
-    eyebrow: "INDIA'S ONE-STOP GIFTING SOLUTION",
-    headingLight: "India's One-Stop",
-    headingItalic: 'Gifting Solution.',
-    supporting:
-      'Corporate gifts, customized merchandise, hampers, and branding solutions—delivered with quality, reliability, and care.',
+    eyebrow: 'ECO-FRIENDLY GIFTING',
+    headingLight: 'Sustainable Gifts',
+    headingItalic: 'With Premium Finish.',
     image: '/images/corporate/hero/corporate-hero-eco.jpeg',
     imageAlt: 'Eco-friendly sustainable corporate gifting collection',
     textPosition: 'left',
@@ -298,17 +289,21 @@ export default function CorporatePage() {
                             {slide.headingItalic}
                           </span>
                         </h1>
-                        <p className="mt-3 max-w-[22rem] font-sans text-[13px] leading-relaxed text-white/85 sm:max-w-[26rem] sm:text-[14px] md:max-w-[28rem]">
-                          {slide.supporting}
-                        </p>
 
                         <div className="mt-6 flex w-full max-w-[22rem] flex-row items-center justify-center gap-2.5 sm:mt-8 sm:max-w-none md:justify-start">
                           <Link
-                            to="/corporate/category/corporate-hampers"
-                            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground shadow transition hover:bg-[#4A1020] sm:text-xs"
+                            to="/corporate#bulk-order-enquiry"
+                            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground shadow transition hover:bg-[#4A1020] sm:flex-none sm:px-6 sm:text-xs"
                           >
                             <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
-                            <span className="whitespace-nowrap">Explore Now</span>
+                            <span className="whitespace-nowrap">Get Bulk Quote</span>
+                          </Link>
+                          <Link
+                            to="/shop"
+                            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md border border-primary-foreground/80 bg-primary-foreground px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary transition hover:bg-[var(--cream)] sm:flex-none sm:px-6 sm:text-xs"
+                          >
+                            <ShoppingBag className="h-4 w-4 text-[#9D7D47]" strokeWidth={1.5} />
+                            <span className="whitespace-nowrap">Explore Shop</span>
                           </Link>
                         </div>
                       </motion.div>

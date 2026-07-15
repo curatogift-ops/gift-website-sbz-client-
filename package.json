@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "extract-catalogues": "python3 scripts/extract-catalogues.py",
+    "build": "python3 scripts/extract-catalogues.py && tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint ."
   },
