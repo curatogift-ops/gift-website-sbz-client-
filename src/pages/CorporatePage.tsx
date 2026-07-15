@@ -58,8 +58,8 @@ const HERO_SLIDES = [
   {
     id: 'corporate-hampers',
     eyebrow: 'CORPORATE HAMPERS',
-    headingLight: 'Thoughtfully',
-    headingItalic: 'Curated Gift Hampers.',
+    headingLight: "India's Trusted",
+    headingItalic: 'Corporate Gifting Partner.',
     image: '/images/corporate/hero/corporate-hero-hampers.jpeg',
     imageAlt: 'Premium corporate gift hampers with branded packaging',
     textPosition: 'left',
