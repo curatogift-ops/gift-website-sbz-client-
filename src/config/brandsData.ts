@@ -8,17 +8,6 @@ export type Brand = {
 /** Base path for alphabetically organised brand logos in public/brand_logos/{Letter}/ */
 const BASE = '/brand_logos';
 
-/**
- * Only brands listed here render their logo image on the Brands page;
- * all others fall back to the styled text card. Add files here as clean
- * (transparent / high-quality) logos are provided.
- */
-const APPROVED_LOGOS = new Set<string>([
-  'Amazon_Pay.png',
-  'Amos.png',
-  'Aquaminder.png',
-]);
-
 type BrandEntry = {
   letter: string;
   file: string;
@@ -92,7 +81,7 @@ const BRAND_ENTRIES: BrandEntry[] = [
 
 export const BRANDS: Brand[] = BRAND_ENTRIES.map(({ letter, file, name, tags }) => ({
   name,
-  image: APPROVED_LOGOS.has(file) ? `${BASE}/${letter}/${file}` : '',
+  image: `${BASE}/${letter}/${file}`,
   letter,
   tags,
 })).sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
