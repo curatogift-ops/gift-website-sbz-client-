@@ -15,22 +15,22 @@ const AWARD_TYPES: AwardType[] = [
   {
     title: 'Crystal Awards',
     href: '/corporate/product/crystal-achievement-award',
-    image: '/images/corporate-hero-banner-mobile-custom.png',
-    imageAlt: 'Premium branded corporate gift presentation for a recognition moment',
+    image: '/images/corporate/awards-crystal.jpeg',
+    imageAlt: 'Custom crystal awards with space for your company logo',
     Icon: Trophy,
   },
   {
     title: 'Vouchers',
     href: '/vouchers-brands',
-    image: '/images/corporate-hero.png',
-    imageAlt: 'Branded desk gift set with a premium wooden finish',
+    image: '/images/corporate/awards-vouchers.jpeg',
+    imageAlt: 'Premium gift vouchers from leading brands for corporate rewards',
     Icon: Medal,
   },
   {
     title: 'Trophies',
     href: '/corporate/product/employee-of-month-award',
-    image: '/images/corporate-hero-slide-2.png',
-    imageAlt: 'Gold accented corporate gifting collection for award ceremonies',
+    image: '/images/corporate/awards-trophies.jpeg',
+    imageAlt: 'Premium trophies and recognition awards for corporate ceremonies',
     Icon: Sparkles,
   },
 ];

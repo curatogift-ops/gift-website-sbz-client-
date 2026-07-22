@@ -401,9 +401,9 @@ const EVENT_CONFERENCE_CATEGORIES = [
 ] as const;
 
 const AWARDS_CATEGORIES = [
-  { id: 'crystal-awards', label: 'Crystal Awards', image: 'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&q=80&w=600' },
-  { id: 'wooden-plaques', label: 'Wooden Plaques', image: 'https://images.unsplash.com/photo-1610552050899-df6c5848284a?auto=format&fit=crop&q=80&w=600' },
-  { id: 'metal-trophies', label: 'Metal Trophies', image: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=600' },
+  { id: 'crystal-awards', label: 'Crystal Awards', image: '/images/corporate/awards-crystal.jpeg' },
+  { id: 'vouchers', label: 'Vouchers', image: '/images/corporate/awards-vouchers.jpeg' },
+  { id: 'trophies', label: 'Trophies', image: '/images/corporate/awards-trophies.jpeg' },
 ] as const;
 
 const GALLERY_ROW_TOP = [

@@ -180,38 +180,40 @@ export default function BrandsPage() {
               })}
             </div>
 
-            {/* Mobile Alphabet Bar (Grid alignment, split rows with dividers matching Image 2) */}
-            <div className="flex md:hidden flex-wrap items-center justify-center gap-y-2 text-[12px] font-bold text-[#4A1020] tracking-wide">
-              <button
-                onClick={() => handleLetterClick('ALL')}
-                className={`px-2 py-0.5 rounded-md transition-all ${
-                  activeLetter === 'ALL' ? 'bg-[#4A1020] text-white' : ''
-                }`}
-              >
-                ALL
-              </button>
-              <span className="text-[#E8E0D8] mx-1">|</span>
-              {ALPHABET.map((letter, idx) => {
-                const hasBrands = (groupedBrands.get(letter)?.length ?? 0) > 0;
-                return (
-                  <div key={letter} className="flex items-center">
+            {/* Mobile Alphabet Bar — compact single-row strip, swipe sideways to reach more letters */}
+            <div className="md:hidden">
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <button
+                  onClick={() => handleLetterClick('ALL')}
+                  className={`h-8 shrink-0 rounded-full px-3.5 text-[11px] font-extrabold uppercase tracking-wider transition-all ${
+                    activeLetter === 'ALL'
+                      ? 'bg-[#4A1020] text-white shadow-[0_3px_8px_rgba(74,16,32,0.25)]'
+                      : 'bg-[#F7F2EA] text-[#4A1020]'
+                  }`}
+                >
+                  ALL
+                </button>
+                {ALPHABET.map((letter) => {
+                  const hasBrands = (groupedBrands.get(letter)?.length ?? 0) > 0;
+                  if (!hasBrands) return null;
+                  return (
                     <button
-                      disabled={!hasBrands}
+                      key={letter}
                       onClick={() => handleLetterClick(letter)}
-                      className={`px-1.5 py-0.5 rounded-md transition-all ${
+                      className={`h-8 w-8 shrink-0 rounded-full text-[11.5px] font-extrabold transition-all ${
                         activeLetter === letter
-                          ? 'bg-[#4A1020] text-white'
-                          : !hasBrands
-                          ? 'text-[#C8C2BE] opacity-40'
-                          : ''
+                          ? 'bg-[#4A1020] text-white shadow-[0_3px_8px_rgba(74,16,32,0.25)]'
+                          : 'bg-[#F7F2EA] text-[#4A1020]'
                       }`}
                     >
                       {letter}
                     </button>
-                    {idx < ALPHABET.length - 1 && <span className="text-[#E8E0D8] mx-1">|</span>}
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+              <p className="mt-1.5 text-center text-[9px] font-bold uppercase tracking-[0.14em] text-[#C9A96E]">
+                Swipe letters · Tap to jump to a brand
+              </p>
             </div>
 
           </div>
@@ -257,29 +259,90 @@ export default function BrandsPage() {
             <div className="space-y-8">
               {paginatedBrands.length > 0 ? (
                 <div>
-                  <div className="grid grid-cols-5 gap-4">
+                  {/* Results header — always tells the user exactly what they are viewing */}
+                  <div className="mb-5 flex items-end justify-between border-b border-[#EBE3D8] pb-3">
+                    <div>
+                      <h2 className="font-serif text-[19px] font-bold text-[#4A1020]">
+                        {activeLetter !== 'ALL'
+                          ? `Brands starting with "${activeLetter}"`
+                          : activeCategory === 'top'
+                          ? 'Top Brands'
+                          : activeCategory === 'new'
+                          ? 'New Brands'
+                          : activeCategory === 'popular'
+                          ? 'Popular Brands'
+                          : 'All Brands'}
+                      </h2>
+                      <span className="mt-1 block h-[2px] w-10 rounded-full bg-gradient-to-r from-[#C9A96E] to-transparent" />
+                    </div>
+                    <span className="rounded-full bg-[#F7F2EA] px-3 py-1 text-[10.5px] font-extrabold uppercase tracking-[0.1em] text-[#8B5A2B]">
+                      {totalItems} {totalItems === 1 ? 'Brand' : 'Brands'}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-4 gap-5 xl:grid-cols-5">
                     {paginatedBrands.map((brand) => (
                       <div
                         key={brand.name}
-                        className="group relative flex aspect-[1.8] items-center justify-center rounded-[1rem] border border-[#EBEBEB]/50 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-[#C9A96E]/50 cursor-pointer select-none"
+                        className="group relative rounded-[1.1rem] bg-gradient-to-br from-[#E9E1D4] via-[#F4EFE7] to-[#E9E1D4] p-[1.5px] transition-all duration-500 hover:from-[#C9A96E] hover:via-[#EBD9B4] hover:to-[#C9A96E] hover:-translate-y-1.5 hover:shadow-[0_16px_32px_rgba(74,16,32,0.14)] cursor-pointer select-none"
                       >
-                        {brand.image ? (
-                          <img
-                            src={brand.image}
-                            alt={brand.name}
-                            className="h-full w-full object-contain filter transition-all duration-300 group-hover:scale-[1.03]"
-                            loading="lazy"
+                        <div className="relative flex h-full flex-col overflow-hidden rounded-[1rem] bg-white">
+
+                          {/* Shine sweep on hover */}
+                          <span
+                            aria-hidden
+                            className="pointer-events-none absolute inset-y-0 left-[-60%] z-20 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 transition-all duration-700 ease-out group-hover:left-[110%] group-hover:opacity-100"
                           />
-                        ) : (
-                          <div className="flex flex-col items-center justify-center text-center w-full h-full p-1 select-none">
-                            <span className="font-serif text-[13px] font-bold tracking-wider text-[#4A1020] uppercase leading-tight group-hover:text-[#C9A96E] transition-colors duration-300">
+
+                          {/* Top / New / Popular badge */}
+                          {(brand.tags.includes('top') || brand.tags.includes('new') || brand.tags.includes('popular')) && (
+                            <span className="absolute right-2 top-2 z-10 rounded-full bg-gradient-to-r from-[#4A1020] to-[#6B1A32] px-2.5 py-[3px] text-[7.5px] font-extrabold uppercase tracking-[0.16em] text-[#EBD9B4] shadow-[0_2px_6px_rgba(74,16,32,0.3)] ring-1 ring-[#C9A96E]/40">
+                              {brand.tags.includes('top') ? '★ Top' : brand.tags.includes('popular') ? '♦ Popular' : '✦ New'}
+                            </span>
+                          )}
+
+                          {/* Logo well with radial glow and gold corner accents */}
+                          <div className="relative flex h-[96px] w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,#FFFDF9_0%,#F7F2EA_100%)] p-4">
+                            {/* Corner accents */}
+                            <span aria-hidden className="absolute left-2 top-2 h-3 w-3 border-l-[1.5px] border-t-[1.5px] border-[#C9A96E]/45 rounded-tl-sm transition-all duration-300 group-hover:border-[#C9A96E] group-hover:h-4 group-hover:w-4" />
+                            <span aria-hidden className="absolute bottom-2 right-2 h-3 w-3 border-b-[1.5px] border-r-[1.5px] border-[#C9A96E]/45 rounded-br-sm transition-all duration-300 group-hover:border-[#C9A96E] group-hover:h-4 group-hover:w-4" />
+
+                            {brand.image ? (
+                              <img
+                                src={brand.image}
+                                alt={brand.name}
+                                className="max-h-full max-w-[78%] rounded-md object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-[1.08]"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <span className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-gradient-to-br from-[#4A1020] to-[#6B1A32] font-serif text-[22px] font-bold text-[#EBD9B4] shadow-[0_4px_10px_rgba(74,16,32,0.25)] ring-2 ring-[#C9A96E]/30 ring-offset-2 ring-offset-[#F7F2EA] transition-transform duration-500 group-hover:scale-[1.08]">
+                                {brand.name.charAt(0).toUpperCase()}
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Gold hairline divider */}
+                          <div className="flex items-center gap-2 px-4">
+                            <span className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C9A96E]/50 to-transparent" />
+                            <span className="h-[3px] w-[3px] rotate-45 bg-[#C9A96E]/70" />
+                            <span className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C9A96E]/50 to-transparent" />
+                          </div>
+
+                          {/* Brand name + hover CTA */}
+                          <div className="flex flex-col items-center gap-0.5 px-2 pb-3 pt-2 text-center">
+                            <span className="w-full truncate font-serif text-[12.5px] font-bold tracking-[0.05em] text-[#4A1020] transition-colors duration-300 group-hover:text-[#8B5A2B]">
                               {brand.name}
                             </span>
-                            <span className="mt-1 block text-[7.5px] font-extrabold tracking-[0.15em] text-[#C9A96E]/80 uppercase">
-                              PREMIUM GIFTING
+                            <span className="relative h-[12px] w-full overflow-hidden">
+                              <span className="absolute inset-0 flex items-center justify-center text-[7.5px] font-extrabold uppercase tracking-[0.18em] text-[#C9A96E]/80 transition-all duration-300 group-hover:-translate-y-full group-hover:opacity-0">
+                                Premium Gifting
+                              </span>
+                              <span className="absolute inset-0 flex translate-y-full items-center justify-center gap-1 text-[7.5px] font-extrabold uppercase tracking-[0.18em] text-[#4A1020] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                                Explore Gifts <ChevronRight className="h-2.5 w-2.5" strokeWidth={3} />
+                              </span>
                             </span>
                           </div>
-                        )}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -374,60 +437,60 @@ export default function BrandsPage() {
               return (
                 <section key={letter} id={`accordion-${letter}`} className="border-b border-[#EBEBEB]/40 pb-2">
                   
-                  {/* Accordion Header */}
+                  {/* Accordion Header — slim row: letter chip, count, chevron */}
                   <button
                     onClick={() => toggleAccordion(letter)}
-                    className="w-full flex items-center justify-between py-2 text-left focus:outline-none"
+                    className="w-full flex items-center justify-between py-2.5 text-left focus:outline-none active:opacity-70"
                   >
-                    <div className="flex items-center gap-3">
-                      {/* Burgundy square icon with white letter */}
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-[#4A1020] font-sans text-[13px] font-extrabold text-white uppercase shadow-sm">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#4A1020] font-sans text-[12px] font-extrabold text-white uppercase shadow-sm">
                         {letter}
                       </div>
-                      <span className="font-sans text-[12.5px] font-extrabold uppercase tracking-[0.14em] text-[#4A1020]">
-                        BRANDS STARTING WITH {letter}
+                      <span className="truncate font-sans text-[12px] font-extrabold uppercase tracking-[0.1em] text-[#4A1020]">
+                        Brands · {letter}
+                      </span>
+                      <span className="shrink-0 rounded-full bg-[#F7F2EA] px-2 py-[2px] text-[9.5px] font-extrabold text-[#8B5A2B]">
+                        {brandsForLetter.length}
                       </span>
                     </div>
                     {isOpen ? (
-                      <ChevronUp className="h-4 w-4 text-[#C9A96E]" strokeWidth={2.5} />
+                      <ChevronUp className="h-4 w-4 shrink-0 text-[#C9A96E]" strokeWidth={2.5} />
                     ) : (
-                      <ChevronDown className="h-4 w-4 text-[#C9A96E]" strokeWidth={2.5} />
+                      <ChevronDown className="h-4 w-4 shrink-0 text-[#C9A96E]" strokeWidth={2.5} />
                     )}
                   </button>
 
-                  {/* Accordion Body Content */}
+                  {/* Accordion Body Content — clean 2-col cards, big logos, readable names */}
                   {isOpen && (
-                    <div className="mt-3.5 pl-[2.5rem] pr-1 pb-2">
-                      <div className="grid grid-cols-3 gap-3">
+                    <div className="mt-2 pb-3">
+                      <div className="grid grid-cols-2 gap-3">
                         {brandsForLetter.map((brand) => (
                           <div
                             key={brand.name}
-                            className="flex flex-col items-center justify-center rounded-lg border border-[#EBEBEB]/45 bg-white p-2 shadow-sm w-full aspect-square text-center select-none"
+                            className="flex flex-col overflow-hidden rounded-xl border border-[#EBE3D8] bg-white shadow-[0_2px_8px_rgba(74,16,32,0.05)] select-none active:scale-[0.98] transition-transform"
                           >
-                            {brand.image ? (
-                              <>
-                                <div className="flex-1 flex items-center justify-center w-full min-h-0 overflow-hidden">
-                                  <img
-                                    src={brand.image}
-                                    alt={brand.name}
-                                    className="max-h-full max-w-full object-contain"
-                                    loading="lazy"
-                                  />
-                                </div>
-                                <span className="mt-1 block w-full text-center truncate font-sans text-[9px] font-bold text-[#8C7A76] uppercase tracking-[0.06em]">
-                                  {brand.name}
+                            <div className="flex h-[84px] w-full items-center justify-center bg-[#FAF7F2] p-3">
+                              {brand.image ? (
+                                <img
+                                  src={brand.image}
+                                  alt={brand.name}
+                                  className="max-h-full max-w-[75%] rounded-md object-contain"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#4A1020] to-[#6B1A32] font-serif text-[18px] font-bold text-[#EBD9B4] ring-1 ring-[#C9A96E]/40">
+                                  {brand.name.charAt(0).toUpperCase()}
                                 </span>
-                              </>
-                            ) : (
-                              <div className="flex flex-col items-center justify-center w-full h-full p-1">
-                                <span className="font-serif text-[10px] font-bold tracking-wider text-[#4A1020] uppercase leading-tight line-clamp-2">
-                                  {brand.name}
-                                </span>
-                                <span className="mt-1 block text-[6.5px] font-extrabold tracking-[0.1em] text-[#C9A96E]/80 uppercase">
-                                  PREMIUM
-                                </span>
-                              </div>
-                            )}
+                              )}
+                            </div>
+                            <div className="flex flex-col items-center gap-[2px] border-t border-[#F0EAE0] px-2 py-2 text-center">
+                              <span className="w-full truncate font-sans text-[11px] font-extrabold text-[#4A1020]">
+                                {brand.name}
+                              </span>
+                              <span className="text-[7.5px] font-extrabold uppercase tracking-[0.16em] text-[#C9A96E]">
+                                Premium Gifting
+                              </span>
+                            </div>
                           </div>
                         ))}
                       </div>

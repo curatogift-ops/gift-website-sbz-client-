@@ -10,7 +10,7 @@ const BASE = '/brand_logos';
 
 type BrandEntry = {
   letter: string;
-  file: string;
+  file?: string;
   name: string;
   tags: string[];
 };
@@ -23,10 +23,11 @@ const BRAND_ENTRIES: BrandEntry[] = [
   // A
   { letter: 'A', file: 'Amazon_Pay.png', name: 'Amazon Pay Gift Card', tags: ['top', 'popular'] },
   { letter: 'A', file: 'Amos.png', name: 'Amos', tags: ['new'] },
-  { letter: 'A', file: 'Apple.png', name: 'Apple', tags: ['top'] },
   { letter: 'A', file: 'Aquaminder.png', name: 'Aquaminder', tags: ['new'] },
+  { letter: 'A', name: 'Art of Puja', tags: ['new'] },
+  { letter: 'A', name: 'Ayouthveda', tags: ['new'] },
   // B
-  { letter: 'B', file: 'boAt.png', name: 'boAt', tags: ['popular'] },
+  { letter: 'B', name: 'Back Bencher', tags: ['new'] },
   // C
   { letter: 'C', file: 'Cup_Ji.png', name: 'Cup-Ji', tags: ['new'] },
   // D
@@ -38,14 +39,22 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'F', file: 'Fuzo.png', name: 'Fuzo', tags: ['new'] },
   // G
   { letter: 'G', file: 'Garmin.png', name: 'Garmin', tags: ['top'] },
-  { letter: 'G', file: 'Glasafe.avif', name: 'Glasafe', tags: ['new'] },
+  { letter: 'G', file: 'Glasafe.avif', name: 'Glassafe', tags: ['new'] },
+  { letter: 'G', name: 'Globin', tags: ['new'] },
   { letter: 'G', file: 'Goodwyn_Tea.jpeg', name: 'Goodwyn Tea', tags: ['new'] },
   { letter: 'G', file: 'Goodwysh.jpeg', name: 'Goodwish', tags: ['new'] },
   // J
   { letter: 'J', file: 'Jack_and_Jones.jpg', name: 'Jack & Jones', tags: ['new'] },
   { letter: 'J', file: 'Joyspoon.jpeg', name: 'Joyspoon', tags: ['new'] },
+  // K
+  { letter: 'K', name: 'Khadi Legacy', tags: ['new'] },
+  // L
+  { letter: 'L', name: 'Lapcare', tags: ['new'] },
+  { letter: 'L', name: 'Lapis Bard', tags: ['new'] },
+  { letter: 'L', name: 'Lattice Lane', tags: ['new'] },
   // M
   { letter: 'M', file: 'Mathey_Tissot.jpg', name: 'Mathey-Tissot', tags: ['new'] },
+  { letter: 'M', name: 'Moosario', tags: ['new'] },
   { letter: 'M', file: 'Mont_Blanc.jpg', name: 'Mont Blanc', tags: ['top'] },
   { letter: 'M', file: 'Movado.webp', name: 'Movado', tags: ['new'] },
   // N
@@ -53,6 +62,8 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'N', file: 'Nedis.jpg', name: 'Nedis', tags: ['new'] },
   { letter: 'N', file: 'Nothing.png', name: 'Nothing', tags: ['new'] },
   { letter: 'N', file: 'Nuuk.jpeg', name: 'Nuuk', tags: ['new'] },
+  // O
+  { letter: 'O', name: 'Obligue', tags: ['new'] },
   // P
   { letter: 'P', file: 'Pebble.jpg', name: 'Pebble', tags: ['new'] },
   { letter: 'P', file: 'Portronics.png', name: 'Portronics', tags: ['popular'] },
@@ -67,6 +78,7 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'S', file: 'Snackible.png', name: 'Snackible', tags: ['new'] },
   { letter: 'S', file: 'Swiss_Cross.jpg', name: 'Swiss Military (Swiss Cross)', tags: ['top', 'new'] },
   // T
+  { letter: 'T', name: 'Timalfi', tags: ['new'] },
   { letter: 'T', file: 'Toreto.png', name: 'Toreto', tags: ['new'] },
   // U
   { letter: 'U', file: 'Urban_Gear.png', name: 'Urban Gear', tags: ['new'] },
@@ -81,7 +93,7 @@ const BRAND_ENTRIES: BrandEntry[] = [
 
 export const BRANDS: Brand[] = BRAND_ENTRIES.map(({ letter, file, name, tags }) => ({
   name,
-  image: `${BASE}/${letter}/${file}`,
+  image: file ? `${BASE}/${letter}/${file}` : '',
   letter,
   tags,
 })).sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
