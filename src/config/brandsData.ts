@@ -24,7 +24,7 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'A', file: 'Amazon_Pay.png', name: 'Amazon Pay Gift Card', tags: ['top', 'popular'] },
   { letter: 'A', file: 'Amos.png', name: 'Amos', tags: ['new'] },
   { letter: 'A', file: 'Aquaminder.png', name: 'Aquaminder', tags: ['new'] },
-  { letter: 'A', name: 'Art of Puja', tags: ['new'] },
+  { letter: 'A', file: 'Art_of_Puja.png', name: 'Art of Puja', tags: ['new'] },
   { letter: 'A', name: 'Ayouthveda', tags: ['new'] },
   // B
   { letter: 'B', name: 'Back Bencher', tags: ['new'] },
@@ -39,7 +39,7 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'F', file: 'Fuzo.png', name: 'Fuzo', tags: ['new'] },
   // G
   { letter: 'G', file: 'Garmin.png', name: 'Garmin', tags: ['top'] },
-  { letter: 'G', file: 'Glasafe.avif', name: 'Glassafe', tags: ['new'] },
+  { letter: 'G', file: 'Glassafe.jpeg', name: 'Glassafe', tags: ['new'] },
   { letter: 'G', name: 'Globin', tags: ['new'] },
   { letter: 'G', file: 'Goodwyn_Tea.jpeg', name: 'Goodwyn Tea', tags: ['new'] },
   { letter: 'G', file: 'Goodwysh.jpeg', name: 'Goodwish', tags: ['new'] },
