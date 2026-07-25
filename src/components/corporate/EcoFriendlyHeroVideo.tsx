@@ -1,5 +1,6 @@
 /**
- * Full-width hero video shown immediately after the Eco-Friendly Corporate Gifting section.
+ * Full-width hero video for the Eco-Friendly Corporate Gifting section.
+ * Served from /images/ so Vercel static rewrites do not intercept the file.
  */
 export default function EcoFriendlyHeroVideo() {
   return (
@@ -11,7 +12,7 @@ export default function EcoFriendlyHeroVideo() {
         <div className="relative h-[280px] w-full overflow-hidden sm:h-[360px] md:h-auto md:aspect-[1024/435] lg:aspect-[1024/410] xl:aspect-[1024/395]">
           <video
             className="absolute inset-0 h-full w-full object-cover object-center"
-            src="/videos/corporate/eco-friendly-hero.mp4"
+            src="/images/corporate/eco-friendly-hero.mp4"
             autoPlay
             muted
             loop

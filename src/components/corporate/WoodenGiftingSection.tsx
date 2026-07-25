@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
+import EcoFriendlyHeroVideo from '@/components/corporate/EcoFriendlyHeroVideo';
 import { ArrowRight, ChevronLeft, ChevronRight, Leaf, Recycle } from 'lucide-react';
 import {
   ECO_FRIENDLY_CATEGORY_SLUG,
@@ -141,67 +142,72 @@ export default function WoodenGiftingSection() {
   };
 
   return (
-    <section
-      id="eco-friendly-gifting"
-      className="custom-collection-section section-pad relative scroll-mt-28 overflow-hidden bg-[var(--cream)]"
-      aria-labelledby="wooden-gifting-heading"
-    >
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#3D7A52]/25 to-transparent"
-        aria-hidden
-      />
+    <>
+      <section
+        id="eco-friendly-gifting"
+        className="custom-collection-section section-pad relative scroll-mt-28 overflow-hidden bg-[var(--cream)]"
+        aria-labelledby="wooden-gifting-heading"
+      >
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#3D7A52]/25 to-transparent"
+          aria-hidden
+        />
 
-      <div className="section-container relative">
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <p className="hidden font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#3D7A52] lg:block">
-            Sustainable corporate gifts
-          </p>
-          <div className="ml-auto hidden items-center gap-2 lg:flex">
-            <button
-              type="button"
-              onClick={() => scrollBy('left')}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#EBEBEB] bg-white text-[#2D5A3D] shadow-sm transition hover:border-[#3D7A52]/40 hover:shadow-md"
-              aria-label="Scroll eco-friendly gifts left"
-            >
-              <ChevronLeft className="h-5 w-5" strokeWidth={2} aria-hidden />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollBy('right')}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#EBEBEB] bg-white text-[#2D5A3D] shadow-sm transition hover:border-[#3D7A52]/40 hover:shadow-md"
-              aria-label="Scroll eco-friendly gifts right"
-            >
-              <ChevronRight className="h-5 w-5" strokeWidth={2} aria-hidden />
-            </button>
-          </div>
-        </div>
-
-        <div className="celebrations-carousel-shell flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-stretch lg:gap-6">
-          <div className="custom-intro-sticky z-20 w-full shrink-0 lg:w-auto">
-            <EcoIntroCard />
+        <div className="section-container relative">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <p className="hidden font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#3D7A52] lg:block">
+              Sustainable corporate gifts
+            </p>
+            <div className="ml-auto hidden items-center gap-2 lg:flex">
+              <button
+                type="button"
+                onClick={() => scrollBy('left')}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#EBEBEB] bg-white text-[#2D5A3D] shadow-sm transition hover:border-[#3D7A52]/40 hover:shadow-md"
+                aria-label="Scroll eco-friendly gifts left"
+              >
+                <ChevronLeft className="h-5 w-5" strokeWidth={2} aria-hidden />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollBy('right')}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#EBEBEB] bg-white text-[#2D5A3D] shadow-sm transition hover:border-[#3D7A52]/40 hover:shadow-md"
+                aria-label="Scroll eco-friendly gifts right"
+              >
+                <ChevronRight className="h-5 w-5" strokeWidth={2} aria-hidden />
+              </button>
+            </div>
           </div>
 
-          <div className="relative min-w-0 flex-1">
-            <div
-              className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[var(--cream)] to-transparent"
-              aria-hidden
-            />
-
-            <div
-              ref={scrollRef}
-              className="custom-scroll-track celebrations-scroll-track no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-4 pb-2 sm:-mx-8 sm:gap-6 sm:px-8 lg:mx-0 lg:px-0"
-            >
-              {products.map((product, index) => (
-                <EcoProductCard key={product.slug} product={product} index={index} />
-              ))}
+          <div className="celebrations-carousel-shell flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-stretch lg:gap-6">
+            <div className="custom-intro-sticky z-20 w-full shrink-0 lg:w-auto">
+              <EcoIntroCard />
             </div>
 
-            <p className="mt-3 font-sans text-[11px] font-medium tracking-wide text-[#8C847C] lg:hidden">
-              Swipe cards to explore →
-            </p>
+            <div className="relative min-w-0 flex-1">
+              <div
+                className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[var(--cream)] to-transparent"
+                aria-hidden
+              />
+
+              <div
+                ref={scrollRef}
+                className="custom-scroll-track celebrations-scroll-track no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-4 pb-2 sm:-mx-8 sm:gap-6 sm:px-8 lg:mx-0 lg:px-0"
+              >
+                {products.map((product, index) => (
+                  <EcoProductCard key={product.slug} product={product} index={index} />
+                ))}
+              </div>
+
+              <p className="mt-3 font-sans text-[11px] font-medium tracking-wide text-[#8C847C] lg:hidden">
+                Swipe cards to explore →
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Full-width hero video immediately after Eco-Friendly Corporate Gifting */}
+      <EcoFriendlyHeroVideo />
+    </>
   );
 }
