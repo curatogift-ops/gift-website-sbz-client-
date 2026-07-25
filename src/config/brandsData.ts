@@ -27,7 +27,7 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'A', file: 'Art_of_Puja.png', name: 'Art of Puja', tags: ['new'] },
   { letter: 'A', name: 'Ayouthveda', tags: ['new'] },
   // B
-  { letter: 'B', name: 'Back Bencher', tags: ['new'] },
+  { letter: 'B', file: 'Back_Bencher.png', name: 'Back Bencher', tags: ['new'] },
   // C
   { letter: 'C', file: 'Cup_Ji.png', name: 'Cup-Ji', tags: ['new'] },
   // D
@@ -39,6 +39,7 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'F', file: 'Fuzo.png', name: 'Fuzo', tags: ['new'] },
   // G
   { letter: 'G', file: 'Garmin.png', name: 'Garmin', tags: ['top'] },
+  { letter: 'G', file: 'Gauflora.png', name: 'Gauflora', tags: ['new'] },
   { letter: 'G', file: 'Glassafe.jpeg', name: 'Glassafe', tags: ['new'] },
   { letter: 'G', name: 'Globin', tags: ['new'] },
   { letter: 'G', file: 'Goodwyn_Tea.jpeg', name: 'Goodwyn Tea', tags: ['new'] },
@@ -47,14 +48,14 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'J', file: 'Jack_and_Jones.jpg', name: 'Jack & Jones', tags: ['new'] },
   { letter: 'J', file: 'Joyspoon.jpeg', name: 'Joyspoon', tags: ['new'] },
   // K
-  { letter: 'K', name: 'Khadi Legacy', tags: ['new'] },
+  { letter: 'K', file: 'Khadi_Legacy.jpeg', name: 'Khadi Legacy', tags: ['new'] },
   // L
-  { letter: 'L', name: 'Lapcare', tags: ['new'] },
-  { letter: 'L', name: 'Lapis Bard', tags: ['new'] },
+  { letter: 'L', file: 'Lapcare.png', name: 'Lapcare', tags: ['new'] },
+  { letter: 'L', file: 'Lapis_Bard.png', name: 'Lapis Bard', tags: ['new'] },
   { letter: 'L', name: 'Lattice Lane', tags: ['new'] },
   // M
   { letter: 'M', file: 'Mathey_Tissot.jpg', name: 'Mathey-Tissot', tags: ['new'] },
-  { letter: 'M', name: 'Moosario', tags: ['new'] },
+  { letter: 'M', file: 'Moosario.jpg', name: 'Moosario', tags: ['new'] },
   { letter: 'M', file: 'Mont_Blanc.jpg', name: 'Mont Blanc', tags: ['top'] },
   { letter: 'M', file: 'Movado.webp', name: 'Movado', tags: ['new'] },
   // N
@@ -63,7 +64,7 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'N', file: 'Nothing.png', name: 'Nothing', tags: ['new'] },
   { letter: 'N', file: 'Nuuk.jpeg', name: 'Nuuk', tags: ['new'] },
   // O
-  { letter: 'O', name: 'Obligue', tags: ['new'] },
+  { letter: 'O', file: 'Obligue.png', name: 'Obligue', tags: ['new'] },
   // P
   { letter: 'P', file: 'Pebble.jpg', name: 'Pebble', tags: ['new'] },
   { letter: 'P', file: 'Portronics.png', name: 'Portronics', tags: ['popular'] },
@@ -78,17 +79,19 @@ const BRAND_ENTRIES: BrandEntry[] = [
   { letter: 'S', file: 'Snackible.png', name: 'Snackible', tags: ['new'] },
   { letter: 'S', file: 'Swiss_Cross.jpg', name: 'Swiss Military (Swiss Cross)', tags: ['top', 'new'] },
   // T
-  { letter: 'T', name: 'Timalfi', tags: ['new'] },
+  { letter: 'T', file: 'Timalfi.png', name: 'Timalfi', tags: ['new'] },
   { letter: 'T', file: 'Toreto.png', name: 'Toreto', tags: ['new'] },
   // U
   { letter: 'U', file: 'Urban_Gear.png', name: 'Urban Gear', tags: ['new'] },
   // V
   { letter: 'V', file: 'Versalis.png', name: 'Versalis', tags: ['new'] },
   // W
-  { letter: 'W', file: 'Waterman.png', name: 'Waterman Paris', tags: ['new'] },
+  { letter: 'W', file: 'Waterman.jpeg', name: 'Waterman Paris', tags: ['new'] },
   { letter: 'W', file: 'Weber.png', name: 'Weber', tags: ['new'] },
   // X
   { letter: 'X', file: 'Xech.png', name: 'Xech', tags: ['new'] },
+  // Z
+  { letter: 'Z', file: 'Zippo.png', name: 'Zippo', tags: ['new'] },
 ];
 
 export const BRANDS: Brand[] = BRAND_ENTRIES.map(({ letter, file, name, tags }) => ({

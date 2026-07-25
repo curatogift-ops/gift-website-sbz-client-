@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CorporateExpertsCtaSection from '@/components/corporate/CorporateExpertsCtaSection';
 import WoodenGiftingSection from '@/components/corporate/WoodenGiftingSection';
+import EcoFriendlyHeroVideo from '@/components/corporate/EcoFriendlyHeroVideo';
 import CorporateGiftingGallerySection from '@/components/corporate/CorporateGiftingGallerySection';
 import CorporateHeroDecor from '@/components/corporate/CorporateHeroDecor';
 import EventConferenceGiftingSection from '@/components/corporate/EventConferenceGiftingSection';
@@ -512,6 +513,8 @@ export default function CorporatePage() {
         </section>
 
         <WoodenGiftingSection />
+
+        <EcoFriendlyHeroVideo />
 
         <CorporateGiftingGallerySection />
 
