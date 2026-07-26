@@ -1,61 +1,76 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Leaf } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from '@/components/ui/carousel';
 
 type EcoVideo = {
   id: string;
   src: string;
   title: string;
+  caption: string;
 };
 
 /**
- * Add more MP4s under public/images/corporate/ and append entries here.
- * Carousel arrows + swipe activate automatically when length > 1.
+ * Add more files under public/images/corporate/ and append entries here (2–3 slides).
+ * Arrows + swipe activate automatically when length > 1.
  */
 const ECO_VIDEOS: EcoVideo[] = [
   {
     id: 'eco-hero-1',
     src: '/images/corporate/eco-friendly-hero.mp4',
     title: 'Eco-friendly corporate gifting showcase',
+    caption: 'Sustainable gifts · premium finish',
   },
-  // Ready for upcoming videos:
-  // { id: 'eco-hero-2', src: '/images/corporate/eco-friendly-hero-2.mp4', title: '...' },
-  // { id: 'eco-hero-3', src: '/images/corporate/eco-friendly-hero-3.mp4', title: '...' },
+  // Add when ready:
+  // {
+  //   id: 'eco-hero-2',
+  //   src: '/images/corporate/eco-friendly-hero-2.mp4',
+  //   title: 'Bamboo & cork collection',
+  //   caption: 'Conscious corporate programs',
+  // },
+  // {
+  //   id: 'eco-hero-3',
+  //   src: '/images/corporate/eco-friendly-hero-3.mp4',
+  //   title: 'Recycled packaging stories',
+  //   caption: 'Brand-ready eco hampers',
+  // },
 ];
 
 /**
- * Polished, mobile-first eco video carousel — bordered frame, arrows, swipe.
- * Placed immediately after the Eco-Friendly Corporate Gifting section.
+ * Mobile-first eco video carousel with gold border finishing, arrows, and swipe.
+ * Renders immediately after the Eco-Friendly Corporate Gifting section.
  */
 export default function EcoFriendlyHeroVideo() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const [api, setApi] = useState<CarouselApi>();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const hasMultiple = ECO_VIDEOS.length > 1;
 
-  const updateActiveFromScroll = useCallback(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const slide = el.querySelector<HTMLElement>('[data-eco-video-slide]');
-    if (!slide) return;
-    const step = slide.offsetWidth;
-    if (step <= 0) return;
-    const index = Math.round(el.scrollLeft / step);
-    setActiveIndex(Math.min(ECO_VIDEOS.length - 1, Math.max(0, index)));
+  const syncCarousel = useCallback((carouselApi: CarouselApi) => {
+    if (!carouselApi) return;
+    setActiveIndex(carouselApi.selectedScrollSnap());
+    setCanScrollPrev(carouselApi.canScrollPrev());
+    setCanScrollNext(carouselApi.canScrollNext());
   }, []);
 
   useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    updateActiveFromScroll();
-    el.addEventListener('scroll', updateActiveFromScroll, { passive: true });
-    window.addEventListener('resize', updateActiveFromScroll);
+    if (!api) return;
+    syncCarousel(api);
+    api.on('select', syncCarousel);
+    api.on('reInit', syncCarousel);
     return () => {
-      el.removeEventListener('scroll', updateActiveFromScroll);
-      window.removeEventListener('resize', updateActiveFromScroll);
+      api.off('select', syncCarousel);
+      api.off('reInit', syncCarousel);
     };
-  }, [updateActiveFromScroll]);
+  }, [api, syncCarousel]);
 
-  // Only the active slide plays
+  // Play only the active slide
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
@@ -68,47 +83,48 @@ export default function EcoFriendlyHeroVideo() {
     });
   }, [activeIndex]);
 
-  const goTo = (index: number) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const slide = el.querySelector<HTMLElement>('[data-eco-video-slide]');
-    if (!slide) return;
-    const next = Math.min(ECO_VIDEOS.length - 1, Math.max(0, index));
-    el.scrollTo({ left: next * slide.offsetWidth, behavior: 'smooth' });
-    setActiveIndex(next);
-  };
-
-  const goPrev = () => goTo(activeIndex - 1);
-  const goNext = () => goTo(activeIndex + 1);
+  const goPrev = () => api?.scrollPrev();
+  const goNext = () => api?.scrollNext();
 
   return (
     <section
-      className="relative scroll-mt-28 bg-[var(--cream)] py-6 sm:py-8 lg:py-10"
+      className="relative scroll-mt-28 overflow-hidden bg-[var(--cream)] pb-8 pt-5 sm:pb-10 sm:pt-6 lg:pb-12 lg:pt-8"
       aria-label="Eco-friendly corporate gifting videos"
     >
+      {/* Soft section separators */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#3D7A52]/30 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#3D7A52]/35 to-transparent"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent"
         aria-hidden
       />
 
       <div className="section-container relative">
+        {/* Header — title + arrows (always visible chrome) */}
         <div className="mb-4 flex items-end justify-between gap-3 sm:mb-5">
           <div className="min-w-0">
-            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-[#3D7A52] sm:text-[11px]">
-              Watch & explore
-            </p>
-            <h2 className="mt-1 font-serif text-[18px] font-medium leading-snug text-[#1A1010] sm:text-[22px]">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-[#3D7A52]/25 bg-white/80 px-2.5 py-1">
+              <Leaf className="h-3 w-3 text-[#3D7A52]" strokeWidth={2} aria-hidden />
+              <p className="font-sans text-[9px] font-bold uppercase tracking-[0.18em] text-[#3D7A52] sm:text-[10px]">
+                Watch & explore
+              </p>
+            </div>
+            <h2 className="mt-2 font-serif text-[20px] font-medium leading-snug text-[#1A1010] sm:text-[24px] lg:text-[28px]">
               Eco-Friendly Gifting in Action
             </h2>
+            <p className="mt-1 max-w-md font-sans text-[12px] leading-relaxed text-[#6b6560] sm:text-[13px]">
+              Swipe through short films of our sustainable corporate collections.
+            </p>
           </div>
 
-          {/* Always show arrows so carousel structure is clear; enable when 2+ videos */}
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2 pb-0.5">
             <button
               type="button"
               onClick={goPrev}
-              disabled={!hasMultiple || activeIndex === 0}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E3D9C8] bg-white text-[#2D5A3D] shadow-sm transition enabled:hover:border-[#3D7A52]/45 enabled:hover:shadow-md disabled:cursor-not-allowed disabled:opacity-40"
+              disabled={!hasMultiple || !canScrollPrev}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#C9A96E]/55 bg-white text-[#2D5A3D] shadow-[0_6px_16px_-8px_rgba(45,90,61,0.35)] transition enabled:active:scale-95 enabled:hover:border-[#3D7A52] enabled:hover:bg-[#F7FBF7] disabled:cursor-not-allowed disabled:opacity-35"
               aria-label="Previous video"
             >
               <ChevronLeft className="h-5 w-5" strokeWidth={2.25} aria-hidden />
@@ -116,8 +132,8 @@ export default function EcoFriendlyHeroVideo() {
             <button
               type="button"
               onClick={goNext}
-              disabled={!hasMultiple || activeIndex === ECO_VIDEOS.length - 1}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E3D9C8] bg-white text-[#2D5A3D] shadow-sm transition enabled:hover:border-[#3D7A52]/45 enabled:hover:shadow-md disabled:cursor-not-allowed disabled:opacity-40"
+              disabled={!hasMultiple || !canScrollNext}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#C9A96E]/55 bg-white text-[#2D5A3D] shadow-[0_6px_16px_-8px_rgba(45,90,61,0.35)] transition enabled:active:scale-95 enabled:hover:border-[#3D7A52] enabled:hover:bg-[#F7FBF7] disabled:cursor-not-allowed disabled:opacity-35"
               aria-label="Next video"
             >
               <ChevronRight className="h-5 w-5" strokeWidth={2.25} aria-hidden />
@@ -125,67 +141,94 @@ export default function EcoFriendlyHeroVideo() {
           </div>
         </div>
 
+        {/* Bordered video stage — prevents the “stuck / unfinished” full-bleed look */}
         <div className="relative">
-          {/* Gold/cream border frame — fixes the unfinished “stuck” look */}
-          <div className="rounded-[1.15rem] border border-[#C9A96E]/50 bg-gradient-to-br from-[#FFFDF9] via-white to-[#F3EDE2] p-1.5 shadow-[0_18px_48px_-20px_rgba(45,90,61,0.28)] sm:rounded-[1.35rem] sm:p-2 lg:rounded-[1.5rem] lg:p-2.5">
-            <div className="overflow-hidden rounded-[0.95rem] ring-1 ring-[#2D5A3D]/12 sm:rounded-[1.1rem] lg:rounded-[1.2rem]">
-              <div
-                ref={trackRef}
-                className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth"
-              >
-                {ECO_VIDEOS.map((video, index) => (
-                  <div
-                    key={video.id}
-                    data-eco-video-slide
-                    className="relative aspect-[16/10] w-full shrink-0 snap-center overflow-hidden bg-[#1A1010] sm:aspect-[16/9] md:aspect-[1024/435]"
-                  >
-                    <video
-                      ref={(node) => {
-                        videoRefs.current[index] = node;
-                      }}
-                      className="absolute inset-0 h-full w-full object-cover object-center"
-                      src={video.src}
-                      muted
-                      loop
-                      playsInline
-                      preload={index === 0 ? 'metadata' : 'none'}
-                      controls={false}
-                      aria-label={video.title}
-                    />
-                    <div
-                      className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(26,16,16,0.28)_0%,transparent_32%),linear-gradient(to_bottom,rgba(26,16,16,0.14)_0%,transparent_26%)]"
-                      aria-hidden
-                    />
-                  </div>
-                ))}
+          <div className="rounded-[1.25rem] bg-gradient-to-br from-[#C9A96E] via-[#E8D5A8] to-[#9D7D47] p-[1.5px] shadow-[0_22px_50px_-22px_rgba(45,90,61,0.4)] sm:rounded-[1.45rem] sm:p-[2px]">
+            <div className="rounded-[1.15rem] bg-[#FFFDF9] p-1.5 sm:rounded-[1.35rem] sm:p-2 lg:p-2.5">
+              <div className="relative overflow-hidden rounded-[0.95rem] ring-1 ring-[#2D5A3D]/15 sm:rounded-[1.15rem]">
+                <Carousel
+                  setApi={setApi}
+                  opts={{
+                    align: 'start',
+                    loop: hasMultiple,
+                    dragFree: false,
+                    containScroll: 'trimSnaps',
+                  }}
+                  className="w-full"
+                >
+                  <CarouselContent className="-ml-0">
+                    {ECO_VIDEOS.map((video, index) => (
+                      <CarouselItem key={video.id} className="basis-full pl-0">
+                        <div className="relative aspect-[16/11] w-full overflow-hidden bg-[#1A1010] sm:aspect-[16/9] md:aspect-[21/9]">
+                          <video
+                            ref={(node) => {
+                              videoRefs.current[index] = node;
+                            }}
+                            className="absolute inset-0 h-full w-full object-cover object-center"
+                            src={video.src}
+                            muted
+                            loop
+                            playsInline
+                            preload={index === 0 ? 'metadata' : 'none'}
+                            controls={false}
+                            aria-label={video.title}
+                          />
+
+                          {/* Soft vignette + caption bar for finishing */}
+                          <div
+                            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(26,16,16,0.55)_0%,rgba(26,16,16,0.12)_28%,transparent_48%),linear-gradient(to_bottom,rgba(26,16,16,0.2)_0%,transparent_22%)]"
+                            aria-hidden
+                          />
+                          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-3 sm:p-4 lg:p-5">
+                            <div className="min-w-0">
+                              <p className="truncate font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-[#C9A96E] sm:text-[11px]">
+                                {video.caption}
+                              </p>
+                              <p className="mt-0.5 truncate font-serif text-[14px] font-medium text-white sm:text-[16px]">
+                                {video.title}
+                              </p>
+                            </div>
+                            {hasMultiple && (
+                              <span className="shrink-0 rounded-full border border-white/25 bg-black/35 px-2.5 py-1 font-sans text-[10px] font-bold tabular-nums tracking-wider text-white backdrop-blur-sm">
+                                {String(index + 1).padStart(2, '0')} / {String(ECO_VIDEOS.length).padStart(2, '0')}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
+
+                {/* Overlay arrows on the video frame (mobile + desktop) */}
+                {hasMultiple && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={goPrev}
+                      disabled={!canScrollPrev}
+                      className="absolute left-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/35 bg-[#1A1010]/55 text-white shadow-lg backdrop-blur-md transition enabled:active:scale-95 enabled:hover:bg-[#1A1010]/75 disabled:opacity-30 sm:left-3 sm:h-11 sm:w-11"
+                      aria-label="Previous video"
+                    >
+                      <ChevronLeft className="h-5 w-5" strokeWidth={2.25} aria-hidden />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      disabled={!canScrollNext}
+                      className="absolute right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/35 bg-[#1A1010]/55 text-white shadow-lg backdrop-blur-md transition enabled:active:scale-95 enabled:hover:bg-[#1A1010]/75 disabled:opacity-30 sm:right-3 sm:h-11 sm:w-11"
+                      aria-label="Next video"
+                    >
+                      <ChevronRight className="h-5 w-5" strokeWidth={2.25} aria-hidden />
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
-
-          {hasMultiple && (
-            <>
-              <button
-                type="button"
-                onClick={goPrev}
-                disabled={activeIndex === 0}
-                className="absolute left-0 top-1/2 z-10 hidden h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#E3D9C8] bg-white/95 text-[#2D5A3D] shadow-[0_12px_28px_-12px_rgba(26,16,16,0.45)] backdrop-blur-sm transition enabled:hover:border-[#C9A96E] disabled:opacity-35 md:flex"
-                aria-label="Previous video"
-              >
-                <ChevronLeft className="h-5 w-5" strokeWidth={2.25} aria-hidden />
-              </button>
-              <button
-                type="button"
-                onClick={goNext}
-                disabled={activeIndex === ECO_VIDEOS.length - 1}
-                className="absolute right-0 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full border border-[#E3D9C8] bg-white/95 text-[#2D5A3D] shadow-[0_12px_28px_-12px_rgba(26,16,16,0.45)] backdrop-blur-sm transition enabled:hover:border-[#C9A96E] disabled:opacity-35 md:flex"
-                aria-label="Next video"
-              >
-                <ChevronRight className="h-5 w-5" strokeWidth={2.25} aria-hidden />
-              </button>
-            </>
-          )}
         </div>
 
+        {/* Dots + swipe hint */}
         <div className="mt-4 flex flex-col items-center gap-2.5 sm:mt-5">
           {hasMultiple ? (
             <div className="flex items-center gap-2" role="tablist" aria-label="Video slides">
@@ -196,29 +239,28 @@ export default function EcoFriendlyHeroVideo() {
                   role="tab"
                   aria-selected={index === activeIndex}
                   aria-label={`Go to video ${index + 1}`}
-                  onClick={() => goTo(index)}
+                  onClick={() => api?.scrollTo(index)}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     index === activeIndex
-                      ? 'w-6 bg-[#2D5A3D]'
-                      : 'w-2 bg-[#C9A96E]/45 hover:bg-[#C9A96E]/75'
+                      ? 'w-7 bg-[#2D5A3D]'
+                      : 'w-2 bg-[#C9A96E]/45 hover:bg-[#C9A96E]/80'
                   }`}
                 />
               ))}
             </div>
           ) : (
-            <div className="h-1.5 w-10 rounded-full bg-[#C9A96E]/55" aria-hidden />
+            <div className="flex h-1.5 w-12 overflow-hidden rounded-full bg-[#E8DDC8]" aria-hidden>
+              <span className="h-full w-full rounded-full bg-gradient-to-r from-[#3D7A52] to-[#C9A96E]" />
+            </div>
           )}
 
           <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8C847C] sm:text-[11px]">
-            {hasMultiple ? 'Swipe to explore more videos →' : 'Eco gifting showcase'}
+            {hasMultiple
+              ? 'Swipe or use arrows to explore more videos'
+              : 'More showcase videos coming soon'}
           </p>
         </div>
       </div>
-
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/35 to-transparent"
-        aria-hidden
-      />
     </section>
   );
 }
