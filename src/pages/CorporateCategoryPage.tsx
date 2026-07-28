@@ -2,11 +2,10 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import CorporateProductCard from '@/components/corporate/CorporateProductCard';
+import ProductListingPlaceholderGrid from '@/components/shared/ProductListingPlaceholderGrid';
 import {
   getCategoryBySlug,
   getCorporateSolutionsCategories,
-  getProductsByCategory,
 } from '@/config/corporateGiftingData';
 
 export default function CorporateCategoryPage() {
@@ -17,7 +16,6 @@ export default function CorporateCategoryPage() {
     return <Navigate to="/corporate" replace />;
   }
 
-  const products = getProductsByCategory(categorySlug);
   const otherCategories = getCorporateSolutionsCategories(categorySlug);
 
   return (
@@ -43,14 +41,10 @@ export default function CorporateCategoryPage() {
         <section className="py-10 sm:py-12 lg:py-14" aria-label={`${category.label} products`}>
           <div className="section-container">
             <p className="mb-6 text-sm text-muted-foreground">
-              {products.length} product{products.length === 1 ? '' : 's'} · Click any item for details and bulk enquiry
+              20 products · Placeholder listing (content coming soon)
             </p>
 
-            <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-              {products.map((product) => (
-                <CorporateProductCard key={product.slug} product={product} />
-              ))}
-            </div>
+            <ProductListingPlaceholderGrid label={`${category.label} product placeholders`} />
           </div>
         </section>
 

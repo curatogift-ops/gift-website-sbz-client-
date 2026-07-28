@@ -14,6 +14,7 @@ import {
   Download,
   ChevronLeft,
   Phone,
+  Settings,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/utils/cn';
@@ -361,28 +362,36 @@ export default function Navbar() {
               />
             </div>
 
-            <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-4 z-10">
+            <div className="z-10 flex min-w-0 items-center justify-end gap-0">
               <Link
                 to="/wishlist"
-                className="flex h-10 w-10 flex-col items-center justify-center gap-0.5 text-[#1a1a1a] transition-opacity hover:opacity-80"
+                className="flex h-9 w-9 flex-col items-center justify-center text-[#1a1a1a] transition-opacity hover:opacity-80"
                 aria-label="Wishlist"
               >
-                <Heart className="h-[20px] w-[20px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" />
+                <Heart className="h-[18px] w-[18px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" />
               </Link>
               <Link
                 to="/account"
-                className="flex h-10 w-10 flex-col items-center justify-center gap-0.5 text-[#1a1a1a] transition-opacity hover:opacity-80"
+                className="flex h-9 w-9 flex-col items-center justify-center text-[#1a1a1a] transition-opacity hover:opacity-80"
                 aria-label="Account"
               >
-                <CircleUser className="h-[20px] w-[20px]" strokeWidth={iconThin} strokeLinecap="round" />
+                <CircleUser className="h-[18px] w-[18px]" strokeWidth={iconThin} strokeLinecap="round" />
+              </Link>
+              <Link
+                to="/admin/image-requirements"
+                className="flex h-9 w-9 flex-col items-center justify-center text-[#1a1a1a] transition-opacity hover:opacity-80"
+                aria-label="Admin panel"
+                title="Admin"
+              >
+                <Settings className="h-[18px] w-[18px]" strokeWidth={iconThin} strokeLinecap="round" />
               </Link>
               <Link
                 to="/cart"
-                className="relative flex h-10 w-10 items-center justify-center text-[#1a1a1a]"
-                aria-label="Shopping cart, 0 items"
+                className="relative flex h-9 w-9 items-center justify-center text-[#1a1a1a]"
+                aria-label="Shop cart, 0 items"
               >
-                <ShoppingBag className="h-[20px] w-[20px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" aria-hidden />
-                <span className="absolute right-0 top-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#e11d48] px-0.5 text-[10.5px] font-semibold leading-none text-white ring-2 ring-white">
+                <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" aria-hidden />
+                <span className="absolute right-0 top-0 flex h-3.5 min-w-[14px] items-center justify-center rounded-full bg-[#e11d48] px-0.5 text-[9.5px] font-semibold leading-none text-white ring-2 ring-white">
                   0
                 </span>
               </Link>

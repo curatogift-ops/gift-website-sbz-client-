@@ -10,6 +10,7 @@ import CorporateHeroDecor from '@/components/corporate/CorporateHeroDecor';
 import EventConferenceGiftingSection from '@/components/corporate/EventConferenceGiftingSection';
 import AwardsTrophiesSection from '@/components/corporate/AwardsTrophiesSection';
 import CorporateGiftingProcessSection from '@/components/corporate/CorporateGiftingProcessSection';
+import WhyChooseUsSection from '@/components/corporate/WhyChooseUsSection';
 import BulkEnquiryFormSection from '@/components/shared/BulkEnquiryFormSection';
 import FaqAccordionSection from '@/components/shared/FaqAccordionSection';
 import AppImage from '@/components/ui/AppImage';
@@ -61,7 +62,7 @@ const HERO_SLIDES = [
     headingLight: "India's Trusted",
     headingItalic: 'Corporate Gifting Partner.',
     image: '/images/corporate/hero/corporate-hero-hampers.jpeg',
-    imageAlt: 'Premium corporate gift hampers with branded packaging',
+    imageAlt: 'Corporate gift hampers with branded packaging',
     textPosition: 'left',
     bgClass: 'bg-[#1A1010]',
     imgPosition: 'object-center',
@@ -70,10 +71,10 @@ const HERO_SLIDES = [
   {
     id: 'tech-gifting',
     eyebrow: 'TECH GIFTS',
-    headingLight: 'Premium Tech',
+    headingLight: 'Smart Tech',
     headingItalic: 'For Modern Teams.',
     image: '/images/corporate/hero/corporate-hero-tech.jpeg',
-    imageAlt: 'Premium technology corporate gifting collection',
+    imageAlt: 'Technology corporate gifting collection',
     textPosition: 'left',
     bgClass: 'bg-[#1A1010]',
     imgPosition: 'object-center',
@@ -81,11 +82,11 @@ const HERO_SLIDES = [
   },
   {
     id: 'premium-products',
-    eyebrow: 'PREMIUM PRODUCTS',
-    headingLight: 'Luxury Corporate',
+    eyebrow: 'CURATED PRODUCTS',
+    headingLight: 'Thoughtful Corporate',
     headingItalic: 'Gifting Solutions.',
     image: '/images/corporate/hero/corporate-hero-premium.jpeg',
-    imageAlt: 'Luxury premium corporate gift products',
+    imageAlt: 'Curated corporate gift products',
     textPosition: 'left',
     bgClass: 'bg-[#1A1010]',
     imgPosition: 'object-center',
@@ -107,7 +108,7 @@ const HERO_SLIDES = [
     id: 'eco-friendly',
     eyebrow: 'ECO-FRIENDLY GIFTING',
     headingLight: 'Sustainable Gifts',
-    headingItalic: 'With Premium Finish.',
+    headingItalic: 'With Careful Finish.',
     image: '/images/corporate/hero/corporate-hero-eco.jpeg',
     imageAlt: 'Eco-friendly sustainable corporate gifting collection',
     textPosition: 'left',
@@ -299,7 +300,7 @@ export default function CorporatePage() {
                             <span className="whitespace-nowrap">Get Bulk Quote</span>
                           </Link>
                           <Link
-                            to="/shop"
+                            to="/corporate/category/corporate-hampers"
                             className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md border border-primary-foreground/80 bg-primary-foreground px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary transition hover:bg-[var(--cream)] sm:flex-none sm:px-6 sm:text-xs"
                           >
                             <ShoppingBag className="h-4 w-4 text-[#9D7D47]" strokeWidth={1.5} />
@@ -518,6 +519,8 @@ export default function CorporatePage() {
         <EventConferenceGiftingSection />
 
         <AwardsTrophiesSection />
+
+        <WhyChooseUsSection />
 
         <CorporateGiftingProcessSection />
 

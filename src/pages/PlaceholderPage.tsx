@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import ProductListingPlaceholderGrid from '@/components/shared/ProductListingPlaceholderGrid';
 import { ChevronDown, ChevronUp, SlidersHorizontal, X } from 'lucide-react';
 
 type PlaceholderPageProps = {
@@ -528,69 +529,9 @@ export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice
               </div>
             </aside>
 
-            {/* Right Product Grid Area */}
+            {/* Right Product Grid Area — 20-grid placeholders (temp content) */}
             <div className="flex-1">
-              {processedProducts.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
-                  {processedProducts.map((product) => (
-                    <div key={product.id} className="group relative flex flex-col overflow-visible">
-                      {/* Product Image Box */}
-                      <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-surface-muted border border-[#E0E0E0]/20 transition-all duration-300 group-hover:shadow-[0_8px_24px_rgba(74,16,32,0.06)]">
-                        {/* Sold out Badge overlay */}
-                        {product.isSoldOut && (
-                          <span className="absolute left-3 top-3 z-10 bg-white/90 border border-[#E0E0E0] text-gray-600 font-sans font-bold text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-[4px] leading-none shadow-sm select-none">
-                            Sold out
-                          </span>
-                        )}
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
-                          loading="lazy"
-                        />
-                        {/* Hover Overlay CTA */}
-                        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4 pointer-events-none">
-                          <span className="bg-[#4A1020] text-white font-sans font-bold text-[10px] uppercase tracking-widest px-4.5 py-2.5 rounded-full shadow-md leading-none transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                            Select Gift
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Brand name */}
-                      <span className="font-sans text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#9D7D47] mt-3.5 leading-none">
-                        {product.brand}
-                      </span>
-
-                      {/* Product Name */}
-                      <h3 className="font-sans text-[14px] font-bold text-[#1A1010] mt-1.5 group-hover:text-[#9D7D47] transition-colors leading-snug cursor-pointer tracking-tight">
-                        {product.name}
-                      </h3>
-
-                      {/* Price */}
-                      <span className="font-sans text-[14.5px] font-bold text-[#4A1020] mt-1">
-                        ₹ {product.price.toLocaleString()}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-20 bg-white border border-[#E0E0E0]/20 rounded-2xl p-8">
-                  <SlidersHorizontal className="mx-auto h-8 w-8 text-[#9D7D47] opacity-60 mb-3" />
-                  <h3 className="font-sans text-[15px] font-bold uppercase tracking-wide text-[#4A1020]">No products match these filters</h3>
-                  <p className="text-sm text-gray-500 mt-1 max-w-sm mx-auto">
-                    Try relaxing your sidebar filter choices to browse the full luxurious category selection.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setInStockOnly(false);
-                      setSelectedCategoryFilter(null);
-                    }}
-                    className="mt-4 px-5 py-2 text-xs font-bold uppercase tracking-wider text-white bg-[#4A1020] hover:bg-[#5C1629] rounded-full transition-colors"
-                  >
-                    Reset Filters
-                  </button>
-                </div>
-              )}
+              <ProductListingPlaceholderGrid label={`${title} product placeholders`} />
             </div>
           </div>
         </div>
