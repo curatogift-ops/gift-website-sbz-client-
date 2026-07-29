@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Leaf } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
@@ -102,24 +102,8 @@ export default function EcoFriendlyHeroVideo() {
       />
 
       <div className="section-container relative">
-        {/* Header — title + arrows (always visible chrome) */}
-        <div className="mb-4 flex items-end justify-between gap-3 sm:mb-5">
-          <div className="min-w-0">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-[#3D7A52]/25 bg-white/80 px-2.5 py-1">
-              <Leaf className="h-3 w-3 text-[#3D7A52]" strokeWidth={2} aria-hidden />
-              <p className="font-sans text-[9px] font-bold uppercase tracking-[0.18em] text-[#3D7A52] sm:text-[10px]">
-                Watch & explore
-              </p>
-            </div>
-            <h2 className="mt-2 font-serif text-[20px] font-medium leading-snug text-[#1A1010] sm:text-[24px] lg:text-[28px]">
-              Eco-Friendly Gifting in Action
-            </h2>
-            <p className="mt-1 max-w-md font-sans text-[12px] leading-relaxed text-[#6b6560] sm:text-[13px]">
-              Swipe through short films of our sustainable corporate collections.
-            </p>
-          </div>
-
-          <div className="flex shrink-0 items-center gap-2 pb-0.5">
+        {/* Carousel controls — heading lives with the eco product section above */}
+        <div className="mb-3 flex justify-end gap-2 sm:mb-4">
             <button
               type="button"
               onClick={goPrev}
@@ -138,7 +122,6 @@ export default function EcoFriendlyHeroVideo() {
             >
               <ChevronRight className="h-5 w-5" strokeWidth={2.25} aria-hidden />
             </button>
-          </div>
         </div>
 
         {/* Bordered video stage — prevents the “stuck / unfinished” full-bleed look */}

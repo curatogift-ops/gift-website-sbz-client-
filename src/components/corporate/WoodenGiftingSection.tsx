@@ -154,11 +154,19 @@ export default function WoodenGiftingSection() {
         />
 
         <div className="section-container relative">
-          <div className="mb-6 flex items-center justify-between gap-4">
-            <p className="hidden font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-[#3D7A52] lg:block">
-              Sustainable corporate gifts
-            </p>
-            <div className="ml-auto hidden items-center gap-2 lg:flex">
+          <div className="mb-6 flex items-end justify-between gap-4 sm:mb-8">
+            <div className="min-w-0">
+              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-[#3D7A52] sm:text-[11px]">
+                Sustainable corporate gifts
+              </p>
+              <h2 className="mt-2 font-serif text-[22px] font-medium leading-tight text-[#1A1010] sm:text-[26px] lg:text-[30px]">
+                Eco-Friendly Gifting in Action
+              </h2>
+              <p className="mt-1.5 max-w-xl font-sans text-[12px] leading-relaxed text-[#6B6560] sm:text-[13px]">
+                Swipe through short films of our sustainable corporate collections.
+              </p>
+            </div>
+            <div className="ml-auto hidden shrink-0 items-center gap-2 lg:flex">
               <button
                 type="button"
                 onClick={() => scrollBy('left')}
