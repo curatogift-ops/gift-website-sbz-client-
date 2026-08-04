@@ -8,52 +8,55 @@ export interface PromotionalMenuColumn {
   items: PromotionalMenuItem[];
 }
 
-/** Promotional Gifts mega-menu (desktop + mobile) */
+/**
+ * Promotional Gifting mega-menu — matches brief mockup columns.
+ */
 export const PROMOTIONAL_GIFTS_MEGA_MENU: PromotionalMenuColumn[] = [
   {
-    title: 'WORK & DESK ESSENTIALS',
+    title: 'EXECUTIVE ESSENTIALS',
     items: [
-      { label: 'Desk Essentials', href: '/promotional-gifts/desk-essentials' },
-      { label: 'Journal', href: '/promotional-gifts/journal' },
       { label: 'Pens', href: '/promotional-gifts/pens' },
-      { label: 'Stationery & Accessories', href: '/promotional-gifts/stationery-and-accessories' },
+      { label: 'Journal', href: '/promotional-gifts/journal' },
+      { label: 'Drinkware', href: '/promotional-gifts/drinkware' },
+      { label: 'Desk Essential', href: '/promotional-gifts/desk-essentials' },
     ],
   },
   {
     title: 'HOME & LIVING',
     items: [
-      { label: 'Planters & Pots', href: '/promotional-gifts/planters-and-pots' },
-      { label: 'Photo Frames', href: '/promotional-gifts/photo-frames' },
-      { label: 'Lights & Lamps', href: '/promotional-gifts/lights-and-lamps' },
-      { label: 'Home & Decor', href: '/promotional-gifts/home-and-decor' },
       { label: 'Fragrance', href: '/promotional-gifts/fragrance' },
+      { label: 'Photo Frames', href: '/promotional-gifts/photo-frames' },
+      { label: 'Home & Decor', href: '/promotional-gifts/home-and-decor' },
+      { label: 'Lights & Lamps', href: '/promotional-gifts/lights-and-lamps' },
+      { label: 'Planters & Pots', href: '/promotional-gifts/planters-and-pots' },
     ],
   },
   {
     title: 'LIFESTYLE & ACCESSORIES',
     items: [
-      { label: 'Apparels', href: '/promotional-gifts/apparels' },
-      { label: 'Bags & Luggage', href: '/promotional-gifts/bags-and-luggage' },
       { label: 'Travel', href: '/promotional-gifts/travel' },
+      { label: 'Apparels', href: '/promotional-gifts/apparels' },
       { label: 'Lifestyle', href: '/promotional-gifts/lifestyle' },
       { label: 'Keychains', href: '/promotional-gifts/keychains' },
+      { label: 'Bags & Luggage', href: '/promotional-gifts/bags-and-luggage' },
     ],
   },
   {
-    title: 'GOURMET & EDIBLE TREATS',
+    title: 'GOURMET INDULGENCE',
     items: [
       { label: 'Chocolates', href: '/promotional-gifts/chocolates' },
-      { label: 'Coffee & Tea Delights', href: '/promotional-gifts/coffee-and-tea-delights' },
+      { label: 'Nuts & Seeds', href: '/promotional-gifts/nuts-and-seeds' },
       { label: 'Gourmet Snacks', href: '/promotional-gifts/gourmet-snacks' },
       { label: 'Healthy Munchies', href: '/promotional-gifts/healthy-munchies' },
-      { label: 'Nuts & Seeds', href: '/promotional-gifts/nuts-and-seeds' },
+      { label: 'Coffee & Tea Delights', href: '/promotional-gifts/coffee-and-tea-delights' },
     ],
   },
   {
+    title: 'SMART GIFTS',
     items: [
-      { label: 'Drinkware', href: '/promotional-gifts/drinkware' },
-      { label: 'Electronic Gadgets', href: '/promotional-gifts/electronic-gadgets' },
       { label: 'Eco-Friendly Gifts', href: '/promotional-gifts/eco-friendly-gifts' },
+      { label: 'Electronic Gadgets', href: '/promotional-gifts/electronic-gadgets' },
+      { label: 'Stationery & Accessories', href: '/promotional-gifts/stationery-and-accessories' },
     ],
   },
 ];

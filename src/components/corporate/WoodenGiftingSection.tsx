@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
-import EcoFriendlyHeroVideo from '@/components/corporate/EcoFriendlyHeroVideo';
 import { ArrowRight, ChevronLeft, ChevronRight, Leaf, Recycle } from 'lucide-react';
 import {
   ECO_FRIENDLY_CATEGORY_SLUG,
@@ -214,8 +213,7 @@ export default function WoodenGiftingSection() {
         </div>
       </section>
 
-      {/* Full-width hero video immediately after Eco-Friendly Corporate Gifting */}
-      <EcoFriendlyHeroVideo />
+      {/* Full-width hero video is rendered before this section on CorporatePage */}
     </>
   );
 }

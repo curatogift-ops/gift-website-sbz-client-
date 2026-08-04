@@ -20,6 +20,7 @@ import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/utils/cn';
 import { SHOP_MEGA_MENU } from '@/config/shopMenu';
 import { PROMOTIONAL_GIFTS_MEGA_MENU } from '@/config/promotionalGiftsMenu';
+import { CORPORATE_GIFTING_MEGA_MENU } from '@/config/corporateGiftingMenu';
 import { COMPANY_INFO } from '@/config/companyInfo';
 
 const SURFACE = '#FFFFFF';
@@ -112,7 +113,55 @@ export default function Navbar() {
   const [menuLevel, setMenuLevel] = useState<0 | 1 | 2>(0);
   const [activeParent0, setActiveParent0] = useState<string | null>(null);
   const [activeParent1, setActiveParent1] = useState<string | null>(null);
+  const [openMega, setOpenMega] = useState<string | null>(null);
+  const megaCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const skipScrollRestoreRef = useRef(false);
+
+  const clearMegaCloseTimer = () => {
+    if (megaCloseTimerRef.current) {
+      clearTimeout(megaCloseTimerRef.current);
+      megaCloseTimerRef.current = null;
+    }
+  };
+
+  const scheduleMegaClose = () => {
+    clearMegaCloseTimer();
+    megaCloseTimerRef.current = setTimeout(() => setOpenMega(null), 180);
+  };
+
+  const openMegaMenu = (label: string) => {
+    clearMegaCloseTimer();
+    setOpenMega(label);
+  };
+
+  useEffect(() => {
+    setOpenMega(null);
+  }, [pathname]);
+
+  useEffect(() => {
+    return () => clearMegaCloseTimer();
+  }, []);
+
+  useEffect(() => {
+    if (!openMega) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpenMega(null);
+    };
+    const onPointerDown = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest('[data-mega-root]')) return;
+      setOpenMega(null);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('touchstart', onPointerDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('touchstart', onPointerDown);
+    };
+  }, [openMega]);
+
 
   useEffect(() => {
     if (!isMobileMenuOpen) {
@@ -261,43 +310,16 @@ export default function Navbar() {
 
   const corporateNavLinks: NavLinkItem[] = [
     {
-      label: 'Promotional Gifts',
+      label: 'Corporate Gifting',
+      href: '/corporate',
+      chevron: true,
+      dropdown: CORPORATE_GIFTING_MEGA_MENU,
+    },
+    {
+      label: 'Promotional Gifting',
       href: '/promotional-gifts',
       chevron: true,
       dropdown: PROMOTIONAL_GIFTS_MEGA_MENU,
-    },
-    {
-      label: 'Corporate Gifting',
-      href: '/corporate-gifting',
-      chevron: true,
-      dropdown: [
-        {
-          title: 'CORPORATE GIFTING BY CELEBRATION',
-          items: [
-            { label: 'Work Anniversary Gifts', href: '/corporate-gifting/work-anniversary-gifts' },
-            { label: 'Rewards and Recognition', href: '/corporate-gifting/rewards-and-recognition' },
-            { label: 'Employee Welcome Kits', href: '/corporate-gifting/employee-welcome-kits' },
-          ],
-        },
-        {
-          title: 'CORPORATE GIFTING BY PRICE',
-          items: [
-            { label: 'Under Rs 1000', href: '/corporate-gifting/under-rs-1000' },
-            { label: 'Rs 1000 to Rs 2000', href: '/corporate-gifting/rs-1000-to-rs-2000' },
-            { label: 'Rs 2000 to Rs 3000', href: '/corporate-gifting/rs-2000-to-rs-3000' },
-            { label: 'Above Rs 3000', href: '/corporate-gifting/above-rs-3000' },
-          ],
-        },
-        {
-          items: [
-            { label: 'Branded Gifts', href: '/corporate-gifting/branded-gifts' },
-            { label: 'Tech Gifts', href: '/corporate-gifting/tech-gifts' },
-            { label: 'Architecture Gifts', href: '/corporate-gifting/architecture-gifts' },
-            { label: 'Real Estate Gifts', href: '/corporate-gifting/real-estate-gifts' },
-            { label: 'Executive Gifts', href: '/corporate-gifting/executive-gifts' },
-          ],
-        },
-      ],
     },
     { label: 'Our Brands', href: '/brands' },
     { label: 'Bulk Enquiry', href: '/corporate#bulk-order-enquiry' },
@@ -306,10 +328,159 @@ export default function Navbar() {
 
   const desktopNavLinks = isCorporateActive ? corporateNavLinks : personalizedNavLinks;
 
+  const renderDesktopNavLink = (link: NavLinkItem, compact = false) => {
+    const active = isNavActive(link.href);
+    const hasDropdown = Boolean(link.dropdown?.length);
+    const isOpen = openMega === link.label;
+
+    return (
+      <div
+        key={link.label}
+        data-mega-root={hasDropdown ? '' : undefined}
+        className={cn(
+          'shrink-0',
+          hasDropdown ? 'static' : 'relative',
+          compact ? 'px-2.5 pt-2.5 pb-1.5' : 'py-1.5',
+        )}
+        onMouseEnter={() => {
+          if (hasDropdown) openMegaMenu(link.label);
+        }}
+        onMouseLeave={() => {
+          if (hasDropdown) scheduleMegaClose();
+        }}
+      >
+        {hasDropdown ? (
+          <button
+            type="button"
+            aria-expanded={isOpen}
+            aria-haspopup="true"
+            onClick={() => {
+              clearMegaCloseTimer();
+              setOpenMega((prev) => (prev === link.label ? null : link.label));
+            }}
+            className={cn(
+              'relative inline-flex items-center gap-0.5 py-0.5 font-sans font-bold uppercase tracking-[0.1em] transition-colors',
+              compact ? 'text-[12.5px]' : 'text-[12.5px] 2xl:text-[13.5px] 2xl:tracking-[0.1em]',
+              active || isOpen ? 'text-[#4A1020]' : 'text-[#111111] hover:text-[#4A1020]',
+            )}
+          >
+            {link.badge && (
+              <span className="pointer-events-none absolute -top-[23px] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center">
+                <span className="rounded-[3px] bg-[#C9A96E] px-2 py-[2.5px] font-sans text-[9px] font-extrabold uppercase leading-none tracking-[0.06em] text-white shadow-[0_2px_4px_rgba(0,0,0,0.06)]">
+                  {link.badge}
+                </span>
+                <span className="-mt-[0.5px] block h-0 w-0 border-x-[4px] border-t-[4px] border-solid border-x-transparent border-t-[#C9A96E]" />
+              </span>
+            )}
+            {link.label}
+            <ChevronDown
+              className={cn(
+                'h-3 w-3 shrink-0 opacity-60 transition-transform',
+                isOpen && 'translate-y-0.5',
+              )}
+              strokeWidth={2}
+              aria-hidden
+            />
+            <span
+              className={cn(
+                'absolute bottom-0 left-0 h-[2px] bg-[#4A0E1C] transition-all duration-300',
+                isOpen || active ? 'w-full' : 'w-0 group-hover:w-full',
+              )}
+            />
+          </button>
+        ) : (
+          <Link
+            to={link.href}
+            className={cn(
+              'relative inline-flex items-center gap-0.5 py-0.5 font-sans font-bold uppercase tracking-[0.1em] transition-colors',
+              compact ? 'text-[12.5px]' : 'text-[12.5px] 2xl:text-[13.5px] 2xl:tracking-[0.1em]',
+              active ? 'text-[#4A1020]' : 'text-[#111111] hover:text-[#4A1020]',
+            )}
+          >
+            {link.label}
+            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#4A0E1C] transition-all duration-300 hover:w-full" />
+          </Link>
+        )}
+
+        {hasDropdown && link.dropdown && (
+          <div
+            className={cn(
+              'absolute top-full z-50 pt-2.5 transition-all duration-200 ease-out',
+              link.label === 'Shop' || link.label === 'Promotional Gifting'
+                ? 'left-1/2 w-[min(96vw,72rem)] -translate-x-1/2'
+                : 'left-1/2 w-[85vw] max-w-5xl -translate-x-1/2',
+              isOpen
+                ? 'pointer-events-auto visible translate-y-0 opacity-100'
+                : 'pointer-events-none invisible -translate-y-1 opacity-0',
+            )}
+            onMouseEnter={() => openMegaMenu(link.label)}
+            onMouseLeave={scheduleMegaClose}
+          >
+            <div className="rounded-[1.2rem] border border-[#EBEBEB] bg-white p-6 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.12),0_8px_24px_-8px_rgba(0,0,0,0.06)] lg:p-8">
+              <div
+                className={cn(
+                  'grid gap-6 lg:gap-8',
+                  link.dropdown.length >= 5
+                    ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
+                    : 'grid-cols-2 lg:grid-cols-4',
+                )}
+              >
+                {link.dropdown.map((col, idx) => (
+                  <div key={col.title ?? idx} className="flex flex-col">
+                    {col.title ? (
+                      <div className="mb-4 border-b border-[#E0E0E0]/30 pb-2">
+                        <p className="font-sans text-[10.5px] font-extrabold uppercase tracking-widest text-[#9D7D47] 2xl:text-[11.5px]">
+                          {col.title}
+                        </p>
+                      </div>
+                    ) : (
+                      <div
+                        className="mb-4 select-none border-b border-transparent pb-2 opacity-0 pointer-events-none"
+                        aria-hidden
+                      >
+                        &nbsp;
+                      </div>
+                    )}
+                    <ul className="flex flex-col gap-2.5">
+                      {col.items.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            to={item.href}
+                            onClick={() => setOpenMega(null)}
+                            className="block font-sans text-[13px] font-medium normal-case tracking-normal text-[#4A1020] transition-colors duration-200 hover:text-[#9D7D47]"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              {link.href && (
+                <div className="mt-5 flex justify-end border-t border-[#EBEBEB] pt-4">
+                  <Link
+                    to={link.href}
+                    onClick={() => setOpenMega(null)}
+                    className="inline-flex items-center gap-1.5 font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-[#4A1020] transition hover:text-[#9D7D47]"
+                  >
+                    View all {link.label}
+                    <ChevronRight className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div
       className={cn(
-        'fixed top-0 z-50 w-full max-w-[100vw] overflow-x-clip bg-white transition-transform duration-300 md:bg-white',
+        'fixed top-0 z-50 w-full max-w-[100vw] bg-white transition-transform duration-300 md:bg-white',
         !isVisible && '-translate-y-full'
       )}
     >
@@ -483,85 +654,7 @@ export default function Navbar() {
               className="relative flex min-w-0 items-center justify-center gap-4 2xl:gap-6 overflow-visible py-0.5"
               aria-label="Primary"
             >
-              {desktopNavLinks.map((link) => {
-                const active = isNavActive(link.href);
-                return (
-                  <div key={link.label} className="group static shrink-0 py-1.5">
-                    <Link
-                      to={link.href}
-                      className={cn(
-                        'relative inline-flex items-center gap-0.5 py-0.5 font-sans text-[12.5px] font-bold uppercase tracking-[0.1em] transition-colors 2xl:text-[13.5px] 2xl:tracking-[0.1em]',
-                        active ? 'text-[#4A1020]' : 'text-[#111111] hover:text-[#4A1020]'
-                      )}
-                    >
-                      {link.badge && (
-                        <span className="absolute -top-[23px] left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-10">
-                          <span className="bg-[#C9A96E] text-white font-sans font-extrabold text-[9px] uppercase tracking-[0.06em] px-2 py-[2.5px] rounded-[3px] leading-none shadow-[0_2px_4px_rgba(0,0,0,0.06)]">
-                            {link.badge}
-                          </span>
-                          <span className="block h-0 w-0 border-solid border-x-[4px] border-t-[4px] border-x-transparent border-t-[#C9A96E] -mt-[0.5px]" />
-                        </span>
-                      )}
-                      {link.label}
-                      {'chevron' in link && link.chevron && (
-                        <ChevronDown className="h-3 w-3 shrink-0 opacity-60 transition-transform group-hover:translate-y-0.5" strokeWidth={2} aria-hidden />
-                      )}
-                      <span
-                        className={cn(
-                          "absolute bottom-0 left-0 h-[2px] bg-[#4A0E1C] transition-all duration-300 w-0 group-hover:w-full"
-                        )}
-                      />
-                    </Link>
-
-                    {/* Mega-Dropdown panel on hover */}
-                    {link.dropdown && (
-                      <div
-                        className={cn(
-                          'absolute top-full pt-2.5 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 ease-out z-50',
-                          link.label === 'Shop'
-                            ? 'left-1/2 -translate-x-1/2 w-[min(96vw,72rem)]'
-                            : 'left-1/2 -translate-x-1/2 w-[85vw] max-w-5xl'
-                        )}
-                      >
-                        <div className="bg-white border border-[#EBEBEB] rounded-[1.2rem] p-6 lg:p-8 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.12),0_8px_24px_-8px_rgba(0,0,0,0.06)]">
-                          <div className={cn(
-                            'grid gap-6 lg:gap-8',
-                            link.dropdown.length >= 5 ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5' : 'grid-cols-2 lg:grid-cols-3'
-                          )}>
-                            {link.dropdown.map((col, idx) => (
-                              <div key={idx} className="flex flex-col">
-                                {col.title ? (
-                                  <div className="mb-4 pb-2 border-b border-[#E0E0E0]/30">
-                                    <h4 className="font-sans text-[10.5px] 2xl:text-[11.5px] font-extrabold uppercase tracking-widest text-[#9D7D47]">
-                                      {col.title}
-                                    </h4>
-                                  </div>
-                                ) : (
-                                  <div className="mb-4 pb-2 border-b border-transparent select-none pointer-events-none opacity-0" aria-hidden="true">
-                                    &nbsp;
-                                  </div>
-                                )}
-                                <ul className="flex flex-col gap-2.5">
-                                  {col.items.map((item) => (
-                                    <li key={item.label}>
-                                      <Link
-                                        to={item.href}
-                                        className="font-sans text-[13px] font-medium text-[#4A1020] hover:text-[#9D7D47] transition-colors duration-200 normal-case tracking-normal block"
-                                      >
-                                        {item.label}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+              {desktopNavLinks.map((link) => renderDesktopNavLink(link))}
             </nav>
 
             {/* Right side: Download Catalogue → Catalogue Library */}
@@ -619,90 +712,10 @@ export default function Navbar() {
               <NavSearchBar compact className="w-full max-w-none" />
             </div>
             <nav
-              className="no-scrollbar flex min-w-0 items-center gap-3 overflow-x-auto px-1 pb-0.5"
+              className="relative flex min-w-0 flex-wrap items-center justify-center gap-x-3 gap-y-1 overflow-visible px-1 py-0.5 sm:gap-x-3.5"
               aria-label="Primary"
             >
-            {desktopNavLinks.map((link) => {
-              const active = isNavActive(link.href);
-              return (
-                <div key={link.label} className="group static shrink-0 px-2.5 pt-2.5 pb-1.5">
-                  <Link
-                    to={link.href}
-                    className={cn(
-                      'relative inline-flex items-center gap-0.5 py-0.5 font-sans text-[12.5px] font-bold uppercase tracking-[0.1em] transition-colors',
-                      active ? 'text-[#4A1020]' : 'text-[#111111] hover:text-[#4A1020]'
-                    )}
-                  >
-                    {link.badge && (
-                      <span className="absolute -top-[23px] left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-10">
-                        <span className="bg-[#C9A96E] text-white font-sans font-extrabold text-[9px] uppercase tracking-[0.06em] px-2 py-[2.5px] rounded-[3px] leading-none shadow-[0_2px_4px_rgba(0,0,0,0.06)]">
-                          {link.badge}
-                        </span>
-                        <span className="block h-0 w-0 border-solid border-x-[4px] border-t-[4px] border-x-transparent border-t-[#C9A96E] -mt-[0.5px]" />
-                      </span>
-                    )}
-                    {link.label}
-                    {'chevron' in link && link.chevron && (
-                      <ChevronDown className="h-3 w-3 shrink-0 opacity-60 transition-transform group-hover:translate-y-0.5" strokeWidth={2} aria-hidden />
-                    )}
-                    <span
-                      className={cn(
-                        "absolute bottom-0 left-0 h-[2px] bg-[#4A0E1C] transition-all duration-300 w-0 group-hover:w-full"
-                      )}
-                    />
-                  </Link>
-
-                  {/* Mega-Dropdown panel on hover */}
-                  {link.dropdown && (
-                    <div
-                      className={cn(
-                        'absolute top-full pt-2.5 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 ease-out z-50',
-                        link.label === 'Shop'
-                          ? 'left-1/2 -translate-x-1/2 w-[min(96vw,72rem)]'
-                          : 'left-1/2 -translate-x-1/2 w-[85vw] max-w-5xl'
-                      )}
-                    >
-                      <div className="bg-white border border-[#EBEBEB] rounded-[1.2rem] p-6 lg:p-8 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.12),0_8px_24px_-8px_rgba(0,0,0,0.06)]">
-                        <div
-                          className={cn(
-                            'grid gap-6 lg:gap-8',
-                            link.dropdown.length >= 5 ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5' : 'grid-cols-2 lg:grid-cols-3'
-                          )}
-                        >
-                          {link.dropdown.map((col, idx) => (
-                            <div key={idx} className="flex flex-col">
-                              {col.title ? (
-                                <div className="mb-4 pb-2 border-b border-[#E0E0E0]/30">
-                                  <h4 className="font-sans text-[10.5px] font-extrabold uppercase tracking-widest text-[#9D7D47]">
-                                    {col.title}
-                                  </h4>
-                                </div>
-                              ) : (
-                                <div className="mb-4 pb-2 border-b border-transparent select-none pointer-events-none opacity-0" aria-hidden="true">
-                                  &nbsp;
-                                </div>
-                              )}
-                              <ul className="flex flex-col gap-2.5">
-                                {col.items.map((item) => (
-                                  <li key={item.label}>
-                                    <Link
-                                      to={item.href}
-                                      className="font-sans text-[13px] font-medium text-[#4A1020] hover:text-[#9D7D47] transition-colors duration-200 normal-case tracking-normal block"
-                                    >
-                                      {item.label}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+            {desktopNavLinks.map((link) => renderDesktopNavLink(link, true))}
             </nav>
           </div>
         </div>
@@ -861,23 +874,23 @@ export default function Navbar() {
                     <button
                       type="button"
                       onClick={() => {
-                        setActiveParent0("Promotional Gifts");
-                        setMenuLevel(1);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                    >
-                      <span>Promotional Gifts</span>
-                      <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
                         setActiveParent0("Corporate Gifting");
                         setMenuLevel(1);
                       }}
                       className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
                     >
                       <span>Corporate Gifting</span>
+                      <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveParent0("Promotional Gifting");
+                        setMenuLevel(1);
+                      }}
+                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                    >
+                      <span>Promotional Gifting</span>
                       <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
                     </button>
                     <Link
@@ -990,119 +1003,49 @@ export default function Navbar() {
                   </>
                 )}
 
-                {activeParent0 === "Promotional Gifts" && (
+                {activeParent0 === "Corporate Gifting" && (
                   <>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("WORK & DESK ESSENTIALS");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>Work & Desk Essentials</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("HOME & LIVING");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>Home & Living</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("LIFESTYLE & ACCESSORIES");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>Lifestyle & Accessories</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("GOURMET & EDIBLE TREATS");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>Gourmet & Edible Treats</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    
-                    <div className="mt-2 border-t border-[#ebe6e2]/40 pt-3">
-                      <p className="px-4 pb-1.5 font-sans text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#9D7D47]">
-                        Other Categories
-                      </p>
-                      {PROMOTIONAL_GIFTS_MEGA_MENU[4].items.map((item) => (
-                        <Link
-                          key={item.label}
-                          to={item.href}
-                          className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                          onClick={() => setIsMobileMenuOpen(false)}
+                    {CORPORATE_GIFTING_MEGA_MENU.map((col) =>
+                      col.title ? (
+                        <button
+                          key={col.title}
+                          type="button"
+                          onClick={() => {
+                            setActiveParent1(col.title!);
+                            setMenuLevel(2);
+                          }}
+                          className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
                         >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
+                          <span>{col.title}</span>
+                          <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                        </button>
+                      ) : null,
+                    )}
                   </>
                 )}
 
-                {activeParent0 === "Corporate Gifting" && (
+                {activeParent0 === "Promotional Gifting" && (
                   <>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("CORPORATE GIFTING BY CELEBRATION");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>Gifting By Celebration</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("CORPORATE GIFTING BY PRICE");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>Gifting By Price</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    
-                    <div className="mt-2 border-t border-[#ebe6e2]/40 pt-3">
-                      <p className="px-4 pb-1.5 font-sans text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#9D7D47]">
-                        Featured Executive Gifts
-                      </p>
-                      {[
-                        { label: 'Branded Gifts', href: '/corporate-gifting/branded-gifts' },
-                        { label: 'Tech Gifts', href: '/corporate-gifting/tech-gifts' },
-                        { label: 'Architecture Gifts', href: '/corporate-gifting/architecture-gifts' },
-                        { label: 'Real Estate Gifts', href: '/corporate-gifting/real-estate-gifts' },
-                        { label: 'Executive Gifts', href: '/corporate-gifting/executive-gifts' }
-                      ].map((item) => (
-                        <Link
-                          key={item.label}
-                          to={item.href}
-                          className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                          onClick={() => setIsMobileMenuOpen(false)}
+                    {PROMOTIONAL_GIFTS_MEGA_MENU.map((col) =>
+                      col.title ? (
+                        <button
+                          key={col.title}
+                          type="button"
+                          onClick={() => {
+                            setActiveParent1(col.title!);
+                            setMenuLevel(2);
+                          }}
+                          className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
                         >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
+                          <span>{col.title}</span>
+                          <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
+                        </button>
+                      ) : null,
+                    )}
                   </>
                 )}
+
+
               </div>
 
               {/* PANEL 2 */}
@@ -1169,80 +1112,19 @@ export default function Navbar() {
                   </Link>
                 ))}
 
-                {activeParent1 === "WORK & DESK ESSENTIALS" && PROMOTIONAL_GIFTS_MEGA_MENU[0].items.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-                {activeParent1 === "HOME & LIVING" && PROMOTIONAL_GIFTS_MEGA_MENU[1].items.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-                {activeParent1 === "LIFESTYLE & ACCESSORIES" && PROMOTIONAL_GIFTS_MEGA_MENU[2].items.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-                {activeParent1 === "GOURMET & EDIBLE TREATS" && PROMOTIONAL_GIFTS_MEGA_MENU[3].items.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-                {activeParent1 === "CORPORATE GIFTING BY CELEBRATION" && [
-                  { label: 'Work Anniversary Gifts', href: '/corporate-gifting/work-anniversary-gifts' },
-                  { label: 'Rewards and Recognition', href: '/corporate-gifting/rewards-and-recognition' },
-                  { label: 'Employee Welcome Kits', href: '/corporate-gifting/employee-welcome-kits' }
-                ].map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-                {activeParent1 === "CORPORATE GIFTING BY PRICE" && [
-                  { label: 'Under Rs 1000', href: '/corporate-gifting/under-rs-1000' },
-                  { label: 'Rs 1000 to Rs 2000', href: '/corporate-gifting/rs-1000-to-rs-2000' },
-                  { label: 'Rs 2000 to Rs 3000', href: '/corporate-gifting/rs-2000-to-rs-3000' },
-                  { label: 'Above Rs 3000', href: '/corporate-gifting/above-rs-3000' }
-                ].map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+                {[...CORPORATE_GIFTING_MEGA_MENU, ...PROMOTIONAL_GIFTS_MEGA_MENU]
+                  .filter((col) => col.title && col.title === activeParent1)
+                  .flatMap((col) => col.items)
+                  .map((item) => (
+                    <Link
+                      key={`${activeParent1}-${item.label}`}
+                      to={item.href}
+                      className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
               </div>
             </div>
           </div>

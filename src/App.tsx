@@ -16,6 +16,7 @@ import VouchersBrandsPage from '@/pages/VouchersBrandsPage';
 import TrophiesPage from '@/pages/TrophiesPage';
 import CatalogueLibraryPage from '@/pages/CatalogueLibraryPage';
 import ImageRequirementsPage from '@/pages/ImageRequirementsPage';
+import WelcomePopup from '@/components/layout/WelcomePopup';
 import WhatsAppWidget from '@/components/layout/WhatsAppWidget';
 import CursorSparkles from '@/components/ui/CursorSparkles';
 
@@ -68,17 +69,24 @@ export default function App() {
 
         <Route path="/corporate-gifting" element={<PlaceholderPage title="Corporate Gifting" />} />
         {/* Corporate Gifting sub-pages */}
-        <Route path="/corporate-gifting/work-anniversary-gifts" element={<PlaceholderPage title="Work Anniversary Gifts" />} />
-        <Route path="/corporate-gifting/rewards-and-recognition" element={<PlaceholderPage title="Rewards and Recognition" />} />
         <Route path="/corporate-gifting/employee-welcome-kits" element={<PlaceholderPage title="Employee Welcome Kits" />} />
+        <Route path="/corporate-gifting/rewards-and-recognition" element={<PlaceholderPage title="Rewards and Recognition" />} />
+        <Route path="/corporate-gifting/work-anniversary-gifts" element={<PlaceholderPage title="Work Anniversary Gifts" />} />
+        <Route path="/corporate-gifting/client-appreciation-gifts" element={<PlaceholderPage title="Client Appreciation Gifts" />} />
+        <Route path="/corporate-gifting/corporate-birthday-gifts" element={<PlaceholderPage title="Corporate Birthday Gifts" />} />
+        <Route path="/corporate-gifting/thank-you-gifts" element={<PlaceholderPage title="Thank You Gifts" />} />
+        <Route path="/corporate-gifting/diwali-gifts" element={<PlaceholderPage title="Diwali Gifts" />} />
+        <Route path="/corporate-gifting/christmas-gifts" element={<PlaceholderPage title="Christmas Gifts" />} />
+        <Route path="/corporate-gifting/new-year-gifts" element={<PlaceholderPage title="New Year Gifts" />} />
+        <Route path="/corporate-gifting/womens-day-gifts" element={<PlaceholderPage title="Women's Day Gifts" />} />
         <Route path="/corporate-gifting/under-rs-1000" element={<PlaceholderPage title="Under Rs 1000" />} />
         <Route path="/corporate-gifting/rs-1000-to-rs-2000" element={<PlaceholderPage title="Rs 1000 to Rs 2000" />} />
         <Route path="/corporate-gifting/rs-2000-to-rs-3000" element={<PlaceholderPage title="Rs 2000 to Rs 3000" />} />
         <Route path="/corporate-gifting/above-rs-3000" element={<PlaceholderPage title="Above Rs 3000" />} />
-        <Route path="/corporate-gifting/branded-gifts" element={<PlaceholderPage title="Branded Gifts" />} />
         <Route path="/corporate-gifting/tech-gifts" element={<PlaceholderPage title="Tech Gifts" />} />
         <Route path="/corporate-gifting/architecture-gifts" element={<PlaceholderPage title="Architecture Gifts" />} />
         <Route path="/corporate-gifting/real-estate-gifts" element={<PlaceholderPage title="Real Estate Gifts" />} />
+        <Route path="/corporate-gifting/branded-gifts" element={<PlaceholderPage title="Branded Gifts" />} />
         <Route path="/corporate-gifting/executive-gifts" element={<PlaceholderPage title="Executive Gifts" />} />
         <Route path="/about" element={<PlaceholderPage title="About us" />} />
         <Route path="/blog" element={<PlaceholderPage title="Blog" />} />
@@ -96,6 +104,7 @@ export default function App() {
         <Route path="*" element={<PlaceholderPage title="Page not found" />} />
       </Routes>
       <WhatsAppWidget />
+      <WelcomePopup />
     </>
   );
 }
