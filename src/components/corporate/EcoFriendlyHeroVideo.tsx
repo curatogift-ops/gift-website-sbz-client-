@@ -15,19 +15,9 @@ type ShowcaseVideo = {
 
 const SHOWCASE_VIDEOS: ShowcaseVideo[] = [
   {
-    id: 'eon-voltra',
-    src: '/images/corporate/showcase-videos/eon-voltra.mp4',
-    title: 'EON Voltra — Power That Adapts to You',
-  },
-  {
-    id: 'rico-slow-juicer',
-    src: '/images/corporate/showcase-videos/rico-slow-juicer.mp4',
-    title: 'Rico Slow Juicer SJ2508',
-  },
-  {
-    id: 'xech-showcase',
-    src: '/images/corporate/showcase-videos/xech-product-showcase.mp4',
-    title: 'XECH Technologies Product Showcase',
+    id: 'eco-friendly-hero',
+    src: '/images/corporate/eco-friendly-hero.mp4',
+    title: 'Eco-Friendly Corporate Gifting',
   },
 ];
 
@@ -35,7 +25,7 @@ const AUTO_ADVANCE_MS = 12_000;
 
 /**
  * Product showcase video carousel — placed before Eco-Friendly Corporate Gifting.
- * Captions removed per brief; NUUK brand mark top-right; auto-scrolls between clips.
+ * Captions removed per brief; auto-scrolls between clips when more than one is present.
  */
 export default function EcoFriendlyHeroVideo() {
   const [api, setApi] = useState<CarouselApi>();
@@ -146,7 +136,7 @@ export default function EcoFriendlyHeroVideo() {
       />
 
       <div className="section-container relative">
-        <div className="mb-3 flex justify-end gap-2 sm:mb-4">
+        <div className={`mb-3 justify-end gap-2 sm:mb-4 ${hasMultiple ? 'flex' : 'hidden'}`}>
           <button
             type="button"
             onClick={goPrev}
@@ -192,18 +182,12 @@ export default function EcoFriendlyHeroVideo() {
                             className="absolute inset-0 h-full w-full object-cover object-center"
                             src={video.src}
                             muted
+                            loop={!hasMultiple}
                             playsInline
                             preload={index === 0 ? 'auto' : 'metadata'}
                             controls={false}
                             aria-label={video.title}
                           />
-
-                          {/* Brand mark — top right (brief) */}
-                          <div className="pointer-events-none absolute right-3 top-3 z-10 sm:right-4 sm:top-4">
-                            <span className="inline-flex items-center rounded-md border border-white/25 bg-[#1A1010]/55 px-2.5 py-1.5 font-sans text-[11px] font-extrabold uppercase tracking-[0.2em] text-white backdrop-blur-md sm:text-[12px]">
-                              NUUK
-                            </span>
-                          </div>
 
                           {hasMultiple && (
                             <div className="absolute bottom-3 right-3 z-10 sm:bottom-4 sm:right-4">
@@ -246,7 +230,9 @@ export default function EcoFriendlyHeroVideo() {
           </div>
         </div>
 
-        <div className="mt-4 flex flex-col items-center gap-2.5 sm:mt-5">
+        <div
+          className={`mt-4 flex-col items-center gap-2.5 sm:mt-5 ${hasMultiple ? 'flex' : 'hidden'}`}
+        >
           <div className="flex items-center gap-2" role="tablist" aria-label="Video slides">
             {SHOWCASE_VIDEOS.map((video, index) => (
               <button
