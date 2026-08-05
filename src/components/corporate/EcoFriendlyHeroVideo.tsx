@@ -19,6 +19,21 @@ const SHOWCASE_VIDEOS: ShowcaseVideo[] = [
     src: '/images/corporate/eco-friendly-hero.mp4',
     title: 'Eco-Friendly Corporate Gifting',
   },
+  {
+    id: 'eon-voltra',
+    src: '/images/corporate/showcase-videos/eon-voltra.mp4',
+    title: 'Corporate product showcase',
+  },
+  {
+    id: 'rico-slow-juicer',
+    src: '/images/corporate/showcase-videos/rico-slow-juicer.mp4',
+    title: 'Corporate product showcase',
+  },
+  {
+    id: 'xech-showcase',
+    src: '/images/corporate/showcase-videos/xech-product-showcase.mp4',
+    title: 'Corporate product showcase',
+  },
 ];
 
 const AUTO_ADVANCE_MS = 12_000;
