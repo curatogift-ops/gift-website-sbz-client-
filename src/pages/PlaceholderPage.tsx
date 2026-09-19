@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ProductListingPlaceholderGrid from '@/components/shared/ProductListingPlaceholderGrid';
@@ -273,7 +274,40 @@ function getCategoryProducts(categoryName: string): Product[] {
   ];
 }
 
-export default function PlaceholderPage({ title, categoryKey, minPrice, maxPrice, searchQuery = '' }: PlaceholderPageProps) {
+function NotFoundPage() {
+  return (
+    <div className="flex min-h-screen flex-col bg-white">
+      <Navbar />
+      <main className="page-main-offset flex flex-grow flex-col items-center justify-center px-4 py-20 text-center">
+        <p className="eyebrow text-[#9D7D47]">404</p>
+        <h1 className="mt-3 font-serif text-[clamp(1.75rem,4vw,2.5rem)] font-semibold text-primary">
+          Page not found
+        </h1>
+        <p className="mt-3 max-w-md text-sm text-muted-foreground">
+          The page you are looking for does not exist or has moved.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Link to="/corporate" className="btn-pill btn-pill-maroon">
+            Corporate Gifting
+          </Link>
+          <Link to="/contact" className="btn-pill btn-pill-ghost-gold">
+            Contact Us
+          </Link>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+export default function PlaceholderPage(props: PlaceholderPageProps) {
+  if (props.title === 'Page not found') {
+    return <NotFoundPage />;
+  }
+  return <PlaceholderListingPage {...props} />;
+}
+
+function PlaceholderListingPage({ title, categoryKey, minPrice, maxPrice, searchQuery = '' }: PlaceholderPageProps) {
   // Sorting state
   const [sortBy, setSortBy] = useState<'best' | 'low' | 'high' | 'new' | 'rec'>('best');
   const [localSearch, setLocalSearch] = useState(searchQuery);

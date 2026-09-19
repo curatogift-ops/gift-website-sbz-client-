@@ -13,7 +13,6 @@ import TermsPage from '@/pages/TermsPage';
 import PrivacyPage from '@/pages/PrivacyPage';
 import BrandsPage from '@/pages/BrandsPage';
 import VouchersBrandsPage from '@/pages/VouchersBrandsPage';
-import TrophiesPage from '@/pages/TrophiesPage';
 import CatalogueLibraryPage from '@/pages/CatalogueLibraryPage';
 import ImageRequirementsPage from '@/pages/ImageRequirementsPage';
 import WelcomePopup from '@/components/layout/WelcomePopup';
@@ -23,6 +22,9 @@ import CursorSparkles from '@/components/ui/CursorSparkles';
 /** Brief rule: dead / placeholder CTAs → enquiry or contact (no fake content pages). */
 function RedirectEnquiry() {
   return <Navigate to="/corporate#corporate-gift-enquiry" replace />;
+}
+function RedirectTravelEnquiry() {
+  return <Navigate to="/corporate#corporate-travel-enquiry" replace />;
 }
 function RedirectContact() {
   return <Navigate to="/contact" replace />;
@@ -47,7 +49,10 @@ export default function App() {
         <Route path="/corporate/product/:productSlug" element={<CorporateProductPage />} />
         <Route path="/brands" element={<BrandsPage />} />
         <Route path="/vouchers-brands" element={<VouchersBrandsPage />} />
-        <Route path="/trophies" element={<TrophiesPage />} />
+        <Route
+          path="/trophies"
+          element={<Navigate to="/corporate/category/trophies-vouchers" replace />}
+        />
         <Route path="/catalogue" element={<CatalogueLibraryPage />} />
         <Route path="/download-catalogue" element={<Navigate to="/catalogue" replace />} />
         <Route path="/admin/image-requirements" element={<ImageRequirementsPage />} />
@@ -65,7 +70,7 @@ export default function App() {
         <Route path="/promotional-gifts/fragrance" element={<RedirectEnquiry />} />
         <Route path="/promotional-gifts/apparels" element={<RedirectEnquiry />} />
         <Route path="/promotional-gifts/bags-and-luggage" element={<RedirectEnquiry />} />
-        <Route path="/promotional-gifts/travel" element={<RedirectEnquiry />} />
+        <Route path="/promotional-gifts/travel" element={<RedirectTravelEnquiry />} />
         <Route path="/promotional-gifts/lifestyle" element={<RedirectEnquiry />} />
         <Route path="/promotional-gifts/keychains" element={<RedirectEnquiry />} />
         <Route path="/promotional-gifts/chocolates" element={<RedirectEnquiry />} />

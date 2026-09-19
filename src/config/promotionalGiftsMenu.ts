@@ -37,7 +37,7 @@ export const PROMOTIONAL_GIFTS_MEGA_MENU: PromotionalMenuColumn[] = [
   {
     title: 'LIFESTYLE & ACCESSORIES',
     items: [
-      { label: 'Travel', href: ENQUIRY },
+      { label: 'Travel', href: '/corporate#corporate-travel-enquiry' },
       { label: 'Apparels', href: ENQUIRY },
       { label: 'Lifestyle', href: ENQUIRY },
       { label: 'Keychains', href: ENQUIRY },

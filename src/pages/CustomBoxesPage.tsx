@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type ComponentType } from 'react';
+import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Box,
@@ -866,12 +867,12 @@ export default function CustomBoxesPage() {
                         <span>{formatCurrency(grandTotal)}</span>
                       </div>
 
-                      <button
-                        type="button"
-                        className="mt-4 h-11 w-full rounded-xl bg-gradient-to-r from-[#1a6b52] to-[#0f4f43] text-sm font-semibold text-white shadow-sm transition hover:from-[#15573f] hover:to-[#0b4036]"
+                      <Link
+                        to="/corporate#corporate-gift-enquiry"
+                        className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#1a6b52] to-[#0f4f43] text-sm font-semibold text-white shadow-sm transition hover:from-[#15573f] hover:to-[#0b4036]"
                       >
-                        Checkout
-                      </button>
+                        Request Quote
+                      </Link>
                       <button
                         type="button"
                         onClick={resetBuilder}
