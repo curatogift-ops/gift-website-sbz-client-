@@ -8,7 +8,6 @@ import {
   ChevronRight,
   Diamond,
   Gift,
-  Heart,
   Leaf,
   Package,
   Shield,
@@ -160,7 +159,7 @@ export default function FeaturedProductsSection() {
               Handpicked premium hampers and gifts loved by our clients.
             </p>
           </div>
-          <Link to="/shop" className="btn-pill btn-pill-ghost-gold mx-auto lg:mx-0">
+          <Link to="/corporate" className="btn-pill btn-pill-ghost-gold mx-auto lg:mx-0">
             <Gift className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
             View all products
           </Link>
@@ -205,13 +204,6 @@ export default function FeaturedProductsSection() {
                         sizes="(max-width:640px) 88vw, (max-width:1024px) 32vw, 280px"
                         className="object-cover object-center"
                       />
-                      <button
-                        type="button"
-                        className="absolute right-2.5 top-2.5 flex h-9 w-9 items-center justify-center rounded-full border border-[#e8e4e0] bg-white/95 text-[#4A1010] shadow-sm transition hover:bg-white"
-                        aria-label={`Save ${product.title} to wishlist`}
-                      >
-                        <Heart className="h-4 w-4" strokeWidth={1.75} />
-                      </button>
                     </div>
                     <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.22em] text-[#A67C37]">
                       {product.category}

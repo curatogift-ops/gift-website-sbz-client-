@@ -43,13 +43,13 @@ export default function Footer() {
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
               {[
-                { Icon: Instagram, label: 'Instagram' },
-                { Icon: Facebook, label: 'Facebook' },
-                { Icon: Twitter, label: 'Twitter' },
-              ].map(({ Icon, label }, idx) => (
+                { Icon: Instagram, label: 'Instagram', to: '/contact' },
+                { Icon: Facebook, label: 'Facebook', to: '/contact' },
+                { Icon: Twitter, label: 'Twitter', to: '/contact' },
+              ].map(({ Icon, label, to }, idx) => (
                 <Link
                   key={idx}
-                  to="#"
+                  to={to}
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-[#F2EDE8]/90 transition hover:border-[#C9A96E]/80 hover:bg-white/5 hover:text-[#E8CF9A]"
                   aria-label={label}
                 >
@@ -61,11 +61,11 @@ export default function Footer() {
 
           <div className="grid grid-cols-2 gap-8 sm:gap-10 md:col-span-2 lg:col-span-7">
             <div>
-              <h4 className="mb-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Shop hampers</h4>
+              <h4 className="mb-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Corporate</h4>
               <ul className="space-y-3 text-[14px] font-medium text-[#F2EDE8]/80">
                 <li>
-                  <Link to="/shop" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
-                    All products <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  <Link to="/corporate" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                    Corporate Gifting <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
                   </Link>
                 </li>
                 <li>
@@ -74,18 +74,13 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/shop/browse?occasion=wedding" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
-                    Wedding collection <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  <Link to="/corporate#corporate-gift-enquiry" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                    Corporate Gift Enquiry <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
                   </Link>
                 </li>
                 <li>
-                  <Link to="/corporate" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
-                    Corporate gifting <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/shop/browse?occasion=birthday" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
-                    Birthday hampers <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
+                  <Link to="/corporate/category/festive-gifts" className="inline-flex items-center gap-1.5 transition hover:text-[#E8CF9A]">
+                    Festive Gifts <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-70" strokeWidth={2} />
                   </Link>
                 </li>
                 <li>
@@ -99,22 +94,22 @@ export default function Footer() {
               <h4 className="mb-4 text-[13px] font-bold uppercase tracking-[0.2em] text-[#C9A96E]">Support</h4>
               <ul className="space-y-3 text-[14px] font-medium text-[#F2EDE8]/80">
                 <li>
-                  <Link to="/track-order" className="transition hover:text-[#E8CF9A]">
+                  <Link to="/contact" className="transition hover:text-[#E8CF9A]">
                     Track your order
                   </Link>
                 </li>
                 <li>
-                  <Link to="/shipping" className="transition hover:text-[#E8CF9A]">
+                  <Link to="/contact" className="transition hover:text-[#E8CF9A]">
                     Shipping &amp; delivery
                   </Link>
                 </li>
                 <li>
-                  <Link to="/returns" className="transition hover:text-[#E8CF9A]">
+                  <Link to="/contact" className="transition hover:text-[#E8CF9A]">
                     Returns policy
                   </Link>
                 </li>
                 <li>
-                  <Link to="/faq" className="transition hover:text-[#E8CF9A]">
+                  <Link to="/contact" className="transition hover:text-[#E8CF9A]">
                     FAQs
                   </Link>
                 </li>
@@ -222,7 +217,7 @@ export default function Footer() {
             <Link to="/terms" className="transition hover:text-[#E8CF9A]">
               Terms
             </Link>
-            <Link to="/sitemap" className="transition hover:text-[#E8CF9A]">
+            <Link to="/contact" className="transition hover:text-[#E8CF9A]">
               Sitemap
             </Link>
           </nav>

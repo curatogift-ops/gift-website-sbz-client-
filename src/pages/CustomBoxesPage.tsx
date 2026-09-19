@@ -17,6 +17,8 @@ import {
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import AppImage from '@/components/ui/AppImage';
+import ProductDetailsAccordion from '@/components/shared/ProductDetailsAccordion';
+import { CORPORATE_PRODUCTS } from '@/config/corporateGiftingData';
 
 type BuilderStep = 1 | 2 | 3 | 4 | 5;
 type ProductCategory = 'All' | 'Accessories' | 'Keepsakes' | 'Self Care';
@@ -674,6 +676,18 @@ export default function CustomBoxesPage() {
                     })}
                   </div>
                 </motion.section>
+              )}
+
+              {step === 2 && selectedProductEntries.length > 0 && CORPORATE_PRODUCTS[0] && (
+                <section className="mt-8 rounded-2xl border border-[#dfd9cd] bg-white p-5 sm:p-6" aria-labelledby="boxup-product-details">
+                  <h2 id="boxup-product-details" className="font-serif text-xl font-semibold text-[#1A1010]">
+                    Product Details
+                  </h2>
+                  <p className="mt-1 text-sm text-[#726d65]">
+                    {CORPORATE_PRODUCTS[0].name}
+                  </p>
+                  <ProductDetailsAccordion product={CORPORATE_PRODUCTS[0]} className="corp-product-accordion mt-4 flex w-full flex-col" />
+                </section>
               )}
 
               {step === 3 && (

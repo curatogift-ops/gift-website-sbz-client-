@@ -184,7 +184,7 @@ export default function WhyChooseUsSection() {
 
             <div className="flex shrink-0 justify-stretch lg:justify-end">
               <Link
-                to="/corporate#bulk-order-enquiry"
+                to="/corporate#corporate-gift-enquiry"
                 className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-white px-6 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-[#4A1020] transition hover:bg-[#F7F2EA] sm:w-auto"
               >
                 Get My Best Quote →

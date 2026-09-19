@@ -361,7 +361,7 @@ export const CORPORATE_PRODUCTS: CorporateProduct[] = [
   product('trophies-vouchers', 'employee-of-month-award', 'Employee of the Month Award', 'Signature award trophy with monthly personalization option.', 1999, 'From ₹1,499/unit (10+ qty)', IMG('photo-1567427017947-545c5f8d16ad')),
 ];
 
-/** Ordered list for solutions grids / "Explore other categories" (9 display items). */
+/** Ordered list for solutions grids / "Explore other categories". Luxury Packaging hidden from display. */
 export const CORPORATE_SOLUTIONS_ORDER = [
   'corporate-hampers',
   'employee-joining-kits',
@@ -370,7 +370,6 @@ export const CORPORATE_SOLUTIONS_ORDER = [
   'drinkware',
   'trophies-vouchers',
   'event-conference-gifting',
-  'luxury-packaging',
   'festive-gifts',
 ] as const;
 

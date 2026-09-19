@@ -1,4 +1,5 @@
 import AppImage from '@/components/ui/AppImage';
+import ContactForInfoCta from '@/components/shared/ContactForInfoCta';
 
 const BANNER_IMG = (index: number) =>
   `/images/corporate/scrolling-banner/banner-${String(index).padStart(2, '0')}.jpeg`;
@@ -41,7 +42,7 @@ function MarqueeRow({ images, direction }: { images: string[]; direction: 'left'
   );
 }
 
-/** Dual-row lifestyle gallery — top scrolls left, bottom scrolls right. No text. */
+/** Dual-row lifestyle gallery — top scrolls left, bottom scrolls right. */
 export default function CorporateGiftingGallerySection() {
   return (
     <section
@@ -59,6 +60,9 @@ export default function CorporateGiftingGallerySection() {
       <div className="relative flex flex-col gap-4 sm:gap-5">
         <MarqueeRow images={GALLERY_ROW_TOP} direction="left" />
         <MarqueeRow images={GALLERY_ROW_BOTTOM} direction="right" />
+      </div>
+      <div className="section-container relative mt-6 sm:mt-8">
+        <ContactForInfoCta className="mt-0" />
       </div>
     </section>
   );

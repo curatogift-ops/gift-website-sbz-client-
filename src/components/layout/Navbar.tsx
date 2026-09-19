@@ -9,100 +9,21 @@ import {
   Heart,
   X,
   ChevronDown,
-  BriefcaseBusiness,
   ChevronRight,
   Download,
   ChevronLeft,
   Phone,
-  Settings,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/utils/cn';
-import { SHOP_MEGA_MENU } from '@/config/shopMenu';
 import { PROMOTIONAL_GIFTS_MEGA_MENU } from '@/config/promotionalGiftsMenu';
 import { CORPORATE_GIFTING_MEGA_MENU } from '@/config/corporateGiftingMenu';
 import { COMPANY_INFO } from '@/config/companyInfo';
+import { useCartStore } from '@/store/cartStore';
+import { useWishlistStore } from '@/store/wishlistStore';
 
 const SURFACE = '#FFFFFF';
 const MAROON_RIBBON = '#3D181C';
-
-type GiftModeSwitcherSize = 'mobile' | 'compact' | 'desktop';
-
-function giftModeTabClass(active: boolean, size: GiftModeSwitcherSize) {
-  return cn(
-    'inline-flex w-full min-w-0 items-center justify-center font-sans font-extrabold uppercase transition-all duration-300 active:scale-[0.98]',
-    size === 'mobile' &&
-      'min-h-[2.85rem] flex-col gap-1 rounded-[0.72rem] px-1.5 py-2 text-[9px] leading-tight tracking-[0.04em] sm:min-h-[3rem] sm:flex-row sm:gap-2 sm:px-3 sm:py-2.5 sm:text-[11px] sm:tracking-[0.06em]',
-    size === 'compact' &&
-      'min-h-[2.65rem] gap-1.5 rounded-[0.72rem] px-2 py-2 text-[10px] leading-tight tracking-[0.05em] sm:gap-2 sm:px-3.5 sm:text-[11px]',
-    size === 'desktop' &&
-      'min-h-[2.75rem] gap-2 rounded-[0.65rem] px-3 py-2.5 text-[10px] leading-none tracking-[0.06em] lg:px-4 lg:text-[11px]',
-    active
-      ? 'bg-[#4A1020] text-[#F2EDE8] shadow-[0_3px_8px_rgba(74,16,32,0.08)]'
-      : 'bg-transparent text-[#4A1020] hover:bg-[#4A1020]/[0.06]'
-  );
-}
-
-function GiftModeSwitcher({
-  isCorporateActive,
-  size = 'desktop',
-  onToggle,
-}: {
-  isCorporateActive: boolean;
-  size?: GiftModeSwitcherSize;
-  onToggle?: (isCorporate: boolean) => void;
-}) {
-  const iconClass =
-    size === 'mobile' ? 'h-3.5 w-3.5 sm:h-4 sm:w-4' : size === 'compact' ? 'h-3.5 w-3.5' : 'h-3.5 w-3.5';
-
-  const labelClass = 'min-w-0 max-w-full text-center leading-tight [text-wrap:balance]';
-
-  const handleTabClick = (e: React.MouseEvent, isCorporate: boolean) => {
-    if (onToggle) {
-      e.preventDefault();
-      onToggle(isCorporate);
-    }
-  };
-
-  return (
-    <div
-      className={cn(
-        'grid w-full min-w-0 max-w-full grid-cols-2 gap-1 rounded-[0.95rem] border border-[#E0E0E0] bg-surface-muted p-1 shadow-sm',
-        size === 'desktop' && 'w-auto max-w-none rounded-[0.8rem] p-0.5 shadow-[0_3px_8px_rgba(74,16,32,0.08)]',
-        size === 'compact' && 'max-w-full'
-      )}
-      role="tablist"
-      aria-label="Gift shopping mode"
-    >
-      <Link
-        to="/shop"
-        role="tab"
-        aria-selected={!isCorporateActive}
-        className={giftModeTabClass(!isCorporateActive, size)}
-        onClick={(e) => handleTabClick(e, false)}
-      >
-        <Heart className={cn(iconClass, 'shrink-0')} strokeWidth={2} aria-hidden />
-        <span className={labelClass}>
-          <span className="hidden sm:inline">Personalized Gifts</span>
-          <span className="sm:hidden">Personalized</span>
-        </span>
-      </Link>
-      <Link
-        to="/corporate"
-        role="tab"
-        aria-selected={isCorporateActive}
-        className={giftModeTabClass(isCorporateActive, size)}
-        onClick={(e) => handleTabClick(e, true)}
-      >
-        <BriefcaseBusiness className={cn(iconClass, 'shrink-0')} strokeWidth={1.9} aria-hidden />
-        <span className={labelClass}>
-          <span className="hidden sm:inline">Corporate Gifts</span>
-          <span className="sm:hidden">Corporate</span>
-        </span>
-      </Link>
-    </div>
-  );
-}
 
 export default function Navbar() {
   const { pathname } = useLocation();
@@ -253,32 +174,13 @@ export default function Navbar() {
   }, [isMobileMenuOpen, pathname]);
 
   const iconThin = 1.65;
+  const cartCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0));
+  const wishlistCount = useWishlistStore((s) => s.items.length);
 
   const isNavActive = (href: string) => {
     const baseHref = href.split('#')[0] || href;
-    if (baseHref === '/' || baseHref === '/shop') {
-      return (
-        pathname === '/' ||
-        pathname === '/shop' ||
-        pathname.startsWith('/shop/browse')
-      );
-    }
     return pathname === baseHref || pathname.startsWith(`${baseHref}/`);
   };
-
-  const isCorporateActive =
-    pathname === '/corporate' ||
-    pathname === '/brands' ||
-    pathname.startsWith('/corporate/') ||
-    pathname.startsWith('/corporate-gifting') ||
-    pathname.startsWith('/promotional-gifts') ||
-    pathname.startsWith('/brands/');
-
-  const [drawerCorporateActive, setDrawerCorporateActive] = useState(isCorporateActive);
-
-  useEffect(() => {
-    setDrawerCorporateActive(isCorporateActive);
-  }, [isMobileMenuOpen, isCorporateActive]);
 
   interface DropdownItem {
     label: string;
@@ -300,14 +202,6 @@ export default function Navbar() {
 
 
 
-  const personalizedNavLinks: NavLinkItem[] = [
-    { label: 'Shop', href: '/shop', chevron: true, dropdown: SHOP_MEGA_MENU },
-    { label: 'Celebrations', href: '/shop#celebrations' },
-    { label: 'Make Your Own Hamper', href: '/hamper-builder' },
-    { label: 'About us', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-  ];
-
   const corporateNavLinks: NavLinkItem[] = [
     {
       label: 'Corporate Gifting',
@@ -317,16 +211,16 @@ export default function Navbar() {
     },
     {
       label: 'Promotional Gifting',
-      href: '/promotional-gifts',
+      href: '/corporate#corporate-gift-enquiry',
       chevron: true,
       dropdown: PROMOTIONAL_GIFTS_MEGA_MENU,
     },
     { label: 'Our Brands', href: '/brands' },
-    { label: 'Bulk Enquiry', href: '/corporate#bulk-order-enquiry' },
+    { label: 'Corporate Gift Enquiry', href: '/corporate#corporate-gift-enquiry' },
     { label: 'About us', href: '/about' },
   ];
 
-  const desktopNavLinks = isCorporateActive ? corporateNavLinks : personalizedNavLinks;
+  const desktopNavLinks = corporateNavLinks;
 
   const renderDesktopNavLink = (link: NavLinkItem, compact = false) => {
     const active = isNavActive(link.href);
@@ -489,21 +383,34 @@ export default function Navbar() {
         className="flex items-center justify-center border-b border-white/10 px-3 py-2 text-center text-[10px] font-medium leading-snug text-white sm:px-4 sm:py-2.5 sm:text-[11.5px] lg:text-[12px]"
         style={{ backgroundColor: MAROON_RIBBON }}
       >
-        <p className="min-w-0 truncate text-white/95">
-          Bulk &amp; Corporate Gifting | Customized Orders | Best Prices |{' '}
+        <p className="flex min-w-0 flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-white/95">
+          <Link
+            to="/corporate"
+            className="whitespace-nowrap font-semibold text-white underline-offset-2 hover:underline hover:text-[#E8C87A]"
+          >
+            Bulk &amp; Corporate Gifting
+          </Link>
+          <span aria-hidden>|</span>
+          <Link
+            to="/corporate#corporate-gift-enquiry"
+            className="whitespace-nowrap font-semibold text-white underline-offset-2 hover:underline hover:text-[#E8C87A]"
+          >
+            Competitive Quote
+          </Link>
+          <span aria-hidden>|</span>
           <a
-            href="tel:+919164213044"
+            href={`tel:${COMPANY_INFO.phone}`}
             className="whitespace-nowrap font-semibold text-[#E8C87A] underline-offset-2 hover:underline"
           >
-            Call Now: +91 91642 13044
+            Contact
           </a>
         </p>
       </div>
 
       <header className="border-b border-black/[0.06] bg-white md:hidden">
         <div className="mx-auto max-w-7xl px-3 sm:px-5 lg:px-8">
-          <div className="relative flex items-center justify-between py-[14px] md:gap-4 md:py-4">
-            <div className="flex min-w-0 items-center justify-start gap-0.5 md:gap-2 z-10">
+          <div className="grid grid-cols-[minmax(5.5rem,auto)_minmax(0,1fr)_minmax(5.5rem,auto)] items-center gap-2 py-[14px] sm:gap-3">
+            <div className="z-10 flex items-center justify-start gap-0.5">
               <button
                 type="button"
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-[#1a1a1a] transition-colors hover:bg-black/[0.04] active:bg-black/[0.06]"
@@ -524,46 +431,43 @@ export default function Navbar() {
               </button>
             </div>
 
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
+            <div className="flex min-w-0 items-center justify-center px-1 pointer-events-auto">
               <BrandLogo
                 to="/"
-                logoHeightClass="h-[1.65rem] sm:h-[1.85rem]"
-                widthClass="w-[11rem] sm:w-[12.5rem]"
+                logoHeightClass="h-[1.45rem] sm:h-[1.7rem]"
+                widthClass="w-full max-w-[9.5rem] sm:max-w-[11.5rem]"
                 priority
               />
             </div>
 
-            <div className="z-10 flex min-w-0 items-center justify-end gap-0">
+            <div className="z-10 flex items-center justify-end gap-0.5 sm:gap-1">
               <Link
                 to="/wishlist"
-                className="flex h-9 w-9 flex-col items-center justify-center text-[#1a1a1a] transition-opacity hover:opacity-80"
-                aria-label="Wishlist"
+                className="relative flex h-10 w-10 flex-col items-center justify-center text-[#1a1a1a] transition-opacity hover:opacity-80"
+                aria-label={`Wishlist, ${wishlistCount} items`}
               >
                 <Heart className="h-[18px] w-[18px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" />
+                {wishlistCount > 0 && (
+                  <span className="absolute right-0.5 top-0.5 flex h-3.5 min-w-[14px] items-center justify-center rounded-full bg-[#e11d48] px-0.5 text-[9px] font-semibold leading-none text-white ring-2 ring-white">
+                    {wishlistCount > 9 ? '9+' : wishlistCount}
+                  </span>
+                )}
               </Link>
               <Link
-                to="/account"
-                className="flex h-9 w-9 flex-col items-center justify-center text-[#1a1a1a] transition-opacity hover:opacity-80"
+                to="/contact"
+                className="hidden h-10 w-10 flex-col items-center justify-center text-[#1a1a1a] transition-opacity hover:opacity-80 xs:flex"
                 aria-label="Account"
               >
                 <CircleUser className="h-[18px] w-[18px]" strokeWidth={iconThin} strokeLinecap="round" />
               </Link>
               <Link
-                to="/admin/image-requirements"
-                className="flex h-9 w-9 flex-col items-center justify-center text-[#1a1a1a] transition-opacity hover:opacity-80"
-                aria-label="Admin panel"
-                title="Admin"
-              >
-                <Settings className="h-[18px] w-[18px]" strokeWidth={iconThin} strokeLinecap="round" />
-              </Link>
-              <Link
                 to="/cart"
-                className="relative flex h-9 w-9 items-center justify-center text-[#1a1a1a]"
-                aria-label="Shop cart, 0 items"
+                className="relative flex h-10 w-10 items-center justify-center text-[#1a1a1a]"
+                aria-label={`Shopping cart, ${cartCount} items`}
               >
                 <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" aria-hidden />
                 <span className="absolute right-0 top-0 flex h-3.5 min-w-[14px] items-center justify-center rounded-full bg-[#e11d48] px-0.5 text-[9.5px] font-semibold leading-none text-white ring-2 ring-white">
-                  0
+                  {cartCount > 99 ? '99+' : cartCount}
                 </span>
               </Link>
             </div>
@@ -579,18 +483,10 @@ export default function Navbar() {
             <NavSearchBar compact className="w-full border-0 bg-transparent shadow-none focus-within:ring-0" onSubmitted={() => setMobileSearchOpen(false)} />
           </div>
 
-          <div className="min-w-0 border-t border-black/[0.06] bg-white px-2 pb-3 pt-2.5 sm:px-3">
-            <GiftModeSwitcher isCorporateActive={isCorporateActive} size="mobile" />
-          </div>
         </div>
       </header>
 
-      <header
-        className={cn(
-          'hidden bg-white xl:block',
-          !isCorporateActive && 'border-b border-black/[0.05]'
-        )}
-      >
+      <header className="hidden border-b border-black/[0.05] bg-white xl:block">
         <div className="w-full px-4 2xl:px-6">
           {/* Row 1: Logo (left) + Search & Icons (right) */}
           <div className="relative flex items-center justify-between pt-3 pb-3 border-b border-[#e8e4e1]/40">
@@ -619,7 +515,7 @@ export default function Navbar() {
                 <span className="font-sans text-[11.5px] font-semibold leading-none 2xl:text-[12.5px]">Wishlist</span>
               </Link>
               <Link
-                to="/account"
+                to="/contact"
                 className="flex flex-col items-center gap-1 text-[#1a1a1a] transition-opacity hover:opacity-75"
                 aria-label="Account"
               >
@@ -629,12 +525,12 @@ export default function Navbar() {
               <Link
                 to="/cart"
                 className="relative flex flex-col items-center gap-1 text-[#1a1a1a]"
-                aria-label="Shopping cart, 0 items"
+                aria-label={`Shopping cart, ${cartCount} items`}
               >
                 <span className="relative inline-flex">
                   <ShoppingBag className="h-[20px] w-[20px] 2xl:h-[21px] 2xl:w-[21px]" strokeWidth={iconThin} strokeLinecap="round" strokeLinejoin="round" />
                   <span className="absolute -right-1.5 -top-1.5 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#e11d48] px-0.5 text-[10.5px] font-semibold leading-none text-white">
-                    0
+                    {cartCount > 99 ? '99+' : cartCount}
                   </span>
                 </span>
                 <span className="font-sans text-[11.5px] font-semibold leading-none 2xl:text-[12.5px] mt-0.5">Cart</span>
@@ -645,13 +541,10 @@ export default function Navbar() {
 
           {/* Row 2: Centered Nav links + Catalogue button on the right */}
           <div className="flex items-center justify-between py-1.5">
-            {/* Left side: Compact Switcher capsule */}
-            <div className="flex shrink-0 items-center">
-              <GiftModeSwitcher isCorporateActive={isCorporateActive} size="desktop" />
-            </div>
+            <div className="hidden w-[12.5rem] shrink-0 2xl:w-[14rem] xl:block" aria-hidden />
 
             <nav
-              className="relative flex min-w-0 items-center justify-center gap-4 2xl:gap-6 overflow-visible py-0.5"
+              className="relative flex min-w-0 flex-1 items-center justify-center gap-4 2xl:gap-6 overflow-visible py-0.5"
               aria-label="Primary"
             >
               {desktopNavLinks.map((link) => renderDesktopNavLink(link))}
@@ -672,12 +565,7 @@ export default function Navbar() {
       </header>
 
       {/* ─── TABLET / SMALL DESKTOP (md–xl) — two rows, full nav visible ── */}
-      <header
-        className={cn(
-          'hidden bg-white md:block xl:hidden',
-          !isCorporateActive && 'border-b border-black/[0.06]'
-        )}
-      >
+      <header className="hidden border-b border-black/[0.06] bg-white md:block xl:hidden">
         <div className="w-full px-4 sm:px-5">
           <div className="flex items-start justify-between gap-4 py-4">
             <BrandLogo
@@ -691,23 +579,20 @@ export default function Navbar() {
                 <Heart className="h-5 w-5" strokeWidth={iconThin} />
                 <span className="text-[12px] font-semibold">Wishlist</span>
               </Link>
-              <Link to="/account" className="flex flex-col items-center gap-0.5 text-[#1a1a1a] transition-opacity hover:opacity-75" aria-label="Account">
+              <Link to="/contact" className="flex flex-col items-center gap-0.5 text-[#1a1a1a] transition-opacity hover:opacity-75" aria-label="Account">
                 <CircleUser className="h-5 w-5" strokeWidth={iconThin} />
                 <span className="text-[12px] font-semibold">Account</span>
               </Link>
-              <Link to="/cart" className="relative flex flex-col items-center gap-0.5 text-[#1a1a1a]" aria-label="Cart">
+              <Link to="/cart" className="relative flex flex-col items-center gap-0.5 text-[#1a1a1a]" aria-label={`Cart, ${cartCount} items`}>
                 <ShoppingBag className="h-5 w-5" strokeWidth={iconThin} />
                 <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#e11d48] text-[10px] font-semibold text-white">
-                  0
+                  {cartCount > 99 ? '99+' : cartCount}
                 </span>
                 <span className="text-[12px] font-semibold">Cart</span>
               </Link>
             </div>
           </div>
           <div className="flex min-w-0 flex-col gap-2 border-t border-[#e8e4e1]/50 py-2.5">
-            <div className="w-full min-w-0 px-1">
-              <GiftModeSwitcher isCorporateActive={isCorporateActive} size="compact" />
-            </div>
             <div className="px-1">
               <NavSearchBar compact className="w-full max-w-none" />
             </div>
@@ -762,7 +647,7 @@ export default function Navbar() {
                 <Heart className="h-[18px] w-[18px]" strokeWidth={iconThin} />
               </Link>
               <Link
-                to="/account"
+                to="/contact"
                 className="flex h-10 w-10 items-center justify-center text-[#1a1a1a]"
                 onClick={() => setIsMobileMenuOpen(false)}
                 aria-label="Account"
@@ -773,11 +658,11 @@ export default function Navbar() {
                 to="/cart"
                 className="relative flex h-10 w-10 items-center justify-center text-[#1a1a1a]"
                 onClick={() => setIsMobileMenuOpen(false)}
-                aria-label="Shopping cart"
+                aria-label={`Shopping cart, ${cartCount} items`}
               >
                 <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={iconThin} />
                 <span className="absolute right-0.5 top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#e11d48] px-0.5 text-[9.5px] font-semibold leading-none text-white ring-2 ring-white">
-                  0
+                  {cartCount > 99 ? '99+' : cartCount}
                 </span>
               </Link>
               <button
@@ -791,20 +676,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* MODE SWITCHER */}
-          <div className="flex-shrink-0 border-b border-[#ebe6e2]/40 bg-white/30 px-4 py-2.5">
-            <GiftModeSwitcher
-              isCorporateActive={drawerCorporateActive}
-              size="mobile"
-              onToggle={(isCorporate) => {
-                setDrawerCorporateActive(isCorporate);
-                setMenuLevel(0);
-                setActiveParent0(null);
-                setActiveParent1(null);
-              }}
-            />
-          </div>
-
           {/* SLIDING PANELS */}
           <div className="relative flex-1 overflow-hidden min-h-0 flex flex-col">
             <div
@@ -813,109 +684,68 @@ export default function Navbar() {
             >
               {/* PANEL 0 */}
               <div className="w-1/3 shrink-0 h-full overflow-y-auto no-scrollbar px-4 py-4 flex flex-col gap-1.5">
-                {drawerCorporateActive && (
-                  <div className="mb-2 flex items-center gap-3 rounded-xl border border-[#C9A96E]/20 bg-[#C9A96E]/5 px-4 py-3 text-left">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#C9A96E]/30 bg-[#C9A96E]/10 text-[#9D7D47]">
-                      <Phone className="h-4 w-4" strokeWidth={2} />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-[#9D7D47]">Bulk Orders</p>
-                      <a href={`tel:${COMPANY_INFO.phone}`} className="block text-[12.5px] font-bold text-[#4A1020] hover:underline">
-                        {COMPANY_INFO.phoneDisplay}
-                      </a>
-                    </div>
+                <div className="mb-2 flex items-center gap-3 rounded-xl border border-[#C9A96E]/20 bg-[#C9A96E]/5 px-4 py-3 text-left">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#C9A96E]/30 bg-[#C9A96E]/10 text-[#9D7D47]">
+                    <Phone className="h-4 w-4" strokeWidth={2} />
                   </div>
-                )}
+                  <div className="min-w-0">
+                    <p className="font-sans text-[9px] font-bold uppercase tracking-[0.16em] text-[#9D7D47]">Corporate Orders</p>
+                    <a href={`tel:${COMPANY_INFO.phone}`} className="block text-[12.5px] font-bold text-[#4A1020] hover:underline">
+                      {COMPANY_INFO.phoneDisplay}
+                    </a>
+                  </div>
+                </div>
 
-                {!drawerCorporateActive ? (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent0("Shop Gifts");
-                        setMenuLevel(1);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                    >
-                      <span>Shop Gifts</span>
-                      <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
-                    </button>
-                    <Link
-                      to="/shop#celebrations"
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Celebrations
-                    </Link>
-                    <Link
-                      to="/hamper-builder"
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Make Your Own Hamper
-                    </Link>
-                    <Link
-                      to="/about"
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      About Us
-                    </Link>
-                    <Link
-                      to="/contact"
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Contact
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent0("Corporate Gifting");
-                        setMenuLevel(1);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                    >
-                      <span>Corporate Gifting</span>
-                      <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent0("Promotional Gifting");
-                        setMenuLevel(1);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                    >
-                      <span>Promotional Gifting</span>
-                      <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
-                    </button>
-                    <Link
-                      to="/brands"
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Our Brands
-                    </Link>
-                    <Link
-                      to="/corporate#bulk-order-enquiry"
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Bulk Enquiry
-                    </Link>
-                    <Link
-                      to="/about"
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      About Us
-                    </Link>
-                  </>
-                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveParent0("Corporate Gifting");
+                    setMenuLevel(1);
+                  }}
+                  className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                >
+                  <span>Corporate Gifting</span>
+                  <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveParent0("Promotional Gifting");
+                    setMenuLevel(1);
+                  }}
+                  className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                >
+                  <span>Promotional Gifting</span>
+                  <ChevronRight className="h-4 w-4 text-[#4A1020]" strokeWidth={2} />
+                </button>
+                <Link
+                  to="/brands"
+                  className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Our Brands
+                </Link>
+                <Link
+                  to="/corporate#corporate-gift-enquiry"
+                  className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Corporate Gift Enquiry
+                </Link>
+                <Link
+                  to="/about"
+                  className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  About Us
+                </Link>
+                <Link
+                  to="/contact"
+                  className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/85 transition-colors border border-black/[0.02]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
               </div>
 
               {/* PANEL 1 */}
@@ -936,71 +766,6 @@ export default function Navbar() {
                   <p className="px-1.5 pb-2 text-[14px] font-sans font-extrabold uppercase tracking-wider text-[#4A1020] border-b border-[#ebe6e2]/40 mb-2">
                     {activeParent0}
                   </p>
-                )}
-
-                {activeParent0 === "Shop Gifts" && (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("SHOP BY RECIPIENT");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>Shop By Recipient</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("SHOP BY OCCASION");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>Shop By Occasion</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("SHOP BY INTEREST");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>Shop By Interest</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setActiveParent1("BY PRICE");
-                        setMenuLevel(2);
-                      }}
-                      className="rounded-xl px-4 py-3.5 font-sans text-[13px] font-semibold uppercase tracking-[0.08em] flex items-center justify-between text-[#1f1f1f] bg-white/50 hover:bg-white/80 transition-colors"
-                    >
-                      <span>By Price</span>
-                      <ChevronRight className="h-4 w-4 text-[#C9A96E]" strokeWidth={2} />
-                    </button>
-                    
-                    <div className="mt-2 border-t border-[#ebe6e2]/40 pt-3">
-                      <p className="px-4 pb-1.5 font-sans text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#9D7D47]">
-                        Featured Collections
-                      </p>
-                      {SHOP_MEGA_MENU[4].items.map((item) => (
-                        <Link
-                          key={item.label}
-                          to={item.href}
-                          className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </>
                 )}
 
                 {activeParent0 === "Corporate Gifting" && (
@@ -1068,50 +833,6 @@ export default function Navbar() {
                   </p>
                 )}
 
-                {activeParent1 === "SHOP BY RECIPIENT" && SHOP_MEGA_MENU[0].items.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-                {activeParent1 === "SHOP BY OCCASION" && SHOP_MEGA_MENU[1].items.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-                {activeParent1 === "SHOP BY INTEREST" && SHOP_MEGA_MENU[2].items.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-                {activeParent1 === "BY PRICE" && SHOP_MEGA_MENU[3].items.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="block rounded-xl px-4 py-3 font-sans text-[13px] font-medium text-[#4A1020] hover:bg-white/80 hover:text-[#9D7D47] transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
                 {[...CORPORATE_GIFTING_MEGA_MENU, ...PROMOTIONAL_GIFTS_MEGA_MENU]
                   .filter((col) => col.title && col.title === activeParent1)
                   .flatMap((col) => col.items)
@@ -1131,16 +852,14 @@ export default function Navbar() {
 
           {/* DRAWER FOOTER */}
           <div className="flex-shrink-0 border-t border-[#ebe6e2] bg-white p-4 flex flex-col gap-2">
-            {drawerCorporateActive && (
-              <Link
-                to="/catalogue"
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#9D7D47] text-white hover:bg-[#8A6C3C] transition-colors py-3.5 font-sans text-[11px] font-bold uppercase tracking-widest shadow-sm"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Download className="h-4 w-4 text-[#FFE9C9]" strokeWidth={2} />
-                <span>Download Catalogue</span>
-              </Link>
-            )}
+            <Link
+              to="/catalogue"
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#9D7D47] text-white hover:bg-[#8A6C3C] transition-colors py-3.5 font-sans text-[11px] font-bold uppercase tracking-widest shadow-sm"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <Download className="h-4 w-4 text-[#FFE9C9]" strokeWidth={2} />
+              <span>Download Catalogue</span>
+            </Link>
             
             <a
               href={`https://wa.me/${COMPANY_INFO.whatsapp}`}

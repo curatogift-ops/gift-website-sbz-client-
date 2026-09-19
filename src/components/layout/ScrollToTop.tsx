@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 /**
  * Resets window scroll to the top on route changes.
- * Hash-only updates (e.g. /corporate#bulk-order-enquiry) are left to page-level handlers.
+ * Hash-only updates (e.g. /corporate#corporate-gift-enquiry) are left to page-level handlers.
  */
 export default function ScrollToTop() {
   const { pathname } = useLocation();

@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState, type MouseEvent } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import {
   BadgeCheck,
@@ -7,6 +7,7 @@ import {
   Package,
   Share2,
   ShieldCheck,
+  ShoppingBag,
   Star,
   Truck,
 } from 'lucide-react';
@@ -16,12 +17,7 @@ import AppImage from '@/components/ui/AppImage';
 import CorporateEnquiryDialog from '@/components/corporate/CorporateEnquiryDialog';
 import CorporateProductCarouselSection from '@/components/corporate/CorporateProductCarouselSection';
 import CorporateRecentlyViewedSection from '@/components/corporate/CorporateRecentlyViewedSection';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import ProductDetailsAccordion from '@/components/shared/ProductDetailsAccordion';
 import {
   CORPORATE_PRODUCTS,
   formatCorporatePrice,
@@ -34,6 +30,8 @@ import {
   addCorporateRecentlyViewed,
   getRecentlyViewedProducts,
 } from '@/lib/corporateRecentlyViewed';
+import { useCartStore } from '@/store/cartStore';
+import { useWishlistStore } from '@/store/wishlistStore';
 
 const TRUST_PILLS = [
   { Icon: Truck, label: 'Timely Delivery' },
@@ -57,6 +55,24 @@ function Stars({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md' | '
 }
 
 function RelatedProductCard({ product }: { product: CorporateProduct }) {
+  const toggleWishlist = useWishlistStore((s) => s.toggleItem);
+  const wishlisted = useWishlistStore((s) => s.items.some((i) => i.id === product.slug));
+  const category = getCategoryBySlug(product.categorySlug);
+
+  const handleWishlist = (e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist({
+      id: product.slug,
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      categoryName: category?.label,
+      href: `/corporate/product/${product.slug}`,
+    });
+  };
+
   return (
     <Link
       to={`/corporate/product/${product.slug}`}
@@ -70,9 +86,17 @@ function RelatedProductCard({ product }: { product: CorporateProduct }) {
           sizes="(max-width:640px) 45vw, 260px"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
         />
-        <span className="absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-white/95 text-muted-foreground shadow-sm">
-          <Heart className="h-3.5 w-3.5" strokeWidth={1.75} />
-        </span>
+        <button
+          type="button"
+          onClick={handleWishlist}
+          className="absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-white/95 text-muted-foreground shadow-sm transition hover:text-primary"
+          aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+        >
+          <Heart
+            className={`h-3.5 w-3.5 ${wishlisted ? 'fill-primary text-primary' : ''}`}
+            strokeWidth={1.75}
+          />
+        </button>
       </div>
       <div className="px-3 py-4 text-center sm:px-4">
         <p className="line-clamp-2 font-serif text-[13px] font-semibold leading-snug text-foreground group-hover:text-primary sm:text-[14px]">
@@ -92,9 +116,13 @@ export default function CorporateProductPage() {
   const product = getProductBySlug(productSlug);
   const [activeImage, setActiveImage] = useState(0);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
-  const [wishlisted, setWishlisted] = useState(false);
   const [readMore, setReadMore] = useState(false);
   const [recentlyViewed, setRecentlyViewed] = useState<CorporateProduct[]>([]);
+  const addToCart = useCartStore((s) => s.addItem);
+  const toggleWishlist = useWishlistStore((s) => s.toggleItem);
+  const wishlisted = useWishlistStore((s) =>
+    productSlug ? s.items.some((i) => i.id === productSlug) : false,
+  );
 
   useEffect(() => {
     if (!productSlug) return;
@@ -121,6 +149,30 @@ export default function CorporateProductPage() {
   const showReadMore = product.longDescription.length > longPreview.length;
 
   const openEnquiry = () => setEnquiryOpen(true);
+
+  const handleWishlist = () => {
+    toggleWishlist({
+      id: product.slug,
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      categoryName: category?.label,
+      href: `/corporate/product/${product.slug}`,
+    });
+  };
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.slug,
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      categoryName: category?.label,
+      href: `/corporate/product/${product.slug}`,
+    });
+  };
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -193,7 +245,7 @@ export default function CorporateProductPage() {
                     />
                     <button
                       type="button"
-                      onClick={() => setWishlisted((v) => !v)}
+                      onClick={handleWishlist}
                       className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm"
                       aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
                     >
@@ -243,9 +295,19 @@ export default function CorporateProductPage() {
                   <p className="mt-1 text-[12px] text-muted-foreground">Inclusive of all taxes</p>
                 </div>
 
-                <button type="button" onClick={openEnquiry} className="btn-pill btn-pill-maroon mt-5 w-full sm:mt-6">
-                  Enquire for Bulk
-                </button>
+                <div className="mt-5 flex flex-col gap-2.5 sm:mt-6 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="btn-pill btn-pill-maroon inline-flex flex-1 items-center justify-center gap-2"
+                  >
+                    <ShoppingBag className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+                    Add to Cart
+                  </button>
+                  <button type="button" onClick={openEnquiry} className="btn-pill btn-pill-ghost-gold flex-1">
+                    Enquire for Bulk
+                  </button>
+                </div>
 
                 <div className="corp-product-trust mt-5 border-y border-border sm:mt-6">
                   {TRUST_PILLS.map(({ Icon, label }, index) => (
@@ -263,55 +325,7 @@ export default function CorporateProductPage() {
                   ))}
                 </div>
 
-                <Accordion defaultValue={['contents']} className="corp-product-accordion mt-5 flex w-full flex-col sm:mt-6">
-                  <AccordionItem value="contents">
-                    <AccordionTrigger className="corp-accordion-trigger">
-                      {product.contentsLabel}
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <ul className="list-disc space-y-1.5 pl-5 text-[13px] leading-relaxed text-muted-foreground">
-                        {product.contents.map((item) => (
-                          <li key={item.name}>{item.name}</li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="description">
-                    <AccordionTrigger className="corp-accordion-trigger">Description</AccordionTrigger>
-                    <AccordionContent className="text-[13px] leading-relaxed text-muted-foreground">
-                      {product.description}
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="know-more">
-                    <AccordionTrigger className="corp-accordion-trigger">Click to know More</AccordionTrigger>
-                    <AccordionContent>
-                      <ul className="list-disc space-y-1.5 pl-5 text-[13px] leading-relaxed text-muted-foreground">
-                        {product.brandingOptions.map((option) => (
-                          <li key={option}>{option}</li>
-                        ))}
-                      </ul>
-                      <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">{product.knowMore}</p>
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="shipping">
-                    <AccordionTrigger className="corp-accordion-trigger">
-                      Shipping &amp; Fulfillment
-                    </AccordionTrigger>
-                    <AccordionContent className="text-[13px] leading-relaxed text-muted-foreground">
-                      {product.shippingInfo}
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="assistance">
-                    <AccordionTrigger className="corp-accordion-trigger">Assistance</AccordionTrigger>
-                    <AccordionContent className="text-[13px] leading-relaxed text-muted-foreground">
-                      {product.assistanceInfo}
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                <ProductDetailsAccordion product={product} />
               </div>
             </div>
           </div>

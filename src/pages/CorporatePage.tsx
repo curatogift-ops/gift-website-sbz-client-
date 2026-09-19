@@ -8,11 +8,16 @@ import WoodenGiftingSection from '@/components/corporate/WoodenGiftingSection';
 import EcoFriendlyHeroVideo from '@/components/corporate/EcoFriendlyHeroVideo';
 import CorporateGiftingGallerySection from '@/components/corporate/CorporateGiftingGallerySection';
 import CorporateHeroDecor from '@/components/corporate/CorporateHeroDecor';
+import CorporateTravelSection from '@/components/corporate/CorporateTravelSection';
+import CorporateTravelEnquiryForm from '@/components/corporate/CorporateTravelEnquiryForm';
 import EventConferenceGiftingSection from '@/components/corporate/EventConferenceGiftingSection';
 import AwardsTrophiesSection from '@/components/corporate/AwardsTrophiesSection';
 import CorporateGiftingProcessSection from '@/components/corporate/CorporateGiftingProcessSection';
 import WhyChooseUsSection from '@/components/corporate/WhyChooseUsSection';
+import CorporateAiVideoSection from '@/components/corporate/CorporateAiVideoSection';
+import CorporateLedVideoSection from '@/components/corporate/CorporateLedVideoSection';
 import BulkEnquiryFormSection from '@/components/shared/BulkEnquiryFormSection';
+import ContactForInfoCta from '@/components/shared/ContactForInfoCta';
 import FaqAccordionSection from '@/components/shared/FaqAccordionSection';
 import AppImage from '@/components/ui/AppImage';
 import { getCorporateSolutionsCategories } from '@/config/corporateGiftingData';
@@ -30,6 +35,7 @@ import {
   Headset,
   ChevronLeft,
   ChevronRight,
+  Volume2,
 } from 'lucide-react';
 
 const VALUE_PROPS = [
@@ -155,7 +161,6 @@ export default function CorporatePage() {
   const [activeGiftingPage, setActiveGiftingPage] = useState(0);
   const giftingSolutionsScrollRef = useRef<HTMLDivElement | null>(null);
 
-  // Auto-play interval with reset on interaction
   useEffect(() => {
     if (HERO_SLIDES.length <= 1) return;
     const timer = setInterval(() => {
@@ -193,7 +198,7 @@ export default function CorporatePage() {
 
   useEffect(() => {
     if (!hash) return;
-    const id = hash.replace('#', '');
+    const id = hash.replace('#', '').split('?')[0];
     const timer = window.setTimeout(() => {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
@@ -217,19 +222,14 @@ export default function CorporatePage() {
     });
   };
 
-
-
   return (
     <div className="corporate-page flex min-h-screen flex-col bg-white font-sans">
       <Navbar />
 
       <main className="page-main-offset flex-grow">
-
         {/* ── Hero Slider ────────────────────────────────────────────────── */}
         <section className="relative w-full overflow-hidden bg-primary" aria-labelledby="corporate-hero-heading">
           <div className="relative mx-auto w-full max-w-[2500px]">
-
-            {/* Slides Container */}
             <div className="relative h-[500px] sm:h-[540px] md:h-auto md:aspect-[1024/435] lg:aspect-[1024/410] xl:aspect-[1024/395] w-full overflow-hidden">
               {HERO_SLIDES.map((slide, index) => {
                 const isActive = index === currentSlide;
@@ -294,7 +294,7 @@ export default function CorporatePage() {
 
                         <div className="mt-6 flex w-full max-w-[22rem] flex-row items-center justify-center gap-2.5 sm:mt-8 sm:max-w-none md:justify-start">
                           <Link
-                            to="/corporate#bulk-order-enquiry"
+                            to="/corporate#corporate-gift-enquiry"
                             className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-primary-foreground shadow transition hover:bg-[#4A1020] sm:flex-none sm:px-6 sm:text-xs"
                           >
                             <Gift className="h-4 w-4 text-[#C9A96E]" strokeWidth={1.5} />
@@ -315,7 +315,6 @@ export default function CorporatePage() {
               })}
             </div>
 
-            {/* Pill / Dash Indicators */}
             {HERO_SLIDES.length > 1 && (
               <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5">
                 {HERO_SLIDES.map((_, index) => (
@@ -329,11 +328,9 @@ export default function CorporatePage() {
                 ))}
               </div>
             )}
-
           </div>
         </section>
 
-        {/* ── Mobile Stats Section (Premium Rectangular Dark Blue Boxes) ──── */}
         <div className="w-full bg-primary px-4 py-5 md:hidden">
           <div className="grid grid-cols-2 gap-2.5">
             {STATS.map(({ Icon, value, label }) => (
@@ -357,7 +354,6 @@ export default function CorporatePage() {
           </div>
         </div>
 
-        {/* ── Desktop/Tablet Stats Section (Premium Wireframe Dark Grid) ──── */}
         <div className="hidden w-full bg-primary md:block">
           <div className="w-full">
             <div className="grid grid-cols-4 overflow-hidden border-y border-primary-foreground/10">
@@ -386,7 +382,6 @@ export default function CorporatePage() {
           </div>
         </div>
 
-        {/* ── Value Props Section ──────────────────────────────────── */}
         <section className="bg-[var(--cream)] py-6 sm:py-8 lg:py-10" aria-label="Why choose us">
           <div className="section-container">
             <div className="no-scrollbar -mx-4 flex overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:px-0 lg:grid-cols-6 lg:gap-4 xl:gap-5">
@@ -413,22 +408,27 @@ export default function CorporatePage() {
           </div>
         </section>
 
-        {/* ── Explore gifting solutions ─────────────────────────────────── */}
-        <section className="bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="gifting-solutions-heading">
-          <div className="section-container">
-            <div className="mx-auto max-w-3xl text-center">
+        {/* ── Our Corporate Gifting Solutions (overflow-safe) ─────────────── */}
+        <section
+          className="overflow-x-clip bg-white py-12 sm:py-14 lg:py-16"
+          aria-labelledby="gifting-solutions-heading"
+        >
+          <div className="section-container overflow-visible px-4 sm:px-6">
+            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full border border-[#C9A96E]/35 bg-[var(--cream)] text-[#9D7D47]">
+                <Volume2 className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+              </div>
               <h2
                 id="gifting-solutions-heading"
-                className="section-heading-corporate"
+                className="section-heading-corporate px-1 break-words [text-wrap:balance]"
               >
                 Our Corporate Gifting Solutions
               </h2>
             </div>
 
-            {/* Mobile: horizontal scroll */}
             <div
               ref={giftingSolutionsScrollRef}
-              className="no-scrollbar -mx-4 mt-7 flex gap-3 overflow-x-auto px-4 pb-1 sm:hidden"
+              className="no-scrollbar -mx-4 mt-7 flex gap-3 overflow-x-auto px-4 pb-2 sm:hidden"
             >
               {GIFTING_SOLUTIONS.map((item) => (
                 <Link
@@ -445,7 +445,7 @@ export default function CorporatePage() {
                       className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <p className="mt-3 flex min-h-[2.75rem] items-center justify-center text-center font-sans text-[11px] font-bold uppercase leading-snug tracking-[0.06em] text-foreground">
+                  <p className="mt-3 flex min-h-[2.75rem] items-start justify-center px-0.5 text-center font-sans text-[10px] font-bold uppercase leading-snug tracking-[0.05em] text-foreground [text-wrap:balance]">
                     {item.label}
                   </p>
                 </Link>
@@ -483,16 +483,15 @@ export default function CorporatePage() {
               </div>
             )}
 
-            {/* sm+: flex wrap — full row fills width; incomplete last row stays centered */}
-            <ul className="mt-8 hidden list-none flex-wrap justify-center gap-x-5 gap-y-8 sm:flex lg:mt-10 xl:gap-x-4">
+            <ul className="mt-8 hidden list-none flex-wrap justify-center gap-x-4 gap-y-8 sm:flex lg:mt-10 xl:gap-x-4">
               {GIFTING_SOLUTIONS.map((item) => (
                 <li
                   key={item.id}
-                  className="w-[calc((100%-2*1.25rem)/3)] lg:w-[calc((100%-3*1.25rem)/4)] xl:w-[calc((100%-5*1rem)/6)]"
+                  className="w-[calc((100%-2*1rem)/3)] min-w-0 lg:w-[calc((100%-3*1rem)/4)] xl:w-[calc((100%-4*1rem)/5)]"
                 >
                   <Link
                     to={item.href}
-                    className="group flex h-full flex-col rounded-xl p-2 outline-none transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#C9A96E] focus-visible:ring-offset-4"
+                    className="group flex h-full min-w-0 flex-col rounded-xl p-2 outline-none transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#C9A96E] focus-visible:ring-offset-4"
                   >
                     <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-muted transition-colors duration-300 group-hover:border-[#C9A96E]/40">
                       <AppImage
@@ -503,21 +502,29 @@ export default function CorporatePage() {
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
-                    <p className="mt-3 flex min-h-[3rem] flex-1 items-center justify-center text-center font-sans text-[12px] font-bold uppercase leading-snug tracking-[0.08em] text-foreground lg:text-[13px] xl:text-[12px]">
-                      <span className="line-clamp-2">{item.label}</span>
+                    <p className="mt-3 flex min-h-[3.25rem] flex-1 items-start justify-center px-1 text-center font-sans text-[11px] font-bold uppercase leading-snug tracking-[0.06em] text-foreground [text-wrap:balance] lg:text-[12px]">
+                      <span className="line-clamp-3 break-words">{item.label}</span>
                     </p>
                   </Link>
                 </li>
               ))}
             </ul>
+
+            <ContactForInfoCta />
           </div>
         </section>
+
+        <CorporateAiVideoSection />
+
+        <CorporateLedVideoSection />
 
         <EcoFriendlyHeroVideo />
 
         <WoodenGiftingSection />
 
         <CorporateGiftingGallerySection />
+
+        <CorporateTravelSection />
 
         <EventConferenceGiftingSection />
 
@@ -528,10 +535,13 @@ export default function CorporatePage() {
         <CorporateGiftingProcessSection />
 
         <BulkEnquiryFormSection
-          title="Bulk Order Enquiry"
+          id="corporate-gift-enquiry"
+          title="Corporate Gift Enquiry"
           imageSrc="/images/corporate-hero-banner.png"
-          imageAlt="Premium corporate bulk gifting solutions"
+          imageAlt="Premium corporate gifting solutions"
         />
+
+        <CorporateTravelEnquiryForm />
 
         <FaqAccordionSection items={CORPORATE_FAQS} />
 

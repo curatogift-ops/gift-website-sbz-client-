@@ -3,6 +3,7 @@ import { Check, Send, X } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { submitCorporateEnquiry } from '@/lib/submitCorporateEnquiry';
 import { COMPANY_INFO } from '@/config/companyInfo';
+import RequiredMark from '@/components/ui/RequiredMark';
 
 export type CorporateEnquiryContext = {
   productName?: string;
@@ -96,7 +97,7 @@ export default function CorporateEnquiryDialog({
       <div className="relative z-10 flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-2xl border border-border bg-white shadow-2xl sm:rounded-2xl">
         <div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4 sm:px-6">
           <div>
-            <p className="eyebrow text-[10px]">Bulk enquiry</p>
+            <p className="eyebrow text-[10px]">Corporate Gift Enquiry</p>
             <h2 id="enquiry-dialog-title" className="mt-1 font-serif text-xl font-semibold text-foreground">
               Enquire Now
             </h2>
@@ -137,7 +138,7 @@ export default function CorporateEnquiryDialog({
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <label className="flex flex-col gap-1.5">
                 <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
-                  Name *
+                  Name<RequiredMark />
                 </span>
                 <input
                   required
@@ -151,7 +152,7 @@ export default function CorporateEnquiryDialog({
 
               <label className="flex flex-col gap-1.5">
                 <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
-                  Contact Number *
+                  Contact Number<RequiredMark />
                 </span>
                 <input
                   required
@@ -165,7 +166,7 @@ export default function CorporateEnquiryDialog({
 
               <label className="flex flex-col gap-1.5">
                 <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
-                  Your Email *
+                  Your Email<RequiredMark />
                 </span>
                 <input
                   required
@@ -179,7 +180,7 @@ export default function CorporateEnquiryDialog({
 
               <label className="flex flex-col gap-1.5">
                 <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
-                  Company Name *
+                  Company Name<RequiredMark />
                 </span>
                 <input
                   required
@@ -193,7 +194,7 @@ export default function CorporateEnquiryDialog({
 
               <label className="flex flex-col gap-1.5">
                 <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
-                  Approx. No. of Gifts *
+                  Approx. No. of Gifts<RequiredMark />
                 </span>
                 <input
                   required

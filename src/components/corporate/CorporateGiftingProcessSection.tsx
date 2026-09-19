@@ -190,10 +190,10 @@ export default function CorporateGiftingProcessSection() {
           </div>
 
           <Link
-            to="/corporate#bulk-order-enquiry"
+            to="/corporate#corporate-gift-enquiry"
             className="group inline-flex min-h-[3rem] shrink-0 items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#4A1020] via-[#6B1E30] to-[#4A1020] px-6 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.12em] text-primary-foreground shadow-[0_14px_36px_-16px_rgba(74,16,32,0.65)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_-14px_rgba(74,16,32,0.72)] sm:min-h-[3.25rem] sm:px-7"
           >
-            Start Bulk Enquiry
+            Start Corporate Gift Enquiry
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2.25} aria-hidden />
           </Link>
         </div>

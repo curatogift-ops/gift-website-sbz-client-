@@ -1,9 +1,10 @@
 export type CatalogueCategoryId =
   | 'corporate-gifts'
-  | 'writing-office'
+  | 'stationery'
   | 'technology'
   | 'lifestyle-travel'
   | 'festive-gifts'
+  | 'chocolate-gourmet'
   | 'awards-recognition';
 
 export type CatalogueItem = {
@@ -31,10 +32,11 @@ const PDF = (name: string) => `/catalogues/${name}`;
 export const CATALOGUE_NAV: { id: 'all' | CatalogueCategoryId; label: string }[] = [
   { id: 'all', label: 'All categories' },
   { id: 'corporate-gifts', label: 'Corporate Gifts' },
-  { id: 'writing-office', label: 'Writing & Office' },
+  { id: 'stationery', label: 'Stationery' },
   { id: 'technology', label: 'Technology' },
   { id: 'lifestyle-travel', label: 'Lifestyle & Travel' },
   { id: 'festive-gifts', label: 'Festive Gifts' },
+  { id: 'chocolate-gourmet', label: 'Chocolate & Gourmet' },
 ];
 
 function item(
@@ -119,24 +121,24 @@ export const CATALOGUE_SECTIONS: CatalogueSection[] = [
     ],
   },
   {
-    id: 'writing-office',
-    label: 'Writing & Office',
+    id: 'stationery',
+    label: 'Stationery',
     description: 'Pens, notebooks, and desk accessories that belong together on every corporate desk.',
     items: [
-      item('classic-pen-collection', 'Classic Pen Collection', 'writing-office', 'Writing & Office', 'Writing', 'classic-pen-collection.pdf', '#4A1020', 'classic series pen'),
-      item('executive-pen-collection', 'Executive Pen Collection', 'writing-office', 'Writing & Office', 'Writing', 'executive-pen-collection.pdf', '#6B1E30', 'executive series pen'),
-      item('eco-pen-collection', 'Eco Pen Collection', 'writing-office', 'Writing & Office', 'Writing', 'eco-pen-collection.pdf', '#2D5A3D', 'eco friendly pen'),
-      item('metal-pen-collection', 'Metal Pen Collection', 'writing-office', 'Writing & Office', 'Writing', 'metal-pen-collection.pdf', '#1A1010', 'metal pens'),
-      item('s-series-pen-collection', 'S Series Pen Collection', 'writing-office', 'Writing & Office', 'Writing', 's-series-pen-collection.pdf', '#9D7D47', 's series catalog'),
-      item('parker-collection', 'Parker Collection', 'writing-office', 'Writing & Office', 'Writing', 'parker-collection.pdf', '#4A1020', 'parker'),
-      item('sheaffer-collection', 'Sheaffer Collection', 'writing-office', 'Writing & Office', 'Writing', 'sheaffer-collection.pdf', '#6B1E30', 'sheaffer'),
-      item('sheaffer-gift-collection', 'Sheaffer Gift Collection', 'writing-office', 'Writing & Office', 'Writing', 'sheaffer-gift-collection.pdf', '#C9A96E', 'sheaffer giftsets'),
-      item('iscape-notebook-collection', 'iScape Notebook Collection', 'writing-office', 'Writing & Office', 'Notebooks', 'iscape-notebook-collection.pdf', '#4A1020', 'iscape notebook'),
-      item('corporate-notebook-collection', 'Corporate Notebook Collection', 'writing-office', 'Writing & Office', 'Notebooks', 'corporate-notebook-collection.pdf', '#6B1E30', 'sca iscape notebook'),
-      item('premium-notebook-collection', 'Premium Notebook Collection', 'writing-office', 'Writing & Office', 'Notebooks', 'premium-notebook-collection.pdf', '#9D7D47', 'notebook catalogue premium'),
-      item('single-notebook-collection', 'Single Notebook Collection', 'writing-office', 'Writing & Office', 'Notebooks', 'single-notebook-collection.pdf', '#1A1010', 'single notebook'),
-      item('mobile-stands-calendars', 'Mobile Stands & Calendars', 'writing-office', 'Writing & Office', 'Office Accessories', 'mobile-stands-calendars.pdf', '#C9A96E', 'metal mobile stand calendars'),
-      item('keychain-collection', 'Keychain Collection', 'writing-office', 'Writing & Office', 'Office Accessories', 'keychain-collection.pdf', '#4A1020', 'keychain'),
+      item('classic-pen-collection', 'Classic Pen Collection', 'stationery', 'Stationery', 'Writing', 'classic-pen-collection.pdf', '#4A1020', 'classic series pen'),
+      item('executive-pen-collection', 'Executive Pen Collection', 'stationery', 'Stationery', 'Writing', 'executive-pen-collection.pdf', '#6B1E30', 'executive series pen'),
+      item('eco-pen-collection', 'Eco Pen Collection', 'stationery', 'Stationery', 'Writing', 'eco-pen-collection.pdf', '#2D5A3D', 'eco friendly pen'),
+      item('metal-pen-collection', 'Metal Pen Collection', 'stationery', 'Stationery', 'Writing', 'metal-pen-collection.pdf', '#1A1010', 'metal pens'),
+      item('s-series-pen-collection', 'S Series Pen Collection', 'stationery', 'Stationery', 'Writing', 's-series-pen-collection.pdf', '#9D7D47', 's series catalog'),
+      item('parker-collection', 'Parker Collection', 'stationery', 'Stationery', 'Writing', 'parker-collection.pdf', '#4A1020', 'parker'),
+      item('sheaffer-collection', 'Sheaffer Collection', 'stationery', 'Stationery', 'Writing', 'sheaffer-collection.pdf', '#6B1E30', 'sheaffer'),
+      item('sheaffer-gift-collection', 'Sheaffer Gift Collection', 'stationery', 'Stationery', 'Writing', 'sheaffer-gift-collection.pdf', '#C9A96E', 'sheaffer giftsets'),
+      item('iscape-notebook-collection', 'iScape Notebook Collection', 'stationery', 'Stationery', 'Notebooks', 'iscape-notebook-collection.pdf', '#4A1020', 'iscape notebook'),
+      item('corporate-notebook-collection', 'Corporate Notebook Collection', 'stationery', 'Stationery', 'Notebooks', 'corporate-notebook-collection.pdf', '#6B1E30', 'sca iscape notebook'),
+      item('premium-notebook-collection', 'Premium Notebook Collection', 'stationery', 'Stationery', 'Notebooks', 'premium-notebook-collection.pdf', '#9D7D47', 'notebook catalogue premium'),
+      item('single-notebook-collection', 'Single Notebook Collection', 'stationery', 'Stationery', 'Notebooks', 'single-notebook-collection.pdf', '#1A1010', 'single notebook'),
+      item('mobile-stands-calendars', 'Mobile Stands & Calendars', 'stationery', 'Stationery', 'Office Accessories', 'mobile-stands-calendars.pdf', '#C9A96E', 'metal mobile stand calendars'),
+      item('keychain-collection', 'Keychain Collection', 'stationery', 'Stationery', 'Office Accessories', 'keychain-collection.pdf', '#4A1020', 'keychain'),
     ],
   },
   {
@@ -179,6 +181,23 @@ export const CATALOGUE_SECTIONS: CatalogueSection[] = [
         'festive-gift-collection.pdf',
         '#6B1E30',
         'diwali gift set christmas new year',
+      ),
+    ],
+  },
+  {
+    id: 'chocolate-gourmet',
+    label: 'Chocolate & Gourmet',
+    description: 'Premium chocolate hampers and gourmet edible gifting collections.',
+    items: [
+      item(
+        'chocolate-gourmet-collection',
+        'Chocolate & Gourmet Collection',
+        'chocolate-gourmet',
+        'Chocolate & Gourmet',
+        'Gourmet',
+        'corporate-gift-catalogue.pdf',
+        '#6B1E30',
+        'chocolate gourmet snacks',
       ),
     ],
   },

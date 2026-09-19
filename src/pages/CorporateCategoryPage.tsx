@@ -3,6 +3,7 @@ import { ChevronRight } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ProductListingPlaceholderGrid from '@/components/shared/ProductListingPlaceholderGrid';
+import ContactForInfoCta from '@/components/shared/ContactForInfoCta';
 import {
   getCategoryBySlug,
   getCorporateSolutionsCategories,
@@ -45,6 +46,7 @@ export default function CorporateCategoryPage() {
             </p>
 
             <ProductListingPlaceholderGrid label={`${category.label} product placeholders`} />
+            <ContactForInfoCta />
           </div>
         </section>
 

@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CompanyLegalDetails from '@/components/shared/CompanyLegalDetails';
 import { COMPANY_INFO } from '@/config/companyInfo';
+import BulkEnquiryFormSection from '@/components/shared/BulkEnquiryFormSection';
 
 export default function ContactPage() {
   return (
@@ -60,17 +61,24 @@ export default function ContactPage() {
 
                 <div className="rounded-2xl border border-border bg-[var(--cream)] p-6">
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    For bulk corporate gifting, visit our{' '}
+                    For corporate gifting, visit our{' '}
                     <Link to="/corporate" className="font-medium text-primary hover:underline">
                       corporate gifting page
                     </Link>{' '}
-                    or submit a bulk enquiry from any product page.
+                    or submit a Corporate Gift Enquiry below.
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </section>
+
+        <BulkEnquiryFormSection
+          id="corporate-gift-enquiry"
+          title="Corporate Gift Enquiry"
+          imageSrc="/images/corporate-hero-banner.png"
+          imageAlt="Contact Giftz Gallerei for corporate gifting"
+        />
       </main>
 
       <Footer />

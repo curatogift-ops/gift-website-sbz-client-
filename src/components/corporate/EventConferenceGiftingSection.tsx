@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
+import ContactForInfoCta from '@/components/shared/ContactForInfoCta';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
@@ -137,6 +138,8 @@ export default function EventConferenceGiftingSection() {
             aria-hidden
           />
         </Link>
+
+        <ContactForInfoCta className="mt-6" />
       </div>
     </section>
   );

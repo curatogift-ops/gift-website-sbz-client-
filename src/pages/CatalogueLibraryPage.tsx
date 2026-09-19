@@ -202,7 +202,7 @@ export default function CatalogueLibraryPage() {
         </div>
 
         <BulkEnquiryFormSection
-          title="Bulk Order Enquiry"
+          title="Corporate Gift Enquiry"
           subtitle="Share your requirements and our team will send curated catalogue picks with pricing."
         />
       </main>

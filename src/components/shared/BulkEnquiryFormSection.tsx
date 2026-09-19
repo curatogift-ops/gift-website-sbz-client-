@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import AppImage from '@/components/ui/AppImage';
+import RequiredMark from '@/components/ui/RequiredMark';
 import { Check, Gift, Send } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { submitCorporateEnquiry } from '@/lib/submitCorporateEnquiry';
@@ -16,7 +17,7 @@ type BulkEnquiryFormSectionProps = {
 };
 
 export default function BulkEnquiryFormSection({
-  id = 'bulk-order-enquiry',
+  id = 'corporate-gift-enquiry',
   title,
   subtitle,
   variant = 'full',
@@ -48,7 +49,7 @@ export default function BulkEnquiryFormSection({
       company: form.company,
       quantity: form.quantity,
       message: form.message,
-      source: 'bulk-order-enquiry-section',
+      source: 'corporate-gift-enquiry-section',
     });
 
     setSubmitting(false);
@@ -96,7 +97,7 @@ export default function BulkEnquiryFormSection({
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Full Name *</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Full Name<RequiredMark /></span>
                     <input
                       required
                       type="text"
@@ -107,7 +108,7 @@ export default function BulkEnquiryFormSection({
                     />
                   </label>
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Company *</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Company<RequiredMark /></span>
                     <input
                       required
                       type="text"
@@ -120,7 +121,7 @@ export default function BulkEnquiryFormSection({
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Email *</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Email<RequiredMark /></span>
                     <input
                       required
                       type="email"
@@ -131,7 +132,7 @@ export default function BulkEnquiryFormSection({
                     />
                   </label>
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Phone *</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Phone<RequiredMark /></span>
                     <input
                       required
                       type="tel"

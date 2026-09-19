@@ -158,7 +158,7 @@ export default function AwardsTrophiesSection() {
                 </ul>
               </div>
               <Link
-                to="/corporate#bulk-order-enquiry"
+                to="/corporate#corporate-gift-enquiry"
                 className="group mt-6 inline-flex w-fit items-center justify-center gap-2 rounded-md bg-[#4A1020] px-4 py-2.5 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-white transition-all hover:bg-[#5C1529]"
               >
                 Start enquiry

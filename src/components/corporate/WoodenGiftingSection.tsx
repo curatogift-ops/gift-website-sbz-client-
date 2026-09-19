@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AppImage from '@/components/ui/AppImage';
+import ContactForInfoCta from '@/components/shared/ContactForInfoCta';
 import { ArrowRight, ChevronLeft, ChevronRight, Leaf, Recycle } from 'lucide-react';
 import {
   ECO_FRIENDLY_CATEGORY_SLUG,
@@ -210,6 +211,8 @@ export default function WoodenGiftingSection() {
               </p>
             </div>
           </div>
+
+          <ContactForInfoCta />
         </div>
       </section>
 
