@@ -77,6 +77,20 @@ const HERO_SLIDES = [
     imgTranslate: 'md:object-[55%_center]',
   },
   {
+    id: 'diwali-corporate-gifts',
+    eyebrow: 'DIWALI CORPORATE GIFTS',
+    headingLight: 'Celebrate the',
+    headingItalic: 'Festival of Gifting',
+    image: '/images/corporate/hero/diwali-corporate-gifts-hero.jpg',
+    imageAlt: 'Diwali corporate gifts — Celebrate the Festival of Gifting. Premium hampers for bulk corporate orders.',
+    textPosition: 'left',
+    bgClass: 'bg-[#FCEED4]',
+    imgPosition: 'object-center',
+    imgTranslate: 'object-center',
+    artworkOnly: true,
+    href: '/corporate/category/festive-gifts',
+  },
+  {
     id: 'tech-gifting',
     eyebrow: 'TECH GIFTS',
     headingLight: 'Smart Tech',
@@ -234,6 +248,7 @@ export default function CorporatePage() {
             <div className="relative h-[500px] sm:h-[540px] md:h-auto md:aspect-[1024/435] lg:aspect-[1024/410] xl:aspect-[1024/395] w-full overflow-hidden">
               {HERO_SLIDES.map((slide, index) => {
                 const isActive = index === currentSlide;
+                const artworkOnly = 'artworkOnly' in slide && slide.artworkOnly;
                 return (
                   <div
                     key={slide.id}
@@ -241,30 +256,54 @@ export default function CorporatePage() {
                       isActive ? 'z-10 opacity-100 pointer-events-auto' : 'z-0 opacity-0 pointer-events-none'
                     }`}
                   >
-                    <CorporateHeroDecor />
+                    {!artworkOnly && <CorporateHeroDecor />}
 
                     <div className="absolute inset-0 z-0 h-full w-full">
-                      <div
-                        className="pointer-events-none absolute inset-0 z-[1] hidden bg-[linear-gradient(to_right,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.55)_35%,rgba(26,16,16,0.15)_65%,transparent_100%)] md:block"
-                        aria-hidden
-                      />
-                      <div
-                        className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_bottom,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.5)_40%,rgba(26,16,16,0.15)_70%,transparent_100%)] md:hidden"
-                        aria-hidden
-                      />
-                      <img
-                        src={slide.image}
-                        alt={slide.imageAlt}
-                        width={2500}
-                        height={662}
-                        decoding="async"
-                        fetchPriority={index === 0 ? 'high' : 'low'}
-                        sizes="(max-width: 2500px) 100vw, 2500px"
-                        className={`block h-full w-full object-cover ${slide.imgPosition} ${slide.imgTranslate}`}
-                      />
+                      {!artworkOnly && (
+                        <>
+                          <div
+                            className="pointer-events-none absolute inset-0 z-[1] hidden bg-[linear-gradient(to_right,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.55)_35%,rgba(26,16,16,0.15)_65%,transparent_100%)] md:block"
+                            aria-hidden
+                          />
+                          <div
+                            className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_bottom,rgba(26,16,16,0.85)_0%,rgba(26,16,16,0.5)_40%,rgba(26,16,16,0.15)_70%,transparent_100%)] md:hidden"
+                            aria-hidden
+                          />
+                        </>
+                      )}
+                      {artworkOnly ? (
+                        <Link
+                          to={slide.href}
+                          tabIndex={isActive ? 0 : -1}
+                          aria-hidden={!isActive}
+                          className="block h-full w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#4A1020]"
+                        >
+                          <img
+                            src={slide.image}
+                            alt={slide.imageAlt}
+                            width={1024}
+                            height={571}
+                            decoding="async"
+                            fetchPriority="low"
+                            sizes="(max-width: 2500px) 100vw, 2500px"
+                            className="block h-full w-full object-contain object-center md:object-cover md:object-center"
+                          />
+                        </Link>
+                      ) : (
+                        <img
+                          src={slide.image}
+                          alt={slide.imageAlt}
+                          width={2500}
+                          height={662}
+                          decoding="async"
+                          fetchPriority={index === 0 ? 'high' : 'low'}
+                          sizes="(max-width: 2500px) 100vw, 2500px"
+                          className={`block h-full w-full object-cover ${slide.imgPosition} ${slide.imgTranslate}`}
+                        />
+                      )}
                     </div>
 
-                    <div
+                    {!artworkOnly && <div
                       className={[
                         'relative z-10 flex w-full min-w-0 flex-col items-center px-4 pt-10 pb-6 text-center sm:px-6 md:absolute md:inset-y-0 md:w-auto md:max-w-[48%] md:items-start md:justify-center md:bg-transparent md:px-10 md:py-12 md:pt-0 md:pb-0 md:text-left lg:max-w-[45%] lg:px-12 lg:py-16 xl:max-w-[42%] xl:px-16 xl:py-20 2xl:max-w-[38%]',
                         slide.textPosition === 'left'
@@ -310,7 +349,7 @@ export default function CorporatePage() {
                           </Link>
                         </div>
                       </motion.div>
-                    </div>
+                    </div>}
                   </div>
                 );
               })}
