@@ -4,9 +4,11 @@ import CorporateProductCard from '@/components/corporate/CorporateProductCard';
 import { getDiwaliHomeProducts } from '@/config/corporateGiftingData';
 
 const HERO_SRC = '/images/catalog/diwali/hero.jpg';
+const MOBILE_PREVIEW_COUNT = 4;
+const DESKTOP_PREVIEW_COUNT = 8;
 
 export default function CorporateDiwaliSection() {
-  const products = getDiwaliHomeProducts();
+  const products = getDiwaliHomeProducts().slice(0, DESKTOP_PREVIEW_COUNT);
 
   return (
     <section
@@ -39,8 +41,11 @@ export default function CorporateDiwaliSection() {
         </div>
 
         <ul className="mt-8 grid list-none grid-cols-2 gap-3 sm:mt-10 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
-          {products.map((product) => (
-            <li key={product.slug}>
+          {products.map((product, index) => (
+            <li
+              key={product.slug}
+              className={index >= MOBILE_PREVIEW_COUNT ? 'hidden lg:block' : undefined}
+            >
               <CorporateProductCard product={product} />
             </li>
           ))}
@@ -51,7 +56,7 @@ export default function CorporateDiwaliSection() {
             to="/corporate/category/festive-gifts"
             className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#4A1020] px-6 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-[#F2EDE8] transition hover:bg-[#5C1529]"
           >
-            View all Diwali gifts
+            View more
           </Link>
         </div>
       </div>
