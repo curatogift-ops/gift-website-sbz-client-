@@ -2,11 +2,13 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import ProductListingPlaceholderGrid from '@/components/shared/ProductListingPlaceholderGrid';
+import CorporateProductCard from '@/components/corporate/CorporateProductCard';
+import CorporateStructuredInfo from '@/components/corporate/CorporateStructuredInfo';
 import ContactForInfoCta from '@/components/shared/ContactForInfoCta';
 import {
   getCategoryBySlug,
   getCorporateSolutionsCategories,
+  getProductsByCategory,
 } from '@/config/corporateGiftingData';
 
 export default function CorporateCategoryPage() {
@@ -17,6 +19,7 @@ export default function CorporateCategoryPage() {
     return <Navigate to="/corporate" replace />;
   }
 
+  const products = getProductsByCategory(categorySlug);
   const otherCategories = getCorporateSolutionsCategories(categorySlug);
 
   return (
@@ -42,13 +45,30 @@ export default function CorporateCategoryPage() {
         <section className="py-10 sm:py-12 lg:py-14" aria-label={`${category.label} products`}>
           <div className="section-container">
             <p className="mb-6 text-sm text-muted-foreground">
-              20 products · Placeholder listing (content coming soon)
+              {products.length} {products.length === 1 ? 'product' : 'products'}
             </p>
 
-            <ProductListingPlaceholderGrid label={`${category.label} product placeholders`} />
+            {products.length > 0 ? (
+              <ul className="grid list-none grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
+                {products.map((product) => (
+                  <li key={product.slug}>
+                    <CorporateProductCard product={product} />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-sm text-muted-foreground">Products for this category are listed with our gifting team.</p>
+            )}
             <ContactForInfoCta />
           </div>
         </section>
+
+        <CorporateStructuredInfo
+          productTitle={category.label}
+          information={category.description}
+          details={products.slice(0, 4).map((product) => product.name)}
+          enquiryLabel="Enquire for this category"
+        />
 
         <section className="border-t border-border bg-[var(--cream)] py-10 sm:py-12">
           <div className="section-container">

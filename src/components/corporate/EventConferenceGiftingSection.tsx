@@ -18,8 +18,8 @@ const EVENT_CATEGORIES: EventCategory[] = [
   {
     id: 'conference-giveaways',
     label: 'Conference Giveaways',
-    href: '/corporate/product/exhibition-goodie-bag',
-    image: '/images/corporate/events-conferences/conference-giveaways.jpeg',
+    href: '/corporate/category/event-conference-gifting',
+    image: '/images/catalog/eco-friendly/05.jpg',
     imageAlt: 'Premium corporate conference giveaway gift boxes with gold ribbon',
     productLabel: '120+ Products',
     ctaLabel: 'View Collection',
@@ -27,8 +27,8 @@ const EVENT_CATEGORIES: EventCategory[] = [
   {
     id: 'speaker-vip',
     label: 'Speaker & VIP Gifts',
-    href: '/corporate/product/vip-lounge-gift',
-    image: '/images/corporate/events-conferences/speaker-vip-gifts.jpeg',
+    href: '/corporate/product/event-speaker-desk-light-kit',
+    image: '/images/catalog/tech/15.jpg',
     imageAlt: 'Luxury speaker and moderator gift collection with premium packaging',
     productLabel: '64+ Products',
     ctaLabel: 'View Collection',

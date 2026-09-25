@@ -35,7 +35,7 @@ export default function CorporateAiVideoSection() {
             Experience Our Corporate Gifting
           </h2>
           <p className="section-lede mx-auto mt-4">
-            A short film showcasing curated hampers, branding, and delivery — coming soon.
+            A short film of curated hampers, branding, and delivery — coming soon.
           </p>
         </div>
 

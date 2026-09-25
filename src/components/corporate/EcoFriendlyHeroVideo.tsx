@@ -22,17 +22,17 @@ const SHOWCASE_VIDEOS: ShowcaseVideo[] = [
   {
     id: 'eon-voltra',
     src: '/images/corporate/showcase-videos/eon-voltra.mp4',
-    title: 'Corporate product showcase',
+    title: 'Corporate product film',
   },
   {
     id: 'rico-slow-juicer',
     src: '/images/corporate/showcase-videos/rico-slow-juicer.mp4',
-    title: 'Corporate product showcase',
+    title: 'Corporate product film',
   },
   {
     id: 'xech-showcase',
     src: '/images/corporate/showcase-videos/xech-product-showcase.mp4',
-    title: 'Corporate product showcase',
+    title: 'Corporate product film',
   },
 ];
 
@@ -139,7 +139,7 @@ export default function EcoFriendlyHeroVideo() {
   return (
     <section
       className="relative scroll-mt-28 overflow-hidden bg-[var(--cream)] pb-8 pt-5 sm:pb-10 sm:pt-6 lg:pb-12 lg:pt-8"
-      aria-label="Corporate product showcase videos"
+      aria-label="Corporate product films"
     >
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent"

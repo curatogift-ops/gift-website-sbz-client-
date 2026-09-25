@@ -76,7 +76,7 @@ export default function ContactPage() {
         <BulkEnquiryFormSection
           id="corporate-gift-enquiry"
           title="Corporate Gift Enquiry"
-          imageSrc="/images/corporate-hero-banner.png"
+          imageSrc="/images/corporate/hero/corporate-hero-hampers.jpeg"
           imageAlt="Contact Giftz Gallerei for corporate gifting"
         />
       </main>

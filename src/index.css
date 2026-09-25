@@ -211,9 +211,9 @@ body {
   max-width: 100%;
 }
 
-/* Sticky header offsets — mobile ribbon + logo + mode switcher */
+/* Sticky header offsets — announcement ribbon + logo row. Mode switcher removed. */
 :root {
-  --site-header-mobile: calc(11.25rem + env(safe-area-inset-top, 0px));
+  --site-header-mobile: calc(7.25rem + env(safe-area-inset-top, 0px));
   --site-header-tablet: calc(9.75rem + env(safe-area-inset-top, 0px));
   --site-header-desktop: calc(9.25rem + env(safe-area-inset-top, 0px));
   --site-header-desktop-lg: calc(9.5rem + env(safe-area-inset-top, 0px));

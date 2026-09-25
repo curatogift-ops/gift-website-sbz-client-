@@ -14,8 +14,8 @@ type AwardType = {
 const AWARD_TYPES: AwardType[] = [
   {
     title: 'Crystal Awards',
-    href: '/corporate/product/crystal-achievement-award',
-    image: '/images/corporate/awards-crystal.jpeg',
+    href: '/corporate/product/trophy-star-crystal-set',
+    image: '/images/catalog/trophies/01.jpg',
     imageAlt: 'Custom crystal awards with space for your company logo',
     Icon: Trophy,
   },
@@ -28,8 +28,8 @@ const AWARD_TYPES: AwardType[] = [
   },
   {
     title: 'Trophies',
-    href: '/corporate/product/employee-of-month-award',
-    image: '/images/corporate/awards-trophies.jpeg',
+    href: '/corporate/category/trophies-vouchers',
+    image: '/images/catalog/trophies/03.jpg',
     imageAlt: 'Premium trophies and recognition awards for corporate ceremonies',
     Icon: Sparkles,
   },

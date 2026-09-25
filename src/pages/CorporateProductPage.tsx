@@ -15,6 +15,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import AppImage from '@/components/ui/AppImage';
 import CorporateEnquiryDialog from '@/components/corporate/CorporateEnquiryDialog';
+import CorporateStructuredInfo from '@/components/corporate/CorporateStructuredInfo';
 import CorporateProductCarouselSection from '@/components/corporate/CorporateProductCarouselSection';
 import CorporateRecentlyViewedSection from '@/components/corporate/CorporateRecentlyViewedSection';
 import ProductDetailsAccordion from '@/components/shared/ProductDetailsAccordion';
@@ -116,7 +117,7 @@ export default function CorporateProductPage() {
   const product = getProductBySlug(productSlug);
   const [activeImage, setActiveImage] = useState(0);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
-  const [readMore, setReadMore] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const [recentlyViewed, setRecentlyViewed] = useState<CorporateProduct[]>([]);
   const addToCart = useCartStore((s) => s.addItem);
   const toggleWishlist = useWishlistStore((s) => s.toggleItem);
@@ -128,6 +129,8 @@ export default function CorporateProductPage() {
     if (!productSlug) return;
     addCorporateRecentlyViewed(productSlug);
     setRecentlyViewed(getRecentlyViewedProducts(productSlug));
+    setQuantity(1);
+    setActiveImage(0);
   }, [productSlug]);
 
   const category = product ? getCategoryBySlug(product.categorySlug) : undefined;
@@ -144,9 +147,6 @@ export default function CorporateProductPage() {
   if (!product) {
     return <Navigate to="/corporate" replace />;
   }
-
-  const longPreview = product.longDescription.slice(0, 320);
-  const showReadMore = product.longDescription.length > longPreview.length;
 
   const openEnquiry = () => setEnquiryOpen(true);
 
@@ -171,6 +171,7 @@ export default function CorporateProductPage() {
       image: product.images[0],
       categoryName: category?.label,
       href: `/corporate/product/${product.slug}`,
+      quantity,
     });
   };
 
@@ -295,6 +296,33 @@ export default function CorporateProductPage() {
                   <p className="mt-1 text-[12px] text-muted-foreground">Inclusive of all taxes</p>
                 </div>
 
+                <div className="mt-5 flex items-center gap-3">
+                  <span className="font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                    Quantity
+                  </span>
+                  <div className="inline-flex items-center rounded-md border border-border">
+                    <button
+                      type="button"
+                      className="h-10 w-10 text-lg text-foreground"
+                      onClick={() => setQuantity((value) => Math.max(1, value - 1))}
+                      aria-label="Decrease quantity"
+                    >
+                      −
+                    </button>
+                    <span className="min-w-8 text-center font-sans text-[14px] font-semibold tabular-nums">
+                      {quantity}
+                    </span>
+                    <button
+                      type="button"
+                      className="h-10 w-10 text-lg text-foreground"
+                      onClick={() => setQuantity((value) => Math.min(999, value + 1))}
+                      aria-label="Increase quantity"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
                 <div className="mt-5 flex flex-col gap-2.5 sm:mt-6 sm:flex-row">
                   <button
                     type="button"
@@ -338,12 +366,9 @@ export default function CorporateProductPage() {
                 {product.rating.toFixed(1)}
               </span>
               <Stars rating={product.rating} size="lg" />
-              <button
-                type="button"
-                className="text-[13px] text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
-              >
+              <span className="text-[13px] text-muted-foreground">
                 {product.reviewCount} reviews
-              </button>
+              </span>
               <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
                 <BadgeCheck className="h-3.5 w-3.5" strokeWidth={1.75} />
                 Verified
@@ -375,27 +400,12 @@ export default function CorporateProductPage() {
 
         <CorporateRecentlyViewedSection products={recentlyViewedDisplay} />
 
-        <section className="border-t border-border bg-white">
-          <div className="section-container py-10 sm:py-12 lg:py-14">
-            <div className="mx-auto max-w-3xl">
-              <h2 className="font-serif text-[clamp(1.15rem,2vw,1.4rem)] font-semibold leading-snug text-primary">
-                {product.name} – Premium Bulk Corporate Gift
-              </h2>
-              <div className="mt-4 text-[14px] leading-[1.8] text-muted-foreground">
-                <p>{readMore ? product.longDescription : `${longPreview}${showReadMore ? '…' : ''}`}</p>
-                {showReadMore && (
-                  <button
-                    type="button"
-                    onClick={() => setReadMore((v) => !v)}
-                    className="mt-3 font-semibold text-primary hover:underline"
-                  >
-                    {readMore ? 'Read less' : 'Read more…'}
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
+        <CorporateStructuredInfo
+          productTitle={product.name}
+          information={product.description}
+          details={product.features}
+          enquiryLabel="Enquire for this product"
+        />
       </main>
 
       <Footer />

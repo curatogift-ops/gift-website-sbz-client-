@@ -1,3 +1,9 @@
+import {
+  CATALOG_SEED,
+  DIWALI_HOME_SLUGS,
+  ECO_CATALOG_FEATURED_SLUGS,
+} from '@/config/corporateCatalogSeed';
+
 export type CorporateCategory = {
   slug: string;
   label: string;
@@ -31,105 +37,85 @@ export type CorporateProduct = {
   reviewCount: number;
 };
 
-const IMG = (id: string, w = 800) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&q=80&w=${w}`;
-
-const CATEGORY_IMG = (slug: string) => `/images/corporate/categories/${slug}.jpeg`;
-const ECO_IMG = (filename: string) => `/images/corporate/eco-friendly/${filename}`;
-const ECO_GALLERY = (slug: string) => [ECO_IMG(`${slug}.jpeg`), ECO_IMG(`${slug}-alt.jpeg`)];
-const CORPORATE_PRODUCT_IMG = (folder: string, slug: string, angle: number) =>
-  `/images/corporate/${folder}/${slug}-angle-0${angle}.jpeg`;
-const CORPORATE_PRODUCT_GALLERY = (folder: string, slug: string, angles = 4) =>
-  Array.from({ length: angles }, (_, i) => CORPORATE_PRODUCT_IMG(folder, slug, i + 1));
-const HAMPER_GALLERY = (slug: string) => CORPORATE_PRODUCT_GALLERY('corporate-hampers', slug);
-const JOINER_GALLERY = (slug: string) => CORPORATE_PRODUCT_GALLERY('employee-joining-kits', slug);
-
 export const ECO_FRIENDLY_CATEGORY_SLUG = 'eco-friendly-gifting';
 
-export const ECO_FRIENDLY_FEATURED_SLUGS = [
-  'coffee-mug-cork-detail',
-  'sustainable-gift-hamper',
-  'bamboo-coffee-sipper',
-  'cork-notebook-set',
-  'bamboo-desk-organizer',
-  'seed-paper-stationery',
-] as const;
+export const ECO_FRIENDLY_FEATURED_SLUGS = ECO_CATALOG_FEATURED_SLUGS;
 
 export const CORPORATE_CATEGORIES: CorporateCategory[] = [
   {
     slug: 'corporate-hampers',
     label: 'Corporate Hampers',
-    image: CATEGORY_IMG('corporate-hampers'),
+    image: '/images/catalog/corporate-listing/download-13.jpg',
     imageAlt: 'Premium corporate hamper gift boxes with branded packaging',
     description: 'Curated gift hampers for clients, teams, and leadership.',
   },
   {
     slug: 'employee-joining-kits',
     label: 'Employee Joining Kits',
-    image: CATEGORY_IMG('employee-joining-kits'),
+    image: '/images/catalog/employee-joining/01.jpg',
     imageAlt: 'Employee joining kit flat lay with branded welcome items',
     description: 'Welcome kits that make every new joiner feel valued from day one.',
   },
   {
     slug: 'festive-gifts',
     label: 'Festive Gifts',
-    image: CATEGORY_IMG('festive-gifts'),
+    image: '/images/catalog/diwali/05.jpg',
     imageAlt: 'Festive gift boxes with sweets and seasonal treats',
     description: 'Diwali, Christmas, and seasonal gifting collections for teams and clients.',
   },
   {
     slug: 'custom-merchandise',
     label: 'Custom Merchandise',
-    image: CATEGORY_IMG('custom-merchandise'),
+    image: '/images/catalog/tech/06.jpg',
     imageAlt: 'Branded corporate merchandise in studio setting',
     description: 'Branded apparel, accessories, and merchandise for corporate programs.',
   },
   {
     slug: 'tech-gifts',
     label: 'Tech Gifts',
-    image: CATEGORY_IMG('tech-gifts'),
+    image: '/images/catalog/tech/18.jpg',
     imageAlt: 'Premium technology gifting category with gadgets and accessories',
     description: 'Premium gadgets and tech accessories for modern corporate gifting.',
   },
   {
     slug: 'drinkware',
     label: 'Drinkware',
-    image: CATEGORY_IMG('drinkware'),
+    image: '/images/catalog/drinkware/07.jpg',
     imageAlt: 'Elegant insulated bottles and branded mugs',
     description: 'Branded bottles, mugs, and sipper collections for everyday use.',
   },
   {
     slug: 'event-conference-gifting',
     label: 'Event & Conference Gifting',
-    image: CATEGORY_IMG('event-conference-gifting'),
+    image: '/images/catalog/eco-friendly/05.jpg',
     imageAlt: 'Business event essentials and conference gifting studio setup',
     description: 'Delegate kits, speaker gifts, and conference takeaway solutions.',
   },
   {
     slug: 'luxury-packaging',
     label: 'Luxury Packaging Solutions',
-    image: CATEGORY_IMG('luxury-packaging'),
+    image: '/images/catalog/diwali/36.jpg',
     imageAlt: 'Luxury packaging with rigid gift boxes and premium finishes',
     description: 'Premium boxes, sleeves, and presentation packaging for elevated gifting.',
   },
   {
     slug: 'eco-friendly-gifting',
     label: 'Eco-Friendly Corporate Gifting',
-    image: CATEGORY_IMG('eco-friendly-gifting'),
+    image: '/images/catalog/eco-friendly/01.jpg',
     imageAlt: 'Sustainable eco-friendly corporate products arranged elegantly',
     description: 'Sustainable wooden, bamboo, and eco-conscious corporate gift options.',
   },
   {
     slug: 'events-conferences',
     label: 'Events & Conferences',
-    image: CATEGORY_IMG('events-conferences'),
+    image: '/images/catalog/eco-friendly/11.jpg',
     imageAlt: 'Conference welcome kits catalog for corporate events',
     description: 'End-to-end gifting solutions for corporate events, summits, and conferences.',
   },
   {
     slug: 'trophies-vouchers',
     label: 'Trophies & Vouchers',
-    image: CATEGORY_IMG('trophies-vouchers'),
+    image: '/images/catalog/trophies/01.jpg',
     imageAlt: 'Luxury awards and trophies on studio surface',
     description: 'Custom awards, trophies, and branded voucher programs.',
   },
@@ -245,7 +231,7 @@ function product(
     images: buildGallery(image),
     contentsLabel: getContentsLabel(categorySlug),
     contents: buildContents(featureList, categorySlug),
-    longDescription: `${name} – Premium Bulk Corporate Gift. ${description} Whether you are welcoming new team members, celebrating festivals, or thanking clients, this solution delivers a refined unboxing experience with custom branding and bulk packaging. ${bulkPrice}.`,
+    longDescription: description,
     shippingInfo: SHIPPING_INFO,
     assistanceInfo: ASSISTANCE_INFO,
     knowMore: [
@@ -259,109 +245,19 @@ function product(
   };
 }
 
-export const CORPORATE_PRODUCTS: CorporateProduct[] = [
-  // Corporate Hampers
+export const CORPORATE_PRODUCTS: CorporateProduct[] = CATALOG_SEED.map((item) =>
   product(
-    'corporate-hampers',
-    'executive-gift-hamper',
-    'Executive Gift Hamper',
-    'A premium hamper curated for leadership gifting — fine chocolates, gourmet treats, and elegant presentation for C-suite and VIP clients.',
-    3499,
-    'From ₹2,499/unit (50+ qty)',
-    HAMPER_GALLERY('executive-gift-hamper'),
-    ['Assorted gourmet treats', 'Luxury rigid gift box', 'Personalised message card', 'Ideal for leadership gifting'],
+    item.categorySlug,
+    item.slug,
+    item.name,
+    item.description,
+    item.price,
+    item.bulkPrice,
+    item.images,
+    item.features,
   ),
-  product(
-    'corporate-hampers',
-    'premium-gift-hamper',
-    'Premium Gift Hamper',
-    'Our signature corporate hamper with a balanced mix of snacks, beverages, and branded keepsakes — perfect for client appreciation.',
-    2499,
-    'From ₹1,899/unit (50+ qty)',
-    HAMPER_GALLERY('premium-gift-hamper'),
-  ),
-  product(
-    'corporate-hampers',
-    'dry-fruit-hamper',
-    'Dry Fruit Hamper',
-    'Premium dry fruits and nuts in an elegant hamper — a timeless corporate gift for festivals and year-end appreciation.',
-    1999,
-    'From ₹1,499/unit (50+ qty)',
-    HAMPER_GALLERY('dry-fruit-hamper'),
-  ),
-  product(
-    'corporate-hampers',
-    'chocolate-hamper',
-    'Chocolate Hamper',
-    'Artisan chocolates and confections in a beautifully packaged hamper — a crowd-pleaser for teams and clients alike.',
-    1799,
-    'From ₹1,299/unit (50+ qty)',
-    HAMPER_GALLERY('chocolate-hamper'),
-  ),
-  product(
-    'corporate-hampers',
-    'wellness-hamper',
-    'Wellness Hamper',
-    'A thoughtful wellness-focused hamper with healthy snacks, herbal teas, and self-care essentials for employee wellbeing programs.',
-    2199,
-    'From ₹1,699/unit (50+ qty)',
-    HAMPER_GALLERY('wellness-hamper'),
-  ),
-  // Employee Joining Kits
-  product('employee-joining-kits', 'starter-welcome-kit', 'Starter Welcome Kit', 'Essential branded items for new hires — notebook, pen, bottle, and welcome card in a premium kit.', 899, 'From ₹649/unit (25+ qty)', JOINER_GALLERY('starter-welcome-kit')),
-  product('employee-joining-kits', 'premium-onboarding-kit', 'Premium Onboarding Kit', 'Elevated welcome kit with backpack, tech accessories, and branded apparel for a memorable first day.', 2499, 'From ₹1,899/unit (25+ qty)', JOINER_GALLERY('premium-onboarding-kit')),
-  product('employee-joining-kits', 'remote-joiner-kit', 'Remote Joiner Kit', 'Ship-ready kit for remote employees with desk essentials, sipper, and branded merchandise.', 1499, 'From ₹1,099/unit (25+ qty)', JOINER_GALLERY('remote-joiner-kit')),
-  product('employee-joining-kits', 'executive-joiner-kit', 'Executive Joiner Kit', 'Luxury welcome kit for senior hires with premium leather goods, pen set, and custom packaging.', 4999, 'From ₹3,999/unit (10+ qty)', JOINER_GALLERY('executive-joiner-kit')),
-  product('employee-joining-kits', 'professional-welcome-kit', 'Professional Welcome Kit', 'Desk-ready welcome kit with premium notebook, pen, and insulated bottle in elegant gift packaging.', 1799, 'From ₹1,299/unit (25+ qty)', JOINER_GALLERY('professional-welcome-kit')),
-  // Festive Gifts
-  product('festive-gifts', 'diwali-delight-box', 'Diwali Delight Box', 'Festive sweets, diyas, and premium packaging for Diwali corporate gifting programs.', 1299, 'From ₹899/unit (50+ qty)', IMG('photo-1604423376506-02708d1bd4f8')),
-  product('festive-gifts', 'christmas-celebration-hamper', 'Christmas Celebration Hamper', 'Holiday treats and festive décor in an elegant gift box for year-end celebrations.', 1599, 'From ₹1,199/unit (50+ qty)', IMG('photo-1513885535751-8b9238bd345a')),
-  product('festive-gifts', 'new-year-gift-set', 'New Year Gift Set', 'Premium new year gifting set with calendar, treats, and branded keepsake.', 999, 'From ₹749/unit (50+ qty)', IMG('photo-1482517967863-00a4517d36b1')),
-  product('festive-gifts', 'festive-assorted-hamper', 'Festive Assorted Hamper', 'Versatile festive hamper suitable for multiple occasions and client segments.', 1899, 'From ₹1,399/unit (50+ qty)', IMG('photo-1549465220-1a8b9238cd48')),
-  // Custom Merchandise
-  product('custom-merchandise', 'branded-polo-set', 'Branded Polo Set', 'High-quality polo shirts with embroidery or print — ideal for team events and corporate uniforms.', 799, 'From ₹549/unit (50+ qty)', IMG('photo-1583743814966-8936f5b7be1a')),
-  product('custom-merchandise', 'corporate-cap-collection', 'Corporate Cap Collection', 'Adjustable caps with embroidered logo in multiple colourways.', 399, 'From ₹279/unit (50+ qty)', IMG('photo-1588850561407-ed78c282e989')),
-  product('custom-merchandise', 'branded-tote-bag', 'Branded Tote Bag', 'Durable canvas tote with screen-printed or woven logo for events and daily use.', 349, 'From ₹249/unit (100+ qty)', IMG('photo-1590874103328-eac38a683ce7')),
-  product('custom-merchandise', 'custom-lanyard-kit', 'Custom Lanyard Kit', 'Branded lanyards with ID holders for conferences and office programs.', 149, 'From ₹99/unit (100+ qty)', IMG('photo-1556761175-5973dc0f32e7')),
-  // Tech Gifts
-  product('tech-gifts', 'wireless-earbuds', 'Wireless Earbuds', 'Premium wireless earbuds with custom logo case — a popular tech gift for employees and clients.', 1999, 'From ₹1,499/unit (25+ qty)', IMG('photo-1505740420928-5e560c06d30e')),
-  product('tech-gifts', 'power-bank-10000mah', 'Power Bank 10000mAh', 'Slim power bank with dual USB ports and laser-engraved branding.', 899, 'From ₹649/unit (50+ qty)', IMG('photo-1609091839311-d5365addc022')),
-  product('tech-gifts', 'bluetooth-speaker', 'Bluetooth Speaker', 'Compact speaker with rich sound and custom logo print on grille.', 1499, 'From ₹1,099/unit (25+ qty)', IMG('photo-1608043152269-423dbba4e7e1')),
-  product('tech-gifts', 'wireless-charging-pad', 'Wireless Charging Pad', 'Desk-friendly wireless charger with subtle brand embossing.', 799, 'From ₹549/unit (50+ qty)', IMG('photo-1591290619762-c588a81c1e3e')),
-  // Drinkware
-  product('drinkware', 'insulated-steel-bottle', 'Insulated Steel Bottle', 'Double-wall vacuum bottle with laser-engraved logo — keeps drinks hot or cold for hours.', 649, 'From ₹449/unit (50+ qty)', IMG('photo-1602143407151-7111542de6e8')),
-  product('drinkware', 'ceramic-coffee-mug', 'Ceramic Coffee Mug', 'Premium ceramic mug with full-wrap or logo print for office and client gifting.', 299, 'From ₹199/unit (100+ qty)', IMG('photo-1514228742587-6b1558fcca3d')),
-  product('drinkware', 'glass-water-bottle', 'Glass Water Bottle', 'Borosilicate glass bottle with silicone sleeve and custom branding.', 549, 'From ₹399/unit (50+ qty)', IMG('photo-1602143407151-7111542de6e8')),
-  // Event & Conference Gifting
-  product('event-conference-gifting', 'delegate-welcome-kit', 'Delegate Welcome Kit', 'Complete delegate kit with badge, notebook, pen, and branded tote for conferences.', 599, 'From ₹449/unit (100+ qty)', IMG('photo-1556761175-5973dc0f32e7')),
-  product('event-conference-gifting', 'speaker-appreciation-set', 'Speaker Appreciation Set', 'Premium gift set for keynote speakers and panelists with luxury packaging.', 2999, 'From ₹2,299/unit (10+ qty)', IMG('photo-1540575467063-178a50c2df87')),
-  product('event-conference-gifting', 'exhibition-goodie-bag', 'Exhibition Goodie Bag', 'Curated goodie bag contents for trade shows and exhibition booths.', 399, 'From ₹299/unit (200+ qty)', IMG('photo-1590874103328-eac38a683ce7')),
-  product('event-conference-gifting', 'vip-lounge-gift', 'VIP Lounge Gift', 'Exclusive gift for VIP attendees with premium presentation box.', 4999, 'From ₹3,999/unit (10+ qty)', IMG('photo-1549465220-1a8b9238cd48')),
-  // Luxury Packaging
-  product('luxury-packaging', 'rigid-gift-box', 'Rigid Gift Box', 'Magnetic closure rigid box with custom insert and ribbon — elevates any corporate gift.', 349, 'From ₹249/unit (100+ qty)', IMG('photo-1513201099705-a9746e1e201f')),
-  product('luxury-packaging', 'satin-ribbon-sleeve', 'Satin Ribbon Sleeve', 'Elegant sleeve wrap with satin ribbon and foil-stamped logo.', 199, 'From ₹149/unit (200+ qty)', IMG('photo-1549465220-1a8b9238cd48')),
-  product('luxury-packaging', 'wooden-presentation-box', 'Wooden Presentation Box', 'Handcrafted wooden box with laser-engraved lid for premium gifting.', 899, 'From ₹649/unit (50+ qty)', IMG('photo-1576092768241-dec231879fc3')),
-  product('luxury-packaging', 'custom-insert-tray', 'Custom Insert Tray', 'Foam or cardboard insert tray tailored to your product dimensions and branding.', 149, 'From ₹99/unit (200+ qty)', IMG('photo-1513201099705-a9746e1e201f')),
-  // Eco-Friendly
-  product('eco-friendly-gifting', 'coffee-mug-cork-detail', 'Coffee Mug With Cork Detail', 'Matte finish mug with natural cork base — insulated, reusable, and brand-ready.', 450, 'From ₹325/unit (50+ qty)', ECO_GALLERY('coffee-mug-cork-detail')),
-  product('eco-friendly-gifting', 'sustainable-gift-hamper', 'Savvy and Sustainable Gift Hamper', 'Eco-conscious hamper with wooden items, organic treats, and recycled packaging.', 1470, 'From ₹1,099/unit (25+ qty)', ECO_GALLERY('sustainable-gift-hamper')),
-  product('eco-friendly-gifting', 'bamboo-coffee-sipper', 'Bamboo Coffee Sipper', 'Eco-friendly bamboo sipper with cork detail and brand engraving.', 350, 'From ₹249/unit (50+ qty)', ECO_GALLERY('bamboo-coffee-sipper')),
-  product('eco-friendly-gifting', 'cork-notebook-set', 'Journal - Rumi', 'Cork-covered notebook and pen set — fully biodegradable packaging.', 250, 'From ₹199/unit (50+ qty)', ECO_GALLERY('cork-notebook-set')),
-  product('eco-friendly-gifting', 'bamboo-desk-organizer', 'Bamboo Desk Organizer', 'Sustainable bamboo desk organizer with engraved company logo.', 599, 'From ₹449/unit (50+ qty)', ECO_GALLERY('bamboo-desk-organizer')),
-  product('eco-friendly-gifting', 'seed-paper-stationery', 'Seed Paper Stationery Set', 'Plantable seed paper notebooks and cards for green corporate programs.', 299, 'From ₹219/unit (100+ qty)', ECO_GALLERY('seed-paper-stationery')),
-  // Events & Conferences
-  product('events-conferences', 'summit-delegate-kit', 'Summit Delegate Kit', 'Full summit kit with lanyard, notebook, bottle, and event-branded merchandise.', 799, 'From ₹599/unit (100+ qty)', IMG('photo-1540575467063-178a50c2df87')),
-  product('events-conferences', 'annual-day-gift', 'Annual Day Gift', 'Celebratory gift for annual day and town hall events with custom branding.', 999, 'From ₹749/unit (50+ qty)', IMG('photo-1513885535751-8b9238bd345a')),
-  product('events-conferences', 'product-launch-kit', 'Product Launch Kit', 'Launch event kit with premium packaging and branded collateral for attendees.', 1999, 'From ₹1,499/unit (25+ qty)', IMG('photo-1556761175-5973dc0f32e7')),
-  product('events-conferences', 'awards-night-favor', 'Awards Night Favor', 'Elegant favor gift for awards ceremonies and gala dinners.', 1499, 'From ₹1,099/unit (25+ qty)', IMG('photo-1567427017947-545c5f8d16ad')),
-  // Trophies & Vouchers
-  product('trophies-vouchers', 'crystal-achievement-award', 'Crystal Achievement Award', 'Custom crystal trophy with engraved recipient details and company logo.', 2499, 'From ₹1,899/unit (10+ qty)', IMG('photo-1567427017947-545c5f8d16ad')),
-  product('trophies-vouchers', 'metal-trophy-plaque', 'Metal Trophy Plaque', 'Premium metal plaque award for employee recognition programs.', 1799, 'From ₹1,299/unit (10+ qty)', IMG('photo-1571015733145-7f03d1e0fd8e')),
-  product('trophies-vouchers', 'branded-gift-voucher', 'Branded Gift Voucher', 'Custom-branded gift voucher cards for flexible employee and client rewards.', 500, 'From ₹450/unit (50+ qty)', IMG('photo-1556742049-0cfed4f6a45d')),
-  product('trophies-vouchers', 'employee-of-month-award', 'Employee of the Month Award', 'Signature award trophy with monthly personalization option.', 1999, 'From ₹1,499/unit (10+ qty)', IMG('photo-1567427017947-545c5f8d16ad')),
-];
+);
 
-/** Ordered list for solutions grids / "Explore other categories". Luxury Packaging hidden from display. */
 export const CORPORATE_SOLUTIONS_ORDER = [
   'corporate-hampers',
   'employee-joining-kits',
@@ -388,6 +284,13 @@ export function getCategoryBySlug(slug: string): CorporateCategory | undefined {
 
 export function getProductsByCategory(categorySlug: string): CorporateProduct[] {
   return CORPORATE_PRODUCTS.filter((p) => p.categorySlug === categorySlug);
+}
+
+export function getDiwaliHomeProducts(): CorporateProduct[] {
+  const bySlug = new Map(getProductsByCategory('festive-gifts').map((item) => [item.slug, item]));
+  return DIWALI_HOME_SLUGS.map((slug) => bySlug.get(slug)).filter(
+    (item): item is CorporateProduct => Boolean(item),
+  );
 }
 
 export function getEcoFriendlyFeaturedProducts(): CorporateProduct[] {

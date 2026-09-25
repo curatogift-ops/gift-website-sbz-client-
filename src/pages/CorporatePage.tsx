@@ -16,6 +16,7 @@ import CorporateGiftingProcessSection from '@/components/corporate/CorporateGift
 import WhyChooseUsSection from '@/components/corporate/WhyChooseUsSection';
 import CorporateAiVideoSection from '@/components/corporate/CorporateAiVideoSection';
 import CorporateLedVideoSection from '@/components/corporate/CorporateLedVideoSection';
+import CorporateDiwaliSection from '@/components/corporate/CorporateDiwaliSection';
 import BulkEnquiryFormSection from '@/components/shared/BulkEnquiryFormSection';
 import ContactForInfoCta from '@/components/shared/ContactForInfoCta';
 import FaqAccordionSection from '@/components/shared/FaqAccordionSection';
@@ -514,6 +515,8 @@ export default function CorporatePage() {
           </div>
         </section>
 
+        <CorporateDiwaliSection />
+
         <CorporateAiVideoSection />
 
         <CorporateLedVideoSection />
@@ -537,7 +540,7 @@ export default function CorporatePage() {
         <BulkEnquiryFormSection
           id="corporate-gift-enquiry"
           title="Corporate Gift Enquiry"
-          imageSrc="/images/corporate-hero-banner.png"
+          imageSrc="/images/corporate/hero/corporate-hero-hampers.jpeg"
           imageAlt="Premium corporate gifting solutions"
         />
 

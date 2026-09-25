@@ -21,7 +21,7 @@ export default function BulkEnquiryFormSection({
   title,
   subtitle,
   variant = 'full',
-  imageSrc = 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800',
+  imageSrc = '/images/corporate/hero/corporate-hero-hampers.jpeg',
   imageAlt = 'Corporate bulk gifting consultation',
   className,
 }: BulkEnquiryFormSectionProps) {

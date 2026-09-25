@@ -85,7 +85,7 @@ export default function AboutPage() {
         <BulkEnquiryFormSection
           id="corporate-gift-enquiry"
           title="Corporate Gift Enquiry"
-          imageSrc="/images/corporate-hero-banner.png"
+          imageSrc="/images/corporate/hero/corporate-hero-hampers.jpeg"
           imageAlt="Corporate gifting consultation with Giftz Gallerei"
         />
       </main>

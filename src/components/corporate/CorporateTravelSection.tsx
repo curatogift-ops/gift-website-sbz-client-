@@ -13,12 +13,10 @@ import {
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
-/** Card-aligned values first, then the brief’s required form list. */
+/** Two trip cards, then the remaining form options. Incentive and corporate-experience types stay off the UI. */
 export const TRAVEL_TRIP_TYPES = [
   'Domestic Trip',
   'International Trip',
-  'Incentive & Reward Trip',
-  'Corporate Experience',
   'Employee Incentive Trip',
   'Corporate Offsite',
   'Team Outing',
@@ -52,20 +50,6 @@ const TRAVEL_CARDS: TravelCard[] = [
     title: 'International Trips',
     description: 'International incentive trips, client experiences & executive travel.',
     tripType: 'International Trip',
-  },
-  {
-    id: 'incentive',
-    number: '03',
-    title: 'Incentive & Reward Trips',
-    description: 'Reward your employees and teams with memorable travel experiences.',
-    tripType: 'Incentive & Reward Trip',
-  },
-  {
-    id: 'experiences',
-    number: '04',
-    title: 'Corporate Experiences',
-    description: 'Curated experiences for clients, partners, leadership teams & employees.',
-    tripType: 'Corporate Experience',
   },
 ];
 
@@ -109,25 +93,24 @@ export default function CorporateTravelSection() {
             Corporate Travel &amp; Experience
           </h2>
           <p className="section-lede mx-auto mt-4 max-w-2xl">
-            From Corporate Gifting to Corporate Experiences — Giftz Gallerei helps you create
-            moments that people remember.
+            Domestic and international trips for teams, clients, and leadership.
           </p>
         </div>
 
-        <ul className="mt-10 grid list-none gap-4 sm:mt-12 sm:grid-cols-2 lg:gap-5 xl:grid-cols-4">
+        <ul className="mx-auto mt-10 grid max-w-4xl list-none gap-5 sm:mt-12 sm:grid-cols-2 lg:mt-14 lg:gap-8">
           {TRAVEL_CARDS.map((card) => (
             <li key={card.id}>
               <Link
                 to={enquiryHref(card.tripType)}
-                className="group flex h-full flex-col rounded-2xl border border-border bg-[var(--cream)] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#C9A96E]/50 hover:bg-white hover:shadow-lg sm:p-6"
+                className="group flex h-full min-h-[220px] flex-col rounded-2xl border border-border bg-[var(--cream)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#C9A96E]/50 hover:bg-white hover:shadow-lg sm:min-h-[260px] sm:p-8"
               >
                 <span className="font-sans text-[11px] font-bold tracking-[0.16em] text-[#C9A96E]">
                   {card.number}
                 </span>
-                <h3 className="mt-3 font-serif text-[1.15rem] font-semibold leading-snug text-primary sm:text-[1.25rem]">
+                <h3 className="mt-4 font-serif text-[1.35rem] font-semibold leading-snug text-primary sm:text-[1.6rem]">
                   {card.title}
                 </h3>
-                <p className="mt-2 flex-1 text-[13px] leading-relaxed text-muted-foreground">
+                <p className="mt-3 flex-1 text-[14px] leading-relaxed text-muted-foreground sm:text-[15px]">
                   {card.description}
                 </p>
                 <span className="mt-4 inline-flex items-center gap-1.5 font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-[#4A1020] transition group-hover:text-[#9D7D47]">
