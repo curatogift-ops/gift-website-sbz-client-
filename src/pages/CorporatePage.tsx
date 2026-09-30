@@ -12,6 +12,8 @@ import CorporateTravelSection from '@/components/corporate/CorporateTravelSectio
 import CorporateTravelEnquiryForm from '@/components/corporate/CorporateTravelEnquiryForm';
 import EventConferenceGiftingSection from '@/components/corporate/EventConferenceGiftingSection';
 import AwardsTrophiesSection from '@/components/corporate/AwardsTrophiesSection';
+import CorporateTestimonialsSection from '@/components/corporate/CorporateTestimonialsSection';
+import TrustedLeadingBrandsSection from '@/components/corporate/TrustedLeadingBrandsSection';
 import CorporateGiftingProcessSection from '@/components/corporate/CorporateGiftingProcessSection';
 import WhyChooseUsSection from '@/components/corporate/WhyChooseUsSection';
 import CorporateAiVideoSection from '@/components/corporate/CorporateAiVideoSection';
@@ -82,6 +84,7 @@ const HERO_SLIDES = [
     headingLight: 'Celebrate the',
     headingItalic: 'Festival of Gifting',
     image: '/images/corporate/hero/diwali-corporate-gifts-hero.jpg',
+    mobileImage: '/images/corporate/hero/diwali-gifting-hero-mobile.png',
     imageAlt: 'Diwali corporate gifts — Celebrate the Festival of Gifting. Premium hampers for bulk corporate orders.',
     textPosition: 'left',
     bgClass: 'bg-[#FCEED4]',
@@ -278,16 +281,21 @@ export default function CorporatePage() {
                           aria-hidden={!isActive}
                           className="block h-full w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[#4A1020]"
                         >
-                          <img
-                            src={slide.image}
-                            alt={slide.imageAlt}
-                            width={1024}
-                            height={571}
-                            decoding="async"
-                            fetchPriority="low"
-                            sizes="(max-width: 2500px) 100vw, 2500px"
-                            className="block h-full w-full object-contain object-center md:object-cover md:object-center"
-                          />
+                          <picture className="block h-full w-full">
+                            {'mobileImage' in slide && slide.mobileImage ? (
+                              <source media="(max-width: 767px)" srcSet={slide.mobileImage} />
+                            ) : null}
+                            <img
+                              src={slide.image}
+                              alt={slide.imageAlt}
+                              width={1024}
+                              height={571}
+                              decoding="async"
+                              fetchPriority="low"
+                              sizes="(max-width: 767px) 100vw, (max-width: 2500px) 100vw, 2500px"
+                              className="block h-full w-full object-contain object-center md:object-cover md:object-center"
+                            />
+                          </picture>
                         </Link>
                       ) : (
                         <img
@@ -571,6 +579,10 @@ export default function CorporatePage() {
         <EventConferenceGiftingSection />
 
         <AwardsTrophiesSection />
+
+        <CorporateTestimonialsSection />
+
+        <TrustedLeadingBrandsSection />
 
         <WhyChooseUsSection />
 

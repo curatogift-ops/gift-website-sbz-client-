@@ -4,8 +4,24 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Gift, ShieldCheck, Trophy, Headphones } from 'lucide-react';
 import { ALPHABET, BRANDS } from '@/config/brandsData';
+import { cataloguesForBrand } from '@/config/catalogueLibraryData';
 
 const BRAND_ENQUIRY_HREF = '/corporate#corporate-gift-enquiry';
+
+function brandDestination(name: string) {
+  if (cataloguesForBrand(name).length === 0) {
+    return {
+      to: BRAND_ENQUIRY_HREF,
+      cta: 'Enquire now',
+      label: `Enquire about ${name}`,
+    };
+  }
+  return {
+    to: `/catalogue?brand=${encodeURIComponent(name)}&from=brands`,
+    cta: 'View catalogue',
+    label: `View ${name} catalogues`,
+  };
+}
 
 type Brand = (typeof BRANDS)[number];
 
@@ -284,11 +300,13 @@ export default function BrandsPage() {
                   </div>
 
                   <div className="grid grid-cols-4 gap-5 xl:grid-cols-5">
-                    {paginatedBrands.map((brand) => (
+                    {paginatedBrands.map((brand) => {
+                      const destination = brandDestination(brand.name);
+                      return (
                       <Link
                         key={brand.name}
-                        to={BRAND_ENQUIRY_HREF}
-                        aria-label={`Enquire about ${brand.name}`}
+                        to={destination.to}
+                        aria-label={destination.label}
                         className="group relative rounded-[1.1rem] bg-gradient-to-br from-[#E9E1D4] via-[#F4EFE7] to-[#E9E1D4] p-[1.5px] transition-all duration-500 hover:from-[#C9A96E] hover:via-[#EBD9B4] hover:to-[#C9A96E] hover:-translate-y-1.5 hover:shadow-[0_16px_32px_rgba(74,16,32,0.14)] select-none"
                       >
                         <div className="relative flex h-full flex-col overflow-hidden rounded-[1rem] bg-white">
@@ -300,9 +318,9 @@ export default function BrandsPage() {
                           />
 
                           {/* Top / New / Popular badge */}
-                          {(brand.tags.includes('top') || brand.tags.includes('new') || brand.tags.includes('popular')) && (
+                          {brand.tags.includes('popular') && (
                             <span className="absolute right-2 top-2 z-10 rounded-full bg-gradient-to-r from-[#4A1020] to-[#6B1A32] px-2.5 py-[3px] text-[7.5px] font-extrabold uppercase tracking-[0.16em] text-[#EBD9B4] shadow-[0_2px_6px_rgba(74,16,32,0.3)] ring-1 ring-[#C9A96E]/40">
-                              {brand.tags.includes('top') ? '★ Top' : brand.tags.includes('popular') ? '♦ Popular' : '✦ New'}
+                              Popular
                             </span>
                           )}
 
@@ -343,13 +361,14 @@ export default function BrandsPage() {
                                 Premium Gifting
                               </span>
                               <span className="absolute inset-0 flex translate-y-full items-center justify-center gap-1 text-[7.5px] font-extrabold uppercase tracking-[0.18em] text-[#4A1020] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                                Enquire now <ChevronRight className="h-2.5 w-2.5" strokeWidth={3} />
+                                {destination.cta} <ChevronRight className="h-2.5 w-2.5" strokeWidth={3} />
                               </span>
                             </span>
                           </div>
                         </div>
                       </Link>
-                    ))}
+                      );
+                    })}
                   </div>
 
                   {/* Pagination and showing count */}
@@ -469,11 +488,13 @@ export default function BrandsPage() {
                   {isOpen && (
                     <div className="mt-2 pb-3">
                       <div className="grid grid-cols-2 gap-3">
-                        {brandsForLetter.map((brand) => (
+                        {brandsForLetter.map((brand) => {
+                          const destination = brandDestination(brand.name);
+                          return (
                           <Link
                             key={brand.name}
-                            to={BRAND_ENQUIRY_HREF}
-                            aria-label={`Enquire about ${brand.name}`}
+                            to={destination.to}
+                            aria-label={destination.label}
                             className="flex flex-col overflow-hidden rounded-xl border border-[#EBE3D8] bg-white shadow-[0_2px_8px_rgba(74,16,32,0.05)] select-none active:scale-[0.98] transition-transform"
                           >
                             <div className="flex h-[84px] w-full items-center justify-center bg-[#FAF7F2] p-3">
@@ -495,11 +516,12 @@ export default function BrandsPage() {
                                 {brand.name}
                               </span>
                               <span className="text-[7.5px] font-extrabold uppercase tracking-[0.16em] text-[#C9A96E]">
-                                Enquire now
+                                {destination.cta}
                               </span>
                             </div>
                           </Link>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   )}

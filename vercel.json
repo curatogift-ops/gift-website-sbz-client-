@@ -16,7 +16,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!catalogues/|images/|videos/|brand_logos/|assets/|files/|favicon\\.ico|robots\\.txt).*)",
+      "source": "/((?!catalogues/|images/|videos/|brand_logos/|assets/|files/|favicon(?:\\.ico|-\\d+\\.(?:png|jpg))|apple-touch-icon\\.png|robots\\.txt).*)",
       "destination": "/index.html"
     }
   ]

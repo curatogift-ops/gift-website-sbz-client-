@@ -214,7 +214,7 @@ export default function TrustedLeadingBrandsSection() {
             id="trusted-brands-heading"
             className="section-heading-corporate"
           >
-            Trusted by leading brands
+            Our Clients
           </h2>
         </div>
 

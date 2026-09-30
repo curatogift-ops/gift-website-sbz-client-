@@ -13,6 +13,7 @@ import TermsPage from '@/pages/TermsPage';
 import PrivacyPage from '@/pages/PrivacyPage';
 import BrandsPage from '@/pages/BrandsPage';
 import VouchersBrandsPage from '@/pages/VouchersBrandsPage';
+import SearchPage from '@/pages/SearchPage';
 import CatalogueLibraryPage from '@/pages/CatalogueLibraryPage';
 import ImageRequirementsPage from '@/pages/ImageRequirementsPage';
 import WelcomePopup from '@/components/layout/WelcomePopup';
@@ -54,6 +55,7 @@ export default function App() {
           element={<Navigate to="/corporate/category/trophies-vouchers" replace />}
         />
         <Route path="/catalogue" element={<CatalogueLibraryPage />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/download-catalogue" element={<Navigate to="/catalogue" replace />} />
         <Route path="/admin/image-requirements" element={<ImageRequirementsPage />} />
 

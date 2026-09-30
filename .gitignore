@@ -41,3 +41,7 @@ public/catalogues/*.pptx
 !public/catalogues/README.md
 # Keep zip bundles tracked so Vercel can extract them at build time
 !catalogue-bundles/*.zip
+
+# Source media drop from 28-09 — served copies live in public/ and catalogue-bundles/
+.tmp-assets-2809/
+/gift gallerie all video and pdf images.zip

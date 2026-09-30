@@ -40,7 +40,7 @@ export default function VouchersBrandsPage() {
               className="mb-5 inline-flex items-center gap-2 text-[12px] font-semibold text-muted-foreground transition-colors hover:text-primary"
             >
               <ArrowLeft className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
-              Back to Trophies &amp; vouchers
+              Back to Vouchers
             </Link>
 
             <div className="max-w-3xl">

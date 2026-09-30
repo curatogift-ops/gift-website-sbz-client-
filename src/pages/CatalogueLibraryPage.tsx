@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
+import { useEffect, useMemo } from 'react';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import BulkEnquiryFormSection from '@/components/shared/BulkEnquiryFormSection';
@@ -8,64 +8,38 @@ import {
   ALL_CATALOGUES,
   CATALOGUE_NAV,
   CATALOGUE_SECTIONS,
+  catalogueInCategory,
+  cataloguesForBrand,
+  filterCatalogues,
+  type CatalogueCategoryId,
   type CatalogueItem,
 } from '@/config/catalogueLibraryData';
+import { downloadCatalogueFile } from '@/lib/catalogueDownload';
 import { cn } from '@/utils/cn';
 
 const STICKY_TOP =
   'top-[var(--site-header-mobile)] md:top-[var(--site-header-tablet)] xl:top-[var(--site-header-desktop)] 2xl:top-[var(--site-header-desktop-lg)]';
 
-async function downloadCatalogueFile(url: string, fileName: string) {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const buffer = await res.arrayBuffer();
-    const head = new Uint8Array(buffer.slice(0, 5));
-    const signature = String.fromCharCode(...head);
-    const looksLikePdf = signature.startsWith('%PDF');
-    const looksLikeHtml = signature.toLowerCase().includes('<!') || signature.toLowerCase().includes('<ht');
-    const isPptx = fileName.toLowerCase().endsWith('.pptx');
+const CATEGORY_IDS = new Set<string>(CATALOGUE_NAV.map((nav) => nav.id));
 
-    if (looksLikeHtml || (!looksLikePdf && !isPptx)) {
-      window.alert(
-        'This catalogue file is not available right now. Please try again later or contact us on WhatsApp.',
-      );
-      return;
-    }
-
-    const blob = new Blob([buffer], {
-      type: isPptx
-        ? 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-        : 'application/pdf',
-    });
-    const objectUrl = URL.createObjectURL(blob);
-    const anchor = document.createElement('a');
-    anchor.href = objectUrl;
-    anchor.download = fileName;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    URL.revokeObjectURL(objectUrl);
-  } catch {
-    window.alert(
-      'Unable to download this catalogue. Please try again or contact us on WhatsApp.',
-    );
-  }
-}
-
-function CatalogueCard({ item }: { item: CatalogueItem }) {
+function CatalogueCard({ item, focused }: { item: CatalogueItem; focused?: boolean }) {
   const fileName = item.file.split('/').pop() ?? 'catalogue.pdf';
 
   return (
-    <article className="flex h-full flex-col">
+    <article
+      id={`catalogue-${item.id}`}
+      className={cn(
+        'flex h-full flex-col rounded-sm',
+        focused && 'ring-2 ring-[#C9A96E] ring-offset-4 ring-offset-[#FBF7F2]',
+      )}
+    >
       <a
         href={item.file}
         target="_blank"
         rel="noopener noreferrer"
         className="group block overflow-hidden rounded-sm border border-[#E5D9C8] bg-[#F7F1EA] shadow-[0_2px_10px_-6px_rgba(26,16,16,0.18)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-14px_rgba(74,16,32,0.28)]"
-        aria-label={`Open ${item.title}`}
+        aria-label={`View ${item.title}`}
       >
-        {/* Catalogue cover — book-style frame like reference sites */}
         <div
           className="relative aspect-square overflow-hidden"
           style={{ backgroundColor: item.coverAccent }}
@@ -76,7 +50,7 @@ function CatalogueCard({ item }: { item: CatalogueItem }) {
           />
           <div className="absolute inset-3 flex flex-col items-center justify-between px-4 py-5 text-center sm:inset-4 sm:px-5 sm:py-6">
             <p className="font-sans text-[9px] font-bold uppercase tracking-[0.22em] text-[#9D7D47]">
-              giftz gallerei
+              Catalogue
             </p>
             <div className="px-1">
               <div className="mx-auto mb-3 h-px w-10 bg-[#C9A96E]/70" aria-hidden />
@@ -86,37 +60,88 @@ function CatalogueCard({ item }: { item: CatalogueItem }) {
               <div className="mx-auto mt-3 h-px w-10 bg-[#C9A96E]/70" aria-hidden />
             </div>
             <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.14em] text-[#9D7D47]/90">
-              {item.shortCategory}
+              {item.categoryLabel}
             </p>
           </div>
-          <div className="pointer-events-none absolute inset-0 bg-[#4A1020]/0 transition group-hover:bg-[#4A1020]/[0.06]" />
         </div>
       </a>
 
       <h3 className="mt-3 line-clamp-2 min-h-[2.75rem] text-center font-sans text-[13px] font-medium leading-snug text-[#3A2A2A] sm:text-[14px]">
         {item.title}
       </h3>
+      <p className="text-center font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-[#9D7D47]">
+        {item.categoryLabel}
+      </p>
 
-      <button
-        type="button"
-        onClick={() => void downloadCatalogueFile(item.file, fileName)}
-        className="mt-3 inline-flex w-full items-center justify-center bg-[#4A1020] px-3 py-2.5 font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#5C1629]"
-      >
-        Download PDF
-      </button>
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        <a
+          href={item.file}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center border border-[#4A1020] px-2 py-2.5 text-center font-sans text-[10px] font-bold uppercase tracking-[0.08em] text-[#4A1020] transition hover:bg-[#4A1020]/5"
+        >
+          View
+        </a>
+        <button
+          type="button"
+          onClick={() => void downloadCatalogueFile(item.file, fileName)}
+          className="inline-flex items-center justify-center bg-[#4A1020] px-2 py-2.5 font-sans text-[10px] font-bold uppercase tracking-[0.08em] text-white transition hover:bg-[#5C1629]"
+        >
+          Download
+        </button>
+      </div>
     </article>
   );
 }
 
 export default function CatalogueLibraryPage() {
-  const [activeNav, setActiveNav] = useState<'all' | string>('all');
+  const [params, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const categoryParam = params.get('category');
+  const brandParam = params.get('brand')?.trim() ?? '';
+  const queryParam = params.get('q')?.trim() ?? '';
+  const focusId = params.get('focus');
+  const fromBrands =
+    params.get('from') === 'brands' ||
+    (location.state as { from?: string } | null)?.from === 'brands';
+
+  const activeNav: 'all' | CatalogueCategoryId =
+    categoryParam && categoryParam !== 'all' && CATEGORY_IDS.has(categoryParam)
+      ? (categoryParam as CatalogueCategoryId)
+      : 'all';
 
   const visibleItems = useMemo(() => {
-    if (activeNav === 'all') return ALL_CATALOGUES;
-    return ALL_CATALOGUES.filter((item) => item.categoryId === activeNav);
-  }, [activeNav]);
+    if (brandParam) return cataloguesForBrand(brandParam);
+    const base = queryParam ? filterCatalogues(queryParam) : ALL_CATALOGUES;
+    if (activeNav === 'all') return base;
+    return base.filter((item) => catalogueInCategory(item, activeNav));
+  }, [activeNav, brandParam, queryParam]);
 
-  const awardsSection = CATALOGUE_SECTIONS.find((s) => s.id === 'awards-recognition');
+  const heading = brandParam
+    ? `${brandParam} catalogues`
+    : queryParam
+      ? `Catalogues for “${queryParam}”`
+      : activeNav === 'all'
+        ? 'Corporate Gift Catalogue'
+        : (CATALOGUE_SECTIONS.find((section) => section.id === activeNav)?.label ?? 'Corporate Gift Catalogue');
+
+  useEffect(() => {
+    if (!focusId) return;
+    const node = document.getElementById(`catalogue-${focusId}`);
+    node?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [focusId, visibleItems]);
+
+  const selectCategory = (id: 'all' | CatalogueCategoryId) => {
+    const next = new URLSearchParams(params);
+    next.delete('brand');
+    next.delete('q');
+    next.delete('focus');
+    if (id === 'all') next.delete('category');
+    else next.set('category', id);
+    setSearchParams(next, { replace: true });
+  };
+
+  const awardsSection = CATALOGUE_SECTIONS.find((section) => section.id === 'awards-recognition');
 
   return (
     <div className="flex min-h-screen flex-col bg-white font-sans">
@@ -129,16 +154,28 @@ export default function CatalogueLibraryPage() {
               aria-label="Breadcrumb"
               className="mb-6 flex flex-wrap items-center gap-1.5 text-[12px] text-muted-foreground"
             >
-              <Link to="/corporate" className="transition-colors hover:text-primary">
-                Home
-              </Link>
+              {fromBrands ? (
+                <Link to="/brands" className="inline-flex items-center gap-1 transition-colors hover:text-primary">
+                  <ChevronLeft className="h-3.5 w-3.5" aria-hidden />
+                  Back to Our Brands
+                </Link>
+              ) : (
+                <Link to="/corporate" className="transition-colors hover:text-primary">
+                  Home
+                </Link>
+              )}
               <ChevronRight className="h-3.5 w-3.5 shrink-0" />
-              <span className="font-medium text-foreground">Corporate Gift Catalogue</span>
+              <span className="font-medium text-foreground">{heading}</span>
             </nav>
 
             <h1 className="text-center font-serif text-[28px] font-semibold tracking-tight text-[#4A1020] sm:text-[34px] lg:text-[40px]">
-              Corporate Gift Catalogue
+              {heading}
             </h1>
+            {brandParam && (
+              <p className="mx-auto mt-3 max-w-xl text-center text-sm text-muted-foreground">
+                Catalogues available for this brand.
+              </p>
+            )}
           </div>
         </section>
 
@@ -154,12 +191,12 @@ export default function CatalogueLibraryPage() {
               aria-label="Catalogue categories"
             >
               {CATALOGUE_NAV.map((nav) => {
-                const isActive = activeNav === nav.id;
+                const isActive = !brandParam && activeNav === nav.id;
                 return (
                   <button
                     key={nav.id}
                     type="button"
-                    onClick={() => setActiveNav(nav.id)}
+                    onClick={() => selectCategory(nav.id)}
                     className={cn(
                       'shrink-0 rounded-md border px-4 py-2 font-sans text-[12px] font-semibold tracking-wide transition-all sm:text-[13px]',
                       isActive
@@ -180,18 +217,24 @@ export default function CatalogueLibraryPage() {
             <div className="rounded-xl border border-dashed border-[#E8DFD2] bg-white px-6 py-16 text-center">
               <p className="font-serif text-xl font-semibold text-[#4A1020]">No catalogues yet</p>
               <p className="mt-2 text-sm text-muted-foreground">
-                Try another category, or check back soon.
+                Try another category, or send an enquiry and we will share the right file.
               </p>
+              <Link
+                to="/corporate#corporate-gift-enquiry"
+                className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md bg-[#4A1020] px-5 py-3 font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-white"
+              >
+                Enquire
+              </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-x-8 sm:gap-y-12">
               {visibleItems.map((item: CatalogueItem) => (
-                <CatalogueCard key={item.id} item={item} />
+                <CatalogueCard key={item.id} item={item} focused={focusId === item.id} />
               ))}
             </div>
           )}
 
-          {activeNav === 'all' && awardsSection && (
+          {!brandParam && activeNav === 'all' && awardsSection && (
             <div className="mt-14 rounded-xl border border-dashed border-[#E8DFD2] bg-white px-6 py-10 text-center">
               <p className="font-serif text-lg font-semibold text-[#4A1020]">
                 Awards &amp; Recognition

@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useMemo, useState, type MouseEvent } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import {
   BadgeCheck,
+  Check,
   ChevronRight,
   Heart,
   Package,
@@ -118,12 +119,16 @@ export default function CorporateProductPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [cartAdded, setCartAdded] = useState(false);
+  const [actionNote, setActionNote] = useState('');
   const [recentlyViewed, setRecentlyViewed] = useState<CorporateProduct[]>([]);
   const addToCart = useCartStore((s) => s.addItem);
   const toggleWishlist = useWishlistStore((s) => s.toggleItem);
   const wishlisted = useWishlistStore((s) =>
     productSlug ? s.items.some((i) => i.id === productSlug) : false,
   );
+  const cartTimer = useRef<number | null>(null);
+  const noteTimer = useRef<number | null>(null);
 
   useEffect(() => {
     if (!productSlug) return;
@@ -131,6 +136,8 @@ export default function CorporateProductPage() {
     setRecentlyViewed(getRecentlyViewedProducts(productSlug));
     setQuantity(1);
     setActiveImage(0);
+    setCartAdded(false);
+    setActionNote('');
   }, [productSlug]);
 
   const category = product ? getCategoryBySlug(product.categorySlug) : undefined;
@@ -150,6 +157,12 @@ export default function CorporateProductPage() {
 
   const openEnquiry = () => setEnquiryOpen(true);
 
+  const showNote = (message: string) => {
+    setActionNote(message);
+    if (noteTimer.current) window.clearTimeout(noteTimer.current);
+    noteTimer.current = window.setTimeout(() => setActionNote(''), 2500);
+  };
+
   const handleWishlist = () => {
     toggleWishlist({
       id: product.slug,
@@ -160,6 +173,7 @@ export default function CorporateProductPage() {
       categoryName: category?.label,
       href: `/corporate/product/${product.slug}`,
     });
+    showNote(wishlisted ? 'Removed from wishlist' : 'Saved to wishlist');
   };
 
   const handleAddToCart = () => {
@@ -173,6 +187,9 @@ export default function CorporateProductPage() {
       href: `/corporate/product/${product.slug}`,
       quantity,
     });
+    setCartAdded(true);
+    if (cartTimer.current) window.clearTimeout(cartTimer.current);
+    cartTimer.current = window.setTimeout(() => setCartAdded(false), 2800);
   };
 
   const handleShare = async () => {
@@ -180,11 +197,13 @@ export default function CorporateProductPage() {
     try {
       if (navigator.share) {
         await navigator.share({ title: product.name, url });
+        showNote('Share sheet opened');
       } else {
         await navigator.clipboard.writeText(url);
+        showNote('Link copied');
       }
     } catch {
-      /* user cancelled */
+      showNote('Share cancelled');
     }
   };
 
@@ -247,11 +266,15 @@ export default function CorporateProductPage() {
                     <button
                       type="button"
                       onClick={handleWishlist}
-                      className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm"
+                      className={`absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border shadow-sm transition ${
+                        wishlisted
+                          ? 'border-[#4A1020] bg-[#4A1020] text-white'
+                          : 'border-border bg-white text-foreground hover:border-[#C9A96E]'
+                      }`}
                       aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
                     >
                       <Heart
-                        className={`h-4 w-4 ${wishlisted ? 'fill-primary text-primary' : ''}`}
+                        className={`h-4 w-4 ${wishlisted ? 'fill-white text-white' : ''}`}
                         strokeWidth={1.75}
                       />
                     </button>
@@ -303,8 +326,11 @@ export default function CorporateProductPage() {
                   <div className="inline-flex items-center rounded-md border border-border">
                     <button
                       type="button"
-                      className="h-10 w-10 text-lg text-foreground"
-                      onClick={() => setQuantity((value) => Math.max(1, value - 1))}
+                      className="h-10 w-10 text-lg text-foreground transition hover:bg-[var(--cream)] active:bg-[#C9A96E]/20"
+                      onClick={() => {
+                        setQuantity((value) => Math.max(1, value - 1));
+                        setCartAdded(false);
+                      }}
                       aria-label="Decrease quantity"
                     >
                       −
@@ -314,8 +340,11 @@ export default function CorporateProductPage() {
                     </span>
                     <button
                       type="button"
-                      className="h-10 w-10 text-lg text-foreground"
-                      onClick={() => setQuantity((value) => Math.min(999, value + 1))}
+                      className="h-10 w-10 text-lg text-foreground transition hover:bg-[var(--cream)] active:bg-[#C9A96E]/20"
+                      onClick={() => {
+                        setQuantity((value) => Math.min(999, value + 1));
+                        setCartAdded(false);
+                      }}
                       aria-label="Increase quantity"
                     >
                       +
@@ -327,15 +356,27 @@ export default function CorporateProductPage() {
                   <button
                     type="button"
                     onClick={handleAddToCart}
-                    className="btn-pill btn-pill-maroon inline-flex flex-1 items-center justify-center gap-2"
+                    aria-live="polite"
+                    className={
+                      cartAdded
+                        ? 'inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-[#2D5A3D] px-5 py-3 font-sans text-[12px] font-bold uppercase tracking-[0.08em] text-white transition'
+                        : 'btn-pill btn-pill-maroon inline-flex flex-1 items-center justify-center gap-2'
+                    }
                   >
-                    <ShoppingBag className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-                    Add to Cart
+                    {cartAdded ? (
+                      <Check className="h-4 w-4" strokeWidth={2.25} aria-hidden />
+                    ) : (
+                      <ShoppingBag className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+                    )}
+                    {cartAdded ? 'Added to Cart' : 'Add to Cart'}
                   </button>
                   <button type="button" onClick={openEnquiry} className="btn-pill btn-pill-ghost-gold flex-1">
                     Enquire for Bulk
                   </button>
                 </div>
+                <p className="mt-2 min-h-5 text-[13px] font-medium text-[#2D5A3D]" aria-live="polite">
+                  {actionNote || (wishlisted ? 'Saved to wishlist' : '')}
+                </p>
 
                 <div className="corp-product-trust mt-5 border-y border-border sm:mt-6">
                   {TRUST_PILLS.map(({ Icon, label }, index) => (

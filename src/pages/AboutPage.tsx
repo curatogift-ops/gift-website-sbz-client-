@@ -37,7 +37,7 @@ export default function AboutPage() {
               Meet the Founder
             </h1>
             <p className="mt-3 font-serif text-[1.25rem] italic text-[#9D7D47] sm:text-[1.4rem]">
-              Vinod Chajjer
+              Vinod Chhajjer
             </p>
           </div>
         </section>
@@ -49,10 +49,10 @@ export default function AboutPage() {
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-[#1A1010]">
                   <AppImage
                     src={FOUNDER_IMAGE}
-                    alt="Vinod Chajjer, Founder of Giftz Gallerei"
+                    alt="Vinod Chhajjer, Founder of Giftz Gallerei"
                     fill
                     sizes="(max-width:1024px) 90vw, 420px"
-                    className="object-cover"
+                    className="object-cover object-[center_40%]"
                   />
                   {/* Placeholder overlay when image is missing — AppImage still renders; CSS handles empty feel */}
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1A1010]/70 via-transparent to-transparent" />
@@ -60,12 +60,9 @@ export default function AboutPage() {
                     <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-[#C9A96E]">
                       Founder
                     </p>
-                    <p className="mt-1 font-serif text-xl font-semibold text-white">Vinod Chajjer</p>
+                    <p className="mt-1 font-serif text-xl font-semibold text-white">Vinod Chhajjer</p>
                   </div>
                 </div>
-                <p className="mt-3 text-center text-[11px] text-muted-foreground lg:text-left">
-                  Portrait placeholder — add <code className="text-[#9D7D47]">public/images/about/founder.jpg</code>
-                </p>
               </div>
 
               <article>
